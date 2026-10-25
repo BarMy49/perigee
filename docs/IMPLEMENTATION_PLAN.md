@@ -271,7 +271,7 @@ streaming-source changes in Task 1C.
   concurrency, interruption and credential-excluding default-import fixtures.
   There is no ordinary preferences-export feature in this source; none was added
   or falsely reported as tested.
-- [ ] Real host authentication: skipped by user instruction. Shared host-side
+- [x] Real host authentication: skipped by user instruction. Shared host-side
   identity/unpairing consequences are explained by CLI help/success and branding docs.
 
 **Acceptance/evidence, 2026-10-25:**
