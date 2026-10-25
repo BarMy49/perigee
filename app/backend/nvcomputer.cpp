@@ -1,6 +1,7 @@
 #include "nvcomputer.h"
 #include "nvapp.h"
 #include "settings/compatfetcher.h"
+#include "hostadministration.h"
 
 #include <QUdpSocket>
 #include <QHostInfo>
@@ -22,6 +23,8 @@
 #define SER_SRVCERT "srvcert"
 #define SER_CUSTOMNAME "customname"
 #define SER_NVIDIASOFTWARE "nvidiasw"
+#define SER_ADMINISTRATIONURL "administrationurl"
+#define SER_CLIPBOARDENABLED "clipboardenabled"
 
 NvComputer::NvComputer(QSettings& settings)
 {
@@ -39,6 +42,9 @@ NvComputer::NvComputer(QSettings& settings)
                                     settings.value(SER_MANUALPORT, QVariant(DEFAULT_HTTP_PORT)).toUInt());
     this->serverCert = QSslCertificate(settings.value(SER_SRVCERT).toByteArray());
     this->isNvidiaServerSoftware = settings.value(SER_NVIDIASOFTWARE).toBool();
+    this->administrationUrl = HostAdministration::validatedUrl(settings.value(SER_ADMINISTRATIONURL).toString()).toString(QUrl::FullyEncoded);
+
+    this->clipboardEnabled = settings.value(SER_CLIPBOARDENABLED, false).toBool();
 
     int appCount = settings.beginReadArray(SER_APPLIST);
     this->appList.reserve(appCount);
@@ -78,6 +84,7 @@ void NvComputer::serialize(QSettings& settings, bool serializeApps) const
 {
     QReadLocker lock(&this->lock);
 
+    settings.setValue(SER_CLIPBOARDENABLED, clipboardEnabled);
     settings.setValue(SER_NAME, name);
     settings.setValue(SER_CUSTOMNAME, hasCustomName);
     settings.setValue(SER_UUID, uuid);
@@ -92,6 +99,12 @@ void NvComputer::serialize(QSettings& settings, bool serializeApps) const
     settings.setValue(SER_MANUALPORT, manualAddress.port());
     settings.setValue(SER_SRVCERT, serverCert.toPem());
     settings.setValue(SER_NVIDIASOFTWARE, isNvidiaServerSoftware);
+    if (!administrationUrl.isEmpty()) {
+        settings.setValue(SER_ADMINISTRATIONURL, administrationUrl);
+    }
+    else {
+        settings.remove(SER_ADMINISTRATIONURL);
+    }
 
     // Avoid deleting an existing applist if we couldn't get one
     if (!appList.isEmpty() && serializeApps) {
@@ -117,6 +130,8 @@ bool NvComputer::isEqualSerialized(const NvComputer &that) const
            this->manualAddress == that.manualAddress &&
            this->serverCert == that.serverCert &&
            this->isNvidiaServerSoftware == that.isNvidiaServerSoftware &&
+           this->administrationUrl == that.administrationUrl &&
+           this->clipboardEnabled == that.clipboardEnabled &&
            this->appList == that.appList;
 }
 
@@ -129,6 +144,7 @@ void NvComputer::sortAppList()
 
 NvComputer::NvComputer(NvHTTP& http, QString serverInfo)
 {
+    this->apolloCapabilities = ApolloCapabilities::parse(serverInfo, http.serverInfoPinnedHttps());
     this->serverCert = http.serverCert();
 
     this->hasCustomName = false;
@@ -567,6 +583,7 @@ bool NvComputer::update(const NvComputer& that)
     ASSIGN_IF_CHANGED(appVersion);
     ASSIGN_IF_CHANGED(isSupportedServerVersion);
     ASSIGN_IF_CHANGED(isNvidiaServerSoftware);
+    ASSIGN_IF_CHANGED(apolloCapabilities);
     ASSIGN_IF_CHANGED(maxLumaPixelsHEVC);
     ASSIGN_IF_CHANGED(gpuModel);
     ASSIGN_IF_CHANGED_AND_NONNULL(serverCert);

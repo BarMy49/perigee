@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.BarMy49.Perigee</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Perigee</name>
+  <summary>Remote desktop and game streaming client based on Moonlight Qt</summary>
+  <description>
+    <p>Perigee is a Linux remote desktop and game streaming client based on Moonlight Qt.
+    Connect to a compatible Sunshine or Apollo host to stream your desktop and games.</p>
+    <p>Hardware video decoding, audio, keyboard, mouse and gamepad support are inherited
+    from Moonlight Qt. Available codecs and acceleration depend on your hardware and drivers.</p>
+    <p>Perigee uses independent settings and client credentials. Its temporary icon is
+    the upstream Moonlight Qt icon; original artwork is planned.</p>
+  </description>
+  <url type="homepage">https://github.com/BarMy49/perigee</url>
+  <url type="bugtracker">https://github.com/BarMy49/perigee/issues</url>
+  <url type="vcs-browser">https://github.com/BarMy49/perigee</url>
+  <url type="help">https://github.com/moonlight-stream/moonlight-docs/wiki/Setup-Guide</url>
+  <developer id="io.github.barmy49">
+    <name>BarMy49</name>
+  </developer>
+  <launchable type="desktop-id">io.github.BarMy49.Perigee.desktop</launchable>
+  <provides>
+    <binary>perigee</binary>
+  </provides>
+  <content_rating type="oars-1.1" />
+</component>

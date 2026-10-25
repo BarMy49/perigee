@@ -101,6 +101,12 @@ void SdlInputHandler::performSpecialKeyCombo(KeyCombo combo)
         SDL_MinimizeWindow(m_Window);
         break;
 
+    case KeyComboClipboardSend:
+        Session::get()->clipboardAction(true);
+        break;
+    case KeyComboClipboardReceive:
+        Session::get()->clipboardAction(false);
+        break;
     case KeyComboPasteText:
     {
         SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION,

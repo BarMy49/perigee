@@ -1,4 +1,5 @@
 #include "computermodel.h"
+#include "backend/hostadministration.h"
 
 #include <QThreadPool>
 
@@ -28,6 +29,59 @@ QVariant ComputerModel::data(const QModelIndex& index, int role) const
     QReadLocker lock(&computer->lock);
 
     switch (role) {
+    case ClipboardEnabledRole:
+        return computer->clipboardEnabled;
+    case HostUuidRole:
+        return computer->uuid;
+    case AdministrationUrlRole:
+        return computer->administrationUrl;
+    case CapabilitiesRole:
+        return computer->apolloCapabilities.toVariantMap();
+    case CapabilityDetailsRole: {
+        using State = ApolloCapabilities::State;
+        const auto& capabilities = computer->apolloCapabilities;
+        const auto stateText = [](State state) {
+            switch (state) {
+            case State::Absent: return tr("Not advertised");
+            case State::Invalid: return tr("Invalid metadata");
+            case State::Unauthenticated: return tr("No current authenticated metadata");
+            case State::Available: return tr("Allowed");
+            case State::Denied: return tr("Denied");
+            }
+            return tr("Unknown");
+        };
+        QStringList lines = {tr("Optional Apollo-compatible fields; this does not identify the host product or version."),
+                             tr("Metadata snapshot. Reopen this panel to refresh. Availability does not grant permissions."),
+                             tr("Permission metadata: %1").arg(capabilities.permissionsState == State::Available ? tr("Authenticated mask") : stateText(capabilities.permissionsState))};
+        const struct PermissionLabel {
+            const char* label;
+            quint32 mask;
+        } labels[] = {
+            {QT_TR_NOOP("Keyboard"), ApolloCapabilities::Keyboard}, {QT_TR_NOOP("Mouse"), ApolloCapabilities::Mouse},
+            {QT_TR_NOOP("Controller"), ApolloCapabilities::Controller}, {QT_TR_NOOP("Touch"), ApolloCapabilities::Touch},
+            {QT_TR_NOOP("Pen"), ApolloCapabilities::Pen}, {QT_TR_NOOP("Clipboard send"), ApolloCapabilities::ClipboardSet},
+            {QT_TR_NOOP("Clipboard receive"), ApolloCapabilities::ClipboardRead}, {QT_TR_NOOP("Server commands"), ApolloCapabilities::ServerCommand},
+            {QT_TR_NOOP("List applications"), ApolloCapabilities::List}, {QT_TR_NOOP("View"), ApolloCapabilities::View},
+            {QT_TR_NOOP("Launch"), ApolloCapabilities::Launch}
+        };
+        for (const auto& label : labels) {
+            lines.append(tr("%1: %2").arg(tr(label.label), stateText(capabilities.permission(label.mask))));
+        }
+        if (capabilities.permissionsState == State::Available || capabilities.permissionsState == State::Denied) {
+            lines.append(tr("Permission mask: 0x%1").arg(QString::number(capabilities.permissionMask, 16)));
+        }
+        const auto displayText = [&stateText](State state, bool value) {
+            return state == State::Available ? (value ? tr("Yes (host reported)") : tr("No (host reported)")) : stateText(state);
+        };
+        lines.append(tr("Virtual-display capable: %1").arg(displayText(capabilities.displayCapableState, capabilities.displayCapable)));
+        lines.append(tr("Virtual-display driver ready: %1").arg(displayText(capabilities.displayDriverState, capabilities.displayDriverReady)));
+        lines.append(tr("Advertised command list: %1").arg(stateText(capabilities.commandsState)));
+        for (int commandIndex = 0; commandIndex < capabilities.commandNames.size(); commandIndex++) {
+            lines.append(tr("%1: %2").arg(commandIndex).arg(capabilities.commandNames.at(commandIndex)));
+        }
+        return lines.join('\n');
+    }
+
     case NameRole:
         return computer->name;
     case OnlineRole:
@@ -87,6 +141,40 @@ QVariant ComputerModel::data(const QModelIndex& index, int role) const
     }
 }
 
+bool ComputerModel::setClipboardEnabled(QString hostUuid, bool enabled)
+{
+    for (NvComputer* computer : std::as_const(m_Computers)) {
+        {
+            QWriteLocker lock(&computer->lock);
+            if (computer->uuid != hostUuid) continue;
+            computer->clipboardEnabled = enabled;
+        }
+        m_ComputerManager->clientSideAttributeUpdated(computer);
+        return true;
+    }
+    return false;
+}
+
+bool ComputerModel::setAdministrationUrl(QString hostUuid, QString text)
+{
+    const QUrl url = HostAdministration::validatedUrl(text);
+    if (!text.trimmed().isEmpty() && url.isEmpty()) {
+        return false;
+    }
+    for (NvComputer* computer : std::as_const(m_Computers)) {
+        {
+            QWriteLocker lock(&computer->lock);
+            if (computer->uuid != hostUuid) {
+                continue;
+            }
+            computer->administrationUrl = url.toString(QUrl::FullyEncoded);
+        }
+        m_ComputerManager->clientSideAttributeUpdated(computer);
+        return true;
+    }
+    return false;
+}
+
 int ComputerModel::rowCount(const QModelIndex& parent) const
 {
     // We should not return a count for valid index values,
@@ -110,6 +198,11 @@ QHash<int, QByteArray> ComputerModel::roleNames() const
     names[StatusUnknownRole] = "statusUnknown";
     names[ServerSupportedRole] = "serverSupported";
     names[DetailsRole] = "details";
+    names[CapabilitiesRole] = "capabilities";
+    names[CapabilityDetailsRole] = "capabilityDetails";
+    names[AdministrationUrlRole] = "administrationUrl";
+    names[ClipboardEnabledRole] = "clipboardEnabled";
+    names[HostUuidRole] = "hostUuid";
 
     return names;
 }

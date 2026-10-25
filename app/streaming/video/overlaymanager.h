@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QString>
+#include <atomic>
+#include <mutex>
 
 #include "SDL_compat.h"
 #include <SDL_ttf.h>
@@ -38,6 +40,9 @@ public:
     SDL_Surface* getUpdatedOverlaySurface(OverlayType type);
 
     void setOverlayRenderer(IOverlayRenderer* renderer);
+    void showNotification(const QString& text, Uint32 now = SDL_GetTicks());
+    void expireNotification(Uint32 now = SDL_GetTicks());
+    int notificationTimeout(int maximum, Uint32 now = SDL_GetTicks());
 
 private:
     void notifyOverlayUpdated(OverlayType type);
@@ -54,6 +59,11 @@ private:
     } m_Overlays[OverlayMax];
     IOverlayRenderer* m_Renderer;
     QByteArray m_FontData;
+    std::recursive_mutex m_NotificationMutex;
+    std::atomic<bool> m_NotificationActive{false};
+    Uint32 m_NotificationDeadline = 0;
+    char m_NotificationText[1024] = {};
+    TTF_Font* m_NotificationFont = nullptr;
 };
 
 }

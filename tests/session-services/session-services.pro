@@ -1,0 +1,9 @@
+QT = core network testlib
+CONFIG += console testcase c++17 link_pkgconfig
+CONFIG -= app_bundle
+PKGCONFIG += sdl2
+TEMPLATE = app
+TARGET = tst_sessionservices
+INCLUDEPATH += ../../app
+SOURCES += ../../app/streaming/services/sdlclipboard.cpp ../../app/streaming/services/clipboardsync.cpp tst_sessionservices.cpp ../../app/streaming/services/sessioneventbridge.cpp ../../app/streaming/services/sessionservices.cpp ../../app/backend/apollocapabilities.cpp
+HEADERS += ../../app/streaming/services/clipboardtext.h ../../app/streaming/services/clipboardsync.h ../../app/streaming/services/sessioneventbridge.h ../../app/streaming/services/sessionservices.h ../../app/backend/apollocapabilities.h

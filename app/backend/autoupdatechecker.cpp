@@ -6,8 +6,10 @@
 #include <QJsonObject>
 
 AutoUpdateChecker::AutoUpdateChecker(QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    m_Nam(nullptr)
 {
+#ifndef Q_OS_LINUX
     m_Nam = new QNetworkAccessManager(this);
 
     // Never communicate over HTTP
@@ -25,10 +27,14 @@ AutoUpdateChecker::AutoUpdateChecker(QObject *parent) :
 
     // Should at least have a 1.0-style version number
     Q_ASSERT(m_CurrentVersionQuad.count() > 1);
+#endif
 }
 
 void AutoUpdateChecker::start()
 {
+#ifdef Q_OS_LINUX
+    qInfo() << "Perigee artifact update checks are disabled";
+#else
     if (!m_Nam) {
         Q_ASSERT(m_Nam);
         return;
@@ -52,6 +58,7 @@ void AutoUpdateChecker::start()
     request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
 #endif
     m_Nam->get(request);
+#endif
 #endif
 }
 

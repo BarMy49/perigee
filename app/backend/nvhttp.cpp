@@ -47,11 +47,13 @@ NvHTTP::NvHTTP(NvComputer* computer, QNetworkAccessManager* nam) :
 
 void NvHTTP::setServerCert(QSslCertificate serverCert)
 {
+    m_ServerInfoPinnedHttps = false;
     m_ServerCert = serverCert;
 }
 
 void NvHTTP::setAddress(NvAddress address)
 {
+    m_ServerInfoPinnedHttps = false;
     Q_ASSERT(!address.isNull());
 
     m_Address = address;
@@ -64,6 +66,7 @@ void NvHTTP::setAddress(NvAddress address)
 
 void NvHTTP::setHttpsPort(uint16_t port)
 {
+    m_ServerInfoPinnedHttps = false;
     m_BaseUrlHttps.setPort(port);
 }
 
@@ -133,6 +136,7 @@ NvHTTP::getCurrentGame(QString serverInfo)
 QString
 NvHTTP::getServerInfo(NvLogLevel logLevel, bool fastFail)
 {
+    m_ServerInfoPinnedHttps = false;
     QString serverInfo;
 
     // Check if we have a pinned cert and HTTPS port for this host yet
@@ -194,6 +198,11 @@ NvHTTP::getServerInfo(NvLogLevel logLevel, bool fastFail)
     }
 
     return serverInfo;
+}
+
+bool NvHTTP::serverInfoPinnedHttps() const
+{
+    return m_ServerInfoPinnedHttps;
 }
 
 void
@@ -461,7 +470,14 @@ NvHTTP::openConnectionToString(QUrl baseUrl,
                                int timeoutMs,
                                NvLogLevel logLevel)
 {
+    if (command == "serverinfo") {
+        m_ServerInfoPinnedHttps = false;
+    }
     QNetworkReply* reply = openConnection(baseUrl, command, arguments, timeoutMs, logLevel);
+    if (command == "serverinfo") {
+        m_ServerInfoPinnedHttps = ApolloCapabilities::acceptsPinnedReply(baseUrl, reply->url(),
+                                                                       m_ServerCert.toDer(), reply->sslConfiguration().peerCertificate().toDer());
+    }
     QString ret;
 
     QTextStream stream(reply);

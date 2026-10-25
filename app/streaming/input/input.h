@@ -165,6 +165,8 @@ private:
         KeyComboToggleCursorHide,
         KeyComboToggleMinimize,
         KeyComboPasteText,
+        KeyComboClipboardSend,
+        KeyComboClipboardReceive,
         KeyComboTogglePointerRegionLock,
         KeyComboQuitAndExit,
         KeyComboToggleKeyboardGrab,

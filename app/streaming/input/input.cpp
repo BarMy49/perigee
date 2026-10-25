@@ -115,6 +115,9 @@ SdlInputHandler::SdlInputHandler(StreamingPreferences& prefs, int streamWidth, i
     m_SpecialKeyCombos[KeyComboToggleMinimize].scanCode = SDL_SCANCODE_D;
     m_SpecialKeyCombos[KeyComboToggleMinimize].enabled = WMUtils::isRunningDesktopEnvironment();
 
+    m_SpecialKeyCombos[KeyComboClipboardSend] = {KeyComboClipboardSend, SDLK_j, SDL_SCANCODE_J, Session::get()->clipboardEnabled()};
+    m_SpecialKeyCombos[KeyComboClipboardReceive] = {KeyComboClipboardReceive, SDLK_k, SDL_SCANCODE_K, Session::get()->clipboardEnabled()};
+
     m_SpecialKeyCombos[KeyComboPasteText].keyCombo = KeyComboPasteText;
     m_SpecialKeyCombos[KeyComboPasteText].keyCode = SDLK_v;
     m_SpecialKeyCombos[KeyComboPasteText].scanCode = SDL_SCANCODE_V;

@@ -1,0 +1,10 @@
+QT = core network testlib
+CONFIG += console testcase c++17 link_pkgconfig
+CONFIG -= app_bundle
+TEMPLATE = app
+TARGET = tst_identityimport
+PKGCONFIG += openssl
+DEFINES += _GNU_SOURCE
+INCLUDEPATH += ../../app
+SOURCES += tst_identityimport.cpp ../../app/settings/moonlightimporter.cpp ../../app/settings/profilestore.cpp
+HEADERS += ../../app/settings/moonlightimporter.h ../../app/settings/profilestore.h

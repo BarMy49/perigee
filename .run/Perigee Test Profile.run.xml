@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Perigee Test Profile" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="perigee" TARGET_NAME="Unnamed" CONFIG_NAME="Unnamed" RUN_PATH="$PROJECT_DIR$/../perigee-build/debug/app/perigee">
+    <envs>
+      <env name="XDG_CONFIG_HOME" value="$PROJECT_DIR$/../perigee-build/interactive-test-wwiyzrvg/config" />
+      <env name="XDG_CACHE_HOME" value="$PROJECT_DIR$/../perigee-build/interactive-test-wwiyzrvg/cache" />
+      <env name="XDG_DATA_HOME" value="$PROJECT_DIR$/../perigee-build/interactive-test-wwiyzrvg/data" />
+      <env name="TMPDIR" value="$PROJECT_DIR$/../perigee-build/interactive-test-wwiyzrvg/tmp" />
+      <env name="QML_DISK_CACHE_PATH" value="$PROJECT_DIR$/../perigee-build/interactive-test-wwiyzrvg/cache/qml" />
+      <env name="QT_QPA_PLATFORM" value="wayland" />
+      <env name="SDL_VIDEODRIVER" value="wayland" />
+    </envs>
+    <method v="2" />
+  </configuration>
+</component>

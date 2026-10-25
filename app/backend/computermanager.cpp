@@ -114,10 +114,18 @@ private:
             // Check if we failed after all retry attempts
             // Note: we don't need to acquire the read lock here,
             // because we're on the writing thread.
-            if (!online && m_Computer->state != NvComputer::CS_OFFLINE) {
-                qInfo() << m_Computer->name << "is now offline";
-                m_Computer->state = NvComputer::CS_OFFLINE;
-                stateChanged = true;
+            if (!online) {
+                QWriteLocker lock(&m_Computer->lock);
+                if (m_Computer->state != NvComputer::CS_OFFLINE) {
+                    qInfo() << m_Computer->name << "is now offline";
+                    m_Computer->state = NvComputer::CS_OFFLINE;
+                    stateChanged = true;
+                }
+                const auto invalidated = m_Computer->apolloCapabilities.withoutAuthentication();
+                if (invalidated != m_Computer->apolloCapabilities) {
+                    m_Computer->apolloCapabilities = invalidated;
+                    stateChanged = true;
+                }
             }
 
             // Grab the applist if it's empty or it's been long enough that we need to refresh

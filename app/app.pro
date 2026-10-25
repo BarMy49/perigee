@@ -1,7 +1,9 @@
 QT += core quick network quickcontrols2 svg
 CONFIG += c++17
 
-unix:!macx {
+linux {
+    TARGET = perigee
+} else:unix:!macx {
     TARGET = moonlight
 } else {
     # On macOS, this is the name displayed in the global menu bar
@@ -23,6 +25,11 @@ include(../globaldefs.pri)
 }
 
 TEMPLATE = app
+
+linux {
+    SOURCES += settings/moonlightimporter.cpp settings/profilestore.cpp
+    HEADERS += settings/moonlightimporter.h settings/profilestore.h
+}
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -166,6 +173,8 @@ macx {
 }
 
 SOURCES += \
+    backend/apollocapabilities.cpp \
+    backend/hostadministration.cpp \
     backend/nvaddress.cpp \
     backend/nvapp.cpp \
     cli/pair.cpp \
@@ -192,6 +201,10 @@ SOURCES += \
     streaming/input/mouse.cpp \
     streaming/input/reltouch.cpp \
     streaming/session.cpp \
+    streaming/services/sessioneventbridge.cpp \
+    streaming/services/sessionservices.cpp \
+    streaming/services/clipboardsync.cpp \
+    streaming/services/sdlclipboard.cpp \
     streaming/audio/audio.cpp \
     streaming/audio/renderers/sdlaud.cpp \
     gui/computermodel.cpp \
@@ -207,6 +220,8 @@ SOURCES += \
     wm.cpp
 
 HEADERS += \
+    backend/apollocapabilities.h \
+    backend/hostadministration.h \
     SDL_compat.h \
     backend/nvaddress.h \
     backend/nvapp.h \
@@ -229,6 +244,11 @@ HEADERS += \
     settings/streamingpreferences.h \
     streaming/input/input.h \
     streaming/session.h \
+    streaming/services/sessioneventbridge.h \
+    streaming/services/sessionservices.h \
+    streaming/services/clipboardsync.h \
+    streaming/services/clipboardtext.h \
+    streaming/services/sdlclipboard.h \
     streaming/audio/renderers/renderer.h \
     streaming/audio/renderers/sdl.h \
     gui/computermodel.h \
@@ -541,6 +561,15 @@ unix:!macx: {
 
     appstream.files = deploy/linux/com.moonlight_stream.Moonlight.appdata.xml
     appstream.path = $$PREFIX/$$DATADIR/metainfo/
+
+    linux {
+        desktop.files = deploy/linux/io.github.BarMy49.Perigee.desktop
+        icons.files = res/io.github.BarMy49.Perigee.svg
+        appstream.files = deploy/linux/io.github.BarMy49.Perigee.metainfo.xml
+        attribution.files = ../LICENSE ../ASSET_NOTICES.md
+        attribution.path = $$PREFIX/$$DATADIR/doc/perigee/
+        INSTALLS += attribution
+    }
 
     INSTALLS += target desktop icons appstream
 }

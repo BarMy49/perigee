@@ -105,6 +105,18 @@ QString Path::getDataFilePath(QString fileName)
 void Path::initialize(bool portable)
 {
     if (portable) {
+#ifdef Q_OS_LINUX
+        const QString portableRoot = QDir::currentPath() + "/perigee-data";
+        s_LogDir = portableRoot + "/logs";
+        s_BoxArtCacheDir = portableRoot + "/boxart";
+        s_QmlCacheDir = portableRoot + "/qmlcache";
+        s_CacheDir = portableRoot + "/cache";
+        for (const QString& directory : {portableRoot + "/config", s_LogDir, s_BoxArtCacheDir, s_QmlCacheDir, s_CacheDir}) {
+            if (!QDir().mkpath(directory)) {
+                qFatal("Unable to create Perigee portable directory");
+            }
+        }
+#else
         s_LogDir = QDir::currentPath();
         s_BoxArtCacheDir = QDir::currentPath() + "/boxart";
         s_QmlCacheDir = QDir::currentPath() + "/qmlcache";
@@ -112,6 +124,7 @@ void Path::initialize(bool portable)
         // In order for the If-Modified-Since logic to work in MappingFetcher,
         // the cache directory must be different than the current directory.
         s_CacheDir = QDir::currentPath() + "/cache";
+#endif
     }
     else {
 #ifdef Q_OS_DARWIN

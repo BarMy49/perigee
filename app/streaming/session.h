@@ -1,6 +1,9 @@
 #pragma once
 
 #include <QSemaphore>
+#include <memory>
+#include <optional>
+
 #include <QQuickWindow>
 
 #include <Limelight.h>
@@ -10,6 +13,9 @@
 #include "video/decoder.h"
 #include "audio/renderers/renderer.h"
 #include "video/overlaymanager.h"
+
+class SessionServices;
+class ClipboardSync;
 
 class SupportedVideoFormatList : public QList<int>
 {
@@ -121,6 +127,8 @@ public:
         return m_OverlayManager;
     }
 
+    bool clipboardEnabled() const { return m_ClipboardEnabled; }
+    void clipboardAction(bool send);
     void flushWindowEvents();
 
     void setShouldExit(bool quitHostApp = false);
@@ -251,6 +259,12 @@ private:
     AUDIO_RENDERER_CALLBACKS m_AudioCallbacks;
     NvComputer* m_Computer;
     NvApp m_App;
+    std::unique_ptr<SessionServices> m_Services;
+    std::unique_ptr<ClipboardSync> m_Clipboard;
+    std::optional<QByteArray> readClipboard();
+    bool m_ClipboardReadMeasured = false;
+    void updateAutomaticClipboard();
+    bool m_ClipboardEnabled = false;
     SDL_Window* m_Window;
     IVideoDecoder* m_VideoDecoder;
     SDL_mutex* m_DecoderLock;

@@ -101,8 +101,14 @@ Do not assume all assets or dependencies inherit the root license.
 ## Testing, documentation, and completion
 
 - No first-party application suite exists in the inspected baseline; capability
-  probes in `config.tests/` are not such a suite. The roadmap separately plans a
-  focused Qt Test target for new protocol/state logic, not tests mirroring UI text.
+  probes in `config.tests/` are not such a suite. Milestone 2 adds the standalone
+  [capability parser/state target](../tests/apollo-capabilities/README.md), independent
+  of the product build and live hosts.
+  Task 1C now adds a separate importer/profile-store target documented in
+  [tests/identity-import](../tests/identity-import/README.md); do not confuse its
+  local synthetic-credential checks with real host authentication.
+- Task 3A adds separate [worker/SDL lifecycle checks](../tests/session-services/README.md).
+  Local TLS fixtures do not establish live host or media/compositor acceptance.
 - Use disposable configuration/identity fixtures and synthetic clipboard values.
   Integration tests must not unpair or overwrite the user's production client.
 - Begin with checks relevant to the change; broaden only for new failures or

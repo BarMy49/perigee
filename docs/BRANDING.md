@@ -1,7 +1,12 @@
 # Perigee branding and identity migration
 
-Status: approved migration design; no application identifiers, installed files,
-settings, credentials, or artwork have been changed. See
+Status: Tasks 1A/1B implement Linux native and portable identity, desktop/AppStream
+metadata, visible branding and artifact-update suppression. Native/portable
+restart, staged metadata, separate Moonlight state, Wayland IDs and XWayland
+properties are verified; visual shell grouping and system install remain pending.
+Temporary upstream icon attribution is recorded in [ASSET_NOTICES.md](../ASSET_NOTICES.md).
+Task 1C explicit import is implemented and locally verified; live pairing tests
+are skipped by user instruction. See
 [ADR-004](DECISIONS.md#adr-004-independent-application-identity-and-explicit-pairing-import)
 and [Milestone 1](IMPLEMENTATION_PLAN.md#milestone-1-perigee-identity-and-isolation).
 
@@ -16,8 +21,8 @@ and [Milestone 1](IMPLEMENTATION_PLAN.md#milestone-1-perigee-identity-and-isolat
 | Linux executable / RPM package | `perigee` |
 | Linux application ID / proposed Flatpak ID | `io.github.BarMy49.Perigee` |
 | Desktop entry | `io.github.BarMy49.Perigee.desktop` |
-| Planned AppStream filename | `io.github.BarMy49.Perigee.metainfo.xml` |
-| Planned installed icon basename | `io.github.BarMy49.Perigee` |
+| AppStream filename | `io.github.BarMy49.Perigee.metainfo.xml` |
+| Installed icon basename | `io.github.BarMy49.Perigee` |
 | Qt organization name / application name | `io.github.BarMy49` / `Perigee` |
 | Qt organization domain | `barmy49.github.io`, identity metadata only; no live website assumed |
 
@@ -25,7 +30,7 @@ The user explicitly selected the reverse-DNS ID after inspection of the reposito
 remote. No different GitHub organization or domain ownership is assumed. Initial
 platform acceptance is Linux; Windows/macOS packaging remains unverified.
 
-## Existing identity and sensitive state
+## Baseline identity and sensitive state
 
 | Existing location | Current behavior | Migration responsibility |
 | --- | --- | --- |
@@ -75,7 +80,7 @@ contract; it is not a reason to change host protocol fields.
 
 ## Native and portable configuration
 
-On normal Linux native QSettings, the planned user file is:
+On normal Linux native QSettings, the implemented and verified user file is:
 
 ```text
 $XDG_CONFIG_HOME/io.github.BarMy49/Perigee.conf
@@ -88,7 +93,7 @@ or fall back to Moonlight's namespace. Use QStandardPaths for native cache/data;
 verify their actual outputs after metadata initialization rather than hardcoding
 Qt's platform-specific path algorithm.
 
-Portable design: use `perigee-portable.dat` and a dedicated `perigee-data/` tree in
+Implemented Linux portable identity: use `perigee-portable.dat` and a dedicated `perigee-data/` tree in
 the selected portable working directory, including `config/`, `cache/`, `boxart/`,
 `qmlcache/` and `logs/`. With the approved organization/application names the INI
 file is under `perigee-data/config/io.github.BarMy49/Perigee.ini`. Do not honor a
@@ -107,7 +112,7 @@ Qt references: [QSettings locations and atomic sync](https://doc.qt.io/qt-6/qset
 
 ## Explicit import contract
 
-Planned interface, not an existing command:
+Implemented Linux interface (Task 1C):
 
 ```text
 perigee import-moonlight --source PATH [--include-pairing]
@@ -144,6 +149,86 @@ Ordinary preferences export always excludes client credentials and identity
 bundles. A future explicit pairing backup is a separate feature, not permission to
 leak secrets into a general settings file. The new client does not mutate host
 permissions during import.
+
+### Implemented import validation and storage
+
+Only an explicitly named regular UTF-8 INI file is read; there is no automatic
+Moonlight discovery, registry import, directory scan or credential copy. Native
+`.conf` and portable `.ini` inputs share the QSettings INI reader. Destination
+selection follows normal Perigee startup: native settings, or portable settings
+when the current directory contains `perigee-portable.dat`. The destination
+settings file must not exist, even if empty; dangling symlinks are refused too.
+There is no merge, reset or overwrite option. To test without altering native
+state, provide a fresh `XDG_CONFIG_HOME` and isolated cache/data/TMPDIR roots.
+
+`settings/moonlightimporter.cpp` implements the allowlist independently of startup
+preference objects. Unknown settings, caches, window geometry, platform-specific
+`renderer` selection and unrelated future fields are not copied. Known boolean
+settings require `true`/`false` or string `0`/`1`; integer fields require decimal
+integers. Numeric bounds are:
+
+| Fields | Accepted values |
+| --- | --- |
+| `width`, `height` | 1–16384 |
+| `fps`, `bitrate` | 10–480 FPS; 500–500000 Kbit/s |
+| `audiocfg`, `videodec`, `windowmode`, `uidisplaymode`, `capturesyskeys` | 0–2 |
+| `videocfg`, `language`, `defaultver` | 0–4; 0–31; 0–2 |
+| `packetsize` | 0 (automatic), or 1024–65507 |
+
+Legacy `fullscreen`/`startwindowed` booleans and `defaultver` remain compatible with
+the existing preference migration logic. Limits describe import validation, not
+hardware support. Source limit is 8 MiB and 100000 settings keys; at most 512 hosts,
+16384 total cached apps, 512 characters per host/app name, 253 per endpoint, and
+64 KiB per PEM value. Invalid recognized fields reject the entire import.
+
+A nonempty `hostsbackup` takes precedence over `hosts`, matching `ComputerManager`
+recovery. The chosen array is validated and published as `hosts`; arrays are never
+merged. UUIDs must be valid and unique, app IDs nonnegative and unique within a
+host, MAC values empty or six bytes, and ports 1–65535 for nonempty endpoints
+(zero is allowed for empty endpoints). Endpoints must be IP addresses or plain
+hostnames. Known host/app flags and cached app records are preserved. Nonempty
+server pins must parse as exactly one PEM certificate and remain associated with
+the chosen host UUID/endpoints, even without optional client identity import.
+
+`--include-pairing` additionally requires one readable certificate, a matching
+unencrypted RSA private key and a 1–16 digit hexadecimal client ID. Encrypted keys
+are refused without prompting. Original credential and pin byte values, including
+PEM CRLFs and client-ID case/leading zeros, are preserved; INI textual encoding may
+be normalized by Qt. This validates local consistency, not certificate lifetime,
+host trust decisions, host authentication or permission grants.
+
+`settings/profilestore.cpp` supplies the same lifetime profile lock to import and
+normal Linux startup, before preference/path/identity consumers. One process per
+profile is allowed; a second process fails immediately without GUI initialization
+or a new identity. The lock is `<settings-file>.profile-lock`, separate from Qt's
+own settings write lock. Dead-process locks are recoverable; destination directories
+must be owned by the current user, not symlinks, and not writable by group/others.
+New profile directories and published files are owner-only.
+
+Import parses a bounded in-memory source snapshot through an anonymous Linux file
+rather than rereading a changing source. QSettings serializes nonsensitive metadata
+in an owner-only temporary file; client credentials, client ID and host pins are
+excluded from that named file and appended only in memory with INI escaping.
+The final anonymous file is reread with QSettings and every key/value is checked
+before publication. `O_TMPFILE`, file fsync and atomic no-overwrite `linkat` publish
+a complete 0600 profile. Existing files created during publication races are not
+replaced. The profile lock remains held throughout. Directory fsync failures after
+successful publication are reported as durability warnings, not rolled back.
+
+Filesystems lacking anonymous staging/publication, or environments without usable
+`/proc/self/fd`, fail before creating destination settings. There is no fallback to
+a named credential file or an overwrite rename. Normal failures remove temporary
+metadata; abrupt process death can leave protected metadata or a stale lock, but
+no named client credential/pin staging file or partial active profile. The kernel
+releases unlinked anonymous files when the process exits.
+
+Exit codes: 0 success/help, 1 validation/storage/profile refusal, 2 invalid CLI
+arguments. Messages contain safe counts/status only. No ordinary preferences-export
+feature exists yet; default import is credential-free and this task does not add
+an export path. Any future ordinary export must preserve the exclusion contract.
+Focused fixtures and the exact verification commands are in
+[tests/identity-import](../tests/identity-import/README.md); runtime evidence and
+remaining acceptance are in the [plan](IMPLEMENTATION_PLAN.md#task-1c-explicit-import).
 
 ## Desktop, assets, packages, and attribution
 
@@ -190,5 +275,9 @@ Flatpak isolation/file selection, explicit/non-pairing import, interrupted/corru
 imports, destination races, source immutability, and real host pairing/authentication
 after migration. Assert no credential regeneration on a valid imported tuple.
 
-All runtime/migration/package tests are pending. The source-backed identity choices
-do not constitute successful coexistence or pairing verification.
+Tasks 1A/1B native/portable paths and identity persistence, Wayland IDs, XWayland
+window properties, staged metadata and process coexistence checks passed. Visual
+shell grouping, installed launcher/icon-cache behavior, import and distributable
+package tests remain pending; live host pairing was skipped by user instruction.
+Detailed commands and limitations are in the implementation plan. Translation
+catalogs retain upstream contexts; new product strings currently fall back to English.

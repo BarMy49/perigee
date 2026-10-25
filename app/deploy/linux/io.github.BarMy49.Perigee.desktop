@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Perigee
+Comment=Remote desktop and game streaming client based on Moonlight Qt
+Exec=perigee
+Icon=io.github.BarMy49.Perigee
+StartupWMClass=io.github.BarMy49.Perigee
+Terminal=false
+Type=Application
+Categories=Qt;Network;RemoteAccess;
+Keywords=desktop;stream;sunshine;apollo;remote play;

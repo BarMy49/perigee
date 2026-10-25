@@ -53,6 +53,10 @@
 #include "backend/systemproperties.h"
 #include "streaming/session.h"
 #include "settings/streamingpreferences.h"
+#ifdef Q_OS_LINUX
+#include "settings/moonlightimporter.h"
+#include "settings/profilestore.h"
+#endif
 #include "gui/sdlgamepadkeynavigation.h"
 
 #if defined(Q_OS_WIN32)
@@ -428,15 +432,50 @@ int main(int argc, char *argv[])
     // Set these here to allow us to use the default QSettings constructor.
     // These also ensure that our cache directory is named correctly. As such,
     // it is critical that these be called before Path::initialize().
+#ifdef Q_OS_LINUX
+    QCoreApplication::setOrganizationName("io.github.BarMy49");
+    QCoreApplication::setOrganizationDomain("barmy49.github.io");
+    QCoreApplication::setApplicationName("Perigee");
+    qputenv("RESOURCE_NAME", "io.github.BarMy49.Perigee");
+#else
     QCoreApplication::setOrganizationName("Moonlight Game Streaming Project");
     QCoreApplication::setOrganizationDomain("moonlight-stream.com");
     QCoreApplication::setApplicationName("Moonlight");
+#endif
 
-    if (QFile(QDir::currentPath() + "/portable.dat").exists()) {
+#ifdef Q_OS_LINUX
+    const QString portableMarker = "/perigee-portable.dat";
+    const QString portableConfigDir = QDir::currentPath() + "/perigee-data/config";
+#else
+    const QString portableMarker = "/portable.dat";
+    const QString portableConfigDir = QDir::currentPath();
+#endif
+
+    const bool portable = QFile(QDir::currentPath() + portableMarker).exists();
+    if (portable) {
         QSettings::setDefaultFormat(QSettings::IniFormat);
-        QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, QDir::currentPath());
-        QSettings::setPath(QSettings::IniFormat, QSettings::SystemScope, QDir::currentPath());
+        QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, portableConfigDir);
+        QSettings::setPath(QSettings::IniFormat, QSettings::SystemScope, portableConfigDir);
+    }
 
+#ifdef Q_OS_LINUX
+    if (argc > 1 && QByteArray(argv[1]) == "import-moonlight") {
+        QCoreApplication importApplication(argc, argv);
+        QSettings destination;
+        destination.setFallbacksEnabled(false);
+        return MoonlightImporter::run(importApplication.arguments(), destination.fileName());
+    }
+
+    QSettings destination;
+    destination.setFallbacksEnabled(false);
+    ProfileLock profileLock(destination.fileName());
+    if (!profileLock.tryLock()) {
+        QTextStream(stderr) << "Perigee profile is in use or cannot be safely locked. Close the other instance or check directory permissions.\n";
+        return 1;
+    }
+#endif
+
+    if (portable) {
         // Initialize paths for portable mode
         Path::initialize(true);
     }
@@ -464,7 +503,7 @@ int main(int argc, char *argv[])
     if (IS_UNSPECIFIED_HANDLE(oldConErr))
 #endif
     {
-        s_LoggerFile = new QFile(tempDir.filePath(QString("Moonlight-%1.log").arg(QDateTime::currentSecsSinceEpoch())));
+        s_LoggerFile = new QFile(tempDir.filePath(QString("%1-%2.log").arg(QCoreApplication::applicationName()).arg(QDateTime::currentSecsSinceEpoch())));
 
         // The log directory may be shared with other users (/tmp on macOS), so
         // we must never open a file or symlink that someone else planted there.
@@ -506,7 +545,7 @@ int main(int argc, char *argv[])
 
 #ifdef LOG_TO_FILE
     // Prune the oldest existing logs if there are more than 10
-    QStringList existingLogNames = tempDir.entryList(QStringList("Moonlight-*.log"), QDir::NoFilter, QDir::SortFlag::Time);
+    QStringList existingLogNames = tempDir.entryList(QStringList(QCoreApplication::applicationName() + "-*.log"), QDir::NoFilter, QDir::SortFlag::Time);
     for (int i = 10; i < existingLogNames.size(); i++) {
         qInfo() << "Removing old log file:" << existingLogNames.at(i);
         QFile(tempDir.filePath(existingLogNames.at(i))).remove();
@@ -560,7 +599,7 @@ int main(int argc, char *argv[])
 
             if (!QFile("/dev/dri").exists()) {
                 qWarning() << "Unable to find a KMSDRM display device!";
-                qWarning() << "On the Raspberry Pi, you must enable the 'fake KMS' driver in raspi-config to use Moonlight outside of the GUI environment.";
+                qWarning() << "On the Raspberry Pi, you must enable the 'fake KMS' driver in raspi-config to use Perigee outside of the GUI environment.";
             }
             else if (!qEnvironmentVariableIsSet("QT_QPA_EGLFS_KMS_CONFIG")) {
                 // HACK: Remove this when Qt is fixed to properly check for display support before picking a card
@@ -724,8 +763,13 @@ int main(int argc, char *argv[])
     // Set our app name for SDL to use with PulseAudio and PipeWire. This matches what we
     // provide as our app name to libsoundio too. On SDL 2.0.18+, SDL_APP_NAME is also used
     // for screensaver inhibitor reporting.
+#ifdef Q_OS_LINUX
+    SDL_SetHint(SDL_HINT_AUDIO_DEVICE_APP_NAME, "Perigee");
+    SDL_SetHint(SDL_HINT_APP_NAME, "Perigee");
+#else
     SDL_SetHint(SDL_HINT_AUDIO_DEVICE_APP_NAME, "Moonlight");
     SDL_SetHint(SDL_HINT_APP_NAME, "Moonlight");
+#endif
 
     // SDL will try to lock the mouse cursor on Wayland if it's not visible in order to
     // support applications that assume they can warp the cursor (which isn't possible
@@ -931,13 +975,19 @@ int main(int argc, char *argv[])
 #ifndef Q_OS_DARWIN
     // Set the window icon except on macOS where we want to keep the
     // modified macOS 11 style rounded corner icon.
-    app.setWindowIcon(QIcon(":/res/moonlight.svg"));
+    app.setWindowIcon(QIcon(":/res/io.github.BarMy49.Perigee.svg"));
 #endif
 
     // This is necessary to show our icon correctly on Wayland
+#ifdef Q_OS_LINUX
+    app.setDesktopFileName("io.github.BarMy49.Perigee");
+    qputenv("SDL_VIDEO_WAYLAND_WMCLASS", "io.github.BarMy49.Perigee");
+    qputenv("SDL_VIDEO_X11_WMCLASS", "io.github.BarMy49.Perigee");
+#else
     app.setDesktopFileName("com.moonlight_stream.Moonlight");
     qputenv("SDL_VIDEO_WAYLAND_WMCLASS", "com.moonlight_stream.Moonlight");
     qputenv("SDL_VIDEO_X11_WMCLASS", "com.moonlight_stream.Moonlight");
+#endif
 
     // Register our C++ types for QML
     qmlRegisterType<ComputerModel>("ComputerModel", 1, 0, "ComputerModel");

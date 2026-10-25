@@ -3,6 +3,7 @@
 #include "identitymanager.h"
 #include "nvapp.h"
 #include "nvaddress.h"
+#include "apollocapabilities.h"
 
 #include <Limelight.h>
 
@@ -120,6 +121,8 @@ public:
     QString
     getServerInfo(NvLogLevel logLevel, bool fastFail = false);
 
+    bool serverInfoPinnedHttps() const;
+
     static
     void
     verifyResponseStatus(QString xml);
@@ -199,4 +202,5 @@ private:
     QNetworkAccessManager* m_Nam;
     QSslCertificate m_ServerCert;
     bool m_UseTrueUid;
+    bool m_ServerInfoPinnedHttps = false;
 };

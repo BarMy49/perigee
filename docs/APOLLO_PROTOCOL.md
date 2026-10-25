@@ -1,7 +1,9 @@
 # Apollo protocol and client extensions
 
-Status: verified source research plus approved client design; no Perigee extension
-is implemented yet. Host snapshot:
+Status: verified source research plus approved client design. Milestone 2 implements
+read-only capability metadata and an explicit HTTPS administration link; Task 3B adds opt-in text clipboard, focused GNOME automatic wiring and controller fixtures.
+Primary-target automatic behavior is user-accepted; secondary-platform coverage remains a follow-up. Other session
+extensions remain unimplemented. Host snapshot:
 `ClassicOldSong/Apollo` master `adc5c5a0bd80831ce495434bb16aee2cd4175fb8`.
 Client/fork revisions are in the [manifest](REPOSITORY_ANALYSIS.md#inspected-revisions).
 Wire details below are source observations, not executed integration-test results.
@@ -51,6 +53,35 @@ fields must retain standard behavior and must not receive speculative requests.
 A candidate clipboard capability requires opt-in, authenticated permissions and an
 active session; endpoint success confirms availability. A version string is not a
 substitute for those checks.
+
+## Implemented metadata boundary
+
+`app/backend/apollocapabilities.{h,cpp}` is a Qt Core value/parser component.
+`NvHTTP` records successful reply provenance: HTTPS, same resolved host/port,
+`/serverinfo`, and an exact nonempty peer/pinned certificate match. The parser also
+requires paired status. This adds no requests and changes no existing TLS policy.
+HTTP, missing pairing or unpinned replies cannot establish grants or expose command
+names. Malformed fields remain invalid; authenticated zero is an explicit denial.
+Unknown uint32 bits are preserved without inventing meanings. Repeated command
+names retain wire order and duplicates; display flags accept true/false and 1/0.
+
+Only direct, non-namespaced fields under a successful root are considered. Input,
+field repetition and command lengths are bounded; malformed XML, DTD/entities,
+duplicate singleton fields and uint32 overflow do not establish capabilities.
+Snapshots replace previous values; offline polling clears authenticated grants,
+commands and display values. Capabilities are never persisted. The UI renders a
+plain-text snapshot and identifies the fields as Apollo-compatible, without claiming
+a host product or version. Reopening the panel reads the latest model snapshot.
+
+The separately configured per-host administration URL permits explicit HTTPS
+host/port/path only, with no userinfo, query or fragment. Empty input removes it.
+The client opens it only on user action in the external browser; administrative
+login remains there. No inferred port or administrative API call is introduced.
+
+See [Milestone 2 evidence](IMPLEMENTATION_PLAN.md#milestone-2-implementation-and-local-evidence-2026-10-25)
+and [fixture commands](../tests/apollo-capabilities/README.md). Pure tests and local
+HTTP polling are verified; real pinned TLS, Sunshine/Apollo grants/revocation and
+interactive UI/browser acceptance remain pending.
 
 ## Permissions
 
@@ -165,6 +196,32 @@ unrelated privileged session simply for clipboard access. Test actual GNOME/KDE.
 Upstream already has `KeyComboPasteText` using `LiSendUtf8TextEvent()`. It remains
 available to compatible standard hosts independently of this clipboard protocol.
 It is text injection, not proof of bidirectional sync or complete IME support.
+
+### Implemented text path and platform gate
+
+Task 3B implements the exact raw GET/POST contract through `SessionServices`, with
+strict UTF-8/1 MiB bounds, separate HTTP status, paired pin/client configuration,
+redirect refusal and five-second asynchronous timeout. `ClipboardSync` owns
+in-memory revisions/coalescing and denial/unsupported/backoff state. The product
+requires explicit per-host consent and direction-specific grants, starts no
+clipboard request at connect, and supports focused manual send/receive.
+
+User-verified manual tests and sub-millisecond-resolution focused read timings
+support wiring automatic retrieval on GNOME native Wayland. A worker-owned
+one-second timer wakes the SDL owner through coalesced bridge ticks. Initial
+local/remote baselines do not transfer existing contents, focus loss pauses
+dispatch and invalidates pending reads, and denial stops polling until reconnect.
+An unavailable/invalid or over-4-ms SDL read switches the session to manual mode.
+The 4 ms budget is a chosen fallback threshold, not a compositor latency guarantee.
+KDE, X11 and other backends remain manual-only. The user accepts integrated GNOME
+automatic transfers, baseline preservation, focus/reconnect and permission behavior;
+secondary-platform and controlled latency coverage remain follow-ups.
+`SdlClipboard` uses SDL text APIs on their owner thread, records duration without
+content, and never accesses PRIMARY or Qt's clipboard. See
+[Task 3B evidence](IMPLEMENTATION_PLAN.md#task-3b-implementation-and-local-evidence-2026-10-25)
+for tests, shortcuts and live prerequisites. No real clipboard endpoint has been
+contacted by the agent. The user has verified GNOME manual Unicode transfers,
+notices, focus/reconnect protection and permission revoke/restore.
 
 ## Host commands
 

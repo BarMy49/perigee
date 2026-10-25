@@ -1,4 +1,7 @@
 #include "session.h"
+#include "services/sessionservices.h"
+#include "services/clipboardsync.h"
+#include "services/sdlclipboard.h"
 #include "settings/streamingpreferences.h"
 #include "streaming/streamutils.h"
 #include "backend/richpresencemanager.h"
@@ -971,7 +974,7 @@ void Session::emitLaunchWarning(QString text)
 bool Session::validateLaunch(SDL_Window* testWindow)
 {
     if (!m_Computer->isSupportedServerVersion) {
-        emit displayLaunchError(tr("The version of GeForce Experience on %1 is not supported by this build of Moonlight. You must update Moonlight to stream from %1.").arg(m_Computer->name));
+        emit displayLaunchError(tr("The version of GeForce Experience on %1 is not supported by this build of Perigee. You must update Perigee to stream from %1.").arg(m_Computer->name));
         return false;
     }
 
@@ -1729,6 +1732,59 @@ bool Session::startConnectionAsync()
     return true;
 }
 
+std::optional<QByteArray> Session::readClipboard()
+{
+    if (!m_Clipboard->automatic()) return SdlClipboard::read(m_Window);
+    qint64 elapsedMs = 0;
+    const auto text = SdlClipboard::read(m_Window, &elapsedMs);
+    if (!m_ClipboardReadMeasured) {
+        SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "First automatic clipboard read took %lld ms", static_cast<long long>(elapsedMs));
+        m_ClipboardReadMeasured = true;
+    }
+    if (!text || elapsedMs > SdlClipboard::AutomaticReadBudgetMs) {
+        m_Clipboard->disableAutomatic();
+        m_Services->setClipboardPolling(false);
+        m_OverlayManager.showNotification(tr("Automatic clipboard paused. Use Ctrl+Alt+Shift+J/K for manual transfer."));
+        SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Automatic clipboard disabled: read unavailable or exceeded %lld ms budget (read %lld ms)",
+                    static_cast<long long>(SdlClipboard::AutomaticReadBudgetMs), static_cast<long long>(elapsedMs));
+        return {};
+    }
+    return text;
+}
+
+void Session::updateAutomaticClipboard()
+{
+    if (!m_Clipboard || !m_Clipboard->automatic() ||
+            !(SDL_GetWindowFlags(m_Window) & SDL_WINDOW_INPUT_FOCUS)) return;
+    const auto text = readClipboard();
+    if (!text) return;
+    m_Clipboard->observeLocal(*text);
+    m_Clipboard->dispatch();
+}
+
+void Session::clipboardAction(bool send)
+{
+    if (!m_Clipboard || !m_Services->clipboardAllowed(send)) {
+        m_OverlayManager.showNotification(tr("Clipboard transfer is not permitted for this stream"));
+        return;
+    }
+    if (m_Clipboard->blocked()) {
+        m_OverlayManager.showNotification(tr("Clipboard unavailable. Check host permissions and reconnect."));
+        return;
+    }
+    if (!(SDL_GetWindowFlags(m_Window) & SDL_WINDOW_INPUT_FOCUS)) return;
+    const auto local = readClipboard();
+    if (!local) {
+        m_OverlayManager.showNotification(tr("Unable to read the local text clipboard"));
+        return;
+    }
+    m_Clipboard->observeLocal(*local);
+    if (send && !m_Clipboard->send(*local)) {
+        m_OverlayManager.showNotification(tr("Unable to send clipboard text"));
+    }
+    else if (!send) m_Clipboard->receive();
+}
+
 void Session::flushWindowEvents()
 {
     // Pump events to ensure all pending OS events are posted
@@ -1767,6 +1823,26 @@ void Session::start()
     // We're now active
     s_ActiveSession = this;
 
+    SessionServiceSnapshot serviceSnapshot;
+    {
+        QReadLocker lock(&m_Computer->lock);
+        serviceSnapshot.hostUuid = m_Computer->uuid;
+        serviceSnapshot.endpoint.setScheme("https");
+        serviceSnapshot.endpoint.setHost(m_Computer->activeAddress.address());
+        serviceSnapshot.endpoint.setPort(m_Computer->activeHttpsPort);
+        serviceSnapshot.serverCertificate = m_Computer->serverCert;
+        serviceSnapshot.capabilities = m_Computer->apolloCapabilities;
+        const auto& capabilities = serviceSnapshot.capabilities;
+        serviceSnapshot.enabled = m_Computer->clipboardEnabled && capabilities.authenticated &&
+                (capabilities.permission(ApolloCapabilities::View) == ApolloCapabilities::State::Available ||
+                 capabilities.permission(ApolloCapabilities::Launch) == ApolloCapabilities::State::Available) &&
+                (capabilities.permission(ApolloCapabilities::ClipboardSet) == ApolloCapabilities::State::Available ||
+                 capabilities.permission(ApolloCapabilities::ClipboardRead) == ApolloCapabilities::State::Available);
+    }
+    m_ClipboardEnabled = serviceSnapshot.enabled;
+    serviceSnapshot.clientTls = IdentityManager::get()->getSslConfig();
+    m_Services = std::make_unique<SessionServices>(std::move(serviceSnapshot));
+
     // Initialize the gamepad code with our preferences
     // NB: m_InputHandler must be initialize before starting the connection.
     m_InputHandler = new SdlInputHandler(*m_Preferences, m_StreamConfig.width, m_StreamConfig.height);
@@ -1794,6 +1870,7 @@ void Session::exec()
 {
     // If the connection failed, clean up and abort the connection.
     if (!m_AsyncConnectionSuccess) {
+        m_Services.reset();
         delete m_InputHandler;
         m_InputHandler = nullptr;
         SDL_QuitSubSystem(SDL_INIT_VIDEO);
@@ -1856,7 +1933,7 @@ void Session::exec()
 #ifdef Q_OS_DARWIN
     std::string windowName = QString(m_Computer->name).toStdString();
 #else
-    std::string windowName = QString(m_Computer->name + " - Moonlight").toStdString();
+    std::string windowName = QString(m_Computer->name + " - " + QCoreApplication::applicationName()).toStdString();
 #endif
 
     m_Window = SDL_CreateWindow(windowName.c_str(),
@@ -1883,6 +1960,7 @@ void Session::exec()
 
             delete m_InputHandler;
             m_InputHandler = nullptr;
+            m_Services.reset();
             SDL_QuitSubSystem(SDL_INIT_VIDEO);
             QThreadPool::globalInstance()->start(new DeferredSessionCleanupTask(this));
             return;
@@ -1891,7 +1969,7 @@ void Session::exec()
 
     m_InputHandler->setWindow(m_Window);
 
-    QSvgRenderer svgIconRenderer(QString(":/res/moonlight.svg"));
+    QSvgRenderer svgIconRenderer(QString(":/res/io.github.BarMy49.Perigee.svg"));
     QImage svgImage(ICON_SIZE, ICON_SIZE, QImage::Format_RGBA8888);
     svgImage.fill(0);
 
@@ -1973,10 +2051,19 @@ void Session::exec()
     // Switch to async logging mode when we enter the SDL loop
     StreamUtils::enterAsyncLoggingMode();
 
+    if (m_Services->start()) {
+        const bool automatic = SdlClipboard::automaticSupported(SDL_GetCurrentVideoDriver(), qgetenv("XDG_CURRENT_DESKTOP"));
+        m_Clipboard = std::make_unique<ClipboardSync>(*m_Services, automatic);
+        m_Clipboard->setFocused((SDL_GetWindowFlags(m_Window) & SDL_WINDOW_INPUT_FOCUS) != 0);
+        m_Services->setClipboardPolling(automatic);
+        SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Session clipboard mode: %s", automatic ? "focused automatic" : "manual");
+    }
+
     // Hijack this thread to be the SDL main thread. We have to do this
     // because we want to suspend all Qt processing until the stream is over.
     SDL_Event event;
     for (;;) {
+        m_OverlayManager.expireNotification();
 #if SDL_VERSION_ATLEAST(2, 0, 18) && !defined(STEAM_LINK)
         // SDL 2.0.18 has a proper wait event implementation that uses platform
         // support to block on events rather than polling on Windows, macOS, X11,
@@ -1987,7 +2074,7 @@ void Session::exec()
         // NB: This behavior was introduced in SDL 2.0.16, but had a few critical
         // issues that could cause indefinite timeouts, delayed joystick detection,
         // and other problems.
-        if (!SDL_WaitEventTimeout(&event, 1000)) {
+        if (!SDL_WaitEventTimeout(&event, m_OverlayManager.notificationTimeout(1000))) {
             presence.runCallbacks();
             continue;
         }
@@ -2008,7 +2095,75 @@ void Session::exec()
             continue;
         }
 #endif
+        if (m_Services->running() && event.type == SessionEventBridge::eventType()) {
+            if (m_Clipboard) m_Clipboard->setFocused((SDL_GetWindowFlags(m_Window) & SDL_WINDOW_INPUT_FOCUS) != 0);
+            const auto messages = m_Services->takeMessages();
+            for (const auto& message : messages) {
+                if (!m_Clipboard) continue;
+                if (message.status == SessionServiceMessage::Status::ClipboardTick) {
+                    updateAutomaticClipboard();
+                    continue;
+                }
+                bool applied = false;
+                if (message.requestId && m_Clipboard->receiving() && (SDL_GetWindowFlags(m_Window) & SDL_WINDOW_INPUT_FOCUS)) {
+                    const auto local = readClipboard();
+                    if (local) m_Clipboard->observeLocal(*local);
+                    else m_Clipboard->invalidateLocal();
+                    if (SDL_HasEvent(SDL_CLIPBOARDUPDATE)) m_Clipboard->invalidateLocal();
+                    const auto text = m_Clipboard->complete(message);
+                    if (text) {
+                        applied = SdlClipboard::write(m_Window, *text);
+                        if (!applied && m_Clipboard->automatic()) {
+                            m_Clipboard->disableAutomatic();
+                            m_Services->setClipboardPolling(false);
+                        }
+                    }
+                }
+                else if (message.requestId) {
+                    if (m_Clipboard->receiving()) m_Clipboard->invalidateLocal();
+                    m_Clipboard->complete(message);
+                }
+                QString confirmation;
+                switch (m_Clipboard->takeFeedback()) {
+                case ClipboardSync::Feedback::Sent:
+                    confirmation = tr("Clipboard sent to host");
+                    break;
+                case ClipboardSync::Feedback::Received:
+                    confirmation = applied ? tr("Clipboard received from host") : tr("Unable to update the local clipboard");
+                    break;
+                case ClipboardSync::Feedback::Denied:
+                    confirmation = tr("Host denied clipboard access. Check permissions and reconnect.");
+                    break;
+                case ClipboardSync::Feedback::Unsupported:
+                    confirmation = tr("Host does not support text clipboard transfer");
+                    break;
+                case ClipboardSync::Feedback::Skipped:
+                    confirmation = tr("Clipboard receive skipped: focus or local text changed");
+                    break;
+                case ClipboardSync::Feedback::Invalid:
+                    confirmation = tr("Host returned invalid clipboard text");
+                    break;
+                case ClipboardSync::Feedback::Failed:
+                    confirmation = tr("Clipboard transfer failed. Try again.");
+                    break;
+                case ClipboardSync::Feedback::None:
+                    break;
+                }
+                if (!confirmation.isEmpty()) {
+                    m_OverlayManager.showNotification(confirmation);
+                    SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Clipboard result: %s", confirmation.toUtf8().constData());
+                }
+            }
+            if (m_Clipboard) {
+                m_Clipboard->dispatch();
+                if (m_Clipboard->blocked()) m_Services->setClipboardPolling(false);
+            }
+            continue;
+        }
         switch (event.type) {
+        case SDL_CLIPBOARDUPDATE:
+            if (m_Clipboard) m_Clipboard->invalidateLocal();
+            break;
         case SDL_QUIT:
             SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION,
                         "Quit event received");
@@ -2058,12 +2213,14 @@ void Session::exec()
             // Early handling of some events
             switch (event.window.event) {
             case SDL_WINDOWEVENT_FOCUS_LOST:
+                if (m_Clipboard) m_Clipboard->setFocused(false);
                 if (m_Preferences->muteOnFocusLoss) {
                     m_AudioMuted = true;
                 }
                 m_InputHandler->notifyFocusLost();
                 break;
             case SDL_WINDOWEVENT_FOCUS_GAINED:
+                if (m_Clipboard) m_Clipboard->setFocused(true);
                 if (m_Preferences->muteOnFocusLoss) {
                     m_AudioMuted = false;
                 }
@@ -2321,6 +2478,9 @@ void Session::exec()
     }
 
 DispatchDeferredCleanup:
+    m_Clipboard.reset();
+    m_Services.reset();
+
     // Switch back to synchronous logging mode
     StreamUtils::exitAsyncLoggingMode();
 

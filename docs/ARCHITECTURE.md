@@ -1,6 +1,10 @@
 # Perigee architecture
 
-Status: approved design, not implemented. Source observations are frozen to the
+Status: approved design; Tasks 1A/1B Linux native/portable and desktop identity
+implemented, with explicit import/profile locking in Task 1C. Session-source
+changes are cosmetic labels/icon only; no streaming threading,
+decoding, rendering, input or networking lifecycle change.
+Apollo integration components remain unimplemented. Source observations are frozen to the
 2026-10-25 [repository manifest](REPOSITORY_ANALYSIS.md#inspected-revisions).
 [Decisions](DECISIONS.md) record approval and alternatives. The application still
 has upstream behavior; [milestone status](IMPLEMENTATION_PLAN.md#current-state)
@@ -71,6 +75,24 @@ The backup is part of the persistence behavior, not an independent host database
 Normal `NvHTTP` operations use the selected endpoint, true client UID for non-NVIDIA
 hosts, and compatibility placeholder UID for NVIDIA hosts. Do not globally rewrite
 UID construction or HTTP behavior to add Apollo features.
+
+### Explicit import and profile ownership
+
+Linux startup selects native/portable identity before opening settings consumers.
+`import-moonlight` branches into a short-lived QCoreApplication before Qt GUI,
+SDL subsystem setup, preferences, host discovery or identity initialization. It
+uses `MoonlightImporter` to read an explicit bounded INI snapshot, validate an
+allowlist/host set and optionally validate an existing RSA client tuple. It never
+creates a normal identity as an import side effect or contacts a host.
+
+`ProfileLock` lives on the normal startup stack until application teardown; the
+importer holds the same settings-file sidecar lock throughout its transaction.
+This prevents cooperating Perigee processes from racing first-run identity creation
+with import, without introducing a worker or changing streaming synchronization.
+`ProfilePublication` stages anonymous Linux files, validates serialized values,
+and publishes by atomic no-overwrite hard link. No stream/decoder/input objects
+are involved. Schema, filesystem requirements and interruption behavior are in
+[the import contract](BRANDING.md#implemented-import-validation-and-storage).
 
 ### Session lifecycle and threading
 
@@ -215,6 +237,105 @@ remain available. Do not enable 4:4:4 if it silently requires software decoding.
   Common C control function is required. Keep them disabled until that patch and
   a reproducible distributable dependency revision exist; do not replace the core
   wholesale or invent an HTTP command endpoint.
+
+## Implemented capability foundation
+
+Milestone 2 composes `ApolloCapabilities` with the existing `NvHTTP` serverinfo
+and `NvComputer` polling/update path. Reply provenance is captured from the
+successful same-origin pinned HTTPS response; the pure parser adds paired-status
+and field validation. No extension probe, worker, timer or nested event loop was
+added. Each update replaces the ephemeral value; offline transition invalidates
+authentication. Persisted state gains only the explicit validated administration
+URL, which is not overwritten by network updates or copied by the import allowlist.
+
+`ComputerModel` provides read-only value/detail roles to `PcView.qml` and a UUID
+addressed setter for the separate admin link. The capabilities panel displays a
+plain-text snapshot; browser launch is explicit. No stream/session behavior or
+permission mutation is introduced. This is the metadata part of ADR-002, not an
+implementation of the planned asynchronous session services. Test and acceptance
+limits are recorded in [Milestone 2](IMPLEMENTATION_PLAN.md#milestone-2-apollo-foundation).
+
+## Implemented Task 3A bridge
+
+`streaming/services/SessionServices` consumes a const `SessionServiceSnapshot`:
+host UUID, resolved HTTPS endpoint, paired pin, client TLS configuration,
+capabilities and an explicit enable flag. Owner methods run on the creating SDL/GUI
+thread. `SessionServiceWorker` creates Qt networking/timers on its own QThread,
+performs only explicitly submitted bounded GETs, and has no mutable host/session
+or GUI pointers. One outstanding request also bounds queued worker invocations.
+No worker completion depends on the suspended Qt GUI event loop.
+
+`SessionEventBridge` owns payloads separately from SDL events. It bounds count,
+individual and total bytes, tags messages with a process-unique session generation,
+and coalesces pointer-free wakeups. Registered events avoid upstream's fixed
+`SDL_USEREVENT`. The application supports one active session; stop invalidates and
+clears the queue/wakeup before worker cancellation/join, so late results cannot
+act on a replacement session. Reply abort/deletion, timers and manager destruction
+stay on the worker. Stop does not invoke or wait for GUI slots.
+
+`Session::start()` captures immutable values under the host read lock before
+connection work. `exec()` starts services only after window setup and provides a
+small SDL dispatch hook; failure/exit paths release services before SDL video or
+Common C cleanup. At Task 3A delivery services remained disabled, with no worker or wakeup
+allocation and no service traffic. Task 3B now conditionally enables the manual
+clipboard path described below. No clipboard/window action is attached to the dispatcher yet.
+Transport operation policy and owner-thread clipboard adapters remain Task 3B;
+there is no change to the approved media loop or renderer ownership.
+
+See [Task 3A evidence](IMPLEMENTATION_PLAN.md#task-3a-implementation-and-local-evidence-2026-10-25)
+for fixture coverage and pending real-stream/performance checks. This implements
+the bridge part of ADR-003, not compositor clipboard acceptance.
+
+## Implemented session text clipboard
+
+Task 3B composes `ClipboardSync` and `SdlClipboard` with the existing service
+owner. Host consent and authenticated direction/view permissions are snapshotted
+before connection work. A worker is started only after successful stream/window
+setup, and only for eligible opted-in hosts. SDL shortcuts initiate manual send or
+receive; owner-thread validation/revision checks precede local application. No
+clipboard work occurs in the Qt GUI event loop or on a worker/window cross-thread
+call. Controller ownership is released before service cancellation and video
+teardown. Input changes add only consent-gated local shortcuts; the existing
+text-injection paste and media algorithms are preserved.
+
+Each operation has one request ID/generation. HTTP status and payload are distinct;
+bounded raw UTF-8 reaches the owner through the bridge. Queue bounds are now
+1 MiB per payload and 4 MiB aggregate. Pending writes coalesce; stale/focus-lost
+reads cannot replace newer local text. No content/hash is persisted or logged.
+
+After user-verified GNOME manual acceptance, automatic synchronization is wired
+for native Wayland with an exact GNOME desktop token. Other platforms retain
+manual actions. A worker-owned one-second timer publishes coalesced, generation-
+tagged ticks through the existing bounded bridge; it never calls a clipboard API.
+The SDL owner reads focused local text, establishes baselines, dispatches bounded
+requests and applies eligible remote changes. No GUI Qt timer or nested event
+loop is introduced. Focus loss invalidates reads, drops queued writes and pauses
+dispatch; focus regain resumes observation. Direction grants are checked before
+queueing writes, so a receive-only host cannot starve polling behind a forbidden
+upload. Denial stops automatic ticks until a new session.
+
+All SDL reads in automatic mode, including reply-time revision checks, use a
+4 ms API-read budget. This is a conservative engineering cutoff for fallback,
+not a measured worst-case guarantee. A slow call has already blocked once; it
+cannot be interrupted safely on another thread. Missing/invalid text or a read
+over budget disables automatic mode for this session, clears queued writes and
+shows a manual-fallback notice. Manual J/K remains available. Only the first
+automatic read duration and fallback diagnostics are logged, without content.
+The controller's clock enforces poll/backoff deadlines; worker ticks supply the
+previously missing owner wakeup. The integrated GNOME automatic path is accepted
+by the user; secondary-platform and controlled latency coverage remain follow-ups.
+See [Task 3B](IMPLEMENTATION_PLAN.md#milestone-0-and-task-3b-closure-2026-10-25).
+
+## Clipboard result notifications
+
+The 3B feedback follow-up layers a timed notice onto the existing status slot.
+Primary connection/gamepad status remains authoritative; a notice cannot clear it.
+The notice uses a separate cached small font and fixed text storage, with updates
+only when rendered content changes. Expiry is checked in the SDL owner loop and
+bounds its idle wait. No new overlay type or DRM plane is required, and no renderer
+or media-loop architecture is replaced. Controller outcomes reach the display only
+on the owner thread, after host acknowledgement/local application respectively.
+See [verification](IMPLEMENTATION_PLAN.md#clipboard-confirmation-follow-up-2026-10-25).
 
 ## Validation and navigation
 

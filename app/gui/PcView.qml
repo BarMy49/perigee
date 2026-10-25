@@ -63,7 +63,7 @@ CenteredGridView {
             errorDialog.text = qsTr("Unable to connect to the specified PC.")
 
             if (detectedPortBlocking) {
-                errorDialog.text += "\n\n" + qsTr("This PC's Internet connection is blocking Moonlight. Streaming over the Internet may not work while connected to this network.")
+                errorDialog.text += "\n\n" + qsTr("This PC's Internet connection is blocking Perigee. Streaming over the Internet may not work while connected to this network.")
             }
             else {
                 errorDialog.helpText = qsTr("Click the Help button for possible solutions.")
@@ -216,13 +216,44 @@ CenteredGridView {
                         showPcDetailsDialog.open()
                     }
                 }
+                NavigableMenuItem {
+                    text: model.clipboardEnabled ? qsTr("Disable Session Text Clipboard") : qsTr("Enable Session Text Clipboard")
+                    onTriggered: {
+                        if (model.clipboardEnabled) computerModel.setClipboardEnabled(model.hostUuid, false)
+                        else {
+                            clipboardConsent.hostUuid = model.hostUuid
+                            clipboardConsent.open()
+                        }
+                    }
+                }
+                NavigableMenuItem {
+                    text: qsTr("Host Capabilities")
+                    visible: model.capabilities.advertised
+                    onTriggered: {
+                        capabilityDialog.details = model.capabilityDetails
+                        capabilityDialog.open()
+                    }
+                }
+                NavigableMenuItem {
+                    text: qsTr("Configure Administration Link")
+                    onTriggered: {
+                        administrationDialog.hostUuid = model.hostUuid
+                        administrationText.text = model.administrationUrl
+                        administrationDialog.open()
+                    }
+                }
+                NavigableMenuItem {
+                    text: qsTr("Open Administration")
+                    visible: model.administrationUrl.length > 0 && SystemProperties.hasBrowser
+                    onTriggered: Qt.openUrlExternally(model.administrationUrl)
+                }
             }
         }
 
         onClicked: {
             if (model.online) {
                 if (!model.serverSupported) {
-                    errorDialog.text = qsTr("The version of GeForce Experience on %1 is not supported by this build of Moonlight. You must update Moonlight to stream from %1.").arg(model.name)
+                    errorDialog.text = qsTr("The version of GeForce Experience on %1 is not supported by this build of Perigee. You must update Perigee to stream from %1.").arg(model.name)
                     errorDialog.helpText = ""
                     errorDialog.open()
                 }
@@ -280,6 +311,91 @@ CenteredGridView {
         }
     }
 
+    NavigableDialog {
+        id: clipboardConsent
+        property string hostUuid: ""
+        title: qsTr("Session Text Clipboard")
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        onAccepted: computerModel.setClipboardEnabled(hostUuid, true)
+        Label {
+            width: 420
+            wrapMode: Text.Wrap
+            text: qsTr("Allow text clipboard transfer for this host during a stream. Requires host clipboard permissions. On GNOME Wayland, text changes synchronize automatically while the stream is focused; existing text is not transferred at connection. Other desktops use manual transfer. Ctrl+Alt+Shift+J sends local text; Ctrl+Alt+Shift+K receives remote text. Slow or unavailable clipboard reads switch to manual transfer. Changes apply to the next stream.")
+        }
+    }
+
+    NavigableDialog {
+        id: capabilityDialog
+        property string details: ""
+        title: qsTr("Host Capabilities")
+        standardButtons: Dialog.Ok
+
+        ScrollView {
+            id: capabilityScroll
+            width: 480
+            height: 360
+            contentWidth: availableWidth
+            clip: true
+            TextArea {
+                width: capabilityScroll.availableWidth
+                text: capabilityDialog.details
+                textFormat: TextEdit.PlainText
+                readOnly: true
+                selectByMouse: true
+                wrapMode: TextEdit.Wrap
+            }
+        }
+    }
+
+    NavigableDialog {
+        id: administrationDialog
+        property string hostUuid: ""
+        title: qsTr("Host Administration Link")
+        standardButtons: Dialog.Ok | Dialog.Cancel
+
+        function saveLink() {
+            if (computerModel.setAdministrationUrl(hostUuid, administrationText.text)) {
+                accept()
+            }
+            else {
+                administrationError.visible = true
+                administrationText.forceActiveFocus()
+            }
+        }
+        onOpened: {
+            administrationError.visible = false
+            administrationText.forceActiveFocus()
+        }
+        ColumnLayout {
+            width: 420
+            Label {
+                text: qsTr("Enter the host's HTTPS administration URL. Login remains in your browser. Leave empty to remove the link.")
+                wrapMode: Text.Wrap
+                Layout.fillWidth: true
+            }
+            TextField {
+                id: administrationText
+                placeholderText: "https://host:port/"
+                Layout.fillWidth: true
+                selectByMouse: true
+                Keys.onReturnPressed: administrationDialog.saveLink()
+                Keys.onEnterPressed: administrationDialog.saveLink()
+            }
+            Label {
+                id: administrationError
+                visible: false
+                text: qsTr("Enter a valid HTTPS URL without login credentials, query parameters, or a fragment.")
+                wrapMode: Text.Wrap
+                Layout.fillWidth: true
+            }
+        }
+        footer: DialogButtonBox {
+            standardButtons: administrationDialog.standardButtons
+            onAccepted: administrationDialog.saveLink()
+            onRejected: administrationDialog.reject()
+        }
+    }
+
     ErrorMessageDialog {
         id: errorDialog
 
@@ -321,22 +437,22 @@ CenteredGridView {
         standardButtons: Dialog.Ok
 
         onAboutToShow: {
-            testConnectionDialog.text = qsTr("Moonlight is testing your network connection to determine if any required ports are blocked.") + "\n\n" + qsTr("This may take a few seconds…")
+            testConnectionDialog.text = qsTr("Perigee is testing your network connection to determine if any required ports are blocked.") + "\n\n" + qsTr("This may take a few seconds…")
             showSpinner = true
         }
 
         function connectionTestComplete(result, blockedPorts)
         {
             if (result === -1) {
-                text = qsTr("The network test could not be performed because none of Moonlight's connection testing servers were reachable from this PC. Check your Internet connection or try again later.")
+                text = qsTr("The network test could not be performed because none of the upstream Moonlight connection testing servers were reachable from this PC. Check your Internet connection or try again later.")
                 imageSrc = "qrc:/res/baseline-warning-24px.svg"
             }
             else if (result === 0) {
-                text = qsTr("This network does not appear to be blocking Moonlight. If you still have trouble connecting, check your PC's firewall settings.") + "\n\n" + qsTr("If you are trying to stream over the Internet, install the Moonlight Internet Hosting Tool on your gaming PC and run the included Internet Streaming Tester to check your gaming PC's Internet connection.")
+                text = qsTr("This network does not appear to be blocking Perigee. If you still have trouble connecting, check your PC's firewall settings.") + "\n\n" + qsTr("If you are trying to stream over the Internet, install the Moonlight Internet Hosting Tool on your gaming PC and run the included Internet Streaming Tester to check your gaming PC's Internet connection.")
                 imageSrc = "qrc:/res/baseline-check_circle_outline-24px.svg"
             }
             else {
-                text = qsTr("Your PC's current network connection seems to be blocking Moonlight. Streaming over the Internet may not work while connected to this network.") + "\n\n" + qsTr("The following network ports were blocked:") + "\n"
+                text = qsTr("Your PC's current network connection seems to be blocking Perigee. Streaming over the Internet may not work while connected to this network.") + "\n\n" + qsTr("The following network ports were blocked:") + "\n"
                 text += blockedPorts
                 imageSrc = "qrc:/res/baseline-error_outline-24px.svg"
             }

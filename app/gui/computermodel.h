@@ -16,7 +16,12 @@ class ComputerModel : public QAbstractListModel
         WakeableRole,
         StatusUnknownRole,
         ServerSupportedRole,
-        DetailsRole
+        DetailsRole,
+        CapabilitiesRole,
+        CapabilityDetailsRole,
+        AdministrationUrlRole,
+        ClipboardEnabledRole,
+        HostUuidRole
     };
 
 public:
@@ -42,6 +47,10 @@ public:
     Q_INVOKABLE void wakeComputer(int computerIndex);
 
     Q_INVOKABLE void renameComputer(int computerIndex, QString name);
+
+    Q_INVOKABLE bool setClipboardEnabled(QString hostUuid, bool enabled);
+
+    Q_INVOKABLE bool setAdministrationUrl(QString hostUuid, QString text);
 
     Q_INVOKABLE Session* createSessionForCurrentGame(int computerIndex);
 

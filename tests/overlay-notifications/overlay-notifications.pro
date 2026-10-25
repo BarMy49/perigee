@@ -1,0 +1,9 @@
+QT = core testlib
+CONFIG += console testcase c++17 link_pkgconfig
+CONFIG -= app_bundle
+PKGCONFIG += sdl2 SDL2_ttf
+TEMPLATE = app
+TARGET = tst_overlaynotifications
+INCLUDEPATH += ../../app
+SOURCES += tst_overlaynotifications.cpp ../../app/streaming/video/overlaymanager.cpp
+HEADERS += ../../app/streaming/video/overlaymanager.h

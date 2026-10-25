@@ -23,7 +23,8 @@ document the new evidence, and obtain review before an architectural deviation.
 
 ## ADR-002: capability-driven Apollo composition
 
-- **Date/status:** 2026-10-25; accepted, not implemented.
+- **Date/status:** 2026-10-25; accepted; Milestone 2 read-only foundation implemented and locally
+  verified. Live-host acceptance and session services remain pending.
 - **Context:** Apollo extensions are optional, permissions depend on pairing, and
   the inspected server does not emit the `ApolloVersion` parsed by Artemis.
 - **Alternatives:** Assume every non-NVIDIA host is Apollo; modify all existing
@@ -39,7 +40,8 @@ document the new evidence, and obtain review before an architectural deviation.
 
 ## ADR-003: respect the SDL event loop and thread ownership
 
-- **Date/status:** 2026-10-25; accepted, not implemented.
+- **Date/status:** 2026-10-25; accepted; Task 3A bridge implemented with local lifecycle evidence.
+  Services remain disabled; live media and clipboard platform acceptance pending.
 - **Context:** Current `Session::exec()` runs an SDL loop on the GUI thread; normal
   Qt GUI events are not pumped through that streaming loop.
 - **Alternatives:** Port a fork's threaded session; pump Qt events continuously;
@@ -54,8 +56,9 @@ document the new evidence, and obtain review before an architectural deviation.
 
 ## ADR-004: independent application identity and explicit pairing import
 
-- **Date/status:** 2026-10-25; accepted, not implemented; user selected the namespace
-  and optional identity-import behavior explicitly.
+- **Date/status:** 2026-10-25; accepted; Linux identity and explicit import are
+  implemented in Tasks 1A/1B/1C with local verification. Real-host authentication
+  remains skipped by user instruction.
 - **Context:** Qt names determine persistent paths; pairing spans a client key,
   certificate, unique ID and host pins. Silent copying can share host permissions.
 - **Alternatives:** Share Moonlight settings; always pair afresh; independent state
@@ -118,7 +121,7 @@ document the new evidence, and obtain review before an architectural deviation.
 
 ## ADR-008: Fedora acceptance and evidence before features
 
-- **Date/status:** 2026-10-25; accepted; baseline pending.
+- **Date/status:** 2026-10-25; accepted; baseline closed by explicit user acceptance.
 - **Context:** The current workspace is Windows. No Qt development command was
   found; Docker's Linux daemon was unavailable; WSL listed only docker-desktop.
 - **Alternatives:** Claim source inspection as validation; start features without a
@@ -131,3 +134,23 @@ document the new evidence, and obtain review before an architectural deviation.
   recorded baseline acceptance. Numerical performance gates follow measured variance.
 - **References:** [Environment/evidence](FEDORA_BUILD.md#verification-status),
   [Milestone 0](IMPLEMENTATION_PLAN.md#milestone-0-baseline).
+
+### ADR-008 user-directed implementation gate exception, 2026-10-25
+
+After native Fedora debug/release builds and isolated Wayland startup checks,
+the user instructed: “skip pairing tests, and start working towards milestone 1”.
+This authorizes advancing to Task 1A without full Milestone 0 acceptance. Pairing
+tests are skipped; streaming/input/audio/recovery/performance remain unverified.
+No test is marked passed by this exception. The identity architecture and all
+security/protocol boundaries remain as approved. Task 1A native evidence is in the
+[implementation plan](IMPLEMENTATION_PLAN.md#task-1a-runtime-identity-isolation).
+
+### ADR-008 user acceptance and closure, 2026-10-25
+
+After the Fedora builds, real-host streaming and user-verified manual/automatic
+clipboard checks, the user explicitly requested marking Milestone 0 done.
+Milestone 0 is closed by that acceptance; pairing remains intentionally skipped.
+Unchecked measurements and secondary-platform/host coverage stay follow-ups,
+not fabricated passes. Task 3B is accepted for the primary GNOME Wayland target,
+with manual-only behavior retained on unverified backends. This supersedes the
+historical pending gate without changing thread ownership or security boundaries.

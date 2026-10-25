@@ -100,6 +100,7 @@ public:
     int serverCodecModeSupport;
     QString gpuModel;
     bool isSupportedServerVersion;
+    ApolloCapabilities apolloCapabilities;
 
     // Persisted traits
     NvAddress localAddress;
@@ -113,6 +114,8 @@ public:
     QSslCertificate serverCert;
     QVector<NvApp> appList;
     bool isNvidiaServerSoftware;
+    QString administrationUrl;
+    bool clipboardEnabled = false;
     // Remember to update isEqualSerialized() when adding fields here!
 
     // Synchronization
