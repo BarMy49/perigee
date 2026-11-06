@@ -1,5 +1,7 @@
 #include "appmodel.h"
 
+#include <algorithm>
+
 AppModel::AppModel(QObject *parent)
     : QAbstractListModel(parent)
 {
@@ -93,6 +95,8 @@ QVariant AppModel::data(const QModelIndex &index, int role) const
         return app.directLaunch;
     case AppCollectorGameRole:
         return app.isAppCollectorGame;
+    case FavoriteRole:
+        return app.favorite;
     default:
         return QVariant();
     }
@@ -109,6 +113,7 @@ QHash<int, QByteArray> AppModel::roleNames() const
     names[AppIdRole] = "appid";
     names[DirectLaunchRole] = "directLaunch";
     names[AppCollectorGameRole] = "appCollectorGame";
+    names[FavoriteRole] = "favorite";
 
     return names;
 }
@@ -150,6 +155,12 @@ void AppModel::updateAppList(QVector<NvApp> newList)
     m_AllApps = newList;
 
     QVector<NvApp> newVisibleList = getVisibleApps(newList);
+    std::stable_sort(newVisibleList.begin(), newVisibleList.end(), [](const NvApp& first, const NvApp& second) {
+        if (first.favorite != second.favorite) {
+            return first.favorite;
+        }
+        return first.name.toLower() < second.name.toLower();
+    });
 
     // Process removals and updates first
     for (int i = 0; i < m_VisibleApps.count(); i++) {
@@ -177,28 +188,22 @@ void AppModel::updateAppList(QVector<NvApp> newList)
         }
     }
 
-    // Process additions now
-    for (const NvApp& newApp : std::as_const(newVisibleList)) {
-        int insertionIndex = m_VisibleApps.size();
-        bool found = false;
-
-        for (int i = 0; i < m_VisibleApps.count(); i++) {
-            const NvApp& existingApp = m_VisibleApps.at(i);
-
-            if (existingApp.id == newApp.id) {
-                found = true;
-                break;
-            }
-            else if (existingApp.name.toLower() > newApp.name.toLower()) {
-                insertionIndex = i;
-                break;
-            }
+    for (int targetIndex = 0; targetIndex < newVisibleList.count(); targetIndex++) {
+        const NvApp& newApp = newVisibleList.at(targetIndex);
+        int existingIndex = targetIndex;
+        while (existingIndex < m_VisibleApps.count() && m_VisibleApps.at(existingIndex).id != newApp.id) {
+            existingIndex++;
         }
 
-        if (!found) {
-            beginInsertRows(QModelIndex(), insertionIndex, insertionIndex);
-            m_VisibleApps.insert(insertionIndex, newApp);
+        if (existingIndex == m_VisibleApps.count()) {
+            beginInsertRows(QModelIndex(), targetIndex, targetIndex);
+            m_VisibleApps.insert(targetIndex, newApp);
             endInsertRows();
+        }
+        else if (existingIndex != targetIndex) {
+            beginMoveRows(QModelIndex(), existingIndex, existingIndex, QModelIndex(), targetIndex);
+            m_VisibleApps.move(existingIndex, targetIndex);
+            endMoveRows();
         }
     }
 
@@ -222,6 +227,25 @@ void AppModel::setAppHidden(int appIndex, bool hidden)
     }
 
     m_ComputerManager->clientSideAttributeUpdated(m_Computer);
+}
+
+void AppModel::setAppFavorite(int appId, bool favorite)
+{
+    bool changed = false;
+    {
+        QWriteLocker lock(&m_Computer->lock);
+        for (NvApp& app : m_Computer->appList) {
+            if (app.id == appId) {
+                changed = app.favorite != favorite;
+                app.favorite = favorite;
+                break;
+            }
+        }
+    }
+
+    if (changed) {
+        m_ComputerManager->clientSideAttributeUpdated(m_Computer);
+    }
 }
 
 void AppModel::setAppDirectLaunch(int appIndex, bool directLaunch)
@@ -305,7 +329,10 @@ void AppModel::handleBoxArtLoaded(NvComputer* computer, NvApp app, QUrl /* image
 {
     Q_ASSERT(computer == m_Computer);
 
-    int index = m_VisibleApps.indexOf(app);
+    const auto matchingApp = std::find_if(m_VisibleApps.cbegin(), m_VisibleApps.cend(), [&app](const NvApp& visibleApp) {
+        return visibleApp.id == app.id;
+    });
+    const int index = matchingApp != m_VisibleApps.cend() ? int(matchingApp - m_VisibleApps.cbegin()) : -1;
 
     // Make sure we're not delivering a callback to an app that's already been removed
     if (index >= 0) {

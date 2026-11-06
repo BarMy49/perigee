@@ -19,6 +19,7 @@ class AppModel : public QAbstractListModel
         AppIdRole,
         DirectLaunchRole,
         AppCollectorGameRole,
+        FavoriteRole,
     };
 
 public:
@@ -40,6 +41,8 @@ public:
     Q_INVOKABLE void setAppHidden(int appIndex, bool hidden);
 
     Q_INVOKABLE void setAppDirectLaunch(int appIndex, bool directLaunch);
+
+    Q_INVOKABLE void setAppFavorite(int appId, bool favorite);
 
     QVariant data(const QModelIndex &index, int role) const override;
 

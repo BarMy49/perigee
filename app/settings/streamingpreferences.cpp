@@ -1,4 +1,5 @@
 #include "streamingpreferences.h"
+#include "localshortcuts.h"
 #include "utils.h"
 
 #include <QSettings>
@@ -37,6 +38,7 @@
 #define SER_CONNWARNINGS "connwarnings"
 #define SER_CONFWARNINGS "confwarnings"
 #define SER_UIDISPLAYMODE "uidisplaymode"
+#define SER_UITHEME "uitheme"
 #define SER_RICHPRESENCE "richpresence"
 #define SER_GAMEPADMOUSE "gamepadmouse"
 #define SER_DEFAULTVER "defaultver"
@@ -169,6 +171,11 @@ void StreamingPreferences::reload()
     uiDisplayMode = static_cast<UIDisplayMode>(settings.value(SER_UIDISPLAYMODE,
                                                static_cast<int>(settings.value(SER_STARTWINDOWED, true).toBool() ? UIDisplayMode::UI_WINDOWED
                                                                                                                  : UIDisplayMode::UI_MAXIMIZED)).toInt());
+    uiTheme = settings.value(SER_UITHEME, UI_THEME_DARK).toInt() == UI_THEME_LIGHT ? UI_THEME_LIGHT : UI_THEME_DARK;
+    if (!LocalShortcuts::load(settings, localShortcutKeys)) {
+        qWarning() << "Invalid local shortcut configuration; using defaults";
+    }
+
     language = static_cast<Language>(settings.value(SER_LANGUAGE,
                                                     static_cast<int>(Language::LANG_AUTO)).toInt());
 
@@ -244,6 +251,7 @@ bool StreamingPreferences::retranslate()
         // it is probably app startup. There's nothing to refresh.
     }
 
+    emit localShortcutsChanged();
     return true;
 }
 
@@ -353,6 +361,7 @@ void StreamingPreferences::save()
     settings.setValue(SER_RENDERER, static_cast<int>(rendererSelection));
     settings.setValue(SER_WINDOWMODE, static_cast<int>(windowMode));
     settings.setValue(SER_UIDISPLAYMODE, static_cast<int>(uiDisplayMode));
+    settings.setValue(SER_UITHEME, static_cast<int>(uiTheme));
     settings.setValue(SER_LANGUAGE, static_cast<int>(language));
     settings.setValue(SER_DEFAULTVER, CURRENT_DEFAULT_VER);
     settings.setValue(SER_SWAPMOUSEBUTTONS, swapMouseButtons);
@@ -418,4 +427,47 @@ int StreamingPreferences::getDefaultBitrate(int width, int height, int fps, bool
     }
 
     return qRound(resolutionFactor * frameRateFactor) * 1000;
+}
+
+QVariantList StreamingPreferences::localShortcuts() const
+{
+    QVariantList actions;
+    const auto names = LocalShortcuts::actionNames();
+    const auto labels = LocalShortcuts::labels();
+    for (int index = 0; index < names.size(); index++) {
+        actions.append(QVariantMap{{"name", names[index]}, {"label", labels[index]},
+                                   {"key", localShortcutKeys.value(index)},
+                                   {"editable", index != 0 && index != 1 && index != 11 && index != 13}});
+    }
+    return actions;
+}
+
+bool StreamingPreferences::setLocalShortcuts(const QVariantList& keys)
+{
+    const auto defaults = LocalShortcuts::defaults();
+    const auto names = LocalShortcuts::actionNames();
+    if (keys.size() != defaults.size()) return false;
+    QMap<QString, QString> overrides;
+    for (int index = 0; index < keys.size(); index++) {
+        if (keys[index].toString() != defaults[index]) overrides.insert(names[index], keys[index].toString());
+    }
+    QStringList resolved;
+    if (!LocalShortcuts::resolve(overrides, resolved)) return false;
+    QSettings settings;
+    settings.beginGroup("localshortcuts");
+    settings.remove("");
+    for (auto entry = overrides.cbegin(); entry != overrides.cend(); ++entry) settings.setValue(entry.key(), entry.value());
+    settings.endGroup();
+    settings.sync();
+    if (settings.status() != QSettings::NoError) return false;
+    localShortcutKeys = resolved;
+    emit localShortcutsChanged();
+    return true;
+}
+
+bool StreamingPreferences::resetLocalShortcuts()
+{
+    QVariantList keys;
+    for (const auto& key : LocalShortcuts::defaults()) keys.append(key);
+    return setLocalShortcuts(keys);
 }

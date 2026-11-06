@@ -99,6 +99,7 @@ class Session : public QObject
 {
     Q_OBJECT
 
+    friend class UIThemeTest;
     friend class SdlInputHandler;
     friend class DeferredSessionCleanupTask;
     friend class AsyncConnectionStartThread;
@@ -265,6 +266,7 @@ private:
     bool m_ClipboardReadMeasured = false;
     void updateAutomaticClipboard();
     bool m_ClipboardEnabled = false;
+    bool m_RequestVirtualDisplay = false;
     SDL_Window* m_Window;
     IVideoDecoder* m_VideoDecoder;
     SDL_mutex* m_DecoderLock;

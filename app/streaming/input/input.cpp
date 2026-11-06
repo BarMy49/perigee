@@ -4,6 +4,7 @@
 #include "settings/mappingmanager.h"
 #include "path.h"
 #include "utils.h"
+#include "settings/localshortcuts.h"
 
 #include <QtGlobal>
 #include <QDir>
@@ -137,6 +138,34 @@ SdlInputHandler::SdlInputHandler(StreamingPreferences& prefs, int streamWidth, i
     m_SpecialKeyCombos[KeyComboToggleKeyboardGrab].keyCode = SDLK_k;
     m_SpecialKeyCombos[KeyComboToggleKeyboardGrab].scanCode = SDL_SCANCODE_K;
     m_SpecialKeyCombos[KeyComboToggleKeyboardGrab].enabled = WMUtils::isRunningDesktopEnvironment();
+
+    m_SpecialKeyCombos[KeyComboControls] = {KeyComboControls, SDLK_o, SDL_SCANCODE_O, true};
+
+    static_assert(KeyComboMax == 14, "Update local shortcut action ordering");
+    for (int index = 0; index < KeyComboMax; index++) {
+        const QString key = prefs.localShortcutKeys.value(index);
+        if (key.isEmpty()) {
+            m_SpecialKeyCombos[index].keyCode = SDLK_UNKNOWN;
+            m_SpecialKeyCombos[index].scanCode = SDL_SCANCODE_UNKNOWN;
+        }
+        else {
+            const char letter = key[0].toLatin1();
+            m_SpecialKeyCombos[index].keyCode = SDLK_a + letter - 'a';
+            m_SpecialKeyCombos[index].scanCode = static_cast<SDL_Scancode>(SDL_SCANCODE_A + letter - 'a');
+        }
+    }
+
+    const auto labels = LocalShortcuts::labels();
+    const KeyCombo panelActions[] = {KeyComboQuit, KeyComboToggleFullScreen, KeyComboUngrabInput,
+                                    KeyComboToggleMouseMode, KeyComboClipboardSend, KeyComboClipboardReceive,
+                                    KeyComboToggleStatsOverlay, KeyComboToggleKeyboardGrab};
+    QStringList panelText{labels[KeyComboControls], "Ctrl+Alt+Shift+O"};
+    for (int index = 0; index < 8; index++) {
+        if (m_SpecialKeyCombos[panelActions[index]].enabled)
+            panelText.append(QString::number(index + 1) + "  " + labels[panelActions[index]]);
+    }
+    panelText.append(QCoreApplication::translate("StreamControls", "Esc: Close"));
+    Session::get()->getOverlayManager().prepareCommandPanel(panelText.join('\n'));
 
     m_OldIgnoreDevices = SDL_GetHint(SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES);
     m_OldIgnoreDevicesExcept = SDL_GetHint(SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT);
@@ -275,6 +304,7 @@ void SdlInputHandler::setWindow(SDL_Window *window)
 
 void SdlInputHandler::notifyFocusLost()
 {
+    Session::get()->getOverlayManager().setCommandPanelVisible(false);
     // Release mouse cursor when another window is activated (e.g. by using ALT+TAB).
     // This lets user to interact with our window's title bar and with the buttons in it.
     // Doing this while the window is full-screen breaks the transition out of FS

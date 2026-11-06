@@ -10,6 +10,17 @@ are skipped by user instruction. See
 [ADR-004](DECISIONS.md#adr-004-independent-application-identity-and-explicit-pairing-import)
 and [Milestone 1](IMPLEMENTATION_PLAN.md#milestone-1-perigee-identity-and-isolation).
 
+Perigee app favorites are stored as `favorite` in each host's app settings record,
+defaulting to false for older profiles. They use the existing independent native
+or portable settings path. Explicit Moonlight import excludes this Perigee-only
+field, as it does per-host virtual-display intent; no new identity is shared.
+The local `uitheme` appearance preference likewise uses independent native or
+portable settings and is excluded from explicit Moonlight import.
+
+Local shortcut overrides use the independent profile's `localshortcuts` group.
+They are retained by normal preference saves and excluded from explicit Moonlight
+import. See [the binding contract](../tests/shortcut-modifiers/README.md).
+
 ## Official identity
 
 | Item | Approved value |

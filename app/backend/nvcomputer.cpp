@@ -25,6 +25,7 @@
 #define SER_NVIDIASOFTWARE "nvidiasw"
 #define SER_ADMINISTRATIONURL "administrationurl"
 #define SER_CLIPBOARDENABLED "clipboardenabled"
+#define SER_REQUESTVIRTUALDISPLAY "requestvirtualdisplay"
 
 NvComputer::NvComputer(QSettings& settings)
 {
@@ -45,6 +46,7 @@ NvComputer::NvComputer(QSettings& settings)
     this->administrationUrl = HostAdministration::validatedUrl(settings.value(SER_ADMINISTRATIONURL).toString()).toString(QUrl::FullyEncoded);
 
     this->clipboardEnabled = settings.value(SER_CLIPBOARDENABLED, false).toBool();
+    this->requestVirtualDisplay = settings.value(SER_REQUESTVIRTUALDISPLAY, false).toBool();
 
     int appCount = settings.beginReadArray(SER_APPLIST);
     this->appList.reserve(appCount);
@@ -85,6 +87,7 @@ void NvComputer::serialize(QSettings& settings, bool serializeApps) const
     QReadLocker lock(&this->lock);
 
     settings.setValue(SER_CLIPBOARDENABLED, clipboardEnabled);
+    settings.setValue(SER_REQUESTVIRTUALDISPLAY, requestVirtualDisplay);
     settings.setValue(SER_NAME, name);
     settings.setValue(SER_CUSTOMNAME, hasCustomName);
     settings.setValue(SER_UUID, uuid);
@@ -132,6 +135,7 @@ bool NvComputer::isEqualSerialized(const NvComputer &that) const
            this->isNvidiaServerSoftware == that.isNvidiaServerSoftware &&
            this->administrationUrl == that.administrationUrl &&
            this->clipboardEnabled == that.clipboardEnabled &&
+           this->requestVirtualDisplay == that.requestVirtualDisplay &&
            this->appList == that.appList;
 }
 
@@ -489,6 +493,7 @@ bool NvComputer::updateAppList(QVector<NvApp> newAppList) {
             if (existingApp.id == newApp.id) {
                 newApp.hidden = existingApp.hidden;
                 newApp.directLaunch = existingApp.directLaunch;
+                newApp.favorite = existingApp.favorite;
             }
         }
     }

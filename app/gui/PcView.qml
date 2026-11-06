@@ -112,24 +112,24 @@ CenteredGridView {
 
         property alias pcContextMenu : pcContextMenuLoader.item
 
-        Image {
+        ThemedImage {
             id: pcIcon
             anchors.horizontalCenter: parent.horizontalCenter
-            source: "qrc:/res/desktop_windows-48px.svg"
+            iconSource: "qrc:/res/desktop_windows-48px.svg"
             sourceSize {
                 width: 200
                 height: 200
             }
         }
 
-        Image {
+        ThemedImage {
             // TODO: Tooltip
             id: stateIcon
             anchors.horizontalCenter: pcIcon.horizontalCenter
             anchors.verticalCenter: pcIcon.verticalCenter
             anchors.verticalCenterOffset: !model.online ? -18 : -16
             visible: !model.statusUnknown && (!model.online || !model.paired)
-            source: !model.online ? "qrc:/res/warning_FILL1_wght300_GRAD200_opsz24.svg" : "qrc:/res/baseline-lock-24px.svg"
+            iconSource: !model.online ? "qrc:/res/warning_FILL1_wght300_GRAD200_opsz24.svg" : "qrc:/res/baseline-lock-24px.svg"
             sourceSize {
                 width: !model.online ? 75 : 70
                 height: !model.online ? 75 : 70
@@ -235,6 +235,16 @@ CenteredGridView {
                     }
                 }
                 NavigableMenuItem {
+                    text: qsTr("Display Launch Options")
+                    onTriggered: {
+                        displayLaunchDialog.hostUuid = model.hostUuid
+                        displayLaunchDialog.details = model.displayLaunchDetails
+                        displayLaunchDialog.available = model.displayLaunchAvailable
+                        virtualDisplayCheck.checked = model.requestVirtualDisplay
+                        displayLaunchDialog.open()
+                    }
+                }
+                NavigableMenuItem {
                     text: qsTr("Configure Administration Link")
                     onTriggered: {
                         administrationDialog.hostUuid = model.hostUuid
@@ -298,7 +308,7 @@ CenteredGridView {
             }
         }
 
-        Keys.onMenuPressed: {
+        onContextMenuRequested: {
             // We must use open() here so the menu is positioned on
             // the ItemDelegate and not where the mouse cursor is
             pcContextMenu.open()
@@ -308,6 +318,47 @@ CenteredGridView {
             deletePcDialog.pcIndex = index
             deletePcDialog.pcName = model.name
             deletePcDialog.open()
+        }
+    }
+
+    NavigableDialog {
+        id: displayLaunchDialog
+        property string hostUuid: ""
+        property string details: ""
+        property bool available: false
+        title: qsTr("Display Launch Options")
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        onAccepted: {
+            if (!computerModel.setRequestVirtualDisplay(hostUuid, virtualDisplayCheck.checked)) displayLaunchSaveError.open()
+        }
+        ColumnLayout {
+            width: 420
+            Label {
+                Layout.fillWidth: true
+                wrapMode: Text.Wrap
+                text: displayLaunchDialog.details
+            }
+            CheckBox {
+                id: virtualDisplayCheck
+                text: qsTr("Request a virtual display for new launches")
+                enabled: checked || displayLaunchDialog.available
+            }
+            Label {
+                Layout.fillWidth: true
+                wrapMode: Text.Wrap
+                text: qsTr("Uses your stream resolution and frame rate. This requests a display; it does not confirm the host display mode. Applies to a new launch, not resume or an active session. Host display defaults may also create a virtual display when this option is off. Live monitor changes and fractional refresh are unavailable.")
+            }
+        }
+    }
+
+    NavigableDialog {
+        id: displayLaunchSaveError
+        title: qsTr("Display Options Not Saved")
+        standardButtons: Dialog.Ok
+        Label {
+            width: 420
+            wrapMode: Text.Wrap
+            text: qsTr("Host availability changed. Reopen Display Launch Options to check current permissions and driver status.")
         }
     }
 

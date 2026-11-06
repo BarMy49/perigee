@@ -12,6 +12,8 @@
 #include <QCursor>
 #include <QElapsedTimer>
 #include <QTemporaryFile>
+#include <QTranslator>
+#include <QLocale>
 #include <QRegularExpression>
 
 #ifdef Q_OS_UNIX
@@ -470,7 +472,10 @@ int main(int argc, char *argv[])
     destination.setFallbacksEnabled(false);
     ProfileLock profileLock(destination.fileName());
     if (!profileLock.tryLock()) {
-        QTextStream(stderr) << "Perigee profile is in use or cannot be safely locked. Close the other instance or check directory permissions.\n";
+        QCoreApplication errorApplication(argc, argv);
+        QTranslator translator;
+        if (translator.load(QLocale::system(), "qml", "_", ":/languages")) QCoreApplication::installTranslator(&translator);
+        QTextStream(stderr) << QCoreApplication::translate("main", "Perigee profile is in use or cannot be safely locked. Close the other instance or check directory permissions.") << '\n';
         return 1;
     }
 #endif
@@ -856,6 +861,9 @@ int main(int argc, char *argv[])
     }
 #endif
 
+    // Apply the initial translation based on user preference
+    StreamingPreferences::get()->retranslate();
+
     GlobalCommandLineParser parser;
     GlobalCommandLineParser::ParseResult commandLineParserResult = parser.parse(app.arguments());
     switch (commandLineParserResult) {
@@ -908,9 +916,6 @@ int main(int argc, char *argv[])
         SDL_SetHint("SDL_KMSDRM_ATOMIC", "0");
 #endif
     }
-
-    // Apply the initial translation based on user preference
-    StreamingPreferences::get()->retranslate();
 
     // Trickily declare the translation for dialog buttons
     QCoreApplication::translate("QPlatformTheme", "&Yes");
@@ -1025,8 +1030,8 @@ int main(int argc, char *argv[])
     // We require the Material theme
     QQuickStyle::setStyle("Material");
 
-    // Our icons are styled for a dark theme, so we do not allow the user to override this
-    qputenv("QT_QUICK_CONTROLS_MATERIAL_THEME", "Dark");
+    qputenv("QT_QUICK_CONTROLS_MATERIAL_THEME",
+            StreamingPreferences::get()->uiTheme == StreamingPreferences::UI_THEME_LIGHT ? "Light" : "Dark");
 
     // These are defaults that we allow the user to override
     if (!qEnvironmentVariableIsSet("QT_QUICK_CONTROLS_MATERIAL_ACCENT")) {
@@ -1036,9 +1041,6 @@ int main(int argc, char *argv[])
         qputenv("QT_QUICK_CONTROLS_MATERIAL_VARIANT", "Dense");
     }
     if (!qEnvironmentVariableIsSet("QT_QUICK_CONTROLS_MATERIAL_PRIMARY")) {
-        // Qt 6.9 began to use a different shade of Material.Indigo when we use a dark theme
-        // (which is all the time). The new color looks washed out, so manually specify the
-        // old primary color unless the user overrides it themselves.
         qputenv("QT_QUICK_CONTROLS_MATERIAL_PRIMARY", "#3F51B5");
     }
 

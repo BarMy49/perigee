@@ -21,6 +21,9 @@ class ComputerModel : public QAbstractListModel
         CapabilityDetailsRole,
         AdministrationUrlRole,
         ClipboardEnabledRole,
+        RequestVirtualDisplayRole,
+        DisplayLaunchAvailableRole,
+        DisplayLaunchDetailsRole,
         HostUuidRole
     };
 
@@ -49,6 +52,7 @@ public:
     Q_INVOKABLE void renameComputer(int computerIndex, QString name);
 
     Q_INVOKABLE bool setClipboardEnabled(QString hostUuid, bool enabled);
+    Q_INVOKABLE bool setRequestVirtualDisplay(QString hostUuid, bool requested);
 
     Q_INVOKABLE bool setAdministrationUrl(QString hostUuid, QString text);
 

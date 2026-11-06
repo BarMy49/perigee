@@ -21,16 +21,11 @@ ApplicationWindow {
     id: window
     width: 1280
     height: 600
+    Material.theme: StreamingPreferences.uiTheme === StreamingPreferences.UI_THEME_LIGHT ? Material.Light : Material.Dark
+    Material.background: Material.theme === Material.Light ? "#fafafa" : "#303030"
 
     // This function runs prior to creation of the initial StackView item
     function doEarlyInit() {
-        // Override the background color to Material 2 colors for Qt 6.5+
-        // in order to improve contrast between GFE's placeholder box art
-        // and the background of the app grid.
-        if (SystemProperties.usesMaterial3Theme) {
-            Material.background = "#303030"
-        }
-
         SdlGamepadKeyNavigation.enable()
     }
 
@@ -243,6 +238,7 @@ ApplicationWindow {
 
     header: ToolBar {
         id: toolBar
+        Material.foreground: "white"
         height: 60
         anchors.topMargin: 5
         anchors.bottomMargin: 5
@@ -295,7 +291,9 @@ ApplicationWindow {
 
             Label {
                 id: versionLabel
-                visible: stackView.currentItem instanceof SettingsView
+                objectName: "versionLabel"
+                visible: stackView.currentItem instanceof SettingsView &&
+                         toolBar.width > 2 * (implicitWidth + 180) + titleLabel.implicitWidth
                 text: qsTr("Perigee %1 (based on Moonlight Qt)").arg(SystemProperties.versionString)
                 font.pointSize: 12
                 horizontalAlignment: Qt.AlignRight

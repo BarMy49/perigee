@@ -116,6 +116,7 @@ public:
     bool isNvidiaServerSoftware;
     QString administrationUrl;
     bool clipboardEnabled = false;
+    bool requestVirtualDisplay = false;
     // Remember to update isEqualSerialized() when adding fields here!
 
     // Synchronization

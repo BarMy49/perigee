@@ -206,8 +206,76 @@ favorites, clear host/application navigation, light/dark themes, keyboard access
 responsive spacing, and settings organization. Keep native decorations. Do not add
 Kirigami, libadwaita, or another large UI framework solely for visual refresh.
 
-Initial in-stream controls are a keyboard-accessible command panel using existing
-overlay rendering hooks and session actions. Re-render small overlay surfaces only
+Milestone 5's first increment handles Home/End and viewport-sized Page Up/Page Down
+in the shared `CenteredGridView`, keeping the selected tile visible without
+activating it. `NavigableItemDelegate` emits a shared context-menu request for
+Menu and Shift+F10; PC and app views open their existing menus through that signal.
+Only unmodified grid movement and Shift+F10 are added. Existing arrow, toolbar,
+menu/dialog focus and launch actions retain their owners. No network, persistent
+state, SDL event-loop or overlay changes are involved. Synthetic Qt Quick checks
+are documented in [grid navigation tests](../tests/grid-navigation/README.md).
+
+App favorites add one default-false local field to `NvApp`, serialized within
+the existing per-host app array and carried across host-list refresh by numeric
+app ID, like hidden/direct-launch settings. Moonlight import excludes this new
+Perigee field. The host record retains its alphabetical order; `AppModel` sorts
+its visible snapshot into favorites first, then alphabetical order in each group.
+It publishes row moves instead of model resets so selection follows the same app.
+The setter takes an app ID within the model's host and uses the existing locked
+update/save path. Pending box-art results also match by app ID, allowing an older
+metadata snapshot to update the correct tile after a favorite change. No host
+request or active-session action is added. Favorites are app-record metadata;
+removing a host or an app record also removes its favorite state.
+
+Settings keeps its existing controls and preference handlers while changing
+between two columns and a stacked layout according to available width. A minimum
+column width includes the resolution/FPS controls' measured text widths; narrower
+windows scroll horizontally. The second column's vertical offset contributes to
+the scroll extent. Existing focus scrolling also runs after resizing, retaining
+the focused control and bringing it into view. Group headings use the control
+style's colors. This page-only layout increment adds no session work or persisted
+layout state.
+
+The appearance preference is an independent `uitheme` value on the existing
+preference singleton. Startup selects its Material mode and the QML window binds
+to it for live updates; the UI action saves immediately. Dark is the legacy
+default and invalid saved values fall back to dark. Light mode uses color-only
+variants of existing monochrome SVGs through `ThemedImage`, preserving original
+assets. Combo-box popup surfaces track the inherited theme and toolbar foreground
+retains contrast against the primary color. This affects only the Qt shell;
+automatic system-theme tracking and native-decoration policy remain separate.
+
+Local shortcut matching retains the existing Ctrl+Alt+Shift chord and logical-key
+then scancode lookup. The modifier predicate excludes SDL `KMOD_MODE`, allowing
+AltGr-marked input to follow ordinary remote-key handling. It runs on the SDL
+owner thread without allocation or lifetime changes. This does not detect AltGr
+on a backend that omits that flag; real layout/input checks remain required.
+
+Local shortcut overrides are loaded and validated with preferences, then copied
+into the SDL command table before streaming. Optional actions accept a lowercase
+letter or disabled state; Q/Z/E/O recovery/panel keys and the modifier chord are fixed.
+Conflicting or invalid sets fall back as a unit. The original default K overlap
+retains clipboard-receive priority; configuration can assign a distinct keyboard
+grab key. No settings or allocation is added to per-event matching. The graphical
+editor validates the entire draft before saving, can restore defaults and applies
+changes only to subsequent sessions; [the advanced interface](../tests/shortcut-modifiers/README.md)
+documents settings and limits.
+
+The implemented in-stream controls use a persistent keyboard-only panel in the
+existing status overlay. Ctrl+Alt+Shift+O and Q/Z/E recovery bindings are reserved.
+Numbered actions invoke the existing input command implementations and keep their
+platform and clipboard-consent gates. Z always releases capture, including repeated activation. Opening raises remote keys; a bounded
+scancode bitset consumes local action keys, repeats and releases. Missing releases
+are cleared on a fresh press. Focus loss or primary status closes the panel;
+primary warnings prevent opening it. Pointer/gamepad routing stays unchanged.
+
+The complete localized panel is shaped into one bounded CPU surface before the
+SDL loop starts. Opening duplicates that cached surface; there is no Qt event pump,
+worker/window crossover, per-frame text rendering or new overlay/DRM plane.
+Notifications retain their original deadlines beneath the panel and warnings.
+A separate fill pass ensures light glyphs over the black text outline; pixel checks
+cover Unicode surfaces. Renderer ownership and the media pipeline stay unchanged.
+Disconnect and a later normal launch/resume follow the existing lifecycle. Re-render small overlay surfaces only
 when state changes; do not read back video frames or introduce a continuously
 rendered QML scene. Mouse interaction is a separate tested increment. Unsupported
 live display changes stay unavailable rather than being simulated by an unsafe
@@ -336,6 +404,31 @@ bounds its idle wait. No new overlay type or DRM plane is required, and no rende
 or media-loop architecture is replaced. Controller outcomes reach the display only
 on the owner thread, after host acknowledgement/local application respectively.
 See [verification](IMPLEMENTATION_PLAN.md#clipboard-confirmation-follow-up-2026-10-25).
+
+## Virtual-display launch intent
+
+Milestone 4 begins with a per-host default-off request, stored independently from
+ordinary stream dimensions/FPS and excluded from Moonlight import. The model
+offers host-reported readiness and permission details; changing intent uses the
+existing UUID-addressed, locked host update/save path. Only an online, eligible
+host can enable it; disabling remains possible after capability loss or offline.
+No polling/networking is added to QML.
+
+Session startup snapshots the bool under the host lock before starting the
+existing connection worker. An opted-in `NvHTTP::startApp()` refreshes serverinfo
+there, validates paired HTTPS provenance and display/launch readiness, and rejects
+resume or an already-running application before sending a display request. A
+typed local policy error reaches the existing launch-error signal without posing
+as a host HTTP error. Default-off startup performs no additional request and
+keeps the upstream launch query unchanged. A host race can still produce a normal
+launch failure; no client cancel or disruptive recovery is attempted.
+
+The only new wire value is `virtualDisplay=1` for an eligible new launch. Integer
+mode/FPS, GFE's existing high-FPS workaround and stream/video/audio/input/pacing
+algorithms are preserved. Requested stream dimensions are not confirmation of a
+host display mode. Scaling, fractional refresh, monitor selection and live changes
+remain deferred. Real host creation/mode/ordinary-Sunshine regression checks are
+still pending in [Milestone 4](IMPLEMENTATION_PLAN.md#milestone-4-display-launch-management).
 
 ## Validation and navigation
 

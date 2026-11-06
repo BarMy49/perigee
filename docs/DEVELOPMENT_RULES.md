@@ -36,6 +36,10 @@ task. Keep references outside the primary checkout and record their exact SHAs.
   credentials, or interpret protocol fields in QML.
 - Use existing Qt Quick Controls/layouts, translation conventions, and navigation.
   Avoid fixed handheld assumptions, custom window decorations, and large UI deps.
+- User requirement: translate new or changed user-facing strings immediately in
+  every inherited Moonlight TS catalog, regenerate QM resources and verify
+  coverage/placeholders. Include CLI, startup errors and stream notices; reuse
+  existing translations and contexts. Follow [the translation workflow](../app/languages/README.md).
 - Use the repository's existing formatting; do not add a formatter or perform
   repository-wide style changes as part of a feature.
 

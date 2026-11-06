@@ -51,8 +51,8 @@ Approved plan date: 2026-10-25. This document is the task/status entry point; re
 | 2: Apollo foundation | Implemented; fixtures/build/local polling pass; live-host acceptance pending | User-directed progression; identity isolation and ADR-002 |
 | 3A: Session service bridge | Implemented; local lifecycle checks pass; live disabled-stream comparison pending | User-directed 3A; capability values and ADR-003 |
 | 3B: Text clipboard | Done, user-accepted on GNOME Wayland | Manual and focused automatic sync; other backends manual-only; secondary-platform coverage follow-ups retained |
-| 4: Display launch controls | Not started | Capabilities and baseline |
-| 5: Productivity UI and controls | Not started | Existing actions, ownership/performance checks |
+| 4: Display launch controls | Implemented; user reports primary-host tests passed on 2026-10-28; detailed matrix follow-ups retained | Authenticated metadata, fresh launch, driver/permission readiness |
+| 5: Productivity UI and controls | Implementation delivered through shortcut editor and stream panel; local checks pass, live acceptance pending | Existing actions, ownership/performance checks |
 | 6: Optional integrations | Not started | Feature-specific evidence and prerequisites |
 | 7: Distribution and maintenance | Not started | Complete identity plus compatibility matrix |
 
@@ -1012,8 +1012,8 @@ or private-key/token material detected by the focused scan.
 **Sources:** `NvHTTP::startApp()`, capability values, preferences and settings view.
 **Dependencies:** capabilities and real host display baseline.
 
-- [ ] Add per-host virtual-display intent and host driver/permission information.
-- [ ] Append only verified launch parameters for supporting hosts; preserve ordinary
+- [x] Add per-host virtual-display intent and host driver/permission information.
+- [x] Append only verified launch parameters for supporting hosts; preserve ordinary
   dimensions/FPS and Sunshine requests.
 - [ ] Test missing driver, denied permission, existing display, launch/resume and
   no-active-session cases; distinguish stream resolution from host display mode.
@@ -1023,6 +1023,130 @@ or private-key/token material detected by the focused scan.
 **Acceptance:** correct observed host behavior and clear limitations, no disruption
 to another active session, standard-host regression pass. **Blockers:** no verified
 general live/physical-display API; reconnect is not proof of reconfiguration.
+
+### Milestone 4 first increment: fresh-launch virtual-display request (2026-10-25)
+
+User requested updating README and starting Milestone 4. README now describes the
+Perigee identity, current features, Fedora source build, clipboard usage, focused
+automation/manual fallback, tests, developer-local CLion launcher and upstream
+GPL/asset provenance. Upstream release badges/downloads no longer stand in for
+Perigee releases; inherited platform build guidance is linked and qualified.
+
+The first implementation task adds a default-off per-host `requestvirtualdisplay`
+preference and Display Launch Options in the PC context menu. The dialog shows
+host-reported capability/driver/launch availability and explains fresh launches,
+stream-mode versus host-mode, host defaults and deferred live/fractional controls.
+UUID-addressed setters recheck readiness under the host lock, persist via the
+existing manager, and always permit disabling intent. Moonlight import excludes
+the new preference.
+
+The startup owner snapshots intent; only opted-in starts refresh serverinfo on
+the existing connection worker. Fresh pinned/paired metadata, launch permission,
+display capability, driver readiness, `launch` and reported currentgame zero are
+required before appending the source-verified `virtualDisplay=1`. A typed policy
+exception reports unsupported, untrusted, denied, missing-driver or resume status
+through the existing launch error path. Default-off queries and integer resolution/
+FPS, including GFE compatibility behavior, remain unchanged. No decoder, pacing,
+audio, input ordering, active-session timer or GUI network wait is introduced.
+No host application is automatically quit and no display reconfiguration is
+attempted; a concurrent host change may still cause a normal launch failure.
+
+The pinned Apollo `src/nvhttp.cpp` at
+`adc5c5a0bd80831ce495434bb16aee2cd4175fb8` was rechecked: `make_launch_session()`
+reads `virtualDisplay` and host-side always-use policy; resume display setup is
+limited to no-active-session/non-virtual circumstances. The client deliberately
+offers only fresh-launch intent. This is the approved launch integration boundary,
+not a new display service.
+
+**Verification (Fedora 44 / Qt 6.11.2 / GCC 16.2.1):**
+
+- `qmake6 ../../../perigee/app/app.pro PREFIX=/usr` and
+  `make -f Makefile.Debug -j2` in `../perigee-build/debug/app`: exit 0;
+  logs `milestone4-qmake.log` and `milestone4-build.log`.
+- New independent [display-launch target](../tests/display-launch/README.md):
+  qmake6, `make -j2`, `./tst_displaylaunch -o results.txt,txt`: **17 passed**.
+  Cases verify the exact eligible query and rejection/default states, including
+  standard Sunshine/GFE, missing/unready/invalid driver, denied/invalid permission,
+  unpaired/untrusted metadata, resume/running app and loss of authenticated state.
+- `./tst_apollocapabilities -o results-milestone4.txt,txt`: **57 passed**.
+- Identity-import `make -j2`, then `PERIGEE_TEST_BINARY=.../debug/app/perigee
+  ./tst_identityimport -o results-milestone4.txt,txt`: **32 passed**, including
+  added assertions that an upstream host's `requestvirtualdisplay=true` is never
+  imported, even when pairing import is explicitly selected.
+- Private `../perigee-build/milestone4-runtime.py`: two eight-second startup/
+  restart runs each for ordinary and untrusted-extension HTTP fixtures; all four
+  exit 0, no QML errors, only `/serverinfo` requests, saved false/true intent
+  preserved and **512 production files unchanged**. No stream or host display
+  operation was started. Evidence: `../perigee-build/milestone4-jgtdi69k/summary.json`.
+- Final CLion `Perigee Test Profile` launch opens the updated app with the existing
+  isolated connection; no QML component-load, ReferenceError or TypeError marker.
+  GUI left running. Private log:
+  `ij_run__Perigee_Test_Profile_1998620413889382047.log` in CLion's temporary directory.
+- `git diff --check`: exit 0. All **122** checked local Markdown links/anchors
+  resolve. No dependency pins or unrelated IDE state were changed.
+
+**Acceptance still pending:** a real new Apollo launch creating/using the requested
+display; host-observed resolution/integer refresh; existing display, missing driver,
+revoked permission, resumed/no-running-app and concurrent-session behavior; real
+ordinary-Sunshine streaming regression. Policy fixtures and startup checks are
+local evidence, not proof of these host outcomes. The next user check is the PC
+context menu's Display Launch Options on a ready host with no running application,
+then an explicit fresh launch and inspection of the host display/mode. Do not
+quit another session automatically or claim Milestone 4 complete from this increment.
+
+### Milestone 4 readiness follow-up (2026-10-26)
+
+Resumed the pending real-host verification using the previously authorized isolated
+test profile. A private read-only probe linked against the current debug objects
+performed three serverinfo polls and one app-list request. All three capability
+snapshots were paired, pinned HTTPS and authenticated, with launch permission and
+true display-capable/driver-ready flags. The host returned three applications,
+including Desktop, and reported a running application. The current policy therefore
+returned `NeedsFreshLaunch`; this is a metadata/policy observation, not an executed
+launch/resume rejection or a display-creation pass.
+
+The traced requests were HTTP `/serverinfo` for port discovery, HTTPS `/serverinfo`
+and HTTPS `/applist` only. No launch, resume, cancel, clipboard, command or admin
+request was sent. The isolated settings remained byte-for-byte unchanged, as did
+all 512 checked production files. No application source or dependency pin changed.
+
+Commands from the source root: `bash
+../perigee-build/live-host-check/build-display-readiness.sh`, then the private
+probe `../perigee-build/live-host-check/display-readiness` under the existing
+isolated XDG/TMPDIR environment, both exit 0. The compile emitted an ignored
+`QFile::open` return-value warning in the private diagnostic wrapper. Sanitized
+evidence and profile-integrity results are stored in
+`../perigee-build/interactive-test-wwiyzrvg/display-readiness-20261026.json`.
+In `../perigee-build/tests/display-launch`,
+`./tst_displaylaunch -o results-readiness-20261026.txt,txt` exits 0:
+**17 passed, 0 failed**.
+
+CLion's existing `Perigee Test Profile` was reopened for interactive acceptance;
+the process remains running and its startup log has no QML component-load,
+ReferenceError or TypeError marker. Private log:
+`ij_run__Perigee_Test_Profile_6300725837384109574.log` in CLion's temporary directory.
+`git diff --check` passes and the plan's local Markdown link paths resolve.
+
+**Next acceptance step:** the user ends the host application when convenient,
+enables Request a virtual display in the PC's Display Launch Options and explicitly
+starts Desktop afresh. Record Windows-observed display creation/use and actual
+resolution/integer refresh alongside the requested stream settings. Do not infer
+the Windows mode from client stream logs. Existing-display, driver-unavailable,
+permission-revoked, resume and concurrent-session outcomes still need supervised
+checks, plus a separate ordinary Sunshine host. Never stop another session or
+alter host permissions/driver state implicitly to manufacture these cases.
+Milestone 4 remains incomplete; no Milestone 5 implementation was started.
+
+### Milestone 4 user test confirmation (2026-10-28)
+
+After the fresh-launch and Windows display-inspection instructions above, the user
+reported that the tests went smoothly and authorized continued implementation.
+Record this as user acceptance of the primary-host test flow, rather than an
+agent-observed display measurement. Exact Windows resolution/refresh values,
+host product/release and individual negative-case outcomes were not supplied;
+separate Sunshine/KDE and broader matrix coverage are not established by this
+confirmation. The preceding pending-test wording describes the earlier state.
+Unsupported live/physical display changes and fractional refresh remain deferred.
 
 ## Milestone 5: productivity UI and in-stream controls
 
@@ -1043,6 +1167,472 @@ and `OverlayManager` hooks. **Dependencies:** relevant integration capability/st
 **Acceptance:** normal desktop navigation/input/control scenarios pass without
 renderer/pacing regression. **Blockers:** compositor shortcut policy, overlay input
 capture and lifetime. Tray and richer pointer UI are optional separate increments.
+
+### Task 5A: desktop grid keyboard navigation (2026-10-28)
+
+- [x] Home/End select the first/last host or app without activating it.
+- [x] Page Up/Page Down move by whole visible rows/columns, respect margins and
+  viewport resizing, clamp at list ends and handle an empty/unselected grid.
+- [x] Shift+F10 and Menu open the selected tile's existing context menu; Escape
+  retains selection and returns navigation focus.
+- [x] Shared-component keyboard interaction, native Wayland and debug build checks.
+- [x] User confirms the host/app keyboard changes work and authorizes continued
+  milestone development on 2026-10-28.
+- [ ] Separate physical gamepad acceptance; not inferred from keyboard confirmation.
+
+`CenteredGridView.qml` handles only unmodified movement keys and contains the
+resulting selection in the viewport. `NavigableItemDelegate.qml` emits one context
+menu signal consumed by `PcView.qml` and `AppView.qml`. Existing menu actions,
+arrow handling and toolbar ownership remain in place. No new user-facing strings
+or catalog changes were needed; no settings, networking, streaming or dependency
+code was edited. This is the keyboard portion of the first Milestone 5 checklist
+item, not completion of the broader UI or in-stream panel work.
+
+**Verification:**
+
+- `make -f Makefile.Debug -j2` in `../perigee-build/debug/app`: exit 0; log
+  `milestone5a-build.log`.
+- From the source root, `QT_QPA_PLATFORM=offscreen
+  /usr/lib64/qt6/bin/qmltestrunner -input tests/grid-navigation
+  -o ../perigee-build/grid-navigation-20261028.txt,txt`: **25 passed**, exit 0.
+  The same command with `QT_QPA_PLATFORM=wayland` and output
+  `grid-navigation-wayland-20261028.txt`: **25 passed**, exit 0, no QML warnings.
+  See [the test guide](../tests/grid-navigation/README.md) for cases and limits.
+- Compiled catalogs: `./tst_translations -o results-milestone5a.txt,txt` in
+  `../perigee-build/tests/translations`: **32 passed**, exit 0.
+- `python3 scripts/check-translations.py --lupdate
+  ../perigee-build/translation-tools/usr/lib64/qt6/bin/lupdate`: exit 0,
+  **121 keys, 30 locales, 0 errors**. The initial default-tool lookup exited 2
+  because system Linguist is absent; the existing extracted tool resolved it
+  without installation. Log: `../perigee-build/milestone5a-translations.log`.
+- `python3 ../perigee-build/milestone4-runtime.py` against the updated application:
+  four isolated native Wayland startup/restart runs exit 0, only `/serverinfo`
+  polling and no detected QML errors; all **512** checked production files
+  unchanged. Summary: `../perigee-build/milestone5a-startup-result.json`;
+  private case logs: `../perigee-build/milestone4-gvtk84bm/`.
+- Final CLion `Perigee Test Profile` launch leaves the updated isolated client
+  running for user acceptance. Its startup log has no component-load,
+  ReferenceError, TypeError or Cannot-assign marker; private log:
+  `ij_run__Perigee_Test_Profile_11551147113244534795.log` in CLion's temporary
+  directory. `git diff --check` and changed-document local link path checks pass.
+
+**Acceptance follow-up:** the user confirmed this increment works on 2026-10-28.
+Physical gamepad confirmation and the broader settings/shortcut/panel/scaling and
+performance tasks remain separate. Favorites follow in Task 5B below.
+
+### Task 5B: per-host app favorites (2026-10-28)
+
+- [x] Checkable Favorite action and visible star on the app tile.
+- [x] Independent per-host app state, false for legacy records, saved through the
+  existing settings path and preserved across host app-list refreshes.
+- [x] Favorites first, alphabetical within each group, preserving the selected
+  app through row moves and leaving hidden/direct-launch/running behavior intact.
+- [x] Translate the new Favorite label in all 30 TS/QM locales and verify coverage.
+- [x] Focused model, AppView, persistence/import, keyboard and startup checks.
+- [x] User confirms favorites work on the existing test connection and authorizes
+  continued implementation on 2026-10-28.
+
+Files: `NvApp` persistence/equality, `NvComputer` app-list merge, `AppModel` roles,
+ID-addressed setter and row ordering, `AppView.qml` action/marker, all catalogs,
+focused tests and documentation. No dependency pins, streaming source, protocol,
+host command, preferences layout or shortcut bindings changed. Missing/stale IDs
+and unchanged values cause no save. Favorites remain local app-record metadata;
+they are removed when the host/app record is removed. Import does not copy a
+source `favorite` flag, even with explicitly included pairing credentials.
+
+`AppModel` sorts only its visible snapshot; the host list keeps its upstream
+alphabetical order. Existing items use `beginMoveRows`/`endMoveRows`, preserving Qt
+persistent indexes and QML delegate identity. Since a pending box-art request
+captures old app metadata, its callback now matches by app ID rather than full
+record equality; a favorite change can no longer invalidate that image update.
+
+**Verification (Fedora 44 / Qt 6.11.2):**
+
+- `make -f Makefile.Debug -j2` in `../perigee-build/debug/app`: exit 0; log
+  `milestone5b-build.log`. The focused test entry point supplies the startup-owned
+  logging flag while linking actual application components; application startup
+  behavior was not changed for tests.
+- `make -C ../perigee-build/debug/app -f Makefile.Debug -f
+  "$PWD/tests/app-favorites/checks.mk" favorites-check-build -j2`: exit 0. Log:
+  `../perigee-build/debug/app/milestone5b-favorites-build.log`; compiler emits a
+  Qt-header `QBitArray` SFINAE warning. See [test instructions](../tests/app-favorites/README.md).
+- `QT_QPA_PLATFORM=offscreen
+  ../perigee-build/debug/favorites-tests/tst_appfavorites
+  -o ../perigee-build/favorites-offscreen-20261028.txt,txt`: **13 passed**, exit 0.
+  Repeated with `QT_QPA_PLATFORM=wayland` and output
+  `favorites-wayland-20261028.txt`: **13 passed**, exit 0. Checks include the actual
+  AppView menu action, Qt model invariants, persistent/QML selection, refresh,
+  rename/removal, stale box-art metadata, per-host isolation and saved true/false
+  across model/manager restarts. Synthetic cached box art avoids host requests;
+  the inherited compatibility fetch deliberately fails at a closed loopback proxy.
+- `QT_QPA_PLATFORM=wayland /usr/lib64/qt6/bin/qmltestrunner
+  -input tests/grid-navigation -o ../perigee-build/grid-navigation-milestone5b.txt,txt`:
+  **25 passed**, exit 0.
+- Identity-import `make -j2`, then `PERIGEE_TEST_BINARY=/home/barmy/Projects/perigee-build/debug/app/perigee
+  ./tst_identityimport -o results-milestone5b.txt,txt`: **35 passed**, exit 0;
+  explicit import fixtures assert favorite exclusion. Compiled catalogs
+  `./tst_translations -o results-milestone5b.txt,txt`: **32 passed**, exit 0.
+- Existing extracted `lrelease` regenerated all 30 QM files. From the source root,
+  `python3 scripts/check-translations.py --lupdate
+  ../perigee-build/translation-tools/usr/lib64/qt6/bin/lupdate`: exit 0,
+  **122 post-baseline keys, 30 locales, 0 errors**.
+- `python3 ../perigee-build/milestone4-runtime.py`: four isolated native Wayland
+  startup/restart runs exit 0 with only `/serverinfo` polling and no detected QML
+  errors; **512 production files unchanged**. Summary:
+  `../perigee-build/milestone5b-startup-result.json`; case logs:
+  `../perigee-build/milestone4-blcyu3f2/`.
+- The idle isolated test client was restarted through CLion's existing
+  `Perigee Test Profile` after the rebuild. It remains running, with no detected
+  component-load, ReferenceError, TypeError or Cannot-assign marker in
+  `ij_run__Perigee_Test_Profile_10545155192682450382.log` in CLion's temporary
+  directory. `git diff --check` and changed-document local link paths pass.
+
+**Acceptance follow-up:** the user reports favorites were tested and work on
+2026-10-28. This accepts the increment; physical gamepad and broader streaming
+coverage remain separate. Settings layout follows in Task 5C below.
+
+### Task 5C: responsive settings layout (2026-10-28)
+
+- [x] Use two settings columns when space permits and stack them at narrower widths.
+- [x] Preserve a readable minimum column width, accounting for the resolution/FPS
+  controls; provide horizontal scrolling below that width.
+- [x] Wrap the V-Sync/frame-pacing and system-key-capture control rows when needed.
+- [x] Keep keyboard focus visible across resize/reflow and clip content to the page.
+- [x] Use standard GroupBox heading colors from the active control style.
+- [x] Debug build, native Wayland rendering/focus/preference checks and translation
+  source coverage.
+- [x] User confirms the responsive Settings page works and authorizes continued
+  implementation on 2026-10-28.
+
+Only `app/gui/SettingsView.qml` changes application behavior. The page measures its
+minimum column width, uses the second column's actual vertical position in its
+scroll extent, and reuses its focus-scrolling logic after resizing. Existing
+control objects and preference handlers remain in place. No new user-facing text,
+catalog edits, settings keys, host traffic, dependency or streaming changes were
+needed. Standard heading colors were inspected in light/dark Material previews;
+this does not add an application-wide theme selector or validate every popup/style.
+
+**Verification (Fedora 44 / Qt 6.11.2):**
+
+- `make -f Makefile.Debug -j2` in `../perigee-build/debug/app`: exit 0; log
+  `milestone5c-build.log`.
+- A private rendering harness loads the real SettingsView, preference singleton,
+  display metadata and existing controls with disposable XDG/TMPDIR roots. It
+  creates no host manager, stream or pairing identity. The harness was linked
+  against current debug objects using `make -f Makefile.Debug -f
+  /home/barmy/Projects/perigee-build/settings-layout/checks.mk
+  favorites-check-build -j2` in the app build directory. The target name comes
+  from the reused private link recipe; this is a rendering inspection, not a new
+  favorites test result.
+- From the source root, `PREVIEW_THEME=dark
+  PREVIEW_OUTPUT=/home/barmy/Projects/perigee-build/settings-layout/dark
+  QT_QPA_PLATFORM=wayland SDL_VIDEODRIVER=wayland
+  ../perigee-build/settings-layout/bin/tst_appfavorites` exits 0. The same harness
+  with `PREVIEW_THEME=light` and output `light/`, and dark with
+  `QT_SCALE_FACTOR=2` and output `scale2/`, both exit 0.
+- Each rendering run covers logical widths **1280 → 800 → 520 → 400 → 1280**.
+  Measurements show two columns at 1280, one column at 800/520 and scrollable
+  minimum-width content at 400. Focus remains on the same control, fully visible
+  vertically, across subsequent 800/400/1280 reflows; Tab advances focus.
+  Every exposed preference property matches its post-load snapshot after resizing
+  and focus navigation. No QML TypeError, ReferenceError, binding-loop or
+  Cannot-assign marker was recorded. The harness logs an existing GTK locale
+  initialization warning.
+- Rendered PNGs and `summary.json` are under private
+  `../perigee-build/settings-layout/{dark,light,scale2}/`. Wide/narrow dark,
+  narrow light, 2× scaling and narrow focused-control images were visually
+  inspected. At very narrow widths, long labels require horizontal scrolling.
+- `python3 scripts/check-translations.py --lupdate
+  ../perigee-build/translation-tools/usr/lib64/qt6/bin/lupdate`: exit 0,
+  **122 post-baseline keys, 30 locales, 0 errors**. Existing translated heading
+  source strings are unchanged; only surrounding fixed-color markup was removed.
+- Final CLion `Perigee Test Profile` restart loads the rebuilt client and leaves
+  it running for interactive acceptance. Startup log
+  `ij_run__Perigee_Test_Profile_5296917109252682443.log` in CLion's temporary
+  directory has no detected component-load, ReferenceError, TypeError or
+  Cannot-assign marker. `git diff --check` and changed-document local link paths pass.
+
+**Next:** open Settings, resize between wide and narrow windows, and use Tab to
+reach controls in the lower groups. Confirm the page scrolls to the focused
+control and preferences still behave normally. Configurable shortcuts, the
+in-stream command panel, wider theme/platform coverage and controlled streaming
+performance comparisons remain separate Milestone 5 work.
+
+**Acceptance follow-up:** the user reports this increment was tested and works.
+The preceding instructions are retained as its acceptance procedure. Task 5D
+continues the desktop UI work below.
+
+### Task 5D: light/dark application appearance (2026-10-28)
+
+- [x] Appearance selector in UI Settings, applied immediately and saved on selection.
+- [x] Default dark for existing profiles, explicit light/dark persistence and
+  dark fallback for unknown or malformed saved values.
+- [x] Palette-aware application background and popup surfaces, readable toolbar
+  foreground and light-mode host/status/dialog icon variants.
+- [x] Translate Appearance, Dark and Light in all 30 TS/QM locales.
+- [x] Focused application-window/popup, preference/import, translation and isolated
+  startup/restart checks.
+- [ ] User acceptance of light/dark views, menus/dialogs and restart persistence.
+
+`StreamingPreferences` stores local `uitheme` separately from stream preferences;
+the explicit Moonlight importer excludes it. Startup selects the saved Material
+theme, and the main QML window binds to the preference for live changes. The
+Appearance combo saves via the existing preference path. It changes no host
+state, protocol, active SDL loop or decoder/pacing path. Automatic system-theme
+selection is not implemented.
+
+`ThemedImage.qml` selects color-only `-light.svg` variants for the existing
+monochrome host/status/dialog icons. Original assets remain intact; provenance
+and licensing obligations are recorded in [asset notices](../ASSET_NOTICES.md).
+The existing combo-box popup color override follows theme changes even while a
+popup is open. Toolbar text/icons stay white against the existing primary color.
+No new dependency or rendering service was introduced.
+
+**Verification (Fedora 44 / Qt 6.11.2):**
+
+- `make -f Makefile.Debug -j2` in `../perigee-build/debug/app`: exit 0;
+  `milestone5d-build.log`.
+- `make -C ../perigee-build/debug/app -f Makefile.Debug -f
+  "$PWD/tests/ui-theme/checks.mk" theme-check-build -j2`: exit 0; app build log
+  `milestone5d-theme-build.log`. [Focused check instructions](../tests/ui-theme/README.md).
+- `QT_QPA_PLATFORM=wayland
+  PERIGEE_THEME_PREVIEW_DIR=/home/barmy/Projects/perigee-build/theme-preview
+  ../perigee-build/debug/theme-tests/tst_uitheme
+  -o ../perigee-build/theme-wayland-results.txt,txt`: **10 passed**, exit 0.
+  Repeated with `QT_QPA_PLATFORM=offscreen SDL_VIDEODRIVER=dummy` and output
+  `theme-offscreen-results.txt`: **10 passed**, exit 0. Cases cover saved/default/
+  invalid values, save/reload and notification, unchanged bitrate, the actual
+  main window and Appearance action, toolbar contrast, seven light SVGs and live
+  popup recoloring. Existing tooltip/shortcut/GTK warnings and deliberately blocked
+  mapping-fetch warnings remain recorded; no host is configured or streamed.
+- Light/dark PNGs from the real main QML window were visually inspected under
+  `../perigee-build/theme-preview/`. A low-contrast light-mode toolbar found during
+  inspection was corrected and covered by the focused assertion before final runs.
+- Importer `make -j2`, then `PERIGEE_TEST_BINARY=/home/barmy/Projects/perigee-build/debug/app/perigee
+  ./tst_identityimport -o results-milestone5d.txt,txt`: **35 passed**, exit 0;
+  fixtures assert `uitheme` is excluded with and without pairing import.
+- All 30 QM catalogs regenerated with the existing extracted `lrelease`.
+  `./tst_translations -o results-milestone5d.txt,txt`: **32 passed**, exit 0.
+  `python3 scripts/check-translations.py --lupdate
+  ../perigee-build/translation-tools/usr/lib64/qt6/bin/lupdate`: exit 0,
+  **125 post-baseline keys, 30 locales, 0 errors**.
+- `python3 ../perigee-build/milestone5d-runtime.py`: two saved-dark and two
+  saved-light isolated native Wayland startup/restart runs exit 0, theme values
+  persist, only `/serverinfo` is polled, no detected QML errors, and **512 checked
+  production files remain unchanged**. Summary:
+  `../perigee-build/milestone5d-startup-result.json`; private case logs:
+  `../perigee-build/milestone5d-wu1matwu/`.
+- Final CLion `Perigee Test Profile` launch leaves the rebuilt isolated client
+  running. Startup log `ij_run__Perigee_Test_Profile_4470664093152425939.log`
+  in CLion's temporary directory has no detected component-load, ReferenceError,
+  TypeError or Cannot-assign marker. Dependency pins remain unchanged;
+  `git diff --check` and changed-document local link path checks pass.
+
+**Next:** select Settings → UI Settings → Appearance → Light, inspect the host/app
+grids and menus/dialogs, restart, and switch back to Dark. Native shell decorations,
+arbitrary custom color overrides and secondary platforms are not established by
+these checks. Configurable shortcuts/emergency escape, the in-stream command
+panel and controlled performance/input comparisons remain Milestone 5 tasks.
+
+### Task 5E: AltGr-safe local shortcut gate (2026-11-04)
+
+A bounded input-safety prerequisite to configurable shortcuts: the existing
+Ctrl+Alt+Shift local-command gate now excludes SDL `KMOD_MODE` input. Previously,
+an AltGr-marked event that also reported Ctrl, Alt and Shift could invoke a local
+command. Such events now continue through the existing remote-key path. Logical
+key/scancode lookup order, enabled commands, repeats and key releases are unchanged.
+The predicate is shared with [focused checks](../tests/shortcut-modifiers/README.md).
+No new strings, settings, worker, allocations or protocol changes are introduced.
+This runs synchronously on the existing SDL input owner thread; decoder, renderer,
+audio, pacing and Common C are untouched.
+
+Verification on Fedora 44, Qt 6.11.2/GCC 16.2.1:
+
+- In `/tmp/perigee-shortcut-modifiers`, `qmake6
+  /home/barmy/Projects/perigee/tests/shortcut-modifiers/shortcut-modifiers.pro`,
+  `CCACHE_DISABLE=1 make -j2` and `./tst_shortcutmodifiers` exit 0:
+  **3 Qt Test cases passed**, covering **2,048 modifier combinations**.
+  Initial make failed because ccache attempted a read-only cache; disabling
+  ccache resolved it. Existing Qt/GCC completeness warning remains.
+- `CCACHE_DISABLE=1 make -f Makefile.Debug -j2` in
+  `../perigee-build/debug/app` exits 0; log `/tmp/perigee-shortcut-build.log`.
+
+`git diff --check` passes. `python3 scripts/check-translations.py` could not
+run because Qt Linguist tools are unavailable; this task adds no user-facing strings.
+
+Local policy verification passes. Real AltGr layouts, remote key delivery/releases,
+focus transitions, emergency ungrab and compositor interception remain unverified.
+Backends that do not set `KMOD_MODE` remain a coverage limitation; this change does
+not identify every possible AltGr representation. Appearance still awaits user
+acceptance. Next implementation: configurable bindings with reserved escape and
+conflict validation; Milestone 5 remains open.
+
+### Task 5F: persistent local shortcut binding foundation (2026-11-04)
+
+`settings/localshortcuts.h` validates per-action overrides loaded by
+`StreamingPreferences`. The SDL input constructor copies resolved letter keys and
+physical scancodes into its existing command table, retaining platform/consent
+eligibility. Empty values disable optional local commands. Ctrl+Alt+Shift and the
+Q/Z/E quit/ungrab recovery bindings remain fixed. Unknown action names, invalid
+letters, reserved keys and duplicate assignments reject the complete override set
+and restore legacy defaults without rewriting settings. The inherited K overlap
+is preserved only when both relevant actions retain their defaults; existing
+clipboard-receive priority is unchanged.
+
+This is the storage/runtime foundation, with an advanced INI interface documented
+in [shortcut checks](../tests/shortcut-modifiers/README.md). A graphical editor,
+translated action labels and validation feedback remain the next increment.
+There are no new user-facing strings in this increment. Settings remain local,
+are preserved by ordinary saves, and excluded from explicit Moonlight import.
+Bindings are snapshotted before streaming. No per-event settings reads, network,
+threads, allocations, media-path changes or Common C changes are introduced.
+The existing modifier gate, command execution and key release paths are retained.
+
+Verification on Fedora 44, Qt 6.11.2/GCC 16.2.1:
+
+- `CCACHE_DISABLE=1 make -f Makefile.Debug -j2` in
+  `../perigee-build/debug/app` exits 0; `/tmp/perigee-shortcut-bindings-build.log`.
+- In `/tmp/perigee-shortcut-modifiers`, `CCACHE_DISABLE=1 make -j2` and
+  `./tst_shortcutmodifiers` exit 0: **5 cases passed**, including all 2,048
+  modifier combinations, binding conflicts and synthetic INI persistence.
+- Application-linked preference target built with `CCACHE_DISABLE=1 make
+  -f Makefile.Debug -f /home/barmy/Projects/perigee/tests/ui-theme/checks.mk
+  theme-check-build -j2` in the debug app directory. `QT_QPA_PLATFORM=offscreen
+  SDL_VIDEODRIVER=dummy ../theme-tests/tst_uitheme shortcutPreferencePersistence
+  -o /tmp/perigee-bindings-prefs-results.txt,txt` exits 0: **3 cases passed**.
+- In `../perigee-build/tests/identity-import`, `CCACHE_DISABLE=1 make -j2`
+  and `PERIGEE_TEST_BINARY=/home/barmy/Projects/perigee-build/debug/app/perigee
+  ./tst_identityimport -o /tmp/perigee-bindings-import-results.txt,txt` exit 0:
+  **35 cases passed**, including exclusion of shortcut overrides.
+- `git diff --check` and local Markdown file-target checks pass. No translation
+  keys changed; Qt Linguist remains unavailable as recorded in Task 5E.
+
+Live configured-key
+execution, key releases, emergency ungrab, AltGr/dead-key/IME/focus/compositor and
+controlled performance acceptance remain pending. Milestone 5 remains open.
+
+### Tasks 5G/5H: shortcut editor and keyboard stream panel (2026-11-04)
+
+The user requested continued implementation through the Milestone 6 boundary.
+This supersedes the normal one-task stop for this session; it does not fabricate
+acceptance of appearance, live input or performance tests.
+
+**Delivered:** Settings → Keyboard shortcuts edits optional local action letters
+or disables their key binding, validates the full draft, saves immediately and
+restores defaults. Errors retain the saved configuration; save/reset failures are
+reported. Labels and fixed recovery keys are readable through keyboard navigation.
+Narrow settings keep the responsive layout; version text yields toolbar space.
+Changes apply to the next session, with the existing local/remote input paths.
+Disabling a key binding retains the action in the stream panel. O joins Q/Z/E as
+a reserved key; an older O override falls back without silently rewriting it.
+
+Ctrl+Alt+Shift+O opens a keyboard-only numbered panel for existing disconnect,
+fullscreen, capture release, mouse mode, clipboard send/receive, statistics and
+keyboard capture actions. Platform/clipboard consent eligibility is preserved;
+unsupported entries are omitted. Escape or the opening chord closes it. Q/Z/E
+recovery chords remain active; Z now always releases capture rather than toggling
+it back on. Opening releases remote keys. A fixed scancode bitset consumes local
+keys, repeats and releases, recovering on a fresh press after a missing release.
+Focus loss or primary status dismisses the panel; primary warnings prevent opening.
+Mouse/gamepad routing stays unchanged. Disconnect followed by ordinary launch or
+resume uses the existing session lifecycle; no automatic reconnect, host command,
+permission bypass or display reconfiguration was added.
+
+**Ownership/rendering:** the localized bounded panel is rendered on the GUI/SDL
+owner before streaming. Showing it duplicates the cached CPU surface into the
+existing status slot. There is no new renderer type/DRM plane, Qt event pumping,
+network/timer/thread, video readback or per-frame text rendering. Timed notices keep
+their original deadlines below the panel, and warnings retain priority. Visual QA
+found a black-only text result in the inherited Unicode helper: separate outline
+and light-fill passes now give notices and panels readable glyphs. Four Unicode
+pixel tests require light opaque pixels instead of accepting any nonempty surface.
+Decode, presentation, pacing, audio and Common C algorithms/pins are unchanged.
+
+**Localization:** all 30 TS/QM catalogs include shared `StreamControls` labels,
+editor hints, validation and save failures. The manual-fallback notice points to
+the fixed O panel instead of editable J/K bindings. **146** post-baseline keys have
+complete coverage and matching placeholders. Cached extracted Qt Linguist tools
+were found; no package was installed. Qt skips ckb during extraction, so its new
+entries were explicitly populated and its compiled lookup verified with all others.
+Translations retain machine-assisted provenance; native-speaker review is welcome.
+
+**Local verification:** commands below use Fedora 44, Qt 6.11.2 and GCC 16.2.1.
+No live host or real clipboard was accessed. Fixture startup uses disposable XDG
+roots, disables discovery and blocks inherited fetches through a closed proxy.
+
+- In `../perigee-build/debug/app`, `CCACHE_DISABLE=1 make -f Makefile.Debug -j2`
+  and `CCACHE_DISABLE=1 make -f Makefile.Debug -f
+  /home/barmy/Projects/perigee/tests/ui-theme/checks.mk theme-check-build -j2`.
+  Logs: `/tmp/perigee-m5-build-final.log`, `/tmp/perigee-m5-ui-build.log`.
+- Application-linked target: `QT_QPA_PLATFORM=offscreen SDL_VIDEODRIVER=dummy
+  ../theme-tests/tst_uitheme -o /tmp/perigee-m5-ui-offscreen.txt,txt` and the
+  equivalent native `QT_QPA_PLATFORM=wayland SDL_VIDEODRIVER=wayland` run.
+  Coverage includes the actual editor, conflict/reset/save/reload, narrowed focus,
+  all 30 localized panel surfaces and SDL dispatch/release/focus/recovery cases.
+- Native 2× run: `QT_QPA_PLATFORM=wayland SDL_VIDEODRIVER=wayland
+  QT_SCALE_FACTOR=2 ../theme-tests/tst_uitheme shortcutEditor
+  streamControlDispatch:english applicationThemeAndPopup
+  -o /tmp/perigee-m5-ui-scale2.txt,txt`.
+  Previews: `/tmp/perigee-m5-{preview,wayland-preview,scale2-preview}` via
+  `PERIGEE_THEME_PREVIEW_DIR`; these are shell/surface previews, not stream images.
+- `qmake6 /home/barmy/Projects/perigee/tests/overlay-notifications/overlay-notifications.pro`
+  then `CCACHE_DISABLE=1 make -j2` in `/tmp/perigee-m5-overlay`; run
+  `QT_QPA_PLATFORM=offscreen ./tst_overlaynotifications -o results.txt,txt`.
+  Covers persistent panel/warning priority, Unicode contrast and complete panels
+  including both clipboard entries in all 30 languages.
+- Overlay Memcheck command in its README, with log/results under
+  `/tmp/perigee-m5-overlay-valgrind{.log,-results.txt}`.
+- `/tmp/perigee-shortcut-modifiers/tst_shortcutmodifiers
+  -o /tmp/perigee-m5-policy-results.txt,txt`; includes all 2,048 modifier combinations.
+- `../perigee-build/tests/translations/tst_translations
+  -o /tmp/perigee-m5-catalog-results.txt,txt` and
+  `python3 scripts/check-translations.py --lupdate
+  ../perigee-build/translation-tools/usr/lib64/qt6/bin/lupdate`.
+- `PERIGEE_TEST_BINARY=/home/barmy/Projects/perigee-build/debug/app/perigee
+  ../perigee-build/tests/identity-import/tst_identityimport
+  -o /tmp/perigee-m5-import-results.txt,txt`.
+
+**Final outcomes:** debug and linked fixture builds exit 0; **43 offscreen +
+43 native Wayland** cases pass, plus **5 native 2×** cases. **13 overlay** cases
+pass, including all 30 full eight-action panels. The same 13 pass Memcheck with
+**0 errors and 0 definitely/indirectly lost bytes**. **6 policy/modifier**, **32
+compiled-catalog** and **35 importer** cases pass. Coverage reports **146 keys,
+30 locales, 0 errors**. Narrow 720×600 shell previews and readable outlined Unicode
+panel surfaces were inspected; native resize assertions run after the normal-window
+configure transition. Whitespace and local Markdown file-target checks pass.
+Submodule revisions remain unchanged. No install, commit, push or service change
+was performed. These results verify the implemented local behavior, not live media.
+
+**Debugging/evidence limits:** native IDE location launch did not establish a
+session; the agent removed its logpoint and used GDB on synthetic tests outside the
+ptrace-restricted sandbox. At the editor assertion, `stats`/`reserved` were null
+while Save/Reset/error objects were nonnull: Repeater fields needed visual-tree
+lookup. The combined fixture aborted at `input.cpp`'s joystick-not-initialized
+assertion; disabling the QML gamepad navigator before SDL construction reproduced
+the real handoff. Both were fixture fixes. Black-only CPU preview pixels motivated
+the explicit text-fill pass and stronger contrast tests. Existing Qt/GCC, tooltip,
+shortcut and GTK initialization warnings remain; proxy refusals are expected.
+No user's debugger session/breakpoints or production profile was changed.
+
+**Milestone 6 handoff:** Milestone 5 feature implementation is delivered, while its
+aggregate acceptance remains open. Live Apollo/standard Sunshine key delivery,
+Windows/Super capture, AltGr/dead-key/IME composition, capture transitions, actual
+stream panel readability/scaling and repeated controlled release performance are
+unverified. Task 5D appearance still awaits explicit user acceptance. No numerical
+performance result or milestone closure is inferred from synthetic checks.
+Milestone 6 is the next implementation stage; its first planned item is isolated
+preference profiles, with SFTP/UUID/commands retained as separate tasks. No
+Milestone 6 feature was started during this handoff.
+
+**Concrete live review:** use the current debug binary, review Appearance and
+Settings → Keyboard shortcuts, remap Statistics to T, save/restart and verify the
+new chord while the old chord reaches the host. Test blank bindings and conflicts,
+then Restore defaults. In a synthetic-text stream, open O, use displayed numbers,
+verify Escape and focus-loss dismissal, Z release (including repeated Z), clipboard
+grants/revocation and Q disconnect, then reconnect normally. Verify host key
+releases/AltGr/Windows keys/dead keys/IME and panel readability at your scaling.
+Use matched repeated release workloads for performance; this review is proposed,
+not a recorded pass. KDE and Sunshine remain independent coverage requirements.
 
 ## Milestone 6: additional integrations
 
@@ -1138,6 +1728,15 @@ GPU/compositor/host validation.
 | 2026-10-25 | Task 3B manual path/controller | Debug build, 16 protocol/lifecycle cases, 32 import regressions and isolated Wayland fixtures pass; Memcheck reports 0 errors/lost allocations; opt-in manual UI exists; real clipboard grants/platform latency/automatic wiring pending |
 | 2026-10-25 | Task 3B focused GNOME automatic integration | Debug build and 117 local checks pass; worker-tick/focus/fallback/direction cases included; 22 Memcheck cases pass with 0 errors/lost bytes; final isolated GUI reopened; integrated automatic/KDE/Sunshine live acceptance pending |
 | 2026-10-25 | Milestone 0 / Task 3B user acceptance | User confirms automatic behavior works as intended and requests Milestone 0 done; 3B closed for primary GNOME target, 0 closed by acceptance; pairing skipped and unrun secondary-platform/performance checks remain follow-ups |
+| 2026-10-25 | README / Milestone 4 first increment | README updated; default-off per-host display request and fresh paired launch gate implemented; debug build, 17 display policy + 57 capability + 32 import checks and four isolated startup/restart runs pass; 512 production files unchanged; real display/mode/Sunshine acceptance pending |
+| 2026-10-26 | Milestone 4 real-host readiness follow-up | Three pinned/paired capability polls report launch permission and ready display driver; running host application makes new-display launch ineligible. Metadata/app-list requests only; isolated settings and 512 production files unchanged; 17 policy checks pass. Fresh-launch/display-mode/Sunshine acceptance remains pending |
+| 2026-10-28 | User display-test confirmation / Task 5A keyboard increment | User reports primary-host tests went smoothly and authorizes progression; exact modes/matrix unreported. Debug build, 25 offscreen + 25 native Wayland grid checks, 32 catalog checks and 30-locale source coverage pass; four isolated startups pass with 512 production files unchanged. Full UI/gamepad acceptance remains pending |
+| 2026-10-28 | Task 5A acceptance / Task 5B app favorites | User confirms keyboard increment works. Favorites debug build, 13 offscreen + 13 Wayland model/AppView checks, 25 grid checks, 35 importer checks, 32 compiled-catalog checks and 122-key/30-locale coverage pass. Four isolated startups pass with 512 production files unchanged; favorites interactive acceptance pending |
+| 2026-10-28 | Task 5B acceptance / Task 5C settings layout | User confirms favorites work. Responsive settings debug build and three native Wayland rendering runs pass; wide/narrow layouts, focus retention, unchanged preference snapshots, light/dark headings and 2× scaling inspected. Translation coverage passes; full-application user acceptance pending |
+| 2026-10-28 | Task 5C acceptance / Task 5D appearance | User confirms responsive Settings works. Appearance debug build, 10 Wayland + 10 offscreen checks, 35 importer and 32 catalog checks, and 125-key/30-locale coverage pass. Four saved-theme startups pass with 512 production files unchanged; interactive appearance acceptance pending |
+| 2026-11-04 | Task 5E shortcut modifier safety | Debug build and 2,048 synthetic modifier combinations pass; live AltGr/key delivery remains pending |
+| 2026-11-04 | Task 5F shortcut binding foundation | Debug build, 5 policy/modifier cases, 3 application-linked preference cases and 35 importer cases pass; editor and live input acceptance pending |
+| 2026-11-04 | Tasks 5G/5H / Milestone 6 implementation boundary | Debug build; 43 offscreen + 43 Wayland + 5 scale2, 13 overlay/Memcheck, 6 policy, 32 catalog and 35 importer cases pass; 146-key/30-locale coverage complete. Live acceptance remains open; profiles are next |
 | Pending | Streaming/input/audio/GPU/compositor/performance/package matrix | Real-session acceptance unverified; pairing tests skipped by user |
 
 Update this ledger with actual command/outcome evidence; do not turn a proposed
@@ -1156,8 +1755,13 @@ Wayland automatic integration, now accepted by the user for the primary target.
 KDE and real Sunshine checks remain coverage follow-ups. Services stay off by default. All ADRs in [DECISIONS.md](DECISIONS.md) are accepted design;
 implementation and acceptance status are recorded separately.
 
-Next: Milestone 4 display launch management, after reading its capability and
-display prerequisites. Retain manual clipboard fallback on unverified backends
+Next implementation stage: Milestone 6 preference profiles. Milestone 5 feature
+implementation now includes shortcut editing and the stream panel. Appearance,
+live input/OSD and controlled streaming performance acceptance remain open;
+Tasks 5A/5B/5C remain user-accepted. See Tasks 5G/5H for exact checks and limits.
+The user reported primary-host display tests passed;
+exact host-mode details and ordinary-host regression remain coverage follow-ups.
+Retain manual clipboard fallback on unverified backends
 and keep broader platform/performance coverage recorded as follow-ups. Deferred APIs
 are listed in [APOLLO_PROTOCOL.md](APOLLO_PROTOCOL.md#unsupported-and-unverified-behavior).
 

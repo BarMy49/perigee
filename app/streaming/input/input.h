@@ -4,6 +4,7 @@
 #include "backend/computermanager.h"
 
 #include "SDL_compat.h"
+#include "shortcutmodifiers.h"
 
 struct GamepadState {
     SDL_GameController* controller;
@@ -155,6 +156,8 @@ public:
     static
     QString getUnmappedGamepads();
 
+    friend class UIThemeTest;
+
 private:
     enum KeyCombo {
         KeyComboQuit,
@@ -170,6 +173,7 @@ private:
         KeyComboTogglePointerRegionLock,
         KeyComboQuitAndExit,
         KeyComboToggleKeyboardGrab,
+        KeyComboControls,
         KeyComboMax
     };
 
@@ -221,6 +225,7 @@ private:
     int m_GamepadMask;
     GamepadState m_GamepadState[MAX_GAMEPADS];
     QSet<uint32_t> m_KeysDown;
+    LocalShortcut::ConsumedKeys m_ConsumedKeys;
     bool m_FakeMouseCaptureActive;
     bool m_KeyboardCaptureActive;
     QString m_OldIgnoreDevices;

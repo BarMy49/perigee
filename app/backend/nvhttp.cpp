@@ -1,4 +1,5 @@
 #include "nvcomputer.h"
+#include "displaylaunchoptions.h"
 #include <Limelight.h>
 
 #include <QDebug>
@@ -214,8 +215,18 @@ NvHTTP::startApp(QString verb,
                  bool localAudio,
                  int gamepadMask,
                  bool persistGameControllersOnDisconnect,
-                 QString& rtspSessionUrl)
+                 QString& rtspSessionUrl,
+                 bool requestVirtualDisplay)
 {
+    QString displayQuery;
+    if (requestVirtualDisplay) {
+        const QString serverInfo = getServerInfo(NVLL_ERROR);
+        const auto capabilities = ApolloCapabilities::parse(serverInfo, serverInfoPinnedHttps());
+        const auto state = DisplayLaunchOptions::evaluate(true, isGfe,
+                    verb == "launch" && getCurrentGame(serverInfo) == 0, capabilities);
+        if (state != DisplayLaunchOptions::State::Ready) throw DisplayLaunchError(DisplayLaunchOptions::description(state));
+        displayQuery = DisplayLaunchOptions::query(state);
+    }
     int riKeyId;
 
     memcpy(&riKeyId, streamConfig->remoteInputAesIv, sizeof(riKeyId));
@@ -243,7 +254,7 @@ NvHTTP::startApp(QString verb,
                                    "&remoteControllersBitmap="+QString::number(gamepadMask)+
                                    "&gcmap="+QString::number(gamepadMask)+
                                    "&gcpersist="+QString::number(persistGameControllersOnDisconnect ? 1 : 0)+
-                                   LiGetLaunchUrlQueryParameters(),
+                                   displayQuery + LiGetLaunchUrlQueryParameters(),
                                    LAUNCH_TIMEOUT_MS);
 
     qInfo() << "Launch response:" << response;

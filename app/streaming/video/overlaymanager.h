@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QString>
+#include <QStringList>
+#include <QHash>
 #include <atomic>
 #include <mutex>
 
@@ -40,6 +42,10 @@ public:
     SDL_Surface* getUpdatedOverlaySurface(OverlayType type);
 
     void setOverlayRenderer(IOverlayRenderer* renderer);
+    void prepareCommandPanel(const QString& text);
+    bool setCommandPanelVisible(bool visible);
+    bool isCommandPanelVisible() const;
+    void prepareNotifications(const QStringList& texts);
     void showNotification(const QString& text, Uint32 now = SDL_GetTicks());
     void expireNotification(Uint32 now = SDL_GetTicks());
     int notificationTimeout(int maximum, Uint32 now = SDL_GetTicks());
@@ -61,9 +67,12 @@ private:
     QByteArray m_FontData;
     std::recursive_mutex m_NotificationMutex;
     std::atomic<bool> m_NotificationActive{false};
+    std::atomic<bool> m_CommandPanelActive{false};
+    char m_CommandPanelText[1024] = {};
+    SDL_Surface* m_CommandPanelSurface = nullptr;
     Uint32 m_NotificationDeadline = 0;
     char m_NotificationText[1024] = {};
-    TTF_Font* m_NotificationFont = nullptr;
+    QHash<QString, SDL_Surface*> m_NotificationSurfaces;
 };
 
 }

@@ -14,10 +14,19 @@ Flickable {
 
     signal languageChanged()
 
-    boundsBehavior: Flickable.OvershootBounds
+    readonly property real minimumColumnWidth: Math.max(520, resolutionComboBox.desiredWidth + fpsComboBox.desiredWidth +
+                                                       settingsColumn1.leftPadding + settingsColumn1.rightPadding +
+                                                       basicSettingsGroupBox.leftPadding + basicSettingsGroupBox.rightPadding +
+                                                       resolutionRow.spacing)
+    readonly property bool singleColumn: width < minimumColumnWidth * 2
 
-    contentWidth: settingsColumn1.width > settingsColumn2.width ? settingsColumn1.width : settingsColumn2.width
-    contentHeight: settingsColumn1.height > settingsColumn2.height ? settingsColumn1.height : settingsColumn2.height
+    boundsBehavior: Flickable.OvershootBounds
+    clip: true
+
+    contentWidth: Math.max(width, minimumColumnWidth)
+    contentHeight: Math.max(settingsColumn1.height, settingsColumn2.y + settingsColumn2.height)
+
+    ScrollBar.horizontal: ScrollBar {}
 
     ScrollBar.vertical: ScrollBar {
         anchors {
@@ -42,7 +51,14 @@ Flickable {
         duration: 100
     }
 
-    Window.onActiveFocusItemChanged: {
+    Window.onActiveFocusItemChanged: ensureFocusVisible()
+    onWidthChanged: Qt.callLater(ensureFocusVisible)
+    onHeightChanged: Qt.callLater(ensureFocusVisible)
+
+    function ensureFocusVisible() {
+        autoScrollAnimation.stop()
+        contentY = Math.max(0, Math.min(contentY, contentHeight - height))
+        contentX = Math.max(0, Math.min(contentX, contentWidth - width))
         var item = Window.activeFocusItem
         if (item) {
             // Ignore non-child elements like the toolbar buttons
@@ -52,6 +68,13 @@ Flickable {
 
             // Map the focus item's position into our content item's coordinate space
             var pos = item.mapToItem(contentItem, 0, 0)
+
+            if (pos.x < contentX) {
+                contentX = pos.x
+            }
+            else if (pos.x + Math.min(item.width, width) > contentX + width) {
+                contentX = pos.x + Math.min(item.width, width) - width
+            }
 
             // Ensure some extra space is visible around the element we're scrolling to
             var scrollMargin = height > 100 ? 50 : 0
@@ -96,14 +119,14 @@ Flickable {
     Column {
         padding: 10
         id: settingsColumn1
-        width: settingsPage.width / 2
+        width: settingsPage.singleColumn ? settingsPage.contentWidth : settingsPage.contentWidth / 2
         spacing: 15
 
         GroupBox {
             id: basicSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12
-            title: "<font color=\"skyblue\">" + qsTr("Basic Settings") + "</font>"
+            title: qsTr("Basic Settings")
             font.pointSize: 12
 
             Column {
@@ -127,6 +150,7 @@ Flickable {
                 }
 
                 Row {
+                    id: resolutionRow
                     spacing: 5
                     width: parent.width
 
@@ -812,7 +836,7 @@ Flickable {
                     ToolTip.text: qsTr("Fullscreen generally provides the best performance, but borderless windowed may work better with features like macOS Spaces, Alt+Tab, screenshot tools, on-screen overlays, etc.")
                 }
 
-                Row {
+                Flow {
                     spacing: 5
                     width: parent.width
 
@@ -879,7 +903,7 @@ Flickable {
             id: audioSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12
-            title: "<font color=\"skyblue\">" + qsTr("Audio Settings") + "</font>"
+            title: qsTr("Audio Settings")
             font.pointSize: 12
 
             Column {
@@ -972,7 +996,7 @@ Flickable {
             id: hostSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12
-            title: "<font color=\"skyblue\">" + qsTr("Host Settings") + "</font>"
+            title: qsTr("Host Settings")
             font.pointSize: 12
 
             Column {
@@ -1009,15 +1033,109 @@ Flickable {
         }
 
         GroupBox {
+            width: parent.width - parent.leftPadding - parent.rightPadding
+            title: qsTr("Keyboard shortcuts")
+            padding: 12
+            font.pointSize: 12
+
+            Column {
+                width: parent.width
+                spacing: 8
+
+                Label {
+                    width: parent.width
+                    text: qsTr("Ctrl+Alt+Shift + letter. Empty entries go to the host. Changes apply to the next stream.")
+                    wrapMode: Text.Wrap
+                }
+
+                Repeater {
+                    id: shortcutRows
+                    model: StreamingPreferences.localShortcuts
+                    delegate: RowLayout {
+                        property alias shortcutKey: keyEditor.text
+                        width: parent.width
+                        Label {
+                            text: modelData.label
+                            Layout.fillWidth: true
+                            wrapMode: Text.Wrap
+                        }
+                        TextField {
+                            id: keyEditor
+                            objectName: "shortcutKey_" + modelData.name
+                            text: modelData.key
+                            readOnly: !modelData.editable
+                            maximumLength: 1
+                            selectByMouse: true
+                            Layout.preferredWidth: 70
+                            Accessible.name: modelData.label
+                            onTextEdited: shortcutError.visible = false
+                        }
+                    }
+                }
+
+                Label {
+                    id: shortcutError
+                    objectName: "shortcutError"
+                    width: parent.width
+                    visible: false
+                    text: qsTr("Unable to save shortcuts") + "\n" + qsTr("Use distinct letters a–z. Q, Z, E and O are reserved.")
+                    wrapMode: Text.Wrap
+                }
+
+                RowLayout {
+                    Button {
+                        objectName: "saveShortcuts"
+                        text: qsTr("Save")
+                        onClicked: {
+                            var keys = []
+                            for (var index = 0; index < shortcutRows.count; index++)
+                                keys.push(shortcutRows.itemAt(index).shortcutKey)
+                            shortcutError.visible = !StreamingPreferences.setLocalShortcuts(keys)
+                        }
+                    }
+                    Button {
+                        objectName: "resetShortcuts"
+                        text: qsTr("Restore defaults")
+                        onClicked: {
+                            shortcutError.visible = !StreamingPreferences.resetLocalShortcuts()
+                        }
+                    }
+                }
+            }
+        }
+
+        GroupBox {
             id: uiSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12
-            title: "<font color=\"skyblue\">" + qsTr("UI Settings") + "</font>"
+            title: qsTr("UI Settings")
             font.pointSize: 12
 
             Column {
                 anchors.fill: parent
                 spacing: 5
+
+                Label {
+                    width: parent.width
+                    text: qsTr("Appearance")
+                    font.pointSize: 12
+                    wrapMode: Text.Wrap
+                }
+
+                AutoResizingComboBox {
+                    id: themeComboBox
+                    textRole: "text"
+                    model: ListModel {
+                        ListElement { text: qsTr("Dark"); val: StreamingPreferences.UI_THEME_DARK }
+                        ListElement { text: qsTr("Light"); val: StreamingPreferences.UI_THEME_LIGHT }
+                    }
+                    currentIndex: StreamingPreferences.uiTheme === StreamingPreferences.UI_THEME_LIGHT ? 1 : 0
+                    Component.onCompleted: recalculateWidth()
+                    onActivated: {
+                        StreamingPreferences.uiTheme = model.get(currentIndex).val
+                        StreamingPreferences.save()
+                    }
+                }
 
                 Label {
                     width: parent.width
@@ -1312,16 +1430,17 @@ Flickable {
     Column {
         padding: 10
         rightPadding: 20
-        anchors.left: settingsColumn1.right
+        x: settingsPage.singleColumn ? 0 : settingsColumn1.width
+        y: settingsPage.singleColumn ? settingsColumn1.height : 0
         id: settingsColumn2
-        width: settingsPage.width / 2
+        width: settingsColumn1.width
         spacing: 15
 
         GroupBox {
             id: inputSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12
-            title: "<font color=\"skyblue\">" + qsTr("Input Settings") + "</font>"
+            title: qsTr("Input Settings")
             font.pointSize: 12
 
             Column {
@@ -1347,7 +1466,7 @@ Flickable {
                                   qsTr("NOTE: Due to a bug in GeForce Experience, this option may not work properly if your host PC has multiple monitors.")
                 }
 
-                Row {
+                Flow {
                     spacing: 5
                     width: parent.width
 
@@ -1469,7 +1588,7 @@ Flickable {
             id: gamepadSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12
-            title: "<font color=\"skyblue\">" + qsTr("Gamepad Settings") + "</font>"
+            title: qsTr("Gamepad Settings")
             font.pointSize: 12
 
             Column {
@@ -1544,7 +1663,7 @@ Flickable {
             id: advancedSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12
-            title: "<font color=\"skyblue\">" + qsTr("Advanced Settings") + "</font>"
+            title: qsTr("Advanced Settings")
             font.pointSize: 12
 
             Column {

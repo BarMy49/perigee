@@ -1,4 +1,4 @@
-QT = core testlib
+QT = core gui testlib
 CONFIG += console testcase c++17 link_pkgconfig
 CONFIG -= app_bundle
 PKGCONFIG += sdl2 SDL2_ttf

@@ -2,6 +2,8 @@
 
 #include <QObject>
 #include <QRect>
+#include <QStringList>
+#include <QVariantList>
 #include <QQmlEngine>
 
 class StreamingPreferences : public QObject
@@ -70,6 +72,13 @@ public:
         UI_FULLSCREEN
     };
     Q_ENUM(UIDisplayMode)
+
+    enum UITheme
+    {
+        UI_THEME_DARK,
+        UI_THEME_LIGHT
+    };
+    Q_ENUM(UITheme)
 
     // New entries must go at the end of the enum
     // to avoid renumbering existing entries (which
@@ -149,6 +158,7 @@ public:
     Q_PROPERTY(WindowMode windowMode MEMBER windowMode NOTIFY windowModeChanged)
     Q_PROPERTY(WindowMode recommendedFullScreenMode MEMBER recommendedFullScreenMode CONSTANT)
     Q_PROPERTY(UIDisplayMode uiDisplayMode MEMBER uiDisplayMode NOTIFY uiDisplayModeChanged)
+    Q_PROPERTY(UITheme uiTheme MEMBER uiTheme NOTIFY uiThemeChanged)
     Q_PROPERTY(bool swapMouseButtons MEMBER swapMouseButtons NOTIFY mouseButtonsChanged)
     Q_PROPERTY(bool muteOnFocusLoss MEMBER muteOnFocusLoss NOTIFY muteOnFocusLossChanged)
     Q_PROPERTY(bool backgroundGamepad MEMBER backgroundGamepad NOTIFY backgroundGamepadChanged)
@@ -157,6 +167,11 @@ public:
     Q_PROPERTY(bool keepAwake MEMBER keepAwake NOTIFY keepAwakeChanged)
     Q_PROPERTY(CaptureSysKeysMode captureSysKeysMode MEMBER captureSysKeysMode NOTIFY captureSysKeysModeChanged)
     Q_PROPERTY(Language language MEMBER language NOTIFY languageChanged);
+
+    Q_PROPERTY(QVariantList localShortcuts READ localShortcuts NOTIFY localShortcutsChanged)
+    QVariantList localShortcuts() const;
+    Q_INVOKABLE bool setLocalShortcuts(const QVariantList& keys);
+    Q_INVOKABLE bool resetLocalShortcuts();
 
     Q_INVOKABLE bool retranslate();
 
@@ -197,6 +212,8 @@ public:
     WindowMode windowMode;
     WindowMode recommendedFullScreenMode;
     UIDisplayMode uiDisplayMode;
+    UITheme uiTheme;
+    QStringList localShortcutKeys;
     Language language;
     CaptureSysKeysMode captureSysKeysMode;
     RendererSelection rendererSelection;
@@ -221,6 +238,8 @@ signals:
     void enableYUV444Changed();
     void videoDecoderSelectionChanged();
     void uiDisplayModeChanged();
+    void uiThemeChanged();
+    void localShortcutsChanged();
     void windowModeChanged();
     void framePacingChanged();
     void connectionWarningsChanged();

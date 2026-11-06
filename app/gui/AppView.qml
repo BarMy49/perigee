@@ -176,6 +176,19 @@ CenteredGridView {
             }
         }
 
+        Label {
+            anchors.top: appIcon.top
+            anchors.right: appIcon.right
+            rightPadding: 8
+            text: "\u2605"
+            font.pointSize: 24
+            color: "#ffd54f"
+            style: Text.Outline
+            styleColor: "black"
+            visible: model.favorite
+            Accessible.name: qsTr("Favorite")
+        }
+
         Loader {
             id: appNameTextLoader
             active: appIcon.isPlaceholder
@@ -278,7 +291,7 @@ CenteredGridView {
             }
         }
 
-        Keys.onMenuPressed: {
+        onContextMenuRequested: {
             // This will be keyboard/gamepad driven so use open() instead of popup()
             appContextMenu.open()
         }
@@ -303,6 +316,12 @@ CenteredGridView {
                     text: qsTr("Quit Game")
                     onTriggered: doQuitGame()
                     visible: model.running
+                }
+                NavigableMenuItem {
+                    checkable: true
+                    checked: model.favorite
+                    text: qsTr("Favorite")
+                    onTriggered: appModel.setAppFavorite(model.appid, !model.favorite)
                 }
                 NavigableMenuItem {
                     checkable: true

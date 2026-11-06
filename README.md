@@ -1,114 +1,124 @@
-# Moonlight PC
+# Perigee
 
-[Moonlight PC](https://moonlight-stream.org) is an open source PC client for NVIDIA GameStream and [Sunshine](https://github.com/LizardByte/Sunshine).
+Perigee is a productivity-first, low-latency remote desktop and game-streaming
+client based on [Moonlight Qt](https://github.com/moonlight-stream/moonlight-qt).
+The primary client target is **Fedora 44 GNOME Wayland**, followed by KDE Plasma
+Wayland. The primary host is **Apollo on Windows**; ordinary Sunshine connections
+retain the standard Moonlight protocol path.
 
-Moonlight also has mobile versions for [Android](https://github.com/moonlight-stream/moonlight-android) and [iOS](https://github.com/moonlight-stream/moonlight-ios).
+Perigee is in development. There are no Perigee release packages advertised here.
+Upstream Moonlight downloads are separate products and do not include these changes.
 
-You can follow development on our [Discord server](https://moonlight-stream.org/discord) and help translate Moonlight into your language on [Weblate](https://hosted.weblate.org/projects/moonlight/moonlight-qt/).
+## Current features
 
- [![Build](https://img.shields.io/github/actions/workflow/status/moonlight-stream/moonlight-qt/build.yml?branch=master)](https://github.com/moonlight-stream/moonlight-qt/actions/workflows/build.yml?query=branch%3Amaster)
- [![Downloads](https://img.shields.io/github/downloads/moonlight-stream/moonlight-qt/total)](https://github.com/moonlight-stream/moonlight-qt/releases)
- [![Translation Status](https://hosted.weblate.org/widgets/moonlight/-/moonlight-qt/svg-badge.svg)](https://hosted.weblate.org/projects/moonlight/moonlight-qt/)
+- Independent Linux identity, configuration and cache: executable `perigee`,
+  application ID `io.github.BarMy49.Perigee`. Existing Moonlight state is preserved.
+- Explicit Linux Moonlight preference import, with pairing credentials included
+  only when requested. See [identity and import](docs/BRANDING.md).
+- Read-only authenticated Apollo-compatible capability information and an optional
+  user-configured HTTPS administration link.
+- Per-host opt-in session text clipboard. GNOME native Wayland supports focused
+  automatic synchronization; other desktops use manual transfer. Slow or unavailable
+  reads switch the session to manual mode. Transfers require paired trust and host
+  clipboard permissions and are limited to 1 MiB of UTF-8. Text is neither logged
+  nor saved.
+- Default manual shortcuts: **Ctrl+Alt+Shift+J** sends local text to the host;
+  **Ctrl+Alt+Shift+K** receives host text. Five-second notices report the result.
+- Per-host **Display Launch Options** can request an Apollo virtual display for
+  a new launch, gated by authenticated permissions and host-reported driver
+  readiness. Resuming an existing application requires disabling that request.
+  Primary-host tests are user-accepted; detailed host-mode and compatibility
+  coverage is recorded in the implementation plan.
+- Host and app grids support **Home/End**, **Page Up/Page Down** and **Shift+F10**
+  to open the selected tile's context menu. **Escape** closes the menu.
+- Mark an app **Favorite** in its context menu to show a star and place it first.
+  Favorites are saved per host; each group keeps alphabetical order. Removing
+  the favorite restores its normal position while keeping the same tile selected.
+- Settings uses two columns in wide windows and one column in narrower windows,
+  keeping the focused control visible while resizing or navigating by keyboard.
+- Choose **Dark** or **Light** under **Settings → UI Settings → Appearance**.
+  Changes apply immediately and persist across restart; dark is the default.
+- Edit local action letters or disable optional shortcuts in **Settings → Keyboard
+  shortcuts**. Recovery keys stay fixed; changes apply to the next stream.
+- **Ctrl+Alt+Shift+O** opens keyboard-only stream controls. Press a displayed
+  number for an available action or **Escape** to close. Clipboard actions retain
+  their consent and permission checks. Disconnect, then launch/resume normally
+  for a new session. See [shortcut behavior](tests/shortcut-modifiers/README.md).
+- Inherited hardware decoding, codec, audio, gamepad and mouse/keyboard features.
+  Actual availability depends on the host, GPU, drivers and build.
 
-## Features
- - Hardware accelerated video decoding on Windows, Mac, and Linux
- - H.264, HEVC, and AV1 codec support (AV1 requires Sunshine and a supported host GPU)
- - YUV 4:4:4 support (Sunshine only)
- - HDR streaming support
- - 7.1 surround sound audio support
- - 10-point multitouch support (Sunshine only)
- - Gamepad support with force feedback and motion controls for up to 16 players
- - Support for both pointer capture (for games) and direct mouse control (for remote desktop)
- - Support for passing system-wide keyboard shortcuts like Alt+Tab to the host
- 
-## Downloads
-- [Windows, macOS, and Steam Link](https://github.com/moonlight-stream/moonlight-qt/releases)
-- [Snap (for Ubuntu-based Linux distros)](https://snapcraft.io/moonlight)
-- [Flatpak (for other Linux distros)](https://flathub.org/apps/details/com.moonlight_stream.Moonlight)
-- [AppImage](https://github.com/moonlight-stream/moonlight-qt/releases)
-- [Raspberry Pi 4 and 5](https://github.com/moonlight-stream/moonlight-docs/wiki/Installing-Moonlight-Qt-on-Raspberry-Pi-4)
-- [Generic ARM 32-bit and 64-bit Debian packages](https://github.com/moonlight-stream/moonlight-docs/wiki/Installing-Moonlight-Qt-on-ARM%E2%80%90based-Single-Board-Computers) (not for Raspberry Pi)
-- [Experimental RISC-V Debian packages](https://github.com/moonlight-stream/moonlight-docs/wiki/Installing-Moonlight-Qt-on-RISC%E2%80%90V-Single-Board-Computers)
-- [NVIDIA Jetson and Nintendo Switch (Ubuntu L4T)](https://github.com/moonlight-stream/moonlight-docs/wiki/Installing-Moonlight-Qt-on-Linux4Tegra-(L4T)-Ubuntu)
+Enable **Session Text Clipboard** from the PC tile context menu before connecting.
+Automatic synchronization establishes initial baselines without copying existing
+clipboard contents and operates only while the stream is focused. Text only:
+images, file transfer and background Wayland access are outside this feature.
 
-### Nightly Builds
-- [Downloads](https://nightly.link/moonlight-stream/moonlight-qt/workflows/build/master)
+Milestone 0, Task 3B and the primary-host display tests are user-accepted.
+Milestone 5 adds desktop keyboard navigation, app favorites, responsive settings
+light/dark appearance, shortcut editing and a keyboard-only stream panel.
+The Milestone 5 implementation is at the Milestone 6 boundary; live input, panel
+readability and controlled streaming performance acceptance remain pending.
+KDE, real Sunshine and broader controlled
+performance/hardware coverage remain documented follow-ups. See the
+[implementation plan](docs/IMPLEMENTATION_PLAN.md) for evidence and current scope.
 
-#### Special Thanks
+## Build on Fedora
 
-[![Hosted By: Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=flat-square)](https://cloudsmith.com)
+Install the dependencies documented in [Fedora development](docs/FEDORA_BUILD.md)
+(Qt 6, SDL2 compatibility development files, FFmpeg and the listed libraries).
+From a checkout named `perigee`:
 
-Hosting for Moonlight's Debian and L4T package repositories is graciously provided for free by [Cloudsmith](https://cloudsmith.com).
+```bash
+git submodule update --init --recursive
+mkdir -p ../perigee-build/debug
+cd ../perigee-build/debug
+qmake6 ../../perigee/moonlight-qt.pro
+make -j2 debug
+./app/perigee
+```
 
-## Building
+Use the isolated XDG/TMPDIR launch environment in the Fedora guide when testing
+with a disposable profile. Normal launch uses independent Perigee state; it does
+not automatically import a Moonlight connection or pairing identity. Portable
+mode uses `perigee-portable.dat` and `perigee-data/`.
 
-### Windows Build Requirements
-* Qt 6.11 SDK or later (earlier versions may work but are not officially supported)
-* [Visual Studio 2026](https://visualstudio.microsoft.com/downloads/) (Community edition is fine)
-* Select **MSVC** option during Qt installation. MinGW is not supported.
-* [7-Zip](https://www.7-zip.org/) (only if building installers for non-development PCs)
-* Graphics Tools (only if running debug builds)
-  * Install "Graphics Tools" in the Optional Features page of the Windows Settings app.
-  * Alternatively, run `dism /online /add-capability /capabilityname:Tools.Graphics.DirectX~~~~0.0.1.0` and reboot.
+Build release in a separate directory with `make -j2 release`. The qmake project
+retains its upstream filename. Windows/macOS build machinery remains inherited;
+the current Perigee validation target is Linux/Qt 6. See the
+[upstream build documentation](https://github.com/moonlight-stream/moonlight-qt/blob/ac296864ace96f51ad75f78b90644bdbca76c332/README.md)
+for those platforms; their Perigee behavior is not claimed as verified.
 
-### macOS Build Requirements
-* Qt 6.11 SDK or later (earlier versions may work but are not officially supported)
-* Xcode 15 or later (earlier versions may work but are not officially supported)
-* [create-dmg](https://github.com/sindresorhus/create-dmg) (only if building DMGs for use on non-development Macs)
+## Development and tests
 
-### Linux/Unix Build Requirements
-* Qt 6 is recommended, but Qt 5.12 or later is also supported (replace `qmake6` with `qmake` when using Qt 5).
-* GCC or Clang
-* FFmpeg 4.0 or later
-* Install the required packages:
-  * Debian/Ubuntu:
-    * Base Requirements: `libegl1-mesa-dev libgl1-mesa-dev libopus-dev libsdl2-dev libsdl2-ttf-dev libssl-dev libavcodec-dev libavformat-dev libswscale-dev libva-dev libvdpau-dev libxkbcommon-dev wayland-protocols libdrm-dev`
-    * Qt 6 (Recommended): `qt6-base-dev qt6-declarative-dev libqt6svg6-dev qt6-wayland qml6-module-qtquick-controls qml6-module-qtquick-templates qml6-module-qtquick-layouts qml6-module-qtqml-workerscript qml6-module-qtquick-window qml6-module-qtquick`
-    * Qt 5: `qtbase5-dev qt5-qmake qtdeclarative5-dev qtquickcontrols2-5-dev qml-module-qtquick-controls2 qml-module-qtquick-layouts qml-module-qtquick-window2 qml-module-qtquick2 qtwayland5`
-  * RedHat/Fedora (RPM Fusion repo required):
-    * Base Requirements: `openssl-devel SDL2-devel SDL2_ttf-devel ffmpeg-devel libva-devel libvdpau-devel opus-devel pulseaudio-libs-devel alsa-lib-devel libdrm-devel`
-    * Qt 6 (Recommended): `qt6-qtsvg-devel qt6-qtdeclarative-devel`
-    * Qt 5: `qt5-qtsvg-devel qt5-qtquickcontrols2-devel`
-* Building the Vulkan renderer requires a `libplacebo-dev`/`libplacebo-devel` version of at least v7.349.0 and FFmpeg 6.1 or later.
+Read [AGENTS.md](AGENTS.md), the [architecture](docs/ARCHITECTURE.md) and
+[development rules](docs/DEVELOPMENT_RULES.md) before changing session behavior.
+Standalone Qt test targets have their own build/run instructions:
 
-### Steam Link Build Requirements
-* [Steam Link SDK](https://github.com/ValveSoftware/steamlink-sdk) cloned on your build system
-* STEAMLINK_SDK_PATH environment variable set to the Steam Link SDK path
+- [Identity/import](tests/identity-import/README.md)
+- [Apollo capabilities](tests/apollo-capabilities/README.md)
+- [Display launch policy](tests/display-launch/README.md)
+- [Grid keyboard navigation](tests/grid-navigation/README.md)
+- [App favorites](tests/app-favorites/README.md)
+- [Appearance](tests/ui-theme/README.md)
+- [Session services and clipboard](tests/session-services/README.md)
+- [Timed notifications](tests/overlay-notifications/README.md)
+- [Translations](tests/translations/README.md)
 
-**Steam Link Hardware Limitations**  
-Moonlight builds for Steam Link are subject to hardware limitations of the Steam Link device:
-* Maximum resolution: **1080p (1920x1080)**
-* Maximum framerate: **60 FPS**
-* Maximum video bitrate: **40 Mbps**
-* **HDR streaming is not supported** on the original hardware
+Perigee retains Moonlight's 30 language catalogs. New UI, CLI and notification
+strings are translated with each change; see [the translation workflow](app/languages/README.md).
 
-### Docker containers
-If you want to use Docker for building, look at [this repo](https://github.com/cgutman/moonlight-packaging) containing canonical containers
-for different architectures, which handle building deps and extra linking for you.
+The checked-in CLion **Perigee Test Profile** launcher runs the existing debug
+binary. It references the original developer's disposable profile outside the
+checkout; adjust its environment paths for your own machine. It does not build
+before launch or contain pairing credentials.
 
-### Build Setup Steps
-1. Install the latest Qt SDK (and optionally, the Qt Creator IDE) from https://www.qt.io/download
-    * You can install Qt via Homebrew on macOS, but you will need to use `brew install qt --with-debug` to be able to create debug builds of Moonlight.
-    * You may also use your Linux distro's package manager for the Qt SDK as long as the packages are Qt 5.12 or later.
-    * This step is not required for building on Steam Link, because the Steam Link SDK includes Qt 5.14.
-2. Download submodules and dependencies
-    * Run `git submodule update --init --recursive` from within `moonlight-qt/`.
-    * On Windows and macOS, you must also run `setup-deps.ps1` (Windows) or `setup-deps.py` (macOS).
-    * Perform these steps each time you pull new changes from the Git repository.
-3. Open the project in Qt Creator or build from qmake on the command line.
-    * To build a binary for use on non-development machines, use the scripts in the `scripts` folder.
-        * For Windows builds, use `scripts\build-arch.bat` and `scripts\generate-bundle.bat`. Execute these scripts from the root of the repository within a Qt command prompt. Ensure  7-Zip binary directory is on your `%PATH%`.
-        * For macOS builds, use `scripts/generate-dmg.sh`. Execute this script from the root of the repository and ensure Qt's `bin` folder is in your `$PATH`.
-        * For Steam Link builds, run `scripts/build-steamlink-app.sh` from the root of the repository.
-    * To build from the command line for development use on macOS or Linux, run `qmake6 moonlight-qt.pro` then `make debug` or `make release`.
-        * The final binary will be placed in `app/moonlight`.
-    * To create an embedded build for a single-purpose device, use `qmake6 "CONFIG+=embedded" moonlight-qt.pro` and build normally.
-        * This build will lack windowed mode, Discord/Help links, and other features that don't make sense on an embedded device.
-        * For platforms with poor GPU performance, add `"CONFIG+=gpuslow"` to prefer direct KMSDRM rendering over GL/Vulkan renderers. Direct KMSDRM rendering can use dedicated YUV/RGB conversion and scaling hardware rather than slower GPU shaders for these operations.
+## License and attribution
 
-## Contribute
-1. Fork us
-2. Write code
-3. Send Pull Requests
+Perigee derives from Moonlight Qt, baseline
+`ac296864ace96f51ad75f78b90644bdbca76c332`, and retains upstream attribution,
+[GPL licensing](LICENSE) and pinned dependency notices. The temporary icon is
+upstream artwork; see [asset provenance](ASSET_NOTICES.md). See
+[repository analysis](docs/REPOSITORY_ANALYSIS.md) for source provenance and
+[protocol notes](docs/APOLLO_PROTOCOL.md) for supported Apollo behavior.
 
-Check out our [website](https://moonlight-stream.org) for project links and information.
+Moonlight's community, translations and package infrastructure belong to the
+[upstream project](https://moonlight-stream.org). Perigee is a separate fork.

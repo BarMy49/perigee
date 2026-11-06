@@ -88,7 +88,9 @@ document the new evidence, and obtain review before an architectural deviation.
 
 ## ADR-006: incremental desktop UI and small in-stream controls
 
-- **Date/status:** 2026-10-25; accepted, not implemented.
+- **Date/status:** 2026-10-25; accepted; desktop UI, shortcut editor and the
+  keyboard-only status-overlay command panel are implemented with local evidence
+  in the plan. Live input/OSD and controlled performance acceptance remain pending.
 - **Context:** The QML shell is reusable. Fork quick-menu implementations alter
   threading; Vibemis's inspected offscreen path reads back an OpenGL framebuffer.
 - **Alternatives:** Import handheld UI; render a second QML scene continuously;

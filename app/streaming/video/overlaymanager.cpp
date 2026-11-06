@@ -1,6 +1,54 @@
 #include "overlaymanager.h"
 #include "path.h"
 
+#include <QGuiApplication>
+#include <QImage>
+#include <QPainter>
+#include <QTextDocument>
+#include <QTextCursor>
+#include <QtMath>
+#include <cstring>
+
+namespace {
+SDL_Surface* renderNotification(const char* text)
+{
+    QTextDocument document;
+    QFont font = QGuiApplication::font();
+    font.setPixelSize(24);
+    document.setDefaultFont(font);
+    document.setPlainText(QString::fromUtf8(text));
+    QTextCursor cursor(&document);
+    cursor.select(QTextCursor::Document);
+    QTextCharFormat format;
+    format.setForeground(QColor(238, 238, 238));
+    format.setTextOutline(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    cursor.mergeCharFormat(format);
+    document.setTextWidth(1024);
+    const int width = qBound(8, qCeil(document.idealWidth()), 1024);
+    document.setTextWidth(width);
+    const int height = qMax(1, qCeil(document.size().height()));
+    if (height > 2048) return nullptr;
+    QImage image(width, height, QImage::Format_ARGB32);
+    if (image.isNull()) return nullptr;
+    image.fill(Qt::transparent);
+    QPainter painter(&image);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::TextAntialiasing);
+    document.drawContents(&painter);
+    format.setTextOutline(QPen(Qt::NoPen));
+    cursor.mergeCharFormat(format);
+    document.drawContents(&painter);
+    painter.end();
+    SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_ARGB8888);
+    if (!surface) return nullptr;
+    for (int row = 0; row < height; row++) {
+        memcpy(static_cast<char*>(surface->pixels) + row * surface->pitch, image.constScanLine(row), width * 4);
+    }
+    SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND);
+    return surface;
+}
+}
+
 using namespace Overlay;
 
 OverlayManager::OverlayManager() :
@@ -30,6 +78,8 @@ OverlayManager::OverlayManager() :
 
 OverlayManager::~OverlayManager()
 {
+    SDL_FreeSurface(m_CommandPanelSurface);
+    for (SDL_Surface* surface : std::as_const(m_NotificationSurfaces)) SDL_FreeSurface(surface);
     for (int i = 0; i < OverlayType::OverlayMax; i++) {
         if (m_Overlays[i].surface != nullptr) {
             SDL_FreeSurface(m_Overlays[i].surface);
@@ -39,7 +89,6 @@ OverlayManager::~OverlayManager()
         }
     }
 
-    if (m_NotificationFont != nullptr) TTF_CloseFont(m_NotificationFont);
     TTF_Quit();
 
     // For similar reasons to the comment in the constructor, this will usually,
@@ -51,12 +100,13 @@ OverlayManager::~OverlayManager()
 
 bool OverlayManager::isOverlayEnabled(OverlayType type)
 {
-    return m_Overlays[type].enabled || (type == OverlayStatusUpdate && m_NotificationActive.load());
+    return m_Overlays[type].enabled || (type == OverlayStatusUpdate && (m_NotificationActive.load() || m_CommandPanelActive.load()));
 }
 
 char* OverlayManager::getOverlayText(OverlayType type)
 {
     std::lock_guard<std::recursive_mutex> lock(m_NotificationMutex);
+    if (type == OverlayStatusUpdate && !m_Overlays[type].enabled && m_CommandPanelActive.load()) return m_CommandPanelText;
     if (type == OverlayStatusUpdate && !m_Overlays[type].enabled && m_NotificationActive.load()) return m_NotificationText;
     return m_Overlays[type].text;
 }
@@ -75,7 +125,7 @@ int OverlayManager::getOverlayMaxTextLength()
 int OverlayManager::getOverlayFontSize(OverlayType type)
 {
     std::lock_guard<std::recursive_mutex> lock(m_NotificationMutex);
-    if (type == OverlayStatusUpdate && !m_Overlays[type].enabled && m_NotificationActive.load()) return 24;
+    if (type == OverlayStatusUpdate && !m_Overlays[type].enabled && (m_NotificationActive.load() || m_CommandPanelActive.load())) return 24;
     return m_Overlays[type].fontSize;
 }
 
@@ -97,6 +147,8 @@ void OverlayManager::setOverlayTextUpdated(OverlayType type)
 
 void OverlayManager::setOverlayState(OverlayType type, bool enabled)
 {
+    std::lock_guard<std::recursive_mutex> lock(m_NotificationMutex);
+    if (type == OverlayStatusUpdate && enabled) m_CommandPanelActive.store(false);
     bool stateChanged = m_Overlays[type].enabled != enabled;
 
     m_Overlays[type].enabled = enabled;
@@ -114,13 +166,49 @@ void OverlayManager::setOverlayState(OverlayType type, bool enabled)
 SDL_Color OverlayManager::getOverlayColor(OverlayType type)
 {
     std::lock_guard<std::recursive_mutex> lock(m_NotificationMutex);
-    if (type == OverlayStatusUpdate && !m_Overlays[type].enabled && m_NotificationActive.load()) return {0xEE, 0xEE, 0xEE, 0xFF};
+    if (type == OverlayStatusUpdate && !m_Overlays[type].enabled && (m_NotificationActive.load() || m_CommandPanelActive.load())) return {0xEE, 0xEE, 0xEE, 0xFF};
     return m_Overlays[type].color;
 }
 
 void OverlayManager::setOverlayRenderer(IOverlayRenderer* renderer)
 {
     m_Renderer = renderer;
+}
+
+void OverlayManager::prepareCommandPanel(const QString& text)
+{
+    std::lock_guard<std::recursive_mutex> lock(m_NotificationMutex);
+    SDL_FreeSurface(m_CommandPanelSurface);
+    m_CommandPanelSurface = nullptr;
+    const auto utf8 = text.toUtf8();
+    if (utf8.size() >= int(sizeof(m_CommandPanelText))) return;
+    SDL_utf8strlcpy(m_CommandPanelText, utf8.constData(), sizeof(m_CommandPanelText));
+    m_CommandPanelSurface = renderNotification(m_CommandPanelText);
+}
+
+bool OverlayManager::isCommandPanelVisible() const
+{
+    return m_CommandPanelActive.load();
+}
+
+bool OverlayManager::setCommandPanelVisible(bool visible)
+{
+    std::lock_guard<std::recursive_mutex> lock(m_NotificationMutex);
+    visible = visible && m_Renderer && m_CommandPanelSurface && !m_Overlays[OverlayStatusUpdate].enabled;
+    if (visible != m_CommandPanelActive.exchange(visible)) notifyOverlayUpdated(OverlayStatusUpdate);
+    return visible;
+}
+
+void OverlayManager::prepareNotifications(const QStringList& texts)
+{
+    std::lock_guard<std::recursive_mutex> lock(m_NotificationMutex);
+    for (SDL_Surface* surface : std::as_const(m_NotificationSurfaces)) SDL_FreeSurface(surface);
+    m_NotificationSurfaces.clear();
+    for (const auto& text : texts.mid(0, 16)) {
+        if (m_NotificationSurfaces.contains(text)) continue;
+        SDL_Surface* surface = renderNotification(text.toUtf8().constData());
+        if (surface) m_NotificationSurfaces.insert(text, surface);
+    }
 }
 
 void OverlayManager::notifyOverlayUpdated(OverlayType type)
@@ -135,20 +223,27 @@ void OverlayManager::notifyOverlayUpdated(OverlayType type)
         SDL_Surface* surface = nullptr;
         if (isOverlayEnabled(type)) {
             const bool notification = type == OverlayStatusUpdate && !m_Overlays[type].enabled;
-            TTF_Font*& font = notification ? m_NotificationFont : m_Overlays[type].font;
-            if (font == nullptr) {
-                if (m_FontData.isEmpty()) {
-                    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL overlay font failed to load");
-                    return;
-                }
-                font = TTF_OpenFontRW(SDL_RWFromConstMem(m_FontData.constData(), m_FontData.size()),
-                                      1, getOverlayFontSize(type));
-                if (font == nullptr) {
-                    SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Unable to load overlay font");
-                    return;
-                }
+            if (notification) {
+                const QString text = QString::fromUtf8(getOverlayText(type));
+                SDL_Surface* cached = m_CommandPanelActive.load() ? m_CommandPanelSurface : m_NotificationSurfaces.value(text, nullptr);
+                surface = cached ? SDL_DuplicateSurface(cached) : renderNotification(getOverlayText(type));
             }
-            surface = RenderTextOutlinedWrapped(font, getOverlayText(type), getOverlayColor(type), {0, 0, 0, 255}, 4, 1024);
+            else {
+                TTF_Font*& font = m_Overlays[type].font;
+                if (font == nullptr) {
+                    if (m_FontData.isEmpty()) {
+                        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL overlay font failed to load");
+                        return;
+                    }
+                    font = TTF_OpenFontRW(SDL_RWFromConstMem(m_FontData.constData(), m_FontData.size()),
+                                          1, getOverlayFontSize(type));
+                    if (font == nullptr) {
+                        SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Unable to load overlay font");
+                        return;
+                    }
+                }
+                surface = RenderTextOutlinedWrapped(font, getOverlayText(type), getOverlayColor(type), {0, 0, 0, 255}, 4, 1024);
+            }
         }
         oldSurface = (SDL_Surface*)SDL_AtomicSetPtr((void**)&m_Overlays[type].surface, surface);
     }
@@ -236,5 +331,3 @@ SDL_Surface* OverlayManager::RenderTextOutlinedWrapped(TTF_Font* font, const cha
     SDL_FreeSurface(textSurface);
     return outlineSurface;
 }
-
-

@@ -2,6 +2,9 @@
 #include "profilestore.h"
 
 #include <QCommandLineParser>
+#include <QCoreApplication>
+#include <QLocale>
+#include <QTranslator>
 #include <QDir>
 #include <QFileInfo>
 #include <QHostAddress>
@@ -338,69 +341,69 @@ MoonlightImportResult MoonlightImporter::importSettings(const QString& sourceFil
     QFileInfo sourceInfo(sourceFile);
     if (!sourceInfo.isFile() || sourceInfo.size() > MaximumSourceSize ||
             sourceInfo.canonicalFilePath() == QFileInfo(destination).canonicalFilePath()) {
-        result.error = "Source must be an existing settings file, separate from the destination and at most 8 MiB.";
+        result.error = QCoreApplication::translate("MoonlightImporter", "Source must be an existing settings file, separate from the destination and at most 8 MiB.");
         return result;
     }
     QFile sourceBytes(sourceFile);
     if (!sourceBytes.open(QIODevice::ReadOnly)) {
-        result.error = "Unable to read source settings.";
+        result.error = QCoreApplication::translate("MoonlightImporter", "Unable to read source settings.");
         return result;
     }
     const QByteArray bytes = sourceBytes.read(MaximumSourceSize + 1);
     if (sourceBytes.error() != QFile::NoError || bytes.size() > MaximumSourceSize || bytes.contains('\0') ||
             QString::fromUtf8(bytes).toUtf8() != bytes) {
-        result.error = "Source settings must contain valid UTF-8 INI data.";
+        result.error = QCoreApplication::translate("MoonlightImporter", "Source settings must contain valid UTF-8 INI data.");
         return result;
     }
     ProfileLock lock(destination);
     if (!lock.tryLock()) {
-        result.error = "Destination profile is in use or its directory cannot be safely locked.";
+        result.error = QCoreApplication::translate("MoonlightImporter", "Destination profile is in use or its directory cannot be safely locked.");
         return result;
     }
     if (QFileInfo::exists(destination) || QFileInfo(destination).isSymLink()) {
-        result.error = "Destination settings already exist; imports never merge or overwrite.";
+        result.error = QCoreApplication::translate("MoonlightImporter", "Destination settings already exist; imports never merge or overwrite.");
         return result;
     }
     ProfilePublication snapshot;
     if (!snapshot.prepare(destination, bytes)) {
-        result.error = "Filesystem cannot provide anonymous protected staging; no settings were imported.";
+        result.error = QCoreApplication::translate("MoonlightImporter", "Filesystem cannot provide anonymous protected staging; no settings were imported.");
         return result;
     }
     QSettings source(snapshot.readPath(), QSettings::IniFormat);
     source.setFallbacksEnabled(false);
     const auto keys = source.allKeys();
     if (source.status() != QSettings::NoError || keys.isEmpty() || keys.size() > 100000) {
-        result.error = "Source settings are empty, malformed or exceed supported limits.";
+        result.error = QCoreApplication::translate("MoonlightImporter", "Source settings are empty, malformed or exceed supported limits.");
         return result;
     }
     SettingsMap output;
     if (!copyPreferences(source, output, result.preferenceCount) || !copyHosts(source, output, result)) {
-        result.error = "Source contains invalid preferences, hosts, application records or server certificates.";
+        result.error = QCoreApplication::translate("MoonlightImporter", "Source contains invalid preferences, hosts, application records or server certificates.");
         return result;
     }
     if (includePairing && !copyIdentity(source, output)) {
-        result.error = "Pairing import requires a complete readable RSA certificate/key pair and hexadecimal client ID.";
+        result.error = QCoreApplication::translate("MoonlightImporter", "Pairing import requires a complete readable RSA certificate/key pair and hexadecimal client ID.");
         return result;
     }
     if (result.preferenceCount == 0 && result.hostCount == 0 && !includePairing) {
-        result.error = "Source contains no supported preferences or hosts.";
+        result.error = QCoreApplication::translate("MoonlightImporter", "Source contains no supported preferences or hosts.");
         return result;
     }
     QByteArray contents;
     if (!serialize(output, QFileInfo(destination).absolutePath(), contents)) {
-        result.error = "Unable to serialize settings in protected staging storage.";
+        result.error = QCoreApplication::translate("MoonlightImporter", "Unable to serialize settings in protected staging storage.");
         return result;
     }
     ProfilePublication publication;
     if (!publication.prepare(destination, contents)) {
-        result.error = "Unable to stage imported settings anonymously; no import was committed.";
+        result.error = QCoreApplication::translate("MoonlightImporter", "Unable to stage imported settings anonymously; no import was committed.");
         return result;
     }
     {
         QSettings verified(publication.readPath(), QSettings::IniFormat);
         verified.setFallbacksEnabled(false);
         if (verified.allKeys() != output.keys() || verified.status() != QSettings::NoError) {
-            result.error = "Serialized settings failed round-trip validation; no import was committed.";
+            result.error = QCoreApplication::translate("MoonlightImporter", "Serialized settings failed round-trip validation; no import was committed.");
             return result;
         }
         for (auto entry = output.cbegin(); entry != output.cend(); ++entry) {
@@ -408,13 +411,13 @@ MoonlightImportResult MoonlightImporter::importSettings(const QString& sourceFil
                         verified.value(entry.key()).toByteArray() == entry.value().toByteArray() :
                         verified.value(entry.key()).toString() == entry.value().toString();
             if (!matches) {
-                result.error = "Serialized settings changed a value; no import was committed.";
+                result.error = QCoreApplication::translate("MoonlightImporter", "Serialized settings changed a value; no import was committed.");
                 return result;
             }
         }
     }
     if (!publication.commit()) {
-        result.error = "Unable to publish settings atomically without overwriting; no import was committed.";
+        result.error = QCoreApplication::translate("MoonlightImporter", "Unable to publish settings atomically without overwriting; no import was committed.");
         return result;
     }
     result.success = true;
@@ -423,17 +426,19 @@ MoonlightImportResult MoonlightImporter::importSettings(const QString& sourceFil
 
 int MoonlightImporter::run(const QStringList& arguments, const QString& destination)
 {
+    QTranslator translator;
+    if (translator.load(QLocale::system(), "qml", "_", ":/languages")) QCoreApplication::installTranslator(&translator);
     QCommandLineParser parser;
-    parser.setApplicationDescription("Import selected Moonlight settings into a fresh Perigee profile.\n"
-                                     "Optional pairing import shares host-side identity and permissions with Moonlight; unpairing can affect both.");
+    parser.setApplicationDescription(QCoreApplication::translate("MoonlightImporter", "Import selected Moonlight settings into a fresh Perigee profile.\n"
+                                     "Optional pairing import shares host-side identity and permissions with Moonlight; unpairing can affect both."));
     parser.addHelpOption();
-    parser.addPositionalArgument("import-moonlight", "Import a user-selected Moonlight INI settings file.");
-    parser.addOption({"source", "Existing native or portable Moonlight settings file.", "PATH"});
-    parser.addOption({"include-pairing", "Explicitly copy the validated client certificate, private key and unique ID."});
+    parser.addPositionalArgument("import-moonlight", QCoreApplication::translate("MoonlightImporter", "Import a user-selected Moonlight INI settings file."));
+    parser.addOption({"source", QCoreApplication::translate("MoonlightImporter", "Existing native or portable Moonlight settings file."), "PATH"});
+    parser.addOption({"include-pairing", QCoreApplication::translate("MoonlightImporter", "Explicitly copy the validated client certificate, private key and unique ID.")});
     QTextStream standardOutput(stdout);
     QTextStream standardError(stderr);
     if (!parser.parse(arguments)) {
-        standardError << "Invalid import arguments. Use 'perigee import-moonlight --help'.\n";
+        standardError << QCoreApplication::translate("MoonlightImporter", "Invalid import arguments. Use 'perigee import-moonlight --help'.") << '\n';
         return 2;
     }
     if (parser.isSet("help")) {
@@ -442,25 +447,25 @@ int MoonlightImporter::run(const QStringList& arguments, const QString& destinat
     }
     if (parser.positionalArguments() != QStringList("import-moonlight") || parser.values("source").size() != 1 ||
             parser.value("source").isEmpty() || parser.optionNames().count("include-pairing") > 1) {
-        standardError << "Use: perigee import-moonlight --source PATH [--include-pairing]\n";
+        standardError << QCoreApplication::translate("MoonlightImporter", "Use: perigee import-moonlight --source PATH [--include-pairing]") << '\n';
         return 2;
     }
     const bool includePairing = parser.isSet("include-pairing");
     const auto result = importSettings(parser.value("source"), destination, includePairing);
     if (!result.success) {
-        standardError << "Import refused: " << result.error << '\n';
+        standardError << QCoreApplication::translate("MoonlightImporter", "Import refused: %1").arg(result.error) << '\n';
         return 1;
     }
-    standardOutput << "Imported " << result.preferenceCount << " preferences and " << result.hostCount << " hosts.\n";
+    standardOutput << QCoreApplication::translate("MoonlightImporter", "Imported preferences: %1; hosts: %2.").arg(result.preferenceCount).arg(result.hostCount) << '\n';
     if (result.usedHostBackup) {
-        standardOutput << "Used Moonlight's recoverable host backup without merging host arrays.\n";
+        standardOutput << QCoreApplication::translate("MoonlightImporter", "Used Moonlight's recoverable host backup without merging host arrays.") << '\n';
     }
     if (includePairing) {
-        standardOutput << "Pairing identity copied. Both applications share host-side identity, permissions and possibly virtual displays. "
-                          "Unpairing may affect both; concurrent sessions are unverified.\n";
+        standardOutput << QCoreApplication::translate("MoonlightImporter", "Pairing identity copied. Both applications share host-side identity, permissions and possibly virtual displays. "
+                          "Unpairing may affect both; concurrent sessions are unverified.") << '\n';
     }
     else {
-        standardOutput << "Client credentials were excluded. Pair Perigee as a new client before streaming.\n";
+        standardOutput << QCoreApplication::translate("MoonlightImporter", "Client credentials were excluded. Pair Perigee as a new client before streaming.") << '\n';
     }
     return 0;
 }

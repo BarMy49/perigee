@@ -7,7 +7,7 @@ NavigableDialog {
 
     property alias text: dialogLabel.dialogText
     property alias showSpinner: dialogSpinner.visible
-    property alias imageSrc: dialogImage.source
+    property alias imageSrc: dialogImage.iconSource
 
     property string helpText
     property string helpUrl : "https://github.com/moonlight-stream/moonlight-docs/wiki/Troubleshooting"
@@ -29,9 +29,9 @@ NavigableDialog {
             running: visible
         }
 
-        Image {
+        ThemedImage {
             id: dialogImage
-            source: (standardButtons & Dialog.Yes) ?
+            iconSource: (standardButtons & Dialog.Yes) ?
                         "qrc:/res/baseline-help_outline-24px.svg" :
                         "qrc:/res/baseline-error_outline-24px.svg"
             sourceSize {

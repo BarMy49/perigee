@@ -117,7 +117,7 @@ reads the following parameters; Artemis `NvHTTP::startApp()` is a client referen
 | Parameter/data | Verified operation | Perigee scope |
 | --- | --- | --- |
 | `mode=WIDTHxHEIGHTxFPS` | Reads dimensions and floating-point refresh; FPS below 1000 is converted to a millihertz-style integer | Reuse standard dimensions/integer FPS initially; validate fractional behavior separately |
-| `virtualDisplay=1` | Requests virtual display, also enabled by host per-client configuration | Add per-host launch option gated by verified capabilities and driver information |
+| `virtualDisplay=1` | Requests virtual display, also enabled by host per-client configuration | Per-host fresh-launch request implemented, gated by fresh paired HTTPS metadata, launch permission and reported driver readiness; live acceptance pending |
 | `scaleFactor` | Scales host rendering dimensions; default 100 | Label as render scaling, not verified Windows DPI configuration |
 | app-list `UUID`, `IDX`, `ID` | Additional application identity/order plus standard numeric ID | Parse extensions without breaking standard lists/order |
 | launch `appuuid` | Host can find an application using its UUID | Later capability-gated launch; numeric ID remains standard-host fallback |
@@ -133,6 +133,21 @@ no-active-session conditions and excludes an already-virtual display. A controll
 reconnect is not proof of a successful host mode change. Physical display
 enumeration/selection and multi-display topology lack a verified general paired
 API. Current client architecture supports one active session per process.
+
+Milestone 4's first increment stores a default-off `requestvirtualdisplay` host
+preference. The PC context menu exposes Display Launch Options with availability
+and host-reported driver/permission information. `NvHTTP::startApp()` performs a
+fresh serverinfo check only when this option is requested, on the existing
+connection-start worker. It requires an authenticated Apollo-compatible snapshot,
+launch permission, true/valid display capability and driver-ready flags, a
+`launch` verb and no reported running application. Failure reports an actionable
+error before issuing launch/resume. Only an eligible launch appends
+`virtualDisplay=1`; ordinary dimensions/integer FPS and default-off query behavior
+are preserved. Missing extension metadata never enables this option for Sunshine.
+The check is not a host-side session lock; a concurrent host change may still make
+the subsequent request fail. No cancel, forced quit, retry or live display
+reconfiguration is added. Host defaults may create a display even when this
+client option is disabled. Actual display creation/mode remains a live test.
 
 Apollo has input-only/termination application behavior. Existing normal desktop
 launch is the initial supported path; input-only apps need a separate session

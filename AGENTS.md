@@ -45,7 +45,33 @@ remain compatible. Stack: C++17, Qt/QML, SDL, FFmpeg, and Moonlight Common C.
   The user confirms the remaining automatic behavior works as intended: Task 3B
   is accepted and closed for GNOME Wayland. KDE and real Sunshine coverage remain
   follow-ups, with manual-only behavior on unverified backends.
-  Next implementation task: Milestone 4 display launch management; read its gates.
+  Milestone 4's first increment implements per-host virtual-display launch intent,
+  readiness UI and a fresh paired-metadata/driver/permission gate before new
+  launches. Default-off and resume behavior preserve standard streaming; no live
+  display changes are implemented. On 2026-10-28 the user reported the requested
+  display tests went smoothly and authorized continued implementation. Exact
+  Windows modes and the broader host matrix remain unreported coverage details.
+  Milestone 5 starts with host/app grid Home/End, Page Up/Page Down and Shift+F10
+  context menus, now user-accepted. Task 5B adds per-host app favorites, saved
+  locally and shown first without losing selection, now user-accepted. Task 5C
+  adds responsive settings columns, resize-aware keyboard scrolling and standard
+  heading colors; debug build, native Wayland rendering/focus checks and
+  translation coverage pass; responsive settings are now user-accepted. Task 5D
+  adds an immediate, persistent light/dark Appearance selector and readable
+  light-mode icons/popups. Build, focused UI/preference/import/translation and
+  saved-theme startup checks pass; appearance interactive acceptance is pending.
+  Task 5E excludes SDL AltGr-marked events from local shortcut matching; debug
+  build and 2,048 synthetic modifier combinations pass, live layout checks pending.
+  Task 5F adds persistent letter/disabled shortcut overrides with reserved Q/Z/E
+  recovery keys and conflict fallback. Debug build, 5 policy/modifier cases,
+  3 application-linked preference cases and 35 importer cases pass; live input
+  acceptance remains pending. Tasks 5G/5H add the shortcut editor and keyboard-only
+  Ctrl+Alt+Shift+O stream panel, localized in all 30 locales. Q/Z/E/O are reserved;
+  Z always releases capture. Debug build, 43 offscreen + 43 native Wayland + 5
+  scale2 cases, 13 overlay/Memcheck, 6 policy, 32 catalog and 35 importer cases pass;
+  146-key/30-locale coverage passes. Live input, OSD scaling and controlled
+  performance acceptance remain open. Milestone 6 profiles
+  are the next implementation stage; no Milestone 6 feature is started yet.
 - Milestone 0 is done by explicit user acceptance on 2026-10-25. Native Fedora
   debug/release builds, isolated startup and later real-host streaming passed.
   Pairing remains skipped; unrun performance/secondary-platform checks remain
@@ -106,6 +132,12 @@ credentials only. Milestone 2 adds a separate parser/state target documented in
 [tests/apollo-capabilities/README.md](tests/apollo-capabilities/README.md).
 Task 3A adds [session lifecycle tests](tests/session-services/README.md), using
 synthetic identities and local TLS, without pairing or real hosts.
+Milestone 4 adds [display launch policy tests](tests/display-launch/README.md),
+using synthetic metadata without contacting or changing a host display.
+Milestone 5 adds [grid navigation](tests/grid-navigation/README.md) and
+[app favorites](tests/app-favorites/README.md) checks with synthetic hosts.
+The [appearance checks](tests/ui-theme/README.md) cover saved settings and the
+actual QML window/popups with an isolated profile and no configured host.
 `config.tests/` still holds qmake capability probes, not the app
 test suite. Do not invent tests or host-authentication results.
 For documentation changes, check Markdown links, source references, and
@@ -125,6 +157,11 @@ For documentation changes, check Markdown links, source references, and
   necessary, separately analyzed, documented, reviewed, and regression-tested.
 - Follow existing naming/formatting locally; avoid broad refactoring, one-letter
   new names, new inline comments, and unnecessary dependencies.
+- Translate every added/changed user-facing string in the same task, using the
+  original Moonlight Qt contexts/catalogs and terminology. Update all 30 TS/QM
+  locales, preserve placeholders/command tokens, and run the translation checks.
+  This includes CLI/startup text and notifications; do not defer localization.
+  See [the translation guide](app/languages/README.md).
 
 ## Identity, security, and Git
 

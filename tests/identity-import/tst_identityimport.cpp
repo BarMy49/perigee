@@ -41,6 +41,8 @@ private:
         settings.setValue("vsync", true);
         settings.setValue("unknown/futureSetting", "excluded");
         settings.setValue("renderer", 3);
+        settings.setValue("uitheme", 1);
+        settings.setValue("localshortcuts/stats", "t");
         settings.setValue("certificate", m_Certificate);
         settings.setValue("key", m_Key);
         settings.setValue("uniqueid", "00Ab0123456789Cd");
@@ -61,6 +63,8 @@ private:
         settings.setValue(prefix + "apps/1/name", "Desktop");
         settings.setValue(prefix + "apps/1/id", 1);
         settings.setValue(prefix + "apps/1/hidden", true);
+        settings.setValue(prefix + "apps/1/favorite", true);
+        settings.setValue(prefix + "requestvirtualdisplay", true);
     }
 
     static QProcessEnvironment environment(const QString& root)
@@ -72,6 +76,8 @@ private:
             result.insert(key, path);
         }
         result.insert("QT_QPA_PLATFORM", "not-a-platform");
+        result.insert("LC_ALL", "C");
+        result.insert("LANGUAGE", "C");
         result.insert("DISPLAY", "");
         result.insert("WAYLAND_DISPLAY", "");
         result.remove("QML_DISK_CACHE_PATH");
@@ -79,6 +85,72 @@ private:
     }
 
 private slots:
+    void localizedHeadlessHelp()
+    {
+        const QString binary = qEnvironmentVariable("PERIGEE_TEST_BINARY");
+        if (binary.isEmpty()) QSKIP("PERIGEE_TEST_BINARY is not set");
+        QTemporaryDir root;
+        QVERIFY(root.isValid());
+        auto processEnvironment = environment(root.path());
+        processEnvironment.insert("LC_ALL", "pl_PL.UTF-8");
+        processEnvironment.insert("LANGUAGE", "pl");
+        QProcess process;
+        process.setProcessEnvironment(processEnvironment);
+        process.start(binary, {"import-moonlight", "--help"});
+        QVERIFY(process.waitForFinished(15000));
+        QCOMPARE(process.exitCode(), 0);
+        const auto output = process.readAllStandardOutput();
+        QVERIFY(output.contains(QString::fromUtf8("Importuj wybrane ustawienia Moonlight").toUtf8()));
+        QVERIFY(output.contains("--include-pairing"));
+        QVERIFY(output.contains("import-moonlight"));
+        process.start(binary, {"import-moonlight", "--unexpected"});
+        QVERIFY(process.waitForFinished(15000));
+        QCOMPARE(process.exitCode(), 2);
+        QVERIFY(process.readAllStandardError().contains(QString::fromUtf8("Nieprawidłowe argumenty importu").toUtf8()));
+        QVERIFY(!QFile::exists(root.filePath("XDG_CONFIG_HOME/io.github.BarMy49/Perigee.conf")));
+    }
+
+    void localizedLockFailure()
+    {
+        const QString binary = qEnvironmentVariable("PERIGEE_TEST_BINARY");
+        if (binary.isEmpty()) QSKIP("PERIGEE_TEST_BINARY is not set");
+        QTemporaryDir root;
+        QVERIFY(root.isValid());
+        auto processEnvironment = environment(root.path());
+        processEnvironment.insert("LC_ALL", "pl_PL.UTF-8");
+        processEnvironment.insert("LANGUAGE", "pl");
+        const QString directory = root.filePath("XDG_CONFIG_HOME/io.github.BarMy49");
+        QVERIFY(QDir().mkpath(directory));
+        QVERIFY(QFile::setPermissions(directory, QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner | QFile::WriteGroup));
+        QProcess process;
+        process.setProcessEnvironment(processEnvironment);
+        process.start(binary, {});
+        QVERIFY(process.waitForFinished(15000));
+        QCOMPARE(process.exitCode(), 1);
+        QVERIFY(process.readAllStandardError().contains(QString::fromUtf8("Profil Perigee jest używany").toUtf8()));
+    }
+
+    void localizedGlobalHelp()
+    {
+        const QString binary = qEnvironmentVariable("PERIGEE_TEST_BINARY");
+        if (binary.isEmpty()) QSKIP("PERIGEE_TEST_BINARY is not set");
+        QTemporaryDir root;
+        QVERIFY(root.isValid());
+        auto processEnvironment = environment(root.path());
+        processEnvironment.insert("LC_ALL", "pl_PL.UTF-8");
+        processEnvironment.insert("LANGUAGE", "pl");
+        processEnvironment.insert("QT_QPA_PLATFORM", "offscreen");
+        QProcess process;
+        process.setProcessEnvironment(processEnvironment);
+        process.start(binary, {"--help"});
+        QVERIFY(process.waitForFinished(15000));
+        QCOMPARE(process.exitCode(), 0);
+        const auto output = process.readAllStandardOutput();
+        QVERIFY(output.contains(QString::fromUtf8("Uruchamia Perigee normalnie").toUtf8()));
+        QVERIFY(output.contains("import-moonlight"));
+        QVERIFY(output.contains("--help"));
+    }
+
     void initTestCase()
     {
         std::unique_ptr<EVP_PKEY, decltype(&EVP_PKEY_free)> key(EVP_RSA_gen(2048), EVP_PKEY_free);
@@ -156,6 +228,10 @@ private slots:
         QVERIFY(settings.value("hosts/1/srvcert").toByteArray() == m_Certificate);
         QVERIFY(!settings.contains("unknown/futureSetting"));
         QVERIFY(!settings.contains("renderer"));
+        QVERIFY(!settings.contains("uitheme"));
+        QVERIFY(!settings.contains("localshortcuts/stats"));
+        QVERIFY(!settings.contains("hosts/1/requestvirtualdisplay"));
+        QVERIFY(!settings.contains("hosts/1/apps/1/favorite"));
         QCOMPARE(settings.contains("certificate"), includePairing);
         QCOMPARE(settings.contains("key"), includePairing);
         QCOMPARE(settings.contains("uniqueid"), includePairing);

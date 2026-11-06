@@ -6,6 +6,7 @@
 #define SER_APPCOLLECTOR "appcollector"
 #define SER_HIDDEN "hidden"
 #define SER_DIRECTLAUNCH "directlaunch"
+#define SER_FAVORITE "favorite"
 
 NvApp::NvApp(QSettings& settings)
 {
@@ -15,6 +16,7 @@ NvApp::NvApp(QSettings& settings)
     isAppCollectorGame = settings.value(SER_APPCOLLECTOR).toBool();
     hidden = settings.value(SER_HIDDEN).toBool();
     directLaunch = settings.value(SER_DIRECTLAUNCH).toBool();
+    favorite = settings.value(SER_FAVORITE, false).toBool();
 }
 
 void NvApp::serialize(QSettings& settings) const
@@ -25,4 +27,5 @@ void NvApp::serialize(QSettings& settings) const
     settings.setValue(SER_APPCOLLECTOR, isAppCollectorGame);
     settings.setValue(SER_HIDDEN, hidden);
     settings.setValue(SER_DIRECTLAUNCH, directLaunch);
+    settings.setValue(SER_FAVORITE, favorite);
 }

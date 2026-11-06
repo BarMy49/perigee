@@ -153,19 +153,16 @@ GlobalCommandLineParser::ParseResult GlobalCommandLineParser::parse(const QStrin
     CommandLineParser parser;
     parser.setupCommonOptions();
     parser.setApplicationDescription(
-        "\n"
-        "Starts Perigee normally if no arguments are given.\n"
-        "\n"
-        "Available actions:\n"
-        "  list            List the available apps on a host\n"
-        "  quit            Quit the currently running app\n"
-        "  stream          Start streaming an app\n"
-        "  pair            Pair a new host\n"
+        "\n" + QCoreApplication::translate("CommandLineParser", "Starts Perigee normally if no arguments are given.") +
+        "\n\n" + QCoreApplication::translate("CommandLineParser", "Available actions:") +
+        "\n  list            " + QCoreApplication::translate("CommandLineParser", "List the available apps on a host") +
+        "\n  quit            " + QCoreApplication::translate("CommandLineParser", "Quit the currently running app") +
+        "\n  stream          " + QCoreApplication::translate("CommandLineParser", "Start streaming an app") +
+        "\n  pair            " + QCoreApplication::translate("CommandLineParser", "Pair a new host") +
 #ifdef Q_OS_LINUX
-        "  import-moonlight Import selected settings into a fresh Perigee profile\n"
+        "\n  import-moonlight " + QCoreApplication::translate("CommandLineParser", "Import selected settings into a fresh Perigee profile") +
 #endif
-        "\n"
-        "See 'perigee <action> --help' for help of specific action."
+        "\n\n" + QCoreApplication::translate("CommandLineParser", "See 'perigee <action> --help' for help of specific action.")
     );
     parser.addPositionalArgument("action", "Action to execute", "<action>");
     parser.parse(args);
@@ -363,7 +360,7 @@ void StreamCommandLineParser::parse(const QStringList &args, StreamingPreference
     parser.addToggleOption("game-optimization", "game optimizations");
     parser.addToggleOption("audio-on-host", "audio on host PC");
     parser.addToggleOption("frame-pacing", "frame pacing");
-    parser.addToggleOption("mute-on-focus-loss", "mute audio when Perigee window loses focus");
+    parser.addToggleOption("mute-on-focus-loss", QCoreApplication::translate("CommandLineParser", "mute audio when Perigee window loses focus"));
     parser.addToggleOption("background-gamepad", "background gamepad input");
     parser.addToggleOption("reverse-scroll-direction", "inverted scroll direction");
     parser.addToggleOption("swap-gamepad-buttons", "swap A/B and X/Y gamepad buttons (Nintendo-style)");

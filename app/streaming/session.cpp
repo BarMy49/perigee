@@ -5,6 +5,7 @@
 #include "settings/streamingpreferences.h"
 #include "streaming/streamutils.h"
 #include "backend/richpresencemanager.h"
+#include "backend/displaylaunchoptions.h"
 
 #include <Limelight.h>
 #include "SDL_compat.h"
@@ -1634,7 +1635,10 @@ bool Session::startConnectionAsync()
                       m_Preferences->playAudioOnHost,
                       m_InputHandler->getAttachedGamepadMask(),
                       !m_Preferences->multiController,
-                      rtspSessionUrl);
+                      rtspSessionUrl, m_RequestVirtualDisplay);
+    } catch (const DisplayLaunchError& e) {
+        emit displayLaunchError(QString::fromUtf8(e.what()));
+        return false;
     } catch (const GfeHttpResponseException& e) {
         emit displayLaunchError(tr("Host returned error: %1").arg(e.toQString()));
         return false;
@@ -1744,7 +1748,7 @@ std::optional<QByteArray> Session::readClipboard()
     if (!text || elapsedMs > SdlClipboard::AutomaticReadBudgetMs) {
         m_Clipboard->disableAutomatic();
         m_Services->setClipboardPolling(false);
-        m_OverlayManager.showNotification(tr("Automatic clipboard paused. Use Ctrl+Alt+Shift+J/K for manual transfer."));
+        m_OverlayManager.showNotification(tr("Automatic clipboard paused. Use Ctrl+Alt+Shift+O for manual transfer."));
         SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Automatic clipboard disabled: read unavailable or exceeded %lld ms budget (read %lld ms)",
                     static_cast<long long>(SdlClipboard::AutomaticReadBudgetMs), static_cast<long long>(elapsedMs));
         return {};
@@ -1827,6 +1831,7 @@ void Session::start()
     {
         QReadLocker lock(&m_Computer->lock);
         serviceSnapshot.hostUuid = m_Computer->uuid;
+        m_RequestVirtualDisplay = m_Computer->requestVirtualDisplay;
         serviceSnapshot.endpoint.setScheme("https");
         serviceSnapshot.endpoint.setHost(m_Computer->activeAddress.address());
         serviceSnapshot.endpoint.setPort(m_Computer->activeHttpsPort);
@@ -1840,6 +1845,20 @@ void Session::start()
                  capabilities.permission(ApolloCapabilities::ClipboardRead) == ApolloCapabilities::State::Available);
     }
     m_ClipboardEnabled = serviceSnapshot.enabled;
+    if (m_ClipboardEnabled) {
+        m_OverlayManager.prepareNotifications({
+            tr("Automatic clipboard paused. Use Ctrl+Alt+Shift+O for manual transfer."),
+            tr("Clipboard transfer is not permitted for this stream"),
+            tr("Clipboard unavailable. Check host permissions and reconnect."),
+            tr("Unable to read the local text clipboard"), tr("Unable to send clipboard text"),
+            tr("Clipboard sent to host"), tr("Clipboard received from host"),
+            tr("Unable to update the local clipboard"),
+            tr("Host denied clipboard access. Check permissions and reconnect."),
+            tr("Host does not support text clipboard transfer"),
+            tr("Clipboard receive skipped: focus or local text changed"),
+            tr("Host returned invalid clipboard text"), tr("Clipboard transfer failed. Try again.")
+        });
+    }
     serviceSnapshot.clientTls = IdentityManager::get()->getSslConfig();
     m_Services = std::make_unique<SessionServices>(std::move(serviceSnapshot));
 

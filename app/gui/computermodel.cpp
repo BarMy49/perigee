@@ -1,5 +1,6 @@
 #include "computermodel.h"
 #include "backend/hostadministration.h"
+#include "backend/displaylaunchoptions.h"
 
 #include <QThreadPool>
 
@@ -29,6 +30,16 @@ QVariant ComputerModel::data(const QModelIndex& index, int role) const
     QReadLocker lock(&computer->lock);
 
     switch (role) {
+    case RequestVirtualDisplayRole:
+        return computer->requestVirtualDisplay;
+    case DisplayLaunchAvailableRole:
+        return computer->state == NvComputer::CS_ONLINE &&
+                DisplayLaunchOptions::evaluate(true, computer->isNvidiaServerSoftware,
+                    computer->currentGameId == 0, computer->apolloCapabilities) == DisplayLaunchOptions::State::Ready;
+    case DisplayLaunchDetailsRole:
+        return computer->state != NvComputer::CS_ONLINE ? tr("Connect to this host to check display launch availability.") :
+                DisplayLaunchOptions::description(DisplayLaunchOptions::evaluate(true,
+                    computer->isNvidiaServerSoftware, computer->currentGameId == 0, computer->apolloCapabilities));
     case ClipboardEnabledRole:
         return computer->clipboardEnabled;
     case HostUuidRole:
@@ -141,6 +152,23 @@ QVariant ComputerModel::data(const QModelIndex& index, int role) const
     }
 }
 
+bool ComputerModel::setRequestVirtualDisplay(QString hostUuid, bool requested)
+{
+    for (NvComputer* computer : std::as_const(m_Computers)) {
+        {
+            QWriteLocker lock(&computer->lock);
+            if (computer->uuid != hostUuid) continue;
+            if (requested && (computer->state != NvComputer::CS_ONLINE ||
+                    DisplayLaunchOptions::evaluate(true, computer->isNvidiaServerSoftware,
+                        computer->currentGameId == 0, computer->apolloCapabilities) != DisplayLaunchOptions::State::Ready)) return false;
+            computer->requestVirtualDisplay = requested;
+        }
+        m_ComputerManager->clientSideAttributeUpdated(computer);
+        return true;
+    }
+    return false;
+}
+
 bool ComputerModel::setClipboardEnabled(QString hostUuid, bool enabled)
 {
     for (NvComputer* computer : std::as_const(m_Computers)) {
@@ -202,6 +230,9 @@ QHash<int, QByteArray> ComputerModel::roleNames() const
     names[CapabilityDetailsRole] = "capabilityDetails";
     names[AdministrationUrlRole] = "administrationUrl";
     names[ClipboardEnabledRole] = "clipboardEnabled";
+    names[RequestVirtualDisplayRole] = "requestVirtualDisplay";
+    names[DisplayLaunchAvailableRole] = "displayLaunchAvailable";
+    names[DisplayLaunchDetailsRole] = "displayLaunchDetails";
     names[HostUuidRole] = "hostUuid";
 
     return names;

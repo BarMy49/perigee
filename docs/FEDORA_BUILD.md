@@ -644,3 +644,20 @@ retrieval/poll wiring remains gated on measured platform access/latency. The tes
 reports both grants. Saved local opt-in and live transfer/GNOME/KDE focus and
 clipboard acceptance remain pending. Exact commands and limits are
 in [Task 3B](IMPLEMENTATION_PLAN.md#task-3b-implementation-and-local-evidence-2026-10-25).
+
+
+## Milestone 5 local UI and controls record
+
+The shortcut editor and persistent keyboard-only stream panel build on Fedora 44,
+Qt 6.11.2/GCC 16.2.1. Final checks pass: 43 offscreen and 43 native Wayland cases,
+5 native 2× cases, 13 overlay cases (also zero Memcheck errors/lost credential-free
+fixture allocations), 6 policy cases, 32 compiled catalogs and 35 importer cases.
+Source coverage passes for 146 post-baseline keys across all 30 locales. Synthetic
+SDL dispatch uses an inactive Common C connection and no real clipboard or host.
+Shell previews and CPU panel surfaces were inspected; these do not establish live
+stream scaling or performance. Exact commands, logs, debugger findings and the
+remaining acceptance gate are in
+[Tasks 5G/5H](IMPLEMENTATION_PLAN.md#tasks-5g5h-shortcut-editor-and-keyboard-stream-panel-2026-11-04).
+The frozen baseline release build and dependency pins were preserved. Milestone 6
+profiles are the next implementation stage; Milestone 5 aggregate live acceptance
+remains open.

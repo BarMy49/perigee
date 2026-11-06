@@ -174,6 +174,7 @@ macx {
 
 SOURCES += \
     backend/apollocapabilities.cpp \
+    backend/displaylaunchoptions.cpp \
     backend/hostadministration.cpp \
     backend/nvaddress.cpp \
     backend/nvapp.cpp \
@@ -221,6 +222,7 @@ SOURCES += \
 
 HEADERS += \
     backend/apollocapabilities.h \
+    backend/displaylaunchoptions.h \
     backend/hostadministration.h \
     SDL_compat.h \
     backend/nvaddress.h \
@@ -243,6 +245,8 @@ HEADERS += \
     cli/startstream.h \
     settings/streamingpreferences.h \
     streaming/input/input.h \
+    streaming/input/shortcutmodifiers.h \
+    settings/localshortcuts.h \
     streaming/session.h \
     streaming/services/sessioneventbridge.h \
     streaming/services/sessionservices.h \

@@ -2,6 +2,7 @@
 
 #include <Limelight.h>
 #include "SDL_compat.h"
+#include "shortcutmodifiers.h"
 
 #define VK_0 0x30
 #define VK_A 0x41
@@ -25,6 +26,13 @@
 void SdlInputHandler::performSpecialKeyCombo(KeyCombo combo)
 {
     switch (combo) {
+    case KeyComboControls:
+    {
+        auto& overlay = Session::get()->getOverlayManager();
+        raiseAllKeys();
+        overlay.setCommandPanelVisible(!overlay.isCommandPanelVisible());
+        break;
+    }
     case KeyComboQuit:
         SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION,
                     "Detected quit key combo");
@@ -38,10 +46,10 @@ void SdlInputHandler::performSpecialKeyCombo(KeyCombo combo)
 
     case KeyComboUngrabInput:
         SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION,
-                    "Detected mouse capture toggle combo");
+                    "Detected capture release combo");
 
         // Stop handling future input
-        setCaptureActive(!isCaptureActive());
+        setCaptureActive(false);
 
         // Force raise all keys to ensure they aren't stuck,
         // since we won't get their key up events.
@@ -195,6 +203,42 @@ void SdlInputHandler::handleKeyEvent(SDL_KeyboardEvent* event)
     char flags;
     bool shouldNotConvertToScanCodeOnServer = false;
 
+    if (m_ConsumedKeys.filter(*event)) return;
+
+    auto& overlay = Session::get()->getOverlayManager();
+    if (overlay.isCommandPanelVisible()) {
+        m_ConsumedKeys.consume(event->keysym.scancode);
+        if (event->state == SDL_PRESSED && !event->repeat) {
+            if (event->keysym.sym == SDLK_ESCAPE ||
+                    (event->keysym.sym == SDLK_o && LocalShortcut::modifiersMatch(event->keysym.mod))) {
+                overlay.setCommandPanelVisible(false);
+            }
+            else if (event->keysym.sym >= SDLK_1 && event->keysym.sym <= SDLK_8) {
+                const KeyCombo actions[] = {KeyComboQuit, KeyComboToggleFullScreen, KeyComboUngrabInput,
+                                            KeyComboToggleMouseMode, KeyComboClipboardSend, KeyComboClipboardReceive,
+                                            KeyComboToggleStatsOverlay, KeyComboToggleKeyboardGrab};
+                const KeyCombo action = actions[event->keysym.sym - SDLK_1];
+                if (m_SpecialKeyCombos[action].enabled) {
+                    overlay.setCommandPanelVisible(false);
+                    performSpecialKeyCombo(action);
+                }
+            }
+            else if (LocalShortcut::modifiersMatch(event->keysym.mod)) {
+                for (const bool physical : {false, true}) {
+                    for (const KeyCombo action : {KeyComboQuit, KeyComboUngrabInput, KeyComboQuitAndExit}) {
+                        if ((!physical && event->keysym.sym == m_SpecialKeyCombos[action].keyCode) ||
+                                (physical && event->keysym.scancode == m_SpecialKeyCombos[action].scanCode)) {
+                            overlay.setCommandPanelVisible(false);
+                            if (m_SpecialKeyCombos[action].enabled) performSpecialKeyCombo(action);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        return;
+    }
+
     if (event->repeat) {
         // Ignore repeat key down events
         SDL_assert(event->state == SDL_PRESSED);
@@ -203,9 +247,7 @@ void SdlInputHandler::handleKeyEvent(SDL_KeyboardEvent* event)
 
     // Check for our special key combos
     if ((event->state == SDL_PRESSED) &&
-            (event->keysym.mod & KMOD_CTRL) &&
-            (event->keysym.mod & KMOD_ALT) &&
-            (event->keysym.mod & KMOD_SHIFT)) {
+            LocalShortcut::modifiersMatch(event->keysym.mod)) {
         // First we test the SDLK combos for matches,
         // that way we ensure that latin keyboard users
         // can match to the key they see on their keyboards.
@@ -218,14 +260,16 @@ void SdlInputHandler::handleKeyEvent(SDL_KeyboardEvent* event)
         // the scancode of another.
 
         for (int i = 0; i < KeyComboMax; i++) {
-            if (m_SpecialKeyCombos[i].enabled && event->keysym.sym == m_SpecialKeyCombos[i].keyCode) {
+            if (m_SpecialKeyCombos[i].enabled && m_SpecialKeyCombos[i].keyCode != SDLK_UNKNOWN && event->keysym.sym == m_SpecialKeyCombos[i].keyCode) {
+                m_ConsumedKeys.consume(event->keysym.scancode);
                 performSpecialKeyCombo(m_SpecialKeyCombos[i].keyCombo);
                 return;
             }
         }
 
         for (int i = 0; i < KeyComboMax; i++) {
-            if (m_SpecialKeyCombos[i].enabled && event->keysym.scancode == m_SpecialKeyCombos[i].scanCode) {
+            if (m_SpecialKeyCombos[i].enabled && m_SpecialKeyCombos[i].scanCode != SDL_SCANCODE_UNKNOWN && event->keysym.scancode == m_SpecialKeyCombos[i].scanCode) {
+                m_ConsumedKeys.consume(event->keysym.scancode);
                 performSpecialKeyCombo(m_SpecialKeyCombos[i].keyCombo);
                 return;
             }

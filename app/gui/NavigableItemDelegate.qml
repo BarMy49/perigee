@@ -3,8 +3,20 @@ import QtQuick.Controls 2.2
 
 ItemDelegate {
     property GridView grid
+    signal contextMenuRequested()
 
     highlighted: grid.activeFocus && grid.currentItem === this
+
+    Keys.onMenuPressed: contextMenuRequested()
+    Keys.onPressed: function(event) {
+        if (event.key === Qt.Key_F10 && event.modifiers === Qt.ShiftModifier) {
+            contextMenuRequested()
+            event.accepted = true
+        }
+        else {
+            event.accepted = false
+        }
+    }
 
     Keys.onLeftPressed: {
         grid.moveCurrentIndexLeft()

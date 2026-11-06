@@ -21,3 +21,17 @@ separate task before final distribution branding.
 
 Upstream source: <https://github.com/moonlight-stream/moonlight-qt/tree/ac296864ace96f51ad75f78b90644bdbca76c332>.
 Only the icon's installed/resource name changes; its SVG content is unchanged.
+
+## Light-mode interface icon variants
+
+Task 5D adds `-light.svg` variants of the already-vendored resources
+`desktop_windows-48px`, `baseline-lock-24px`, `baseline-help_outline-24px`,
+`baseline-error_outline-24px`, `baseline-check_circle_outline-24px`,
+`baseline-warning-24px` and `warning_FILL1_wght300_GRAD200_opsz24`.
+Their originals match Moonlight Qt baseline
+`ac296864ace96f51ad75f78b90644bdbca76c332` at the same `app/res/` paths.
+Only the foreground fill changes from white to `#212121`; geometry and existing
+source resources are retained. These are color adaptations of existing interface
+assets, not original Perigee artwork. Existing upstream licensing, attribution
+and corresponding-source obligations continue to apply. No external asset or
+new asset dependency was introduced.
