@@ -11,6 +11,7 @@ public:
     bool operator==(const NvApp& other) const
     {
         return id == other.id &&
+                uuid == other.uuid &&
                 name == other.name &&
                 hdrSupported == other.hdrSupported &&
                 isAppCollectorGame == other.isAppCollectorGame &&
@@ -36,6 +37,7 @@ public:
 
     int id = 0;
     QString name;
+    QString uuid;
     bool hdrSupported = false;
     bool isAppCollectorGame = false;
     bool hidden = false;

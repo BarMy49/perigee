@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts 1.3
 
 import ComputerModel 1.0
@@ -245,6 +246,28 @@ CenteredGridView {
                     }
                 }
                 NavigableMenuItem {
+                    text: qsTr("Use application UUID")
+                    checkable: true
+                    checked: model.useAppUuid
+                    enabled: model.useAppUuid || model.appUuidAvailable
+                    onTriggered: computerModel.setUseAppUuid(model.hostUuid, !model.useAppUuid)
+                }
+                NavigableMenuItem {
+                    text: qsTr("Configure SFTP")
+                    onTriggered: {
+                        transferDialog.hostUuid = model.hostUuid
+                        transferText.text = model.transferUrl
+                        transferDialog.open()
+                    }
+                }
+                NavigableMenuItem {
+                    text: qsTr("Open SFTP")
+                    visible: model.transferUrl.length > 0
+                    onTriggered: {
+                        if (!computerModel.openTransferUrl(model.hostUuid)) transferOpenError.open()
+                    }
+                }
+                NavigableMenuItem {
                     text: qsTr("Configure Administration Link")
                     onTriggered: {
                         administrationDialog.hostUuid = model.hostUuid
@@ -395,6 +418,73 @@ CenteredGridView {
                 selectByMouse: true
                 wrapMode: TextEdit.Wrap
             }
+        }
+    }
+
+    NavigableMessageDialog {
+        id: transferOpenError
+        objectName: "transferOpenError"
+        background: Rectangle {
+            color: transferOpenError.Material.theme === Material.Light ? "#fafafa" : "#303030"
+            radius: 8
+        }
+        text: qsTr("Unable to open SFTP. Check your desktop handler.")
+        standardButtons: Dialog.Ok
+    }
+
+    NavigableDialog {
+        id: transferDialog
+        objectName: "transferDialog"
+        width: Math.min(480, pcGrid.width - 32)
+        background: Rectangle {
+            color: transferDialog.Material.theme === Material.Light ? "#fafafa" : "#303030"
+            radius: 8
+        }
+        property string hostUuid: ""
+        title: qsTr("Configure SFTP")
+        standardButtons: Dialog.Cancel
+        onOpened: {
+            transferError.visible = false
+            transferText.forceActiveFocus()
+        }
+        ColumnLayout {
+            width: transferDialog.availableWidth
+            Label {
+                text: qsTr("Use an existing SSH service. Enter an sftp:// URL without login credentials. Leave empty to remove it.")
+                wrapMode: Text.Wrap
+                Layout.fillWidth: true
+            }
+            TextField {
+                id: transferText
+                objectName: "transferText"
+                Keys.onReturnPressed: saveTransferButton.clicked()
+                Keys.onEnterPressed: saveTransferButton.clicked()
+                placeholderText: "sftp://host/path"
+                selectByMouse: true
+                Layout.fillWidth: true
+            }
+            Label {
+                id: transferError
+                objectName: "transferError"
+                visible: false
+                text: qsTr("Enter a valid SFTP URL without credentials, query parameters, or a fragment.")
+                wrapMode: Text.Wrap
+                Layout.fillWidth: true
+            }
+        }
+        footer: DialogButtonBox {
+            standardButtons: transferDialog.standardButtons
+            Button {
+                id: saveTransferButton
+                objectName: "saveTransferUrl"
+                text: qsTr("Save")
+                DialogButtonBox.buttonRole: DialogButtonBox.ActionRole
+                onClicked: {
+                    if (computerModel.setTransferUrl(transferDialog.hostUuid, transferText.text)) transferDialog.accept()
+                    else transferError.visible = true
+                }
+            }
+            onRejected: transferDialog.reject()
         }
     }
 

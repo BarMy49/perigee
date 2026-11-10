@@ -172,260 +172,260 @@
 <context>
     <name>ComputerModel</name>
     <message>
-        <location filename="../gui/computermodel.cpp" line="115"/>
+        <location filename="../gui/computermodel.cpp" line="127"/>
         <source>Online</source>
         <translation>Çevrimiçi</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="118"/>
+        <location filename="../gui/computermodel.cpp" line="130"/>
         <source>Offline</source>
         <translation>Çevrimdışı</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="62"/>
-        <location filename="../gui/computermodel.cpp" line="121"/>
+        <location filename="../gui/computermodel.cpp" line="74"/>
         <location filename="../gui/computermodel.cpp" line="133"/>
         <location filename="../gui/computermodel.cpp" line="145"/>
-        <location filename="../gui/computermodel.cpp" line="147"/>
-        <location filename="../gui/computermodel.cpp" line="148"/>
+        <location filename="../gui/computermodel.cpp" line="157"/>
+        <location filename="../gui/computermodel.cpp" line="159"/>
+        <location filename="../gui/computermodel.cpp" line="160"/>
         <source>Unknown</source>
         <translation>Tanınmamış</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="127"/>
+        <location filename="../gui/computermodel.cpp" line="139"/>
         <source>Paired</source>
         <translation>Eşleştirildi</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="130"/>
+        <location filename="../gui/computermodel.cpp" line="142"/>
         <source>Unpaired</source>
         <translation>Eşleşmesi kaldırıldı</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="137"/>
+        <location filename="../gui/computermodel.cpp" line="149"/>
         <source>Name: %1</source>
         <translation>İsim: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="138"/>
+        <location filename="../gui/computermodel.cpp" line="150"/>
         <source>Status: %1</source>
         <translation>Durum: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="139"/>
+        <location filename="../gui/computermodel.cpp" line="151"/>
         <source>Active Address: %1</source>
         <translation>Aktif Adres: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="140"/>
+        <location filename="../gui/computermodel.cpp" line="152"/>
         <source>UUID: %1</source>
         <translation>UUID: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="141"/>
+        <location filename="../gui/computermodel.cpp" line="153"/>
         <source>Local Address: %1</source>
         <translation>Yerel Adres: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="142"/>
+        <location filename="../gui/computermodel.cpp" line="154"/>
         <source>Remote Address: %1</source>
         <translation>Uzak Adres: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="143"/>
+        <location filename="../gui/computermodel.cpp" line="155"/>
         <source>IPv6 Address: %1</source>
         <translation>IPv6 Adresi: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="144"/>
+        <location filename="../gui/computermodel.cpp" line="156"/>
         <source>Manual Address: %1</source>
         <translation>Manuel Adres: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="145"/>
+        <location filename="../gui/computermodel.cpp" line="157"/>
         <source>MAC Address: %1</source>
         <translation>MAC Adres: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="146"/>
+        <location filename="../gui/computermodel.cpp" line="158"/>
         <source>Pair State: %1</source>
         <translation>Eşleştirme Durumu: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="147"/>
+        <location filename="../gui/computermodel.cpp" line="159"/>
         <source>Running Game ID: %1</source>
         <translation>Çalışan Oyunun IDsi: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="148"/>
+        <location filename="../gui/computermodel.cpp" line="160"/>
         <source>HTTPS Port: %1</source>
         <translation>HTTPS Port: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="40"/>
+        <location filename="../gui/computermodel.cpp" line="43"/>
         <source>Connect to this host to check display launch availability.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Ekranın başlatılabilirliğini kontrol etmek için bu ana bilgisayara bağlanın.</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="56"/>
+        <location filename="../gui/computermodel.cpp" line="68"/>
         <source>Not advertised</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Reklamı yapılmadı</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="57"/>
+        <location filename="../gui/computermodel.cpp" line="69"/>
         <source>Invalid metadata</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Geçersiz meta veriler</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="58"/>
+        <location filename="../gui/computermodel.cpp" line="70"/>
         <source>No current authenticated metadata</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Geçerli, kimliği doğrulanmış meta veri yok</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="59"/>
+        <location filename="../gui/computermodel.cpp" line="71"/>
         <source>Allowed</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>İzin verildi</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="60"/>
+        <location filename="../gui/computermodel.cpp" line="72"/>
         <source>Denied</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Reddedildi</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="64"/>
+        <location filename="../gui/computermodel.cpp" line="76"/>
         <source>Optional Apollo-compatible fields; this does not identify the host product or version.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>İsteğe bağlı Apollo uyumlu alanlar; bu, ana ürünü veya sürümü tanımlamaz.</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="65"/>
+        <location filename="../gui/computermodel.cpp" line="77"/>
         <source>Metadata snapshot. Reopen this panel to refresh. Availability does not grant permissions.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Meta veri anlık görüntüsü. Yenilemek için bu paneli yeniden açın. Kullanılabilirlik izin vermez.</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="66"/>
+        <location filename="../gui/computermodel.cpp" line="78"/>
         <source>Permission metadata: %1</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>İzin meta verileri: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="66"/>
+        <location filename="../gui/computermodel.cpp" line="78"/>
         <source>Authenticated mask</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Kimliği doğrulanmış maske</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="71"/>
+        <location filename="../gui/computermodel.cpp" line="83"/>
         <source>Keyboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Klavye</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="71"/>
+        <location filename="../gui/computermodel.cpp" line="83"/>
         <source>Mouse</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Fare</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="72"/>
+        <location filename="../gui/computermodel.cpp" line="84"/>
         <source>Controller</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Denetleyici</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="72"/>
+        <location filename="../gui/computermodel.cpp" line="84"/>
         <source>Touch</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Dokunma</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="73"/>
+        <location filename="../gui/computermodel.cpp" line="85"/>
         <source>Pen</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Kalem</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="73"/>
+        <location filename="../gui/computermodel.cpp" line="85"/>
         <source>Clipboard send</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Pano gönder</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="74"/>
+        <location filename="../gui/computermodel.cpp" line="86"/>
         <source>Clipboard receive</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Pano alımı</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="74"/>
+        <location filename="../gui/computermodel.cpp" line="86"/>
         <source>Server commands</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Sunucu komutları</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="75"/>
+        <location filename="../gui/computermodel.cpp" line="87"/>
         <source>List applications</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Uygulamaları listeleyin</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="75"/>
+        <location filename="../gui/computermodel.cpp" line="87"/>
         <source>View</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Görüntüle</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="76"/>
+        <location filename="../gui/computermodel.cpp" line="88"/>
         <source>Launch</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Başlat</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="79"/>
         <location filename="../gui/computermodel.cpp" line="91"/>
+        <location filename="../gui/computermodel.cpp" line="103"/>
         <source>%1: %2</source>
         <translatorcomment>Formatting only; placeholders preserved.</translatorcomment>
         <translation>%1: %2</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="82"/>
+        <location filename="../gui/computermodel.cpp" line="94"/>
         <source>Permission mask: 0x%1</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>İzin maskesi: 0x%1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="85"/>
+        <location filename="../gui/computermodel.cpp" line="97"/>
         <source>Yes (host reported)</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Evet (sunucu bildirdi)</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="85"/>
+        <location filename="../gui/computermodel.cpp" line="97"/>
         <source>No (host reported)</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Hayır (sunucu bildirildi)</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="87"/>
+        <location filename="../gui/computermodel.cpp" line="99"/>
         <source>Virtual-display capable: %1</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Sanal ekran özellikli: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="88"/>
+        <location filename="../gui/computermodel.cpp" line="100"/>
         <source>Virtual-display driver ready: %1</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Sanal ekran sürücüsüne hazır: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="89"/>
+        <location filename="../gui/computermodel.cpp" line="101"/>
         <source>Advertised command list: %1</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Tanıtılan komut listesi: %1</translation>
@@ -648,7 +648,13 @@ Optional pairing import shares host-side identity and permissions with Moonlight
 <context>
     <name>NvHTTP</name>
     <message>
-        <location filename="../backend/nvhttp.cpp" line="401"/>
+        <location filename="../backend/nvhttp.cpp" line="243"/>
+        <source>Application identity changed or UUID launch is unavailable. Refresh the app list and try again.</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Uygulama kimliği değişti veya UUID ile başlatma kullanılamıyor. Uygulama listesini yenileyip tekrar deneyin.</translation>
+    </message>
+    <message>
+        <location filename="../backend/nvhttp.cpp" line="432"/>
         <source>Missing audio capture device. Reinstalling GeForce Experience should resolve this error.</source>
         <translation>Ses yakalama aygıtı eksik. GeForce Experience&apos;ı yeniden yüklemek bu hatayı çözmelidir.</translation>
     </message>
@@ -656,12 +662,12 @@ Optional pairing import shares host-side identity and permissions with Moonlight
 <context>
     <name>PcView</name>
     <message>
-        <location filename="../gui/PcView.qml" line="21"/>
+        <location filename="../gui/PcView.qml" line="22"/>
         <source>Computers</source>
         <translation>Bilgisayarlar</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="63"/>
+        <location filename="../gui/PcView.qml" line="64"/>
         <source>Unable to connect to the specified PC.</source>
         <translation>Belirtilen bilgisayara bağlantı kurulamıyor.</translation>
     </message>
@@ -670,42 +676,42 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">Bu bilgisayarın İnternet bağlantısı Moonlight&apos;ı engelliyor. İnternet üzerinden akış, bu ağa bağlıyken çalışmayabilir.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="69"/>
+        <location filename="../gui/PcView.qml" line="70"/>
         <source>Click the Help button for possible solutions.</source>
         <translation>Olası çözümler için Yardım butonuna tıklayın.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="100"/>
+        <location filename="../gui/PcView.qml" line="101"/>
         <source>Automatic PC discovery is disabled. Add your PC manually.</source>
         <translation>Otomatik bilgisayar keşfi devre dışı bırakıldı. PC&apos;nizi manuel olarak ekleyin.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="99"/>
+        <location filename="../gui/PcView.qml" line="100"/>
         <source>Searching for compatible hosts on your local network...</source>
         <translation>Yerel ağınızda uyumlu ana bilgisayarlar aranıyor...</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="184"/>
+        <location filename="../gui/PcView.qml" line="185"/>
         <source>Wake PC</source>
         <translation>PC&apos;yi uyandır</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="189"/>
+        <location filename="../gui/PcView.qml" line="190"/>
         <source>Test Network</source>
         <translation>Ağı Test Et</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="197"/>
+        <location filename="../gui/PcView.qml" line="198"/>
         <source>Rename PC</source>
         <translation>PC&apos;yi yeniden adlandır</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="205"/>
+        <location filename="../gui/PcView.qml" line="206"/>
         <source>Delete PC</source>
         <translation>Bilgisayarı sil</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="213"/>
+        <location filename="../gui/PcView.qml" line="214"/>
         <source>View Details</source>
         <translation>Ayrıntıları Görüntüle</translation>
     </message>
@@ -714,7 +720,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">%1&apos;deki olan GeForce Experience sürümü Moonlight&apos;ın bu derlemesi tarafından desteklenmiyor. %1&apos;den yayın sağlamak için Moonlight&apos;ı güncellemeniz gerekir.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="491"/>
+        <location filename="../gui/PcView.qml" line="581"/>
         <source>This may take a few seconds…</source>
         <translation>Bu bir kaç saniye alabilir…</translation>
     </message>
@@ -723,7 +729,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">Bu ağ Moonlight&apos;ı engellemiyor gibi görünüyor. Hala bağlantı sorunu yaşıyorsanız, bilgisayarınızın güvenlik duvarı ayarlarını kontrol edin.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="502"/>
+        <location filename="../gui/PcView.qml" line="592"/>
         <source>If you are trying to stream over the Internet, install the Moonlight Internet Hosting Tool on your gaming PC and run the included Internet Streaming Tester to check your gaming PC&apos;s Internet connection.</source>
         <translation>İnternet üzerinden akış yapmaya çalışıyorsanız, oyun bilgisayarınıza &quot;Moonlight Internet Hosting Tool&quot; kurun ve oyun bilgisayarınızın İnternet bağlantısını kontrol etmek için verilen &quot;Internet Streaming Tester&quot; uygulamasını çalıştırın.</translation>
     </message>
@@ -732,7 +738,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">PC&apos;nizin mevcut ağ bağlantısı Moonlight&apos;ı engelliyor gibi görünüyor. İnternet üzerinden akış, bu ağa bağlıyken çalışmayabilir.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="506"/>
+        <location filename="../gui/PcView.qml" line="596"/>
         <source>The following network ports were blocked:</source>
         <translation>Aşağıdaki ağ bağlantı noktaları engellendi:</translation>
     </message>
@@ -741,37 +747,37 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">Moonlight&apos;ın bağlantı testi sunucularından hiçbirine bu bilgisayardan erişilemediği için ağ testi gerçekleştirilemedi. İnternet bağlantınızı kontrol edin veya daha sonra tekrar deneyin.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="170"/>
+        <location filename="../gui/PcView.qml" line="171"/>
         <source>PC Status: %1</source>
         <translation>Bilgisayar Durumu: %1</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="170"/>
+        <location filename="../gui/PcView.qml" line="171"/>
         <source>Online</source>
         <translation>Çevrimiçi</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="170"/>
+        <location filename="../gui/PcView.qml" line="171"/>
         <source>Offline</source>
         <translation>Çevrimdışı</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="175"/>
+        <location filename="../gui/PcView.qml" line="176"/>
         <source>View All Apps</source>
         <translation>Tüm Uygulamaları Görüntüle</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="464"/>
+        <location filename="../gui/PcView.qml" line="554"/>
         <source>Please enter %1 on your host PC. This dialog will close when pairing is completed.</source>
         <translation>Lütfen ana bilgisayarınıza %1 girin. Eşleştirme tamamlandığında bu iletişim kutusu kapanacaktır.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="465"/>
+        <location filename="../gui/PcView.qml" line="555"/>
         <source>If your host PC is running Sunshine, navigate to the Sunshine web UI to enter the PIN.</source>
         <translation>Ana bilgisayarınızda Sunshine çalışıyorsa, PIN&apos;i girmek için Sunshine web kullanıcı arayüzüne gidin.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="477"/>
+        <location filename="../gui/PcView.qml" line="567"/>
         <source>Are you sure you want to remove &apos;%1&apos;?</source>
         <translation>&apos;%1&apos;i kaldırmak istediğinizden emin misiniz?</translation>
     </message>
@@ -780,134 +786,176 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">Moonlight, gerekli bağlantı noktalarının engellenip engellenmediğini belirlemek için ağ bağlantınızı test ediyor.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="518"/>
+        <location filename="../gui/PcView.qml" line="608"/>
         <source>Enter the new name for this PC:</source>
         <translation>Bu bilgisayar için yeni adı girin:</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="66"/>
+        <location filename="../gui/PcView.qml" line="67"/>
         <source>This PC&apos;s Internet connection is blocking Perigee. Streaming over the Internet may not work while connected to this network.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Bu bilgisayarın İnternet bağlantısı Perigee&apos;ı engelliyor. İnternet üzerinden akış, bu ağa bağlıyken çalışmayabilir.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="220"/>
+        <location filename="../gui/PcView.qml" line="221"/>
         <source>Disable Session Text Clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Oturum Metin Panosunu Devre Dışı Bırak</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="220"/>
+        <location filename="../gui/PcView.qml" line="221"/>
         <source>Enable Session Text Clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Oturum Metin Panosunu Etkinleştir</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="230"/>
-        <location filename="../gui/PcView.qml" line="381"/>
+        <location filename="../gui/PcView.qml" line="231"/>
+        <location filename="../gui/PcView.qml" line="404"/>
         <source>Host Capabilities</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Ana Bilgisayar Özellikleri</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="238"/>
-        <location filename="../gui/PcView.qml" line="329"/>
+        <location filename="../gui/PcView.qml" line="239"/>
+        <location filename="../gui/PcView.qml" line="352"/>
         <source>Display Launch Options</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Başlatırken ekran seçenekleri</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="248"/>
+        <location filename="../gui/PcView.qml" line="249"/>
+        <source>Use application UUID</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Uygulama UUID’sini kullan</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="256"/>
+        <location filename="../gui/PcView.qml" line="444"/>
+        <source>Configure SFTP</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>SFTP yapılandır</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="264"/>
+        <source>Open SFTP</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>SFTP aç</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="271"/>
         <source>Configure Administration Link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Yönetim Bağlantısını Yapılandır</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="256"/>
+        <location filename="../gui/PcView.qml" line="279"/>
         <source>Open Administration</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Yönetimi Aç</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="266"/>
+        <location filename="../gui/PcView.qml" line="289"/>
         <source>The version of GeForce Experience on %1 is not supported by this build of Perigee. You must update Perigee to stream from %1.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>%1&apos;deki olan GeForce Experience sürümü Perigee&apos;ın bu derlemesi tarafından desteklenmiyor. %1&apos;den yayın sağlamak için Perigee&apos;ı güncellemeniz gerekir.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="343"/>
+        <location filename="../gui/PcView.qml" line="366"/>
         <source>Request a virtual display for new launches</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Yeni lansmanlar için sanal ekran talep edin</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="349"/>
+        <location filename="../gui/PcView.qml" line="372"/>
         <source>Uses your stream resolution and frame rate. This requests a display; it does not confirm the host display mode. Applies to a new launch, not resume or an active session. Host display defaults may also create a virtual display when this option is off. Live monitor changes and fractional refresh are unavailable.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Akış çözünürlüğünüzü ve kare hızınızı kullanır. Bu bir görüntü ister; ana bilgisayar görüntüleme modunu onaylamaz. Devam etme veya etkin bir oturum için değil, yeni bir başlatma için geçerlidir. Bu seçenek kapalıyken ana bilgisayar ekranı varsayılanları da sanal bir ekran oluşturabilir. Canlı monitör değişiklikleri ve kısmi yenileme kullanılamaz.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="356"/>
+        <location filename="../gui/PcView.qml" line="379"/>
         <source>Display Options Not Saved</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Görüntüleme Seçenekleri Kaydedilmedi</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="361"/>
+        <location filename="../gui/PcView.qml" line="384"/>
         <source>Host availability changed. Reopen Display Launch Options to check current permissions and driver status.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Ana makine kullanılabilirliği değişti. Mevcut izinleri ve sürücü durumunu kontrol etmek için Ekran Başlatma Seçeneklerini yeniden açın.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="368"/>
+        <location filename="../gui/PcView.qml" line="391"/>
         <source>Session Text Clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Oturum Metin Panosu</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="374"/>
+        <location filename="../gui/PcView.qml" line="397"/>
         <source>Allow text clipboard transfer for this host during a stream. Requires host clipboard permissions. On GNOME Wayland, text changes synchronize automatically while the stream is focused; existing text is not transferred at connection. Other desktops use manual transfer. Ctrl+Alt+Shift+J sends local text; Ctrl+Alt+Shift+K receives remote text. Slow or unavailable clipboard reads switch to manual transfer. Changes apply to the next stream.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Akış sırasında bu ana makine için metin panosu aktarımına izin ver. Ana bilgisayar panosu izinleri gerektirir. GNOME Wayland&apos;de, akışa odaklanıldığında metin değişiklikleri otomatik olarak senkronize edilir; mevcut metin bağlantı sırasında aktarılmaz. Diğer masaüstü bilgisayarlar manuel aktarımı kullanır. Ctrl+Alt+Shift+J yerel metin gönderir; Ctrl+Alt+Shift+K uzak metni alır. Yavaş veya kullanılamayan pano okumaları, manuel aktarıma geçiş yapar. Değişiklikler bir sonraki akışa uygulanır.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="404"/>
+        <location filename="../gui/PcView.qml" line="431"/>
+        <source>Unable to open SFTP. Check your desktop handler.</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>SFTP açılamıyor. Masaüstü işleyicisini kontrol edin.</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="453"/>
+        <source>Use an existing SSH service. Enter an sftp:// URL without login credentials. Leave empty to remove it.</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Var olan bir SSH hizmetini kullanın. Giriş bilgisi içermeyen bir sftp:// URL’si girin. Kaldırmak için boş bırakın.</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="470"/>
+        <source>Enter a valid SFTP URL without credentials, query parameters, or a fragment.</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Kimlik bilgisi, sorgu parametresi veya parça içermeyen geçerli bir SFTP URL’si girin.</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="480"/>
+        <source>Save</source>
+        <translation>Kaydet</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="494"/>
         <source>Host Administration Link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Ana Bilgisayar Yönetimi Bağlantısı</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="423"/>
+        <location filename="../gui/PcView.qml" line="513"/>
         <source>Enter the host&apos;s HTTPS administration URL. Login remains in your browser. Leave empty to remove the link.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Ana bilgisayarın HTTPS yönetim URL&apos;sini girin. Oturum açma işlemi tarayıcınızda kalır. Bağlantıyı kaldırmak için boş bırakın.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="438"/>
+        <location filename="../gui/PcView.qml" line="528"/>
         <source>Enter a valid HTTPS URL without login credentials, query parameters, or a fragment.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Oturum açma kimlik bilgileri, sorgu parametreleri veya parça olmadan geçerli bir HTTPS URL&apos;si girin.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="491"/>
+        <location filename="../gui/PcView.qml" line="581"/>
         <source>Perigee is testing your network connection to determine if any required ports are blocked.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Perigee, gerekli bağlantı noktalarının engellenip engellenmediğini belirlemek için ağ bağlantınızı test ediyor.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="498"/>
+        <location filename="../gui/PcView.qml" line="588"/>
         <source>The network test could not be performed because none of the upstream Moonlight connection testing servers were reachable from this PC. Check your Internet connection or try again later.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Yukarı akışlı Moonlight bağlantı testi sunucularının hiçbirine bu bilgisayardan erişilemediğinden ağ testi gerçekleştirilemedi. İnternet bağlantınızı kontrol edin veya daha sonra tekrar deneyin.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="502"/>
+        <location filename="../gui/PcView.qml" line="592"/>
         <source>This network does not appear to be blocking Perigee. If you still have trouble connecting, check your PC&apos;s firewall settings.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Bu ağ Perigee&apos;ı engellemiyor gibi görünüyor. Hala bağlantı sorunu yaşıyorsanız, bilgisayarınızın güvenlik duvarı ayarlarını kontrol edin.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="506"/>
+        <location filename="../gui/PcView.qml" line="596"/>
         <source>Your PC&apos;s current network connection seems to be blocking Perigee. Streaming over the Internet may not work while connected to this network.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>PC&apos;nizin mevcut ağ bağlantısı Perigee&apos;ı engelliyor gibi görünüyor. İnternet üzerinden akış, bu ağa bağlıyken çalışmayabilir.</translation>
@@ -1069,67 +1117,67 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">%1 üzerindeki GeForce Experience sürümü, bu Moonlight yapısı tarafından desteklenmiyor. %1 kaynağından akış yapmak için Moonlight&apos;ı güncellemelisiniz.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="983"/>
+        <location filename="../streaming/session.cpp" line="984"/>
         <source>Your selection to enable remote desktop mouse mode may cause problems in games.</source>
         <translation>Uzak masaüstü fare modu oyunlarda sorunlara neden olabilir.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="987"/>
+        <location filename="../streaming/session.cpp" line="988"/>
         <source>Your settings selection to force software decoding may cause poor streaming performance.</source>
         <translation>Yazılım kod çözme için yaptığınız ayar seçimi, yayın performansında sorunlara neden olabilir.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1023"/>
+        <location filename="../streaming/session.cpp" line="1024"/>
         <source>Your host PC doesn&apos;t support encoding HEVC.</source>
         <translation>Ana bilgisayarınız HEVC kodlamayı desteklemiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1041"/>
+        <location filename="../streaming/session.cpp" line="1042"/>
         <source>Using software decoding due to your selection to force HEVC without GPU support. This may cause poor streaming performance.</source>
         <translation>GPU desteği olmadan HEVC&apos;yi zorlamak için yaptığınız seçim nedeniyle yazılım kod çözme kullanılıyor. Bu, düşük yayın performansına neden olabilir.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="993"/>
+        <location filename="../streaming/session.cpp" line="994"/>
         <source>Your host software or GPU doesn&apos;t support encoding AV1.</source>
         <translation>Ana bilgisayar yazılımınız veya ekran kartınız AV1 kodlamayı desteklemiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1011"/>
+        <location filename="../streaming/session.cpp" line="1012"/>
         <source>Using software decoding due to your selection to force AV1 without GPU support. This may cause poor streaming performance.</source>
         <translation>Ekran kartı desteği olmadan AV1&apos;i zorlamak için yaptığınız seçim nedeniyle yazılım kod çözme kullanılıyor. Bu, düşük yayın performansına neden olabilir.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1088"/>
+        <location filename="../streaming/session.cpp" line="1089"/>
         <source>Your host PC doesn&apos;t support HDR streaming.</source>
         <translation>Ana bilgisayarınız HDR akışını desteklemiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1080"/>
+        <location filename="../streaming/session.cpp" line="1081"/>
         <source>HDR is not supported using the H.264 codec.</source>
         <translation>HDR, H.264 codec bileşeni tarafından desteklenmiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1103"/>
+        <location filename="../streaming/session.cpp" line="1104"/>
         <source>This PC&apos;s GPU doesn&apos;t support AV1 Main10 decoding for HDR streaming.</source>
         <translation>Bu bilgisayarın ekran kartı, HDR akış için AV1 Main10 kod çözmeyi desteklemiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1084"/>
+        <location filename="../streaming/session.cpp" line="1085"/>
         <source>This PC&apos;s GPU doesn&apos;t support 10-bit HEVC or AV1 decoding for HDR streaming.</source>
         <translation>Bu bilgisayarın ekran artı HDR yayını için 10-bit HEVC veya AV1 kod çözmesini desteklemiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1136"/>
+        <location filename="../streaming/session.cpp" line="1137"/>
         <source>Your host PC and client PC don&apos;t support the same HDR video codecs.</source>
         <translation>Ana bilgisayarınız ve istemci bilgisayarınız aynı HDR video codeclerini desteklemiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1229"/>
+        <location filename="../streaming/session.cpp" line="1230"/>
         <source>Video resolutions over 4K are not supported by the H.264 codec.</source>
         <translation>4K&apos;nın üzerindeki video çözünürlükleri H.264 codec bileşeni tarafından desteklenmiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1643"/>
+        <location filename="../streaming/session.cpp" line="1644"/>
         <source>Host returned error: %1</source>
         <translation>Ana bilgisayar hata verdi: %1</translation>
     </message>
@@ -1149,184 +1197,184 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation>Hata kodu: %1</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1060"/>
+        <location filename="../streaming/session.cpp" line="1061"/>
         <source>Using software decoding due to your selection to force H.264 without GPU support. This may cause poor streaming performance.</source>
         <translation>Ekran kartı desteği olmadan H.264&apos;ü zorlamaya çalıştığınız için yazılım kod çözme kullanılıyor. Bu, düşük yayın performansına neden olabilir.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1070"/>
+        <location filename="../streaming/session.cpp" line="1071"/>
         <source>Your host PC and client PC don&apos;t support the same video codecs. This may cause poor streaming performance.</source>
         <translation>Ana bilgisayarınız ve istemci bilgisayarınız aynı video codeclerini desteklemiyor. Bu, düşük yayın performansına neden olabilir.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1073"/>
+        <location filename="../streaming/session.cpp" line="1074"/>
         <source>Your client GPU doesn&apos;t support H.264 decoding. This may cause poor streaming performance.</source>
         <translation>İstemci ekran kartınız H.264 kod çözmeyi desteklemiyor. Bu, düşük yayın performansına neden olabilir.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1109"/>
-        <location filename="../streaming/session.cpp" line="1127"/>
+        <location filename="../streaming/session.cpp" line="1110"/>
+        <location filename="../streaming/session.cpp" line="1128"/>
         <source>Using software decoding due to your selection to force HDR without GPU support. This may cause poor streaming performance.</source>
         <translation>Ekran kartı desteği olmadan HDR&apos;yi zorlamak için yaptığınız seçim nedeniyle yazılım kod çözme kullanılıyor. Bu, düşük yayın performansına neden olabilir.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1121"/>
+        <location filename="../streaming/session.cpp" line="1122"/>
         <source>This PC&apos;s GPU doesn&apos;t support HEVC Main10 decoding for HDR streaming.</source>
         <translation>Bu bilgisayarın ekran kartı HDR yayını için HEVC Main10 kod çözmesini desteklemiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1143"/>
+        <location filename="../streaming/session.cpp" line="1144"/>
         <source>Your host PC doesn&apos;t support YUV 4:4:4 streaming.</source>
         <translation>Ana bilgisayarınız YUV 4:4:4 akışını desteklemiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1151"/>
+        <location filename="../streaming/session.cpp" line="1152"/>
         <source>Your host PC doesn&apos;t support YUV 4:4:4 streaming for selected video codec.</source>
         <translation>Ana bilgisayarınız seçilen video codec&apos;i için YUV 4:4:4 akışını desteklemiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1166"/>
+        <location filename="../streaming/session.cpp" line="1167"/>
         <source>Using software decoding due to your selection to force YUV 4:4:4 without GPU support. This may cause poor streaming performance.</source>
         <translation>GPU desteği olmadan YUV 4:4:4&apos;ü zorlamak için yaptığınız seçim nedeniyle yazılım kod çözme kullanılıyor. Bu düşük akış performansına neden olabilir.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1172"/>
+        <location filename="../streaming/session.cpp" line="1173"/>
         <source>This PC&apos;s GPU doesn&apos;t support YUV 4:4:4 decoding for selected video codec.</source>
         <translation>Bu bilgisayarın ekran kartı seçilen video codec&apos;i için YUV 4:4:4 kod çözmeyi desteklemiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1181"/>
+        <location filename="../streaming/session.cpp" line="1182"/>
         <source>GeForce Experience 3.0 or higher is required for 4K streaming.</source>
         <translation>4K yayın için GeForce Experience 3.0 veya üstü gereklidir.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1196"/>
+        <location filename="../streaming/session.cpp" line="1197"/>
         <source>Your selected surround sound setting is not supported by the current audio device.</source>
         <translation>Seçtiğiniz surround ses ayarı mevcut ses cihazı tarafından desteklenmiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1202"/>
+        <location filename="../streaming/session.cpp" line="1203"/>
         <source>Failed to open audio device. Audio will be unavailable during this session.</source>
         <translation>Ses cihazı açılamadı. Bu oturum sırasında ses kullanılamayacaktır.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1207"/>
+        <location filename="../streaming/session.cpp" line="1208"/>
         <source>An attached gamepad has no mapping and won&apos;t be usable. Visit the Moonlight help to resolve this.</source>
         <translation>Takılı bir gamepad&apos;in haritalaması yoktur ve kullanılamayacaktır. Bunu çözmek için Moonlight yardımını ziyaret edin.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1225"/>
+        <location filename="../streaming/session.cpp" line="1226"/>
         <source>Your host PC&apos;s GPU doesn&apos;t support streaming video resolutions over 4K.</source>
         <translation>Ana bilgisayarınızın ekran kartı 4K&apos;nın üzerindeki video çözünürlüklerini desteklemiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1243"/>
+        <location filename="../streaming/session.cpp" line="1244"/>
         <source>Your selection to force hardware decoding cannot be satisfied due to missing hardware decoding support on this PC&apos;s GPU.</source>
         <translation>Donanım kod çözmeyi zorlama seçiminiz, bu bilgisayarın ekran kartındaki eksik donanım kod çözme desteği nedeniyle yerine getirilemiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1246"/>
+        <location filename="../streaming/session.cpp" line="1247"/>
         <source>Your codec selection and force hardware decoding setting are not compatible. This PC&apos;s GPU lacks support for decoding your chosen codec.</source>
         <translation>Codec seçiminiz ve donanım kod çözüm zorlama ayarları uyumlu değil. Bu bilgisayarın ekran kartı, seçtiğiniz codec&apos;in kod çözümünü desteklemiyor.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="2411"/>
+        <location filename="../streaming/session.cpp" line="2413"/>
         <source>Unable to initialize video decoder. Please check your streaming settings and try again.</source>
         <translation>Video kod çözücü başlatılamıyor. Lütfen yayın ayarlarınızı kontrol edin ve tekrar deneyin.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="978"/>
+        <location filename="../streaming/session.cpp" line="979"/>
         <source>The version of GeForce Experience on %1 is not supported by this build of Perigee. You must update Perigee to stream from %1.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>%1 üzerindeki GeForce Experience sürümü, bu Perigee yapısı tarafından desteklenmiyor. %1 kaynağından akış yapmak için Perigee&apos;ı güncellemelisiniz.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1751"/>
-        <location filename="../streaming/session.cpp" line="1850"/>
+        <location filename="../streaming/session.cpp" line="1752"/>
+        <location filename="../streaming/session.cpp" line="1852"/>
         <source>Automatic clipboard paused. Use Ctrl+Alt+Shift+O for manual transfer.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Otomatik pano duraklatıldı. Manuel aktarım için Ctrl+Alt+Shift+O kullanın.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1772"/>
-        <location filename="../streaming/session.cpp" line="1851"/>
+        <location filename="../streaming/session.cpp" line="1773"/>
+        <location filename="../streaming/session.cpp" line="1853"/>
         <source>Clipboard transfer is not permitted for this stream</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Bu akış için pano aktarımına izin verilmiyor</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1776"/>
-        <location filename="../streaming/session.cpp" line="1852"/>
+        <location filename="../streaming/session.cpp" line="1777"/>
+        <location filename="../streaming/session.cpp" line="1854"/>
         <source>Clipboard unavailable. Check host permissions and reconnect.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Pano kullanılamıyor. Ana bilgisayar izinlerini kontrol edin ve yeniden bağlanın.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1782"/>
-        <location filename="../streaming/session.cpp" line="1853"/>
+        <location filename="../streaming/session.cpp" line="1783"/>
+        <location filename="../streaming/session.cpp" line="1855"/>
         <source>Unable to read the local text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Yerel metin panosu okunamıyor</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1787"/>
-        <location filename="../streaming/session.cpp" line="1853"/>
+        <location filename="../streaming/session.cpp" line="1788"/>
+        <location filename="../streaming/session.cpp" line="1855"/>
         <source>Unable to send clipboard text</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Pano metni gönderilemiyor</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1854"/>
-        <location filename="../streaming/session.cpp" line="2148"/>
+        <location filename="../streaming/session.cpp" line="1856"/>
+        <location filename="../streaming/session.cpp" line="2150"/>
         <source>Clipboard sent to host</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Pano ana makineye gönderildi</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1854"/>
-        <location filename="../streaming/session.cpp" line="2151"/>
+        <location filename="../streaming/session.cpp" line="1856"/>
+        <location filename="../streaming/session.cpp" line="2153"/>
         <source>Clipboard received from host</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Ana makineden alınan pano</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1855"/>
-        <location filename="../streaming/session.cpp" line="2151"/>
+        <location filename="../streaming/session.cpp" line="1857"/>
+        <location filename="../streaming/session.cpp" line="2153"/>
         <source>Unable to update the local clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Yerel pano güncellenemiyor</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1856"/>
-        <location filename="../streaming/session.cpp" line="2154"/>
+        <location filename="../streaming/session.cpp" line="1858"/>
+        <location filename="../streaming/session.cpp" line="2156"/>
         <source>Host denied clipboard access. Check permissions and reconnect.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Ana bilgisayar pano erişimini reddetti. İzinleri kontrol edin ve yeniden bağlanın.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1857"/>
-        <location filename="../streaming/session.cpp" line="2157"/>
+        <location filename="../streaming/session.cpp" line="1859"/>
+        <location filename="../streaming/session.cpp" line="2159"/>
         <source>Host does not support text clipboard transfer</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Ana bilgisayar, metin panosu aktarımını desteklemiyor</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1858"/>
-        <location filename="../streaming/session.cpp" line="2160"/>
+        <location filename="../streaming/session.cpp" line="1860"/>
+        <location filename="../streaming/session.cpp" line="2162"/>
         <source>Clipboard receive skipped: focus or local text changed</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Pano alımı atlandı: odak veya yerel metin değiştirildi</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1859"/>
-        <location filename="../streaming/session.cpp" line="2163"/>
+        <location filename="../streaming/session.cpp" line="1861"/>
+        <location filename="../streaming/session.cpp" line="2165"/>
         <source>Host returned invalid clipboard text</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Ana makine geçersiz pano metni döndürdü</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1859"/>
-        <location filename="../streaming/session.cpp" line="2166"/>
+        <location filename="../streaming/session.cpp" line="1861"/>
+        <location filename="../streaming/session.cpp" line="2168"/>
         <source>Clipboard transfer failed. Try again.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Pano aktarımı başarısız oldu. Tekrar deneyin.</translation>
@@ -1335,174 +1383,209 @@ Optional pairing import shares host-side identity and permissions with Moonlight
 <context>
     <name>SettingsView</name>
     <message>
-        <location filename="../gui/SettingsView.qml" line="13"/>
+        <location filename="../gui/SettingsView.qml" line="14"/>
         <source>Settings</source>
         <translation>Ayarlar</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="139"/>
+        <location filename="../gui/SettingsView.qml" line="270"/>
         <source>Resolution and FPS</source>
         <translation>Çözünürlük ve FPS</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="147"/>
+        <location filename="../gui/SettingsView.qml" line="278"/>
         <source>Setting values too high for your PC or network connection may cause lag, stuttering, or errors.</source>
         <translation>Bilgisayarınız veya ağ bağlantınız için çok yüksek değerler ayarlamak gecikme, takılma veya hatalara neden olabilir.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="129"/>
+        <location filename="../gui/SettingsView.qml" line="260"/>
         <source>Basic Settings</source>
         <translation>Temel Ayarlar</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="274"/>
+        <location filename="../gui/SettingsView.qml" line="405"/>
         <source>720p</source>
         <translation>720p</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="280"/>
+        <location filename="../gui/SettingsView.qml" line="411"/>
         <source>1080p</source>
         <translation>1080p</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="286"/>
+        <location filename="../gui/SettingsView.qml" line="417"/>
         <source>1440p</source>
         <translation>1440p</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="292"/>
+        <location filename="../gui/SettingsView.qml" line="423"/>
         <source>4K</source>
         <translation>4K</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="399"/>
+        <location filename="../gui/SettingsView.qml" line="530"/>
         <source>Custom resolutions are not officially supported by GeForce Experience, so it will not set your host display resolution. You will need to set it manually while in game.</source>
         <translation>Özel çözünürlükler GeForce Experience tarafından resmi olarak desteklenmediğinden dolay, ana bilgisayarın ekran çözünürlüğünü ayarlamayacak. Oyun içindeyken manuel olarak ayarlamanız gerekecektir.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="400"/>
+        <location filename="../gui/SettingsView.qml" line="531"/>
         <source>Resolutions that are not supported by your client or host PC may cause streaming errors.</source>
         <translation>İstemciniz veya ana bilgisayarınız tarafından desteklenmeyen çözünürlükler yayın hatalarına neden olabilir.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="406"/>
+        <location filename="../gui/SettingsView.qml" line="537"/>
         <source>Enter a custom resolution:</source>
         <translation>Özel bir çözünürlük girin:</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="628"/>
+        <location filename="../gui/SettingsView.qml" line="759"/>
         <source>%1 FPS</source>
         <translation>%1 FPS</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="696"/>
+        <location filename="../gui/SettingsView.qml" line="827"/>
         <source>Video bitrate:</source>
         <translation>Video bit hızı:</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="704"/>
+        <location filename="../gui/SettingsView.qml" line="835"/>
         <source>Lower the bitrate on slower connections. Raise the bitrate to increase image quality.</source>
         <translation>Daha yavaş olan bağlantılarda bit hızını düşürün. Görüntü kalitesini artırmak için bit hızını yükseltin.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="726"/>
+        <location filename="../gui/SettingsView.qml" line="857"/>
         <source>Video bitrate: %1 Mbps</source>
         <translation>Video bit hızı: %1 Mbps</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="756"/>
+        <location filename="../gui/SettingsView.qml" line="187"/>
+        <location filename="../gui/SettingsView.qml" line="887"/>
         <source>Display mode</source>
         <translation>Görüntüleme modu</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="767"/>
-        <location filename="../gui/SettingsView.qml" line="1362"/>
+        <location filename="../gui/SettingsView.qml" line="191"/>
+        <location filename="../gui/SettingsView.qml" line="898"/>
+        <location filename="../gui/SettingsView.qml" line="1534"/>
         <source>Fullscreen</source>
         <translation>Tam ekran</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="836"/>
+        <location filename="../gui/SettingsView.qml" line="967"/>
         <source>Fullscreen generally provides the best performance, but borderless windowed may work better with features like macOS Spaces, Alt+Tab, screenshot tools, on-screen overlays, etc.</source>
         <translation>Tam ekran genellikle en iyi performansı sağlar, ancak kenarlıksız pencere modu macOS Space, Alt+Tab, ekran görüntüsü araçları, ekran üstü kaplamalar gibi özelliklerle daha iyi çalışabilir.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="772"/>
+        <location filename="../gui/SettingsView.qml" line="191"/>
+        <location filename="../gui/SettingsView.qml" line="903"/>
         <source>Borderless windowed</source>
         <translation>Kenarlıksız pencere</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="206"/>
+        <location filename="../gui/SettingsView.qml" line="106"/>
+        <location filename="../gui/SettingsView.qml" line="1261"/>
+        <source>Edit profile</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Profili düzenle</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="158"/>
+        <source>Width</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Genişlik</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="160"/>
+        <source>Height</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Yükseklik</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="202"/>
+        <location filename="../gui/SettingsView.qml" line="1274"/>
+        <source>Unable to save profile</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Profil kaydedilemiyor</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="337"/>
         <source>Native</source>
         <translation>Yerel</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="207"/>
+        <location filename="../gui/SettingsView.qml" line="338"/>
         <source>Native (Excluding Notch)</source>
         <translation>Yerli (Çentik Hariç)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="742"/>
+        <location filename="../gui/SettingsView.qml" line="873"/>
         <source>Use Default (%1 Mbps)</source>
         <translation>Varsayılanı Kullan (%1 Mbps)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="777"/>
-        <location filename="../gui/SettingsView.qml" line="1354"/>
+        <location filename="../gui/SettingsView.qml" line="191"/>
+        <location filename="../gui/SettingsView.qml" line="908"/>
+        <location filename="../gui/SettingsView.qml" line="1526"/>
         <source>Windowed</source>
         <translation>Pencereli</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="786"/>
+        <location filename="../gui/SettingsView.qml" line="917"/>
         <source>(Recommended)</source>
         <translation>(Önerilen)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="846"/>
+        <location filename="../gui/SettingsView.qml" line="197"/>
+        <location filename="../gui/SettingsView.qml" line="977"/>
         <source>V-Sync</source>
         <translation>V-Sync</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="856"/>
+        <location filename="../gui/SettingsView.qml" line="987"/>
         <source>Disabling V-Sync allows sub-frame rendering latency, but it can display visible tearing</source>
         <translation>V-sync&apos;in devre dışı bırakılması alt kareden az oluşturma gecikmesine izin verir, ancak görünür yırtılma gösterebilir</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="862"/>
+        <location filename="../gui/SettingsView.qml" line="198"/>
+        <location filename="../gui/SettingsView.qml" line="993"/>
         <source>Frame pacing</source>
         <translation>Kare aralığı</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="872"/>
+        <location filename="../gui/SettingsView.qml" line="1003"/>
         <source>Frame pacing reduces micro-stutter by delaying frames that come in too early</source>
         <translation>Kare aralığı, çok erken gelen kareleri geciktirerek mikro takılmaları azaltır</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="906"/>
+        <location filename="../gui/SettingsView.qml" line="1037"/>
         <source>Audio Settings</source>
         <translation>Ses Ayarları</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="941"/>
+        <location filename="../gui/SettingsView.qml" line="184"/>
+        <location filename="../gui/SettingsView.qml" line="1072"/>
         <source>Stereo</source>
         <translation>Stereo</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="945"/>
+        <location filename="../gui/SettingsView.qml" line="184"/>
+        <location filename="../gui/SettingsView.qml" line="1076"/>
         <source>5.1 surround sound</source>
         <translation>5.1 surround ses</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="949"/>
+        <location filename="../gui/SettingsView.qml" line="184"/>
+        <location filename="../gui/SettingsView.qml" line="1080"/>
         <source>7.1 surround sound</source>
         <translation>7.1 surround ses</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="963"/>
+        <location filename="../gui/SettingsView.qml" line="1094"/>
         <source>Mute host PC speakers while streaming</source>
         <translation>Yayın sırasında ana bilgisayar hoparlörlerinin sesini kapatın</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="973"/>
+        <location filename="../gui/SettingsView.qml" line="1104"/>
         <source>You must restart any game currently in progress for this setting to take effect</source>
         <translation>Bu ayarın etkili olması için devam etmekte olan herhangi bir oyunu yeniden başlatmanız gerekir</translation>
     </message>
@@ -1515,17 +1598,17 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">Yayından Alt+Tab ile çıktığınızda veya farklı bir pencereye tıkladığınızda Moonlight&apos;ın sesini kapatır.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1111"/>
+        <location filename="../gui/SettingsView.qml" line="1283"/>
         <source>UI Settings</source>
         <translation>Kullanıcı Arayüzü Ayarları</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1143"/>
+        <location filename="../gui/SettingsView.qml" line="1315"/>
         <source>Language</source>
         <translation>Dil</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1169"/>
+        <location filename="../gui/SettingsView.qml" line="1341"/>
         <source>Automatic</source>
         <translation>Otomatik</translation>
     </message>
@@ -1534,77 +1617,78 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">Bu değişikliğin etkili olması için Moonlight&apos;ı yeniden başlatmanız gerekir</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1321"/>
+        <location filename="../gui/SettingsView.qml" line="1493"/>
         <source>GUI display mode</source>
         <translation>GUI görüntüleme modu</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1358"/>
+        <location filename="../gui/SettingsView.qml" line="1530"/>
         <source>Maximized</source>
         <translation>Maksimize Edilmiş</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1386"/>
+        <location filename="../gui/SettingsView.qml" line="1558"/>
         <source>Show configuration warnings</source>
         <translation>Yapılandırma uyarılarını göster</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1443"/>
+        <location filename="../gui/SettingsView.qml" line="1615"/>
         <source>Input Settings</source>
         <translation>Giriş Ayarları</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1464"/>
+        <location filename="../gui/SettingsView.qml" line="1636"/>
         <source>This enables seamless mouse control without capturing the client&apos;s mouse cursor. It is ideal for remote desktop usage but will not work in most games.</source>
         <translation>İstemcinin fare imlecini yakalamadan sorunsuz fare kontrolü sağlar. Uzak masaüstü kullanımı için idealdir ancak çoğu oyunlarda çalışmayacaktır.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1466"/>
+        <location filename="../gui/SettingsView.qml" line="1638"/>
         <source>NOTE: Due to a bug in GeForce Experience, this option may not work properly if your host PC has multiple monitors.</source>
         <translation>NOT: GeForce Experience&apos;daki bir hata nedeniyle, ana bilgisayarınızda birden fazla monitör varsa bu seçenek düzgün çalışmayabilir.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1766"/>
+        <location filename="../gui/SettingsView.qml" line="170"/>
+        <location filename="../gui/SettingsView.qml" line="1938"/>
         <source>AV1</source>
         <translation>AV1</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="879"/>
+        <location filename="../gui/SettingsView.qml" line="1010"/>
         <source>Enable HDR</source>
         <translation>HDR&apos;yi Etkinleştir</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="894"/>
+        <location filename="../gui/SettingsView.qml" line="1025"/>
         <source>The stream will be HDR-capable, but some games may require an HDR monitor on your host PC to enable HDR mode.</source>
         <translation>Yayın HDR özellikli olacaktır, ancak bazı oyunlar HDR modunu etkinleştirmek için ana bilgisayarınızda bir HDR monitör gerektirebilir.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="896"/>
+        <location filename="../gui/SettingsView.qml" line="1027"/>
         <source>HDR streaming is not supported on this PC.</source>
         <translation>HDR yayını bu bilgisayarda desteklenmiyor.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1837"/>
+        <location filename="../gui/SettingsView.qml" line="2009"/>
         <source>Enable YUV 4:4:4</source>
         <translation>YUV 4:4:4&apos;ü Etkinleştir</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1918"/>
+        <location filename="../gui/SettingsView.qml" line="2090"/>
         <source>Show performance stats while streaming</source>
         <translation>Yayın sırasında performans istatistiklerini göster</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1928"/>
+        <location filename="../gui/SettingsView.qml" line="2100"/>
         <source>Display real-time stream performance information while streaming.</source>
         <translation>Yayın sırasında gerçek zamanlı yayın performansı bilgilerini görüntüleyin.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1929"/>
+        <location filename="../gui/SettingsView.qml" line="2101"/>
         <source>You can toggle it at any time while streaming using Ctrl+Alt+Shift+S or Select+L1+R1+X.</source>
         <translation>Yayın sırasında Ctrl+Alt+Shift+S veya Select+L1+R1+X tuşlarını kullanarak istediğiniz zaman geçiş yapabilirsiniz.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1930"/>
+        <location filename="../gui/SettingsView.qml" line="2102"/>
         <source>The performance overlay is not supported on Steam Link or Raspberry Pi.</source>
         <translation>Performans katmanı Steam Link veya Raspberry Pi üzerinde desteklenmez.</translation>
     </message>
@@ -1613,52 +1697,52 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">NOT: Windows&apos;ta Ctrl+Alt+Del gibi belirli klavye kısayolları Moonlight dahil hiçbir uygulama tarafından engellenemez.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1548"/>
+        <location filename="../gui/SettingsView.qml" line="1720"/>
         <source>Use touchscreen as a virtual trackpad</source>
         <translation>Dokunmatik ekranı sanal trackpad olarak kullan</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1565"/>
+        <location filename="../gui/SettingsView.qml" line="1737"/>
         <source>Swap left and right mouse buttons</source>
         <translation>Sol ve sağ fare düğmelerini değiştir</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1577"/>
+        <location filename="../gui/SettingsView.qml" line="1749"/>
         <source>Reverse mouse scrolling direction</source>
         <translation>Fare kaydırma yönünü tersine çevir</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1591"/>
+        <location filename="../gui/SettingsView.qml" line="1763"/>
         <source>Gamepad Settings</source>
         <translation>Oyun Kolu Ayarları</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1601"/>
+        <location filename="../gui/SettingsView.qml" line="1773"/>
         <source>Swap A/B and X/Y gamepad buttons</source>
         <translation>A/B ve X/Y gamepad düğmelerini değiştir</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1611"/>
+        <location filename="../gui/SettingsView.qml" line="1783"/>
         <source>This switches gamepads into a Nintendo-style button layout</source>
         <translation>Oyun kumandalarını Nintendo tarzı bir düğme düzenine dönüştürür</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1617"/>
+        <location filename="../gui/SettingsView.qml" line="1789"/>
         <source>Force gamepad #1 always connected</source>
         <translation>1 numaralı oyun kumandasını her zaman bağlı kalmaya zorla</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1627"/>
+        <location filename="../gui/SettingsView.qml" line="1799"/>
         <source>Forces a single gamepad to always stay connected to the host, even if no gamepads are actually connected to this PC.</source>
         <translation>Bilgisayara hiçbir gamepad bağlı olmasa bile tek bir gamepad&apos;in her zaman ana bilgisayara bağlı kalmasını zorlar.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1465"/>
+        <location filename="../gui/SettingsView.qml" line="1637"/>
         <source>You can toggle this while streaming using Ctrl+Alt+Shift+M.</source>
         <translation>Yayın sırasında Ctrl+Alt+Shift+M tuşlarını kullanarak bunu aç/kapa yapabilirsiniz.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1635"/>
+        <location filename="../gui/SettingsView.qml" line="1807"/>
         <source>Enable mouse control with gamepads by holding the &apos;Start&apos; button</source>
         <translation>&apos;Start&apos; düğmesini basılı tutarak gamepad&apos;lerle fare kontrolünü etkinleştir</translation>
     </message>
@@ -1671,281 +1755,322 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">Moonlight&apos;ın odaklanılan mevcut pencere olmasa bile gamepad verilerinin yakalamasını sağlar</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="999"/>
+        <location filename="../gui/SettingsView.qml" line="1130"/>
         <source>Host Settings</source>
         <translation>Ana Bilgisayar Ayarları</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1666"/>
+        <location filename="../gui/SettingsView.qml" line="1838"/>
         <source>Advanced Settings</source>
         <translation>Gelişmiş Ayarlar</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="916"/>
+        <location filename="../gui/SettingsView.qml" line="180"/>
+        <location filename="../gui/SettingsView.qml" line="1047"/>
         <source>Audio configuration</source>
         <translation>Ses konfigürasyonu</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1375"/>
+        <location filename="../gui/SettingsView.qml" line="1547"/>
         <source>Show connection quality warnings</source>
         <translation>Bağlantı kalitesi uyarılarını göster</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1398"/>
+        <location filename="../gui/SettingsView.qml" line="1570"/>
         <source>Discord Rich Presence integration</source>
         <translation>Discord Rich Presence entegrasyonu</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1408"/>
+        <location filename="../gui/SettingsView.qml" line="1580"/>
         <source>Updates your Discord status to display the name of the game you&apos;re streaming.</source>
         <translation>Discord durumunuzu yayınladığınız oyunun adını gösterecek şekilde günceller.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1628"/>
+        <location filename="../gui/SettingsView.qml" line="1800"/>
         <source>Only enable this option when streaming a game that doesn&apos;t support gamepads being connected after startup.</source>
         <translation>Bu seçeneği yalnızca oyun kumandalarının başlangıçtan sonra bağlanmasını desteklemeyen bir oyunu yayınlarken etkinleştirin.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1454"/>
+        <location filename="../gui/SettingsView.qml" line="1626"/>
         <source>Optimize mouse for remote desktop instead of games</source>
         <translation>Fareyi oyunlar yerine uzak masaüstü için optimize edin</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="536"/>
-        <location filename="../gui/SettingsView.qml" line="646"/>
+        <location filename="../gui/SettingsView.qml" line="667"/>
+        <location filename="../gui/SettingsView.qml" line="777"/>
         <source>Custom (%1 FPS)</source>
         <translation>Özel (%1 FPS)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="551"/>
+        <location filename="../gui/SettingsView.qml" line="682"/>
         <source>Enter a custom frame rate:</source>
         <translation>Özel bir kare hızı girin:</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="243"/>
-        <location filename="../gui/SettingsView.qml" line="252"/>
-        <location filename="../gui/SettingsView.qml" line="649"/>
+        <location filename="../gui/SettingsView.qml" line="374"/>
+        <location filename="../gui/SettingsView.qml" line="383"/>
+        <location filename="../gui/SettingsView.qml" line="780"/>
         <source>Custom</source>
         <translation>Özel</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="667"/>
+        <location filename="../gui/SettingsView.qml" line="798"/>
         <source>30 FPS</source>
         <translation>30 FPS</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="672"/>
+        <location filename="../gui/SettingsView.qml" line="803"/>
         <source>60 FPS</source>
         <translation>60 FPS</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1414"/>
+        <location filename="../gui/SettingsView.qml" line="1586"/>
         <source>Keep the display awake while streaming</source>
         <translation>Yayın sırasında ekranı uyanık tut</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1424"/>
+        <location filename="../gui/SettingsView.qml" line="1596"/>
         <source>Prevents the screensaver from starting or the display from going to sleep while streaming.</source>
         <translation>Yayın sırasında ekran koruyucunun başlamasını veya ekranın uyku moduna geçmesini önler.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1476"/>
+        <location filename="../gui/SettingsView.qml" line="1648"/>
         <source>Capture system keyboard shortcuts</source>
         <translation>Sistemin klavye kısayollarını yakala</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1484"/>
+        <location filename="../gui/SettingsView.qml" line="1656"/>
         <source>This enables the capture of system-wide keyboard shortcuts like Alt+Tab that would normally be handled by the client OS while streaming.</source>
         <translation>Yayın sırasında normalde istemci işletim sistemi tarafından işlenecek olan Alt+Tab gibi sistem genelindeki klavye kısayollarının yakalanmasını sağlar.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1514"/>
+        <location filename="../gui/SettingsView.qml" line="1686"/>
         <source>in fullscreen</source>
         <translation>tam ekranda</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1518"/>
+        <location filename="../gui/SettingsView.qml" line="1690"/>
         <source>always</source>
         <translation>her zaman</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1558"/>
+        <location filename="../gui/SettingsView.qml" line="1730"/>
         <source>When checked, the touchscreen acts like a trackpad. When unchecked, the touchscreen will directly control the mouse pointer.</source>
         <translation>İşaretlendiğinde, dokunmatik ekran bir trackpad gibi davranır. İşaretlenmediğinde, dokunmatik ekran doğrudan fare işaretçisini kontrol eder.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1009"/>
+        <location filename="../gui/SettingsView.qml" line="1140"/>
         <source>Optimize game settings for streaming</source>
         <translation>Oyun ayarlarını yayın için optimize edin</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1020"/>
+        <location filename="../gui/SettingsView.qml" line="1151"/>
         <source>Quit app on host PC after ending stream</source>
         <translation>Yayını sonlandırdıktan sonra ana bilgisayarda uygulamadan çık</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1030"/>
+        <location filename="../gui/SettingsView.qml" line="1161"/>
         <source>This will close the app or game you are streaming when you end your stream. You will lose any unsaved progress!</source>
         <translation>Yayınınızı sonlandırdığınızda yayın yaptığınız uygulamayı veya oyunu kapatacaktır. Kaydedilmemiş tüm ilerlemeleri kaybedeceksiniz!</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1037"/>
+        <location filename="../gui/SettingsView.qml" line="1168"/>
         <source>Keyboard shortcuts</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>Klavye kısayolları</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1047"/>
+        <location filename="../gui/SettingsView.qml" line="1178"/>
         <source>Ctrl+Alt+Shift + letter. Empty entries go to the host. Changes apply to the next stream.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>Ctrl+Alt+Shift + harf. Boş girdiler ana makineye iletilir. Değişiklikler sonraki akışta uygulanır.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1081"/>
+        <location filename="../gui/SettingsView.qml" line="1212"/>
         <source>Use distinct letters a–z. Q, Z, E and O are reserved.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>Farklı a–z harfleri kullanın. Q, Z, E ve O ayrılmıştır.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1081"/>
+        <location filename="../gui/SettingsView.qml" line="1212"/>
         <source>Unable to save shortcuts</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>Kısayollar kaydedilemiyor</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1088"/>
+        <location filename="../gui/SettingsView.qml" line="218"/>
+        <location filename="../gui/SettingsView.qml" line="1219"/>
         <source>Save</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>Kaydet</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1098"/>
+        <location filename="../gui/SettingsView.qml" line="208"/>
+        <location filename="../gui/SettingsView.qml" line="1229"/>
         <source>Restore defaults</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>Varsayılanları geri yükle</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1676"/>
+        <location filename="../gui/SettingsView.qml" line="1240"/>
+        <source>Session profile</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Oturum profili</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="1247"/>
+        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Profiller arayüzden açılan yeni oturumlara uygulanır. Genel ayarlar ve etkin akışlar değişmez.</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="1254"/>
+        <source>Current settings</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Geçerli ayarlar</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="1254"/>
+        <source>Programming</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Programlama</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="1254"/>
+        <source>Gaming</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Oyun</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="173"/>
+        <location filename="../gui/SettingsView.qml" line="1848"/>
         <source>Video decoder</source>
         <translation>Video kod çözücü</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1701"/>
-        <location filename="../gui/SettingsView.qml" line="1754"/>
-        <location filename="../gui/SettingsView.qml" line="1812"/>
+        <location filename="../gui/SettingsView.qml" line="170"/>
+        <location filename="../gui/SettingsView.qml" line="177"/>
+        <location filename="../gui/SettingsView.qml" line="1873"/>
+        <location filename="../gui/SettingsView.qml" line="1926"/>
+        <location filename="../gui/SettingsView.qml" line="1984"/>
         <source>Automatic (Recommended)</source>
         <translation>Otomatik (Önerilen)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1705"/>
+        <location filename="../gui/SettingsView.qml" line="177"/>
+        <location filename="../gui/SettingsView.qml" line="1877"/>
         <source>Force software decoding</source>
         <translation>Yazılım kod çözmeyi zorla</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1709"/>
+        <location filename="../gui/SettingsView.qml" line="177"/>
+        <location filename="../gui/SettingsView.qml" line="1881"/>
         <source>Force hardware decoding</source>
         <translation>Donanım kod çözmeyi zorla</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1724"/>
+        <location filename="../gui/SettingsView.qml" line="166"/>
+        <location filename="../gui/SettingsView.qml" line="1896"/>
         <source>Video codec</source>
         <translation>Video codec bileşeni</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1758"/>
+        <location filename="../gui/SettingsView.qml" line="170"/>
+        <location filename="../gui/SettingsView.qml" line="1930"/>
         <source>H.264</source>
         <translation>H.264</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1762"/>
+        <location filename="../gui/SettingsView.qml" line="170"/>
+        <location filename="../gui/SettingsView.qml" line="1934"/>
         <source>HEVC (H.265)</source>
         <translation>HEVC (H.265)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1781"/>
+        <location filename="../gui/SettingsView.qml" line="1953"/>
         <source>Renderer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1859"/>
+        <location filename="../gui/SettingsView.qml" line="2031"/>
         <source>Good for streaming desktop and text-heavy games, but not recommended for fast-paced games.</source>
         <translation>Masaüstü ve metin ağırlıklı oyunların akışı için iyi, ancak hızlı tempolu oyunlar için önerilmez.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1861"/>
+        <location filename="../gui/SettingsView.qml" line="2033"/>
         <source>YUV 4:4:4 is not supported on this PC.</source>
         <translation>YUV 4:4:4 bu bilgisayarda desteklenmemektedir.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1867"/>
+        <location filename="../gui/SettingsView.qml" line="2039"/>
         <source>Unlock bitrate limit (Experimental)</source>
         <translation>Bit hızı sınırının kilidini aç (Deneysel)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1880"/>
+        <location filename="../gui/SettingsView.qml" line="2052"/>
         <source>This unlocks extremely high video bitrates for use with Sunshine hosts. It should only be used when streaming over an Ethernet LAN connection.</source>
         <translation>Bu, Sunshine ana bilgisayarlarıyla kullanım için son derece yüksek video bit hızlarının kilidini açar. Yalnızca Ethernet LAN bağlantısı üzerinden akış yaparken kullanılmalıdır.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1886"/>
+        <location filename="../gui/SettingsView.qml" line="2058"/>
         <source>Automatically find PCs on the local network (Recommended)</source>
         <translation>Yerel ağdaki bilgisayarları otomatik olarak bul (Önerilen)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1907"/>
+        <location filename="../gui/SettingsView.qml" line="2079"/>
         <source>Automatically detect blocked connections (Recommended)</source>
         <translation>Engellenen bağlantıları otomatik olarak algıla (Önerilen)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="979"/>
+        <location filename="../gui/SettingsView.qml" line="1110"/>
         <source>Mute audio stream when Perigee is not the active window</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Perigee etkin pencere olmadığında ses akışını kapat</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="990"/>
+        <location filename="../gui/SettingsView.qml" line="1121"/>
         <source>Mutes Perigee&apos;s audio when you Alt+Tab out of the stream or click on a different window.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Yayından Alt+Tab ile çıktığınızda veya farklı bir pencereye tıkladığınızda Perigee&apos;ın sesini kapatır.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1304"/>
+        <location filename="../gui/SettingsView.qml" line="1476"/>
         <source>You must restart Perigee for this change to take effect</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Bu değişikliğin etkili olması için Perigee&apos;ı yeniden başlatmanız gerekir</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1485"/>
+        <location filename="../gui/SettingsView.qml" line="1657"/>
         <source>NOTE: Certain keyboard shortcuts like Ctrl+Alt+Del on Windows cannot be intercepted by any application, including Perigee.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>NOT: Windows&apos;ta Ctrl+Alt+Del gibi belirli klavye kısayolları Perigee dahil hiçbir uygulama tarafından engellenemez.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1646"/>
+        <location filename="../gui/SettingsView.qml" line="1818"/>
         <source>Process gamepad input when Perigee is in the background</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Perigee arka plandayken gamepad verilerini işle</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1657"/>
+        <location filename="../gui/SettingsView.qml" line="1829"/>
         <source>Allows Perigee to capture gamepad inputs even if it&apos;s not the current window in focus</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Perigee&apos;ın odaklanılan mevcut pencere olmasa bile gamepad verilerinin yakalamasını sağlar</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1120"/>
+        <location filename="../gui/SettingsView.qml" line="1292"/>
         <source>Appearance</source>
         <translatorcomment>Perigee appearance setting; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
         <translation>Görünüm</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1129"/>
+        <location filename="../gui/SettingsView.qml" line="1301"/>
         <source>Dark</source>
         <translatorcomment>Perigee appearance setting; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
         <translation>Koyu</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1130"/>
+        <location filename="../gui/SettingsView.qml" line="1302"/>
         <source>Light</source>
         <translatorcomment>Perigee appearance setting; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
         <translation>Açık</translation>
@@ -2038,7 +2163,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation>Akış kontrolleri</translation>
     </message>
     <message>
-        <location filename="../streaming/input/input.cpp" line="166"/>
+        <location filename="../streaming/input/input.cpp" line="167"/>
         <source>Esc: Close</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>Esc: Kapat</translation>
@@ -2101,7 +2226,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
 <context>
     <name>main</name>
     <message>
-        <location filename="../gui/main.qml" line="448"/>
+        <location filename="../gui/main.qml" line="450"/>
         <source>Settings</source>
         <translation>Ayarlar</translation>
     </message>
@@ -2114,7 +2239,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">Discord topluluğumuza katılın</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="330"/>
+        <location filename="../gui/main.qml" line="332"/>
         <source>Add PC manually</source>
         <translation>Pc ekle</translation>
     </message>
@@ -2123,12 +2248,12 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">Moonlight için güncelleme mevcut: Sürüm %1</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="417"/>
+        <location filename="../gui/main.qml" line="419"/>
         <source>Gamepad Mapper</source>
         <translation>Oyun Kumandası Eşleştirici</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="463"/>
+        <location filename="../gui/main.qml" line="465"/>
         <source>Hardware acceleration doesn&apos;t work on XWayland. Continuing on XWayland may result in poor streaming performance. Try running with QT_QPA_PLATFORM=wayland or switch to X11.</source>
         <translation>Donanım hızlandırma XWayland üzerinde çalışmıyor. XWayland&apos;da devam etmek düşük akış performansına neden olabilir. QT_QPA_PLATFORM=wayland ile çalıştırmayı deneyin veya X11&apos;e geçin.</translation>
     </message>
@@ -2141,7 +2266,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">Moonlight haritalama olmayan oyun kumandalarını algıladı:</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="394"/>
+        <location filename="../gui/main.qml" line="396"/>
         <source>Help</source>
         <translation>Yardım</translation>
     </message>
@@ -2150,62 +2275,62 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="vanished">Moonlight tarafından çalışan bir donanım hızlandırmalı video kod çözücü algılanmadı. Bu yapılandırmada yayın performansınız ciddi şekilde düşebilir.</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="457"/>
+        <location filename="../gui/main.qml" line="459"/>
         <source>Click the Help button for more information on solving this problem.</source>
         <translation>Bu sorunu çözme hakkında daha fazla bilgi için Yardım düğmesine tıklayın.</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="465"/>
+        <location filename="../gui/main.qml" line="467"/>
         <source>Click the Help button for more information.</source>
         <translation>Daha fazla bilgi için Yardım düğmesine tıklayın.</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="483"/>
+        <location filename="../gui/main.qml" line="485"/>
         <source>Click the Help button for information on how to map your gamepads.</source>
         <translation>Oyun kumandalarınızı nasıl eşleyeceğiniz hakkında bilgi için Yardım düğmesine tıklayın.</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="491"/>
+        <location filename="../gui/main.qml" line="493"/>
         <source>Are you sure you want to quit?</source>
         <translation>Çıkmak istediğine emin misin?</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="521"/>
+        <location filename="../gui/main.qml" line="523"/>
         <source>Enter the IP address of your host PC:</source>
         <translation>Ana bilgisayarınızın IP adresini girin:</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="295"/>
+        <location filename="../gui/main.qml" line="297"/>
         <source>Perigee %1 (based on Moonlight Qt)</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Perigee %1 (Moonlight Qt&apos;ye dayalı)</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="311"/>
+        <location filename="../gui/main.qml" line="313"/>
         <source>Visit the upstream Moonlight community on Discord</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Discord&apos;de yukarı akış Moonlight topluluğunu ziyaret edin</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="370"/>
+        <location filename="../gui/main.qml" line="372"/>
         <source>Update available for Perigee: Version %1</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Perigee için güncelleme mevcut: Sürüm %1</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="455"/>
+        <location filename="../gui/main.qml" line="457"/>
         <source>No functioning hardware accelerated video decoder was detected by Perigee. Your streaming performance may be severely degraded in this configuration.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Perigee tarafından çalışan bir donanım hızlandırmalı video kod çözücü algılanmadı. Bu yapılandırmada yayın performansınız ciddi şekilde düşebilir.</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="472"/>
+        <location filename="../gui/main.qml" line="474"/>
         <source>This build of Perigee isn&apos;t optimized for your PC. A &apos;%1&apos; build is recommended for the best streaming performance.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Perigee&apos;nin bu yapısı PC&apos;niz için optimize edilmemiştir. En iyi akış performansı için &apos;%1&apos; yapısı önerilir.</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="481"/>
+        <location filename="../gui/main.qml" line="483"/>
         <source>Perigee detected gamepads without a mapping:</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Perigee haritalama olmayan oyun kumandalarını algıladı:</translation>

@@ -172,260 +172,260 @@
 <context>
     <name>ComputerModel</name>
     <message>
-        <location filename="../gui/computermodel.cpp" line="115"/>
+        <location filename="../gui/computermodel.cpp" line="127"/>
         <source>Online</source>
         <translation>En línea</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="118"/>
+        <location filename="../gui/computermodel.cpp" line="130"/>
         <source>Offline</source>
         <translation>Sin conexión</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="62"/>
-        <location filename="../gui/computermodel.cpp" line="121"/>
+        <location filename="../gui/computermodel.cpp" line="74"/>
         <location filename="../gui/computermodel.cpp" line="133"/>
         <location filename="../gui/computermodel.cpp" line="145"/>
-        <location filename="../gui/computermodel.cpp" line="147"/>
-        <location filename="../gui/computermodel.cpp" line="148"/>
+        <location filename="../gui/computermodel.cpp" line="157"/>
+        <location filename="../gui/computermodel.cpp" line="159"/>
+        <location filename="../gui/computermodel.cpp" line="160"/>
         <source>Unknown</source>
         <translation>Desconocido</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="127"/>
+        <location filename="../gui/computermodel.cpp" line="139"/>
         <source>Paired</source>
         <translation>Emparejado</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="130"/>
+        <location filename="../gui/computermodel.cpp" line="142"/>
         <source>Unpaired</source>
         <translation>No emparejado</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="137"/>
+        <location filename="../gui/computermodel.cpp" line="149"/>
         <source>Name: %1</source>
         <translation>Nombre: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="138"/>
+        <location filename="../gui/computermodel.cpp" line="150"/>
         <source>Status: %1</source>
         <translation>Estado: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="139"/>
+        <location filename="../gui/computermodel.cpp" line="151"/>
         <source>Active Address: %1</source>
         <translation>Dirección activa: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="140"/>
+        <location filename="../gui/computermodel.cpp" line="152"/>
         <source>UUID: %1</source>
         <translation>UUID: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="141"/>
+        <location filename="../gui/computermodel.cpp" line="153"/>
         <source>Local Address: %1</source>
         <translation>Dirección local: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="142"/>
+        <location filename="../gui/computermodel.cpp" line="154"/>
         <source>Remote Address: %1</source>
         <translation>Dirección remota: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="143"/>
+        <location filename="../gui/computermodel.cpp" line="155"/>
         <source>IPv6 Address: %1</source>
         <translation>Dirección ipv6: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="144"/>
+        <location filename="../gui/computermodel.cpp" line="156"/>
         <source>Manual Address: %1</source>
         <translation>Dirección manual: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="145"/>
+        <location filename="../gui/computermodel.cpp" line="157"/>
         <source>MAC Address: %1</source>
         <translation>Dirección mac: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="146"/>
+        <location filename="../gui/computermodel.cpp" line="158"/>
         <source>Pair State: %1</source>
         <translation>Estado del par: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="147"/>
+        <location filename="../gui/computermodel.cpp" line="159"/>
         <source>Running Game ID: %1</source>
         <translation>ID del juego: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="148"/>
+        <location filename="../gui/computermodel.cpp" line="160"/>
         <source>HTTPS Port: %1</source>
         <translation>Puerto HTTPS: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="40"/>
+        <location filename="../gui/computermodel.cpp" line="43"/>
         <source>Connect to this host to check display launch availability.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Conéctese a este host para verificar la disponibilidad del lanzamiento de la pantalla.</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="56"/>
+        <location filename="../gui/computermodel.cpp" line="68"/>
         <source>Not advertised</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>No anunciado</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="57"/>
+        <location filename="../gui/computermodel.cpp" line="69"/>
         <source>Invalid metadata</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Metadatos no válidos</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="58"/>
+        <location filename="../gui/computermodel.cpp" line="70"/>
         <source>No current authenticated metadata</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>No hay metadatos autenticados actualmente</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="59"/>
+        <location filename="../gui/computermodel.cpp" line="71"/>
         <source>Allowed</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Permitido</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="60"/>
+        <location filename="../gui/computermodel.cpp" line="72"/>
         <source>Denied</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>denegado</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="64"/>
+        <location filename="../gui/computermodel.cpp" line="76"/>
         <source>Optional Apollo-compatible fields; this does not identify the host product or version.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Campos opcionales compatibles con Apollo; esto no identifica el producto o la versión del host.</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="65"/>
+        <location filename="../gui/computermodel.cpp" line="77"/>
         <source>Metadata snapshot. Reopen this panel to refresh. Availability does not grant permissions.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Instantánea de metadatos. Vuelva a abrir este panel para actualizar. La disponibilidad no otorga permisos.</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="66"/>
+        <location filename="../gui/computermodel.cpp" line="78"/>
         <source>Permission metadata: %1</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Metadatos de permiso: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="66"/>
+        <location filename="../gui/computermodel.cpp" line="78"/>
         <source>Authenticated mask</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Máscara autenticada</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="71"/>
+        <location filename="../gui/computermodel.cpp" line="83"/>
         <source>Keyboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Teclado</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="71"/>
+        <location filename="../gui/computermodel.cpp" line="83"/>
         <source>Mouse</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>ratón</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="72"/>
+        <location filename="../gui/computermodel.cpp" line="84"/>
         <source>Controller</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Controlador</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="72"/>
+        <location filename="../gui/computermodel.cpp" line="84"/>
         <source>Touch</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Toque</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="73"/>
+        <location filename="../gui/computermodel.cpp" line="85"/>
         <source>Pen</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>bolígrafo</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="73"/>
+        <location filename="../gui/computermodel.cpp" line="85"/>
         <source>Clipboard send</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>enviar portapapeles</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="74"/>
+        <location filename="../gui/computermodel.cpp" line="86"/>
         <source>Clipboard receive</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>recepción del portapapeles</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="74"/>
+        <location filename="../gui/computermodel.cpp" line="86"/>
         <source>Server commands</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Comandos del servidor</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="75"/>
+        <location filename="../gui/computermodel.cpp" line="87"/>
         <source>List applications</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Listar aplicaciones</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="75"/>
+        <location filename="../gui/computermodel.cpp" line="87"/>
         <source>View</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Ver</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="76"/>
+        <location filename="../gui/computermodel.cpp" line="88"/>
         <source>Launch</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Lanzamiento</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="79"/>
         <location filename="../gui/computermodel.cpp" line="91"/>
+        <location filename="../gui/computermodel.cpp" line="103"/>
         <source>%1: %2</source>
         <translatorcomment>Formatting only; placeholders preserved.</translatorcomment>
         <translation>%1: %2</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="82"/>
+        <location filename="../gui/computermodel.cpp" line="94"/>
         <source>Permission mask: 0x%1</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Máscara de permiso: 0x%1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="85"/>
+        <location filename="../gui/computermodel.cpp" line="97"/>
         <source>Yes (host reported)</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Sí (informado por el anfitrión)</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="85"/>
+        <location filename="../gui/computermodel.cpp" line="97"/>
         <source>No (host reported)</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>No (informado por el anfitrión)</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="87"/>
+        <location filename="../gui/computermodel.cpp" line="99"/>
         <source>Virtual-display capable: %1</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Capacidad de visualización virtual: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="88"/>
+        <location filename="../gui/computermodel.cpp" line="100"/>
         <source>Virtual-display driver ready: %1</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Controlador de pantalla virtual listo: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="89"/>
+        <location filename="../gui/computermodel.cpp" line="101"/>
         <source>Advertised command list: %1</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Lista de comandos anunciada: %1</translation>
@@ -648,7 +648,13 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
 <context>
     <name>NvHTTP</name>
     <message>
-        <location filename="../backend/nvhttp.cpp" line="401"/>
+        <location filename="../backend/nvhttp.cpp" line="243"/>
+        <source>Application identity changed or UUID launch is unavailable. Refresh the app list and try again.</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>La identidad de la aplicación cambió o el inicio mediante UUID no está disponible. Actualice la lista e inténtelo de nuevo.</translation>
+    </message>
+    <message>
+        <location filename="../backend/nvhttp.cpp" line="432"/>
         <source>Missing audio capture device. Reinstalling GeForce Experience should resolve this error.</source>
         <translation>Falta el dispositivo de captura de audio. La reinstalación de GeForce Experience debería resolver este error.</translation>
     </message>
@@ -656,12 +662,12 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
 <context>
     <name>PcView</name>
     <message>
-        <location filename="../gui/PcView.qml" line="21"/>
+        <location filename="../gui/PcView.qml" line="22"/>
         <source>Computers</source>
         <translation>Ordenadores</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="63"/>
+        <location filename="../gui/PcView.qml" line="64"/>
         <source>Unable to connect to the specified PC.</source>
         <translation>No se puede conectar con el PC especificado.</translation>
     </message>
@@ -670,42 +676,42 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">La conexión a Internet de este PC está bloqueando Moonlight. Es posible que la transmisión por Internet no funcione mientras esté conectado a esta red.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="69"/>
+        <location filename="../gui/PcView.qml" line="70"/>
         <source>Click the Help button for possible solutions.</source>
         <translation>Haga clic en el botón de ayuda para encontrar posibles soluciones.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="100"/>
+        <location filename="../gui/PcView.qml" line="101"/>
         <source>Automatic PC discovery is disabled. Add your PC manually.</source>
         <translation>La detección automática de PCs está desactivada. Añada su PC manualmente.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="99"/>
+        <location filename="../gui/PcView.qml" line="100"/>
         <source>Searching for compatible hosts on your local network...</source>
         <translation>Buscando hosts compatibles en tu red local...</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="184"/>
+        <location filename="../gui/PcView.qml" line="185"/>
         <source>Wake PC</source>
         <translation>Despertar PC</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="189"/>
+        <location filename="../gui/PcView.qml" line="190"/>
         <source>Test Network</source>
         <translation>Prueba de red</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="197"/>
+        <location filename="../gui/PcView.qml" line="198"/>
         <source>Rename PC</source>
         <translation>Renombrar PC</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="205"/>
+        <location filename="../gui/PcView.qml" line="206"/>
         <source>Delete PC</source>
         <translation>Eliminar PC</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="213"/>
+        <location filename="../gui/PcView.qml" line="214"/>
         <source>View Details</source>
         <translation>Ver los detalles</translation>
     </message>
@@ -714,7 +720,7 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">La versión de GeForce Experience en %1 no es compatible con esta versión de Moonlight. Debes actualizar Moonlight para transmitir desde %1.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="491"/>
+        <location filename="../gui/PcView.qml" line="581"/>
         <source>This may take a few seconds…</source>
         <translation>Esto puede llevar unos segundos…</translation>
     </message>
@@ -723,7 +729,7 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">Esta red no parece estar bloqueando Moonlight. Si sigue teniendo problemas para conectarse, compruebe la configuración del cortafuegos de su PC.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="502"/>
+        <location filename="../gui/PcView.qml" line="592"/>
         <source>If you are trying to stream over the Internet, install the Moonlight Internet Hosting Tool on your gaming PC and run the included Internet Streaming Tester to check your gaming PC&apos;s Internet connection.</source>
         <translation>Si estás intentando hacer streaming a través de Internet, instala la herramienta Moonlight Internet Hosting Tool en tu PC de juegos y ejecuta el comprobador de streaming por Internet incluido para comprobar la conexión a Internet de tu PC de juegos.</translation>
     </message>
@@ -732,7 +738,7 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">La conexión de red actual de tu PC parece estar bloqueando Moonlight. Es posible que la transmisión por Internet no funcione mientras esté conectado a esta red.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="506"/>
+        <location filename="../gui/PcView.qml" line="596"/>
         <source>The following network ports were blocked:</source>
         <translation>Los siguientes puertos de red fueron bloqueados:</translation>
     </message>
@@ -741,37 +747,37 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">La prueba de red no pudo realizarse porque ninguno de los servidores de prueba de conexión de Moonlight era accesible desde este PC. Compruebe su conexión a Internet o inténtelo de nuevo más tarde.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="170"/>
+        <location filename="../gui/PcView.qml" line="171"/>
         <source>PC Status: %1</source>
         <translation>Estado del PC: %1</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="170"/>
+        <location filename="../gui/PcView.qml" line="171"/>
         <source>Online</source>
         <translation>En línea</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="170"/>
+        <location filename="../gui/PcView.qml" line="171"/>
         <source>Offline</source>
         <translation>Fuera de línea</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="175"/>
+        <location filename="../gui/PcView.qml" line="176"/>
         <source>View All Apps</source>
         <translation>Ver todas las aplicaciones</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="464"/>
+        <location filename="../gui/PcView.qml" line="554"/>
         <source>Please enter %1 on your host PC. This dialog will close when pairing is completed.</source>
         <translation>Por favor, introduzca %1 en el host de tu PC. Este cuadro de diálogo se cerrará cuando finalice el emparejamiento.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="465"/>
+        <location filename="../gui/PcView.qml" line="555"/>
         <source>If your host PC is running Sunshine, navigate to the Sunshine web UI to enter the PIN.</source>
         <translation>Si el host del PC está ejecutando Sunshine, navegue hasta la interfaz de usuario web de Sunshine para introducir el PIN.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="477"/>
+        <location filename="../gui/PcView.qml" line="567"/>
         <source>Are you sure you want to remove &apos;%1&apos;?</source>
         <translation>¿Estás seguro de que quieres eliminar &apos;%1&apos;?</translation>
     </message>
@@ -780,134 +786,176 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">Moonlight está probando tu conexión de red para determinar si algún puerto necesario está bloqueado.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="518"/>
+        <location filename="../gui/PcView.qml" line="608"/>
         <source>Enter the new name for this PC:</source>
         <translation>Introduzca el nombre nuevo para este PC:</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="66"/>
+        <location filename="../gui/PcView.qml" line="67"/>
         <source>This PC&apos;s Internet connection is blocking Perigee. Streaming over the Internet may not work while connected to this network.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>La conexión a Internet de este PC está bloqueando Perigee. Es posible que la transmisión por Internet no funcione mientras esté conectado a esta red.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="220"/>
+        <location filename="../gui/PcView.qml" line="221"/>
         <source>Disable Session Text Clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Deshabilitar el portapapeles de texto de la sesión</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="220"/>
+        <location filename="../gui/PcView.qml" line="221"/>
         <source>Enable Session Text Clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Habilitar portapapeles de texto de sesión</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="230"/>
-        <location filename="../gui/PcView.qml" line="381"/>
+        <location filename="../gui/PcView.qml" line="231"/>
+        <location filename="../gui/PcView.qml" line="404"/>
         <source>Host Capabilities</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Capacidades del anfitrión</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="238"/>
-        <location filename="../gui/PcView.qml" line="329"/>
+        <location filename="../gui/PcView.qml" line="239"/>
+        <location filename="../gui/PcView.qml" line="352"/>
         <source>Display Launch Options</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Opciones de pantalla al iniciar</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="248"/>
+        <location filename="../gui/PcView.qml" line="249"/>
+        <source>Use application UUID</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Usar UUID de aplicación</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="256"/>
+        <location filename="../gui/PcView.qml" line="444"/>
+        <source>Configure SFTP</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Configurar SFTP</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="264"/>
+        <source>Open SFTP</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Abrir SFTP</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="271"/>
         <source>Configure Administration Link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Configurar enlace de administración</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="256"/>
+        <location filename="../gui/PcView.qml" line="279"/>
         <source>Open Administration</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Administración abierta</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="266"/>
+        <location filename="../gui/PcView.qml" line="289"/>
         <source>The version of GeForce Experience on %1 is not supported by this build of Perigee. You must update Perigee to stream from %1.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>La versión de GeForce Experience en %1 no es compatible con esta versión de Perigee. Debes actualizar Perigee para transmitir desde %1.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="343"/>
+        <location filename="../gui/PcView.qml" line="366"/>
         <source>Request a virtual display for new launches</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Solicite una exhibición virtual para nuevos lanzamientos</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="349"/>
+        <location filename="../gui/PcView.qml" line="372"/>
         <source>Uses your stream resolution and frame rate. This requests a display; it does not confirm the host display mode. Applies to a new launch, not resume or an active session. Host display defaults may also create a virtual display when this option is off. Live monitor changes and fractional refresh are unavailable.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Utiliza la resolución de su transmisión y la velocidad de fotogramas. Esto solicita una visualización; no confirma el modo de visualización del host. Se aplica a un nuevo lanzamiento, no a una reanudación ni a una sesión activa. Los valores predeterminados de la pantalla del host también pueden crear una pantalla virtual cuando esta opción está desactivada. Los cambios de monitor en vivo y la actualización fraccionada no están disponibles.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="356"/>
+        <location filename="../gui/PcView.qml" line="379"/>
         <source>Display Options Not Saved</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Opciones de visualización no guardadas</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="361"/>
+        <location filename="../gui/PcView.qml" line="384"/>
         <source>Host availability changed. Reopen Display Launch Options to check current permissions and driver status.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>La disponibilidad del anfitrión cambió. Vuelva a abrir las Opciones de inicio de pantalla para verificar los permisos actuales y el estado del controlador.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="368"/>
+        <location filename="../gui/PcView.qml" line="391"/>
         <source>Session Text Clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Portapapeles de texto de sesión</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="374"/>
+        <location filename="../gui/PcView.qml" line="397"/>
         <source>Allow text clipboard transfer for this host during a stream. Requires host clipboard permissions. On GNOME Wayland, text changes synchronize automatically while the stream is focused; existing text is not transferred at connection. Other desktops use manual transfer. Ctrl+Alt+Shift+J sends local text; Ctrl+Alt+Shift+K receives remote text. Slow or unavailable clipboard reads switch to manual transfer. Changes apply to the next stream.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Permitir la transferencia de texto al portapapeles para este host durante una transmisión. Requiere permisos del portapapeles del host. En GNOME Wayland, los cambios de texto se sincronizan automáticamente mientras la transmisión está enfocada; El texto existente no se transfiere al conectarse. Otras computadoras de escritorio utilizan la transferencia manual. Ctrl+Alt+Shift+J envía texto local; Ctrl+Alt+Shift+K recibe texto remoto. Las lecturas del portapapeles lentas o no disponibles cambian a transferencia manual. Los cambios se aplican a la siguiente transmisión.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="404"/>
+        <location filename="../gui/PcView.qml" line="431"/>
+        <source>Unable to open SFTP. Check your desktop handler.</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>No se puede abrir SFTP. Compruebe el gestor del escritorio.</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="453"/>
+        <source>Use an existing SSH service. Enter an sftp:// URL without login credentials. Leave empty to remove it.</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Use un servicio SSH existente. Introduzca una URL sftp:// sin credenciales. Déjela vacía para eliminarla.</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="470"/>
+        <source>Enter a valid SFTP URL without credentials, query parameters, or a fragment.</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Introduzca una URL SFTP válida sin credenciales, parámetros ni fragmento.</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="480"/>
+        <source>Save</source>
+        <translation>Guardar</translation>
+    </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="494"/>
         <source>Host Administration Link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Enlace de administración del host</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="423"/>
+        <location filename="../gui/PcView.qml" line="513"/>
         <source>Enter the host&apos;s HTTPS administration URL. Login remains in your browser. Leave empty to remove the link.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Ingrese la URL de administración HTTPS del host. El inicio de sesión permanece en su navegador. Déjelo vacío para eliminar el enlace.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="438"/>
+        <location filename="../gui/PcView.qml" line="528"/>
         <source>Enter a valid HTTPS URL without login credentials, query parameters, or a fragment.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Ingrese una URL HTTPS válida sin credenciales de inicio de sesión, parámetros de consulta ni fragmentos.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="491"/>
+        <location filename="../gui/PcView.qml" line="581"/>
         <source>Perigee is testing your network connection to determine if any required ports are blocked.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Perigee está probando tu conexión de red para determinar si algún puerto necesario está bloqueado.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="498"/>
+        <location filename="../gui/PcView.qml" line="588"/>
         <source>The network test could not be performed because none of the upstream Moonlight connection testing servers were reachable from this PC. Check your Internet connection or try again later.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>La prueba de red no se pudo realizar porque ninguno de los servidores de prueba de conexión Moonlight ascendentes era accesible desde esta PC. Verifique su conexión a Internet o vuelva a intentarlo más tarde.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="502"/>
+        <location filename="../gui/PcView.qml" line="592"/>
         <source>This network does not appear to be blocking Perigee. If you still have trouble connecting, check your PC&apos;s firewall settings.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Esta red no parece estar bloqueando Perigee. Si sigue teniendo problemas para conectarse, compruebe la configuración del cortafuegos de su PC.</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="506"/>
+        <location filename="../gui/PcView.qml" line="596"/>
         <source>Your PC&apos;s current network connection seems to be blocking Perigee. Streaming over the Internet may not work while connected to this network.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>La conexión de red actual de tu PC parece estar bloqueando Perigee. Es posible que la transmisión por Internet no funcione mientras esté conectado a esta red.</translation>
@@ -1084,249 +1132,249 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">La versión de GeForce Experience en %1 no es compatible con esta versión de Moonlight. Debes actualizar Moonlight para transmitir desde %1.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="983"/>
+        <location filename="../streaming/session.cpp" line="984"/>
         <source>Your selection to enable remote desktop mouse mode may cause problems in games.</source>
         <translation>La selección de activar el modo de ratón de escritorio remoto puede causar problemas en los juegos.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="987"/>
+        <location filename="../streaming/session.cpp" line="988"/>
         <source>Your settings selection to force software decoding may cause poor streaming performance.</source>
         <translation>Su selección de ajustes para forzar la decodificación por software puede causar un rendimiento deficiente de la transmisión.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1023"/>
+        <location filename="../streaming/session.cpp" line="1024"/>
         <source>Your host PC doesn&apos;t support encoding HEVC.</source>
         <translation>El host de tu PC no soporta la codificación HEVC.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1041"/>
+        <location filename="../streaming/session.cpp" line="1042"/>
         <source>Using software decoding due to your selection to force HEVC without GPU support. This may cause poor streaming performance.</source>
         <translation>Usando decodificación por software debido a su selección de forzar HEVC sin soporte de GPU. Esto puede causar un bajo rendimiento de streaming.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="993"/>
+        <location filename="../streaming/session.cpp" line="994"/>
         <source>Your host software or GPU doesn&apos;t support encoding AV1.</source>
         <translation>El software host o la GPU no admiten la codificación AV1.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1011"/>
+        <location filename="../streaming/session.cpp" line="1012"/>
         <source>Using software decoding due to your selection to force AV1 without GPU support. This may cause poor streaming performance.</source>
         <translation>El uso de la decodificación por software debido a tu selección para forzar el AV1 sin soporte para la GPU. Esto puede causar un bajo rendimiento de la transmisión.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1088"/>
+        <location filename="../streaming/session.cpp" line="1089"/>
         <source>Your host PC doesn&apos;t support HDR streaming.</source>
         <translation>El host de tu PC no es compatible con HDR.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1080"/>
+        <location filename="../streaming/session.cpp" line="1081"/>
         <source>HDR is not supported using the H.264 codec.</source>
         <translation>HDR no es compatible con el códec H.264.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1103"/>
+        <location filename="../streaming/session.cpp" line="1104"/>
         <source>This PC&apos;s GPU doesn&apos;t support AV1 Main10 decoding for HDR streaming.</source>
         <translation>La GPU de este PC no es compatible con la decodificación en AV1 Main10 para la transmisión en HDR.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1084"/>
+        <location filename="../streaming/session.cpp" line="1085"/>
         <source>This PC&apos;s GPU doesn&apos;t support 10-bit HEVC or AV1 decoding for HDR streaming.</source>
         <translation>La GPU de este PC no admite la decodificación en HEVC de 10 bits ni AV1 para la retransmisión en HDR.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1136"/>
+        <location filename="../streaming/session.cpp" line="1137"/>
         <source>Your host PC and client PC don&apos;t support the same HDR video codecs.</source>
         <translation>El host de tu PC y tu servidor no admiten los mismos códecs de video en HDR.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1229"/>
+        <location filename="../streaming/session.cpp" line="1230"/>
         <source>Video resolutions over 4K are not supported by the H.264 codec.</source>
         <translation>Las resoluciones de video superiores a 4K no son compatibles con el códec H.264.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1643"/>
+        <location filename="../streaming/session.cpp" line="1644"/>
         <source>Host returned error: %1</source>
         <translation>El host devuelve el error: %1</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1060"/>
+        <location filename="../streaming/session.cpp" line="1061"/>
         <source>Using software decoding due to your selection to force H.264 without GPU support. This may cause poor streaming performance.</source>
         <translation>Usando decodificación de software debido a su selección para forzar H.264 sin soporte de GPU. Esto puede provocar un rendimiento de transmisión deficiente.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1070"/>
+        <location filename="../streaming/session.cpp" line="1071"/>
         <source>Your host PC and client PC don&apos;t support the same video codecs. This may cause poor streaming performance.</source>
         <translation>Su PC anfitrión y el PC cliente no soportan los mismos códecs de vídeo. Esto puede causar un bajo rendimiento de la transmisión.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1073"/>
+        <location filename="../streaming/session.cpp" line="1074"/>
         <source>Your client GPU doesn&apos;t support H.264 decoding. This may cause poor streaming performance.</source>
         <translation>Su GPU cliente no soporta la decodificación H.264. Esto puede causar un bajo rendimiento de la transmisión.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1109"/>
-        <location filename="../streaming/session.cpp" line="1127"/>
+        <location filename="../streaming/session.cpp" line="1110"/>
+        <location filename="../streaming/session.cpp" line="1128"/>
         <source>Using software decoding due to your selection to force HDR without GPU support. This may cause poor streaming performance.</source>
         <translation>La decodificación de software se utiliza debido a su elección de forzar HDR sin compatibilidad con tarjetas gráficas. Esto puede resultar en un rendimiento deficiente de la transmisión.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1121"/>
+        <location filename="../streaming/session.cpp" line="1122"/>
         <source>This PC&apos;s GPU doesn&apos;t support HEVC Main10 decoding for HDR streaming.</source>
         <translation>La GPU de este PC no es compatible con la decodificación HEVC Main10 para la transmisión de HDR.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1143"/>
+        <location filename="../streaming/session.cpp" line="1144"/>
         <source>Your host PC doesn&apos;t support YUV 4:4:4 streaming.</source>
         <translation>El host de tu ordenador no admite la transmisión YUV 4:4:4.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1151"/>
+        <location filename="../streaming/session.cpp" line="1152"/>
         <source>Your host PC doesn&apos;t support YUV 4:4:4 streaming for selected video codec.</source>
         <translation>El PC anfitrión no admite la transmisión YUV 4:4:4 para el códec de vídeo seleccionado.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1166"/>
+        <location filename="../streaming/session.cpp" line="1167"/>
         <source>Using software decoding due to your selection to force YUV 4:4:4 without GPU support. This may cause poor streaming performance.</source>
         <translation>Uso de decodificación por software debido a su selección para forzar YUV 4:4:4 sin soporte GPU. Esto puede causar un bajo rendimiento en el streaming.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1172"/>
+        <location filename="../streaming/session.cpp" line="1173"/>
         <source>This PC&apos;s GPU doesn&apos;t support YUV 4:4:4 decoding for selected video codec.</source>
         <translation>La GPU de este PC no es compatible con la descodificación YUV 4:4:4 para el códec de vídeo seleccionado.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1181"/>
+        <location filename="../streaming/session.cpp" line="1182"/>
         <source>GeForce Experience 3.0 or higher is required for 4K streaming.</source>
         <translation>Se requiere GeForce Experience 3.0 o superior para la transmisión en 4K.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1196"/>
+        <location filename="../streaming/session.cpp" line="1197"/>
         <source>Your selected surround sound setting is not supported by the current audio device.</source>
         <translation>La configuración de sonido envolvente seleccionada no es compatible con el dispositivo de audio actual.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1202"/>
+        <location filename="../streaming/session.cpp" line="1203"/>
         <source>Failed to open audio device. Audio will be unavailable during this session.</source>
         <translation>No se ha podido abrir el dispositivo de audio. El audio no estará disponible durante esta sesión.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1207"/>
+        <location filename="../streaming/session.cpp" line="1208"/>
         <source>An attached gamepad has no mapping and won&apos;t be usable. Visit the Moonlight help to resolve this.</source>
         <translation>Un mando conectado no tiene mapeo y no será utilizable. Visita la ayuda de Moonlight para resolver esto.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1225"/>
+        <location filename="../streaming/session.cpp" line="1226"/>
         <source>Your host PC&apos;s GPU doesn&apos;t support streaming video resolutions over 4K.</source>
         <translation>La GPU de su PC anfitrión no admite la transmisión de resoluciones de vídeo superiores a 4K.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1243"/>
+        <location filename="../streaming/session.cpp" line="1244"/>
         <source>Your selection to force hardware decoding cannot be satisfied due to missing hardware decoding support on this PC&apos;s GPU.</source>
         <translation>Su selección para forzar la decodificación por hardware no puede ser satisfecha debido a la falta de soporte de decodificación por hardware en la GPU de este PC.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1246"/>
+        <location filename="../streaming/session.cpp" line="1247"/>
         <source>Your codec selection and force hardware decoding setting are not compatible. This PC&apos;s GPU lacks support for decoding your chosen codec.</source>
         <translation>La selección del códec y la configuración de la decodificación forzada por hardware no son compatibles. La GPU de este PC no es compatible con la descodificación del códec elegido.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="2411"/>
+        <location filename="../streaming/session.cpp" line="2413"/>
         <source>Unable to initialize video decoder. Please check your streaming settings and try again.</source>
         <translation>No se ha podido inicializar el decodificador de vídeo. Por favor, compruebe la configuración de la transmisión y vuelva a intentarlo.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="978"/>
+        <location filename="../streaming/session.cpp" line="979"/>
         <source>The version of GeForce Experience on %1 is not supported by this build of Perigee. You must update Perigee to stream from %1.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>La versión de GeForce Experience en %1 no es compatible con esta versión de Perigee. Debes actualizar Perigee para transmitir desde %1.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1751"/>
-        <location filename="../streaming/session.cpp" line="1850"/>
+        <location filename="../streaming/session.cpp" line="1752"/>
+        <location filename="../streaming/session.cpp" line="1852"/>
         <source>Automatic clipboard paused. Use Ctrl+Alt+Shift+O for manual transfer.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Portapapeles automático en pausa. Utilice Ctrl+Alt+Shift+O para transferencia manual.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1772"/>
-        <location filename="../streaming/session.cpp" line="1851"/>
+        <location filename="../streaming/session.cpp" line="1773"/>
+        <location filename="../streaming/session.cpp" line="1853"/>
         <source>Clipboard transfer is not permitted for this stream</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>La transferencia del portapapeles no está permitida para esta transmisión.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1776"/>
-        <location filename="../streaming/session.cpp" line="1852"/>
+        <location filename="../streaming/session.cpp" line="1777"/>
+        <location filename="../streaming/session.cpp" line="1854"/>
         <source>Clipboard unavailable. Check host permissions and reconnect.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Portapapeles no disponible. Verifique los permisos del host y vuelva a conectarse.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1782"/>
-        <location filename="../streaming/session.cpp" line="1853"/>
+        <location filename="../streaming/session.cpp" line="1783"/>
+        <location filename="../streaming/session.cpp" line="1855"/>
         <source>Unable to read the local text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>No se puede leer el portapapeles de texto local</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1787"/>
-        <location filename="../streaming/session.cpp" line="1853"/>
+        <location filename="../streaming/session.cpp" line="1788"/>
+        <location filename="../streaming/session.cpp" line="1855"/>
         <source>Unable to send clipboard text</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>No se puede enviar texto del portapapeles</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1854"/>
-        <location filename="../streaming/session.cpp" line="2148"/>
+        <location filename="../streaming/session.cpp" line="1856"/>
+        <location filename="../streaming/session.cpp" line="2150"/>
         <source>Clipboard sent to host</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Portapapeles enviado al host</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1854"/>
-        <location filename="../streaming/session.cpp" line="2151"/>
+        <location filename="../streaming/session.cpp" line="1856"/>
+        <location filename="../streaming/session.cpp" line="2153"/>
         <source>Clipboard received from host</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Portapapeles recibido del anfitrión</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1855"/>
-        <location filename="../streaming/session.cpp" line="2151"/>
+        <location filename="../streaming/session.cpp" line="1857"/>
+        <location filename="../streaming/session.cpp" line="2153"/>
         <source>Unable to update the local clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>No se puede actualizar el portapapeles local</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1856"/>
-        <location filename="../streaming/session.cpp" line="2154"/>
+        <location filename="../streaming/session.cpp" line="1858"/>
+        <location filename="../streaming/session.cpp" line="2156"/>
         <source>Host denied clipboard access. Check permissions and reconnect.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>El host ha denegado el acceso al portapapeles. Verifique los permisos y vuelva a conectarse.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1857"/>
-        <location filename="../streaming/session.cpp" line="2157"/>
+        <location filename="../streaming/session.cpp" line="1859"/>
+        <location filename="../streaming/session.cpp" line="2159"/>
         <source>Host does not support text clipboard transfer</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>El host no admite la transferencia de texto al portapapeles</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1858"/>
-        <location filename="../streaming/session.cpp" line="2160"/>
+        <location filename="../streaming/session.cpp" line="1860"/>
+        <location filename="../streaming/session.cpp" line="2162"/>
         <source>Clipboard receive skipped: focus or local text changed</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Se omitió la recepción del portapapeles: se cambió el foco o el texto local</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1859"/>
-        <location filename="../streaming/session.cpp" line="2163"/>
+        <location filename="../streaming/session.cpp" line="1861"/>
+        <location filename="../streaming/session.cpp" line="2165"/>
         <source>Host returned invalid clipboard text</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>El anfitrión devolvió texto del portapapeles no válido</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1859"/>
-        <location filename="../streaming/session.cpp" line="2166"/>
+        <location filename="../streaming/session.cpp" line="1861"/>
+        <location filename="../streaming/session.cpp" line="2168"/>
         <source>Clipboard transfer failed. Try again.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Error en la transferencia del portapapeles. Intentar otra vez.</translation>
@@ -1335,174 +1383,209 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
 <context>
     <name>SettingsView</name>
     <message>
-        <location filename="../gui/SettingsView.qml" line="13"/>
+        <location filename="../gui/SettingsView.qml" line="14"/>
         <source>Settings</source>
         <translation>Ajustes</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="139"/>
+        <location filename="../gui/SettingsView.qml" line="270"/>
         <source>Resolution and FPS</source>
         <translation>Resolución y FPS</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="147"/>
+        <location filename="../gui/SettingsView.qml" line="278"/>
         <source>Setting values too high for your PC or network connection may cause lag, stuttering, or errors.</source>
         <translation>Ajustar valores demasiado elevados para su PC o su conexión de red puede provocar retrasos, tartamudeos o errores.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="129"/>
+        <location filename="../gui/SettingsView.qml" line="260"/>
         <source>Basic Settings</source>
         <translation>Configuración básica</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="274"/>
+        <location filename="../gui/SettingsView.qml" line="405"/>
         <source>720p</source>
         <translation>720p</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="280"/>
+        <location filename="../gui/SettingsView.qml" line="411"/>
         <source>1080p</source>
         <translation>1080p</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="286"/>
+        <location filename="../gui/SettingsView.qml" line="417"/>
         <source>1440p</source>
         <translation>1440p</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="292"/>
+        <location filename="../gui/SettingsView.qml" line="423"/>
         <source>4K</source>
         <translation>4K</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="399"/>
+        <location filename="../gui/SettingsView.qml" line="530"/>
         <source>Custom resolutions are not officially supported by GeForce Experience, so it will not set your host display resolution. You will need to set it manually while in game.</source>
         <translation>GeForce Experience no admite oficialmente las resoluciones personalizadas, por lo que no establecerá la resolución de la pantalla anfitriona. Tendrás que configurarla manualmente en el juego.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="400"/>
+        <location filename="../gui/SettingsView.qml" line="531"/>
         <source>Resolutions that are not supported by your client or host PC may cause streaming errors.</source>
         <translation>Las resoluciones que no sean compatibles con el cliente o el PC anfitrión pueden provocar errores de transmisión.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="406"/>
+        <location filename="../gui/SettingsView.qml" line="537"/>
         <source>Enter a custom resolution:</source>
         <translation>Introduzca una resolución personalizada:</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="628"/>
+        <location filename="../gui/SettingsView.qml" line="759"/>
         <source>%1 FPS</source>
         <translation>%1 FPS</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="696"/>
+        <location filename="../gui/SettingsView.qml" line="827"/>
         <source>Video bitrate:</source>
         <translation>Tasa de bits de vídeo:</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="704"/>
+        <location filename="../gui/SettingsView.qml" line="835"/>
         <source>Lower the bitrate on slower connections. Raise the bitrate to increase image quality.</source>
         <translation>Reduzca la tasa de bits en las conexiones más lentas. Aumenta la tasa de bits para aumentar la calidad de la imagen.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="726"/>
+        <location filename="../gui/SettingsView.qml" line="857"/>
         <source>Video bitrate: %1 Mbps</source>
         <translation>Tasa de bits de vídeo: %1 Mbps</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="756"/>
+        <location filename="../gui/SettingsView.qml" line="187"/>
+        <location filename="../gui/SettingsView.qml" line="887"/>
         <source>Display mode</source>
         <translation>Modo de visualización</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="786"/>
+        <location filename="../gui/SettingsView.qml" line="917"/>
         <source>(Recommended)</source>
         <translation>(Recomendado)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="767"/>
-        <location filename="../gui/SettingsView.qml" line="1362"/>
+        <location filename="../gui/SettingsView.qml" line="191"/>
+        <location filename="../gui/SettingsView.qml" line="898"/>
+        <location filename="../gui/SettingsView.qml" line="1534"/>
         <source>Fullscreen</source>
         <translation>Pantalla completa</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="836"/>
+        <location filename="../gui/SettingsView.qml" line="967"/>
         <source>Fullscreen generally provides the best performance, but borderless windowed may work better with features like macOS Spaces, Alt+Tab, screenshot tools, on-screen overlays, etc.</source>
         <translation>La pantalla completa suele ofrecer el mejor rendimiento, pero la ventana sin bordes puede funcionar mejor con funciones como macOS Spaces, Alt+Tab, herramientas de captura de pantalla, superposiciones en pantalla, etc.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="772"/>
+        <location filename="../gui/SettingsView.qml" line="191"/>
+        <location filename="../gui/SettingsView.qml" line="903"/>
         <source>Borderless windowed</source>
         <translation>Ventana sin bordes</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="206"/>
+        <location filename="../gui/SettingsView.qml" line="106"/>
+        <location filename="../gui/SettingsView.qml" line="1261"/>
+        <source>Edit profile</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Editar perfil</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="158"/>
+        <source>Width</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Ancho</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="160"/>
+        <source>Height</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Alto</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="202"/>
+        <location filename="../gui/SettingsView.qml" line="1274"/>
+        <source>Unable to save profile</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>No se puede guardar el perfil</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="337"/>
         <source>Native</source>
         <translation>Nativo</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="207"/>
+        <location filename="../gui/SettingsView.qml" line="338"/>
         <source>Native (Excluding Notch)</source>
         <translation>Nativo (excluido Notch)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="742"/>
+        <location filename="../gui/SettingsView.qml" line="873"/>
         <source>Use Default (%1 Mbps)</source>
         <translation>Uso predeterminado(%1 Mbps)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="777"/>
-        <location filename="../gui/SettingsView.qml" line="1354"/>
+        <location filename="../gui/SettingsView.qml" line="191"/>
+        <location filename="../gui/SettingsView.qml" line="908"/>
+        <location filename="../gui/SettingsView.qml" line="1526"/>
         <source>Windowed</source>
         <translation>Ventana</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="846"/>
+        <location filename="../gui/SettingsView.qml" line="197"/>
+        <location filename="../gui/SettingsView.qml" line="977"/>
         <source>V-Sync</source>
         <translation>V-Sync (Sincronización Vertical)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="856"/>
+        <location filename="../gui/SettingsView.qml" line="987"/>
         <source>Disabling V-Sync allows sub-frame rendering latency, but it can display visible tearing</source>
         <translation>Desactivar V-Sync permite una latencia de renderizado por debajo de los fotogramas, pero puede mostrar un tearing visible</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="862"/>
+        <location filename="../gui/SettingsView.qml" line="198"/>
+        <location filename="../gui/SettingsView.qml" line="993"/>
         <source>Frame pacing</source>
         <translation>Ritmo de fotogramas</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="872"/>
+        <location filename="../gui/SettingsView.qml" line="1003"/>
         <source>Frame pacing reduces micro-stutter by delaying frames that come in too early</source>
         <translation>El ritmo de los fotogramas reduce el microtartamudeo retrasando los fotogramas que llegan demasiado pronto</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="906"/>
+        <location filename="../gui/SettingsView.qml" line="1037"/>
         <source>Audio Settings</source>
         <translation>Ajustes de audio</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="941"/>
+        <location filename="../gui/SettingsView.qml" line="184"/>
+        <location filename="../gui/SettingsView.qml" line="1072"/>
         <source>Stereo</source>
         <translation>Estéreo</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="945"/>
+        <location filename="../gui/SettingsView.qml" line="184"/>
+        <location filename="../gui/SettingsView.qml" line="1076"/>
         <source>5.1 surround sound</source>
         <translation>Sonido envolvente 5.1</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="949"/>
+        <location filename="../gui/SettingsView.qml" line="184"/>
+        <location filename="../gui/SettingsView.qml" line="1080"/>
         <source>7.1 surround sound</source>
         <translation>Sonido envolvente 7.1</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="963"/>
+        <location filename="../gui/SettingsView.qml" line="1094"/>
         <source>Mute host PC speakers while streaming</source>
         <translation>Silenciar los altavoces del PC anfitrión durante la transmisión</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="973"/>
+        <location filename="../gui/SettingsView.qml" line="1104"/>
         <source>You must restart any game currently in progress for this setting to take effect</source>
         <translation>Para que este ajuste surta efecto, debes reiniciar cualquier partida que esté en curso</translation>
     </message>
@@ -1515,17 +1598,17 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">Silencia el audio de Moonlight cuando haces Alt+Tab fuera de la transmisión o haces clic en una ventana diferente.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1111"/>
+        <location filename="../gui/SettingsView.qml" line="1283"/>
         <source>UI Settings</source>
         <translation>Configuración de la interfaz</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1143"/>
+        <location filename="../gui/SettingsView.qml" line="1315"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1169"/>
+        <location filename="../gui/SettingsView.qml" line="1341"/>
         <source>Automatic</source>
         <translation>Automático</translation>
     </message>
@@ -1534,77 +1617,78 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">Debe reiniciar Moonlight para que este cambio surta efecto</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1321"/>
+        <location filename="../gui/SettingsView.qml" line="1493"/>
         <source>GUI display mode</source>
         <translation>Modo de visualización GUI</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1358"/>
+        <location filename="../gui/SettingsView.qml" line="1530"/>
         <source>Maximized</source>
         <translation>Maximizado</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1386"/>
+        <location filename="../gui/SettingsView.qml" line="1558"/>
         <source>Show configuration warnings</source>
         <translation>Mostrar advertencias de configuración</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1443"/>
+        <location filename="../gui/SettingsView.qml" line="1615"/>
         <source>Input Settings</source>
         <translation>Ajustes de entrada</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1464"/>
+        <location filename="../gui/SettingsView.qml" line="1636"/>
         <source>This enables seamless mouse control without capturing the client&apos;s mouse cursor. It is ideal for remote desktop usage but will not work in most games.</source>
         <translation>Esto permite un control perfecto del ratón sin capturar el cursor del ratón del cliente. Es ideal para el uso del escritorio remoto, pero no funcionará en la mayoría de los juegos.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1466"/>
+        <location filename="../gui/SettingsView.qml" line="1638"/>
         <source>NOTE: Due to a bug in GeForce Experience, this option may not work properly if your host PC has multiple monitors.</source>
         <translation>NOTA: Debido a un error en GeForce Experience, es posible que esta opción no funcione correctamente si su PC host tiene varios monitores.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1766"/>
+        <location filename="../gui/SettingsView.qml" line="170"/>
+        <location filename="../gui/SettingsView.qml" line="1938"/>
         <source>AV1</source>
         <translation>AV1</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="879"/>
+        <location filename="../gui/SettingsView.qml" line="1010"/>
         <source>Enable HDR</source>
         <translation>Activar HDR</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="894"/>
+        <location filename="../gui/SettingsView.qml" line="1025"/>
         <source>The stream will be HDR-capable, but some games may require an HDR monitor on your host PC to enable HDR mode.</source>
         <translation>La transmisión podrá utilizar HDR, pero algunos juegos pueden requerir un monitor HDR en el PC anfitrión para permitir el modo HDR.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="896"/>
+        <location filename="../gui/SettingsView.qml" line="1027"/>
         <source>HDR streaming is not supported on this PC.</source>
         <translation>La transmisión HDR no esta soportada en este PC.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1837"/>
+        <location filename="../gui/SettingsView.qml" line="2009"/>
         <source>Enable YUV 4:4:4</source>
         <translation>Activar YUV 4:4:4</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1918"/>
+        <location filename="../gui/SettingsView.qml" line="2090"/>
         <source>Show performance stats while streaming</source>
         <translation>Mostrar estadísticas de rendimiento en streaming</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1928"/>
+        <location filename="../gui/SettingsView.qml" line="2100"/>
         <source>Display real-time stream performance information while streaming.</source>
         <translation>Muestra información sobre el rendimiento del flujo en tiempo real mientras se transmite.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1929"/>
+        <location filename="../gui/SettingsView.qml" line="2101"/>
         <source>You can toggle it at any time while streaming using Ctrl+Alt+Shift+S or Select+L1+R1+X.</source>
         <translation>Puedes cambiarla en cualquier momento mientras transmites con Ctrl+Alt+Mayús+S o Select+L1+R1+X.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1930"/>
+        <location filename="../gui/SettingsView.qml" line="2102"/>
         <source>The performance overlay is not supported on Steam Link or Raspberry Pi.</source>
         <translation>La superposición de rendimiento no es compatible con Steam Link o Raspberry Pi.</translation>
     </message>
@@ -1613,52 +1697,52 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">NOTA: Ciertos atajos de teclado como Ctrl+Alt+Supr en Windows no pueden ser interceptados por ninguna aplicación, incluyendo Moonlight.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1548"/>
+        <location filename="../gui/SettingsView.qml" line="1720"/>
         <source>Use touchscreen as a virtual trackpad</source>
         <translation>Utilice la pantalla táctil como un trackpad virtual</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1565"/>
+        <location filename="../gui/SettingsView.qml" line="1737"/>
         <source>Swap left and right mouse buttons</source>
         <translation>Intercambiar los botones izquierdo y derecho del ratón</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1577"/>
+        <location filename="../gui/SettingsView.qml" line="1749"/>
         <source>Reverse mouse scrolling direction</source>
         <translation>Invertir la dirección de desplazamiento del ratón</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1591"/>
+        <location filename="../gui/SettingsView.qml" line="1763"/>
         <source>Gamepad Settings</source>
         <translation>Configuración del mando</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1601"/>
+        <location filename="../gui/SettingsView.qml" line="1773"/>
         <source>Swap A/B and X/Y gamepad buttons</source>
         <translation>Cambiar los botones del mando A / B y X / Y</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1611"/>
+        <location filename="../gui/SettingsView.qml" line="1783"/>
         <source>This switches gamepads into a Nintendo-style button layout</source>
         <translation>Esto cambia los mandos a un diseño de botones al estilo de Nintendo</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1617"/>
+        <location filename="../gui/SettingsView.qml" line="1789"/>
         <source>Force gamepad #1 always connected</source>
         <translation>Forzar que el mando #1 esté siempre conectado</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1627"/>
+        <location filename="../gui/SettingsView.qml" line="1799"/>
         <source>Forces a single gamepad to always stay connected to the host, even if no gamepads are actually connected to this PC.</source>
         <translation>Obliga a un solo mando a permanecer siempre conectado al host, aunque no haya ningún mando conectado a este PC.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1465"/>
+        <location filename="../gui/SettingsView.qml" line="1637"/>
         <source>You can toggle this while streaming using Ctrl+Alt+Shift+M.</source>
         <translation>Puedes alternar esto mientras transmites usando Ctrl+Alt+Mayús+M.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1635"/>
+        <location filename="../gui/SettingsView.qml" line="1807"/>
         <source>Enable mouse control with gamepads by holding the &apos;Start&apos; button</source>
         <translation>Activa el control del ratón con los mandos manteniendo pulsado el botón &apos;Start&apos;</translation>
     </message>
@@ -1671,281 +1755,322 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">Permite a Moonlight capturar las entradas del mando incluso si no es la ventana actual</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="999"/>
+        <location filename="../gui/SettingsView.qml" line="1130"/>
         <source>Host Settings</source>
         <translation>Configuración de host</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1666"/>
+        <location filename="../gui/SettingsView.qml" line="1838"/>
         <source>Advanced Settings</source>
         <translation>Configuración avanzada</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="916"/>
+        <location filename="../gui/SettingsView.qml" line="180"/>
+        <location filename="../gui/SettingsView.qml" line="1047"/>
         <source>Audio configuration</source>
         <translation>Configuración del sonido</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1375"/>
+        <location filename="../gui/SettingsView.qml" line="1547"/>
         <source>Show connection quality warnings</source>
         <translation>Mostrar avisos de calidad de la conexión</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1398"/>
+        <location filename="../gui/SettingsView.qml" line="1570"/>
         <source>Discord Rich Presence integration</source>
         <translation>Integración de Discord Rich Presence</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1408"/>
+        <location filename="../gui/SettingsView.qml" line="1580"/>
         <source>Updates your Discord status to display the name of the game you&apos;re streaming.</source>
         <translation>Actualiza tu estado de Discord para mostrar el nombre del juego que estás transmitiendo.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1628"/>
+        <location filename="../gui/SettingsView.qml" line="1800"/>
         <source>Only enable this option when streaming a game that doesn&apos;t support gamepads being connected after startup.</source>
         <translation>Sólo active esta opción cuando transmita un juego que no admita la conexión de mandos después del inicio.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1454"/>
+        <location filename="../gui/SettingsView.qml" line="1626"/>
         <source>Optimize mouse for remote desktop instead of games</source>
         <translation>Optimizar el ratón para el escritorio remoto en lugar de los juegos</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="536"/>
-        <location filename="../gui/SettingsView.qml" line="646"/>
+        <location filename="../gui/SettingsView.qml" line="667"/>
+        <location filename="../gui/SettingsView.qml" line="777"/>
         <source>Custom (%1 FPS)</source>
         <translation>Personalizado (%1 FPS)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="551"/>
+        <location filename="../gui/SettingsView.qml" line="682"/>
         <source>Enter a custom frame rate:</source>
         <translation>Introduce una velocidad para los fotogramas personalizada:</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="243"/>
-        <location filename="../gui/SettingsView.qml" line="252"/>
-        <location filename="../gui/SettingsView.qml" line="649"/>
+        <location filename="../gui/SettingsView.qml" line="374"/>
+        <location filename="../gui/SettingsView.qml" line="383"/>
+        <location filename="../gui/SettingsView.qml" line="780"/>
         <source>Custom</source>
         <translation>Personalizado</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="667"/>
+        <location filename="../gui/SettingsView.qml" line="798"/>
         <source>30 FPS</source>
         <translation>30 FPS</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="672"/>
+        <location filename="../gui/SettingsView.qml" line="803"/>
         <source>60 FPS</source>
         <translation>60 FPS</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1414"/>
+        <location filename="../gui/SettingsView.qml" line="1586"/>
         <source>Keep the display awake while streaming</source>
         <translation>Mantener la pantalla encendida mientras dura la transmisión</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1424"/>
+        <location filename="../gui/SettingsView.qml" line="1596"/>
         <source>Prevents the screensaver from starting or the display from going to sleep while streaming.</source>
         <translation>Prevenir que el protector de pantallas inicie o la pantalla entre en modo dormir durante la transmisión.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1476"/>
+        <location filename="../gui/SettingsView.qml" line="1648"/>
         <source>Capture system keyboard shortcuts</source>
         <translation>Capturar los atajos de teclado del sistema</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1484"/>
+        <location filename="../gui/SettingsView.qml" line="1656"/>
         <source>This enables the capture of system-wide keyboard shortcuts like Alt+Tab that would normally be handled by the client OS while streaming.</source>
         <translation>Esto permite capturar los atajos de teclado de todo el sistema, como Alt+Tab, que normalmente serían manejados por el sistema operativo del cliente durante la transmisión.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1514"/>
+        <location filename="../gui/SettingsView.qml" line="1686"/>
         <source>in fullscreen</source>
         <translation>en pantalla completa</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1518"/>
+        <location filename="../gui/SettingsView.qml" line="1690"/>
         <source>always</source>
         <translation>siempre</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1558"/>
+        <location filename="../gui/SettingsView.qml" line="1730"/>
         <source>When checked, the touchscreen acts like a trackpad. When unchecked, the touchscreen will directly control the mouse pointer.</source>
         <translation>Cuando está marcada, la pantalla táctil actúa como un trackpad. Si no está marcada, la pantalla táctil controlará directamente el puntero del ratón.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1009"/>
+        <location filename="../gui/SettingsView.qml" line="1140"/>
         <source>Optimize game settings for streaming</source>
         <translation>Optimizar la configuración del juego para la transmisión</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1020"/>
+        <location filename="../gui/SettingsView.qml" line="1151"/>
         <source>Quit app on host PC after ending stream</source>
         <translation>Salir de la aplicación en el PC anfitrión después de terminar la transmisión</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1030"/>
+        <location filename="../gui/SettingsView.qml" line="1161"/>
         <source>This will close the app or game you are streaming when you end your stream. You will lose any unsaved progress!</source>
         <translation>Esto cerrará la aplicación o el juego que estás transmitiendo cuando termines tu transmisión. ¡Perderás todo el progreso que no hayas guardado!</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1037"/>
+        <location filename="../gui/SettingsView.qml" line="1168"/>
         <source>Keyboard shortcuts</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>Atajos de teclado</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1047"/>
+        <location filename="../gui/SettingsView.qml" line="1178"/>
         <source>Ctrl+Alt+Shift + letter. Empty entries go to the host. Changes apply to the next stream.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>Ctrl+Alt+Shift + letra. Las entradas vacías se envían al anfitrión. Los cambios se aplican a la próxima transmisión.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1081"/>
+        <location filename="../gui/SettingsView.qml" line="1212"/>
         <source>Use distinct letters a–z. Q, Z, E and O are reserved.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>Use letras distintas a–z. Q, Z, E y O están reservadas.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1081"/>
+        <location filename="../gui/SettingsView.qml" line="1212"/>
         <source>Unable to save shortcuts</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>No se pueden guardar los atajos</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1088"/>
+        <location filename="../gui/SettingsView.qml" line="218"/>
+        <location filename="../gui/SettingsView.qml" line="1219"/>
         <source>Save</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>Guardar</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1098"/>
+        <location filename="../gui/SettingsView.qml" line="208"/>
+        <location filename="../gui/SettingsView.qml" line="1229"/>
         <source>Restore defaults</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>Restaurar valores predeterminados</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1676"/>
+        <location filename="../gui/SettingsView.qml" line="1240"/>
+        <source>Session profile</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Perfil de sesión</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="1247"/>
+        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Los perfiles se aplican a nuevas sesiones de la interfaz. No cambian los ajustes globales ni las transmisiones activas.</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="1254"/>
+        <source>Current settings</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Ajustes actuales</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="1254"/>
+        <source>Programming</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Programación</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="1254"/>
+        <source>Gaming</source>
+        <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        <translation>Juegos</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsView.qml" line="173"/>
+        <location filename="../gui/SettingsView.qml" line="1848"/>
         <source>Video decoder</source>
         <translation>Descodificador de vídeo</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1701"/>
-        <location filename="../gui/SettingsView.qml" line="1754"/>
-        <location filename="../gui/SettingsView.qml" line="1812"/>
+        <location filename="../gui/SettingsView.qml" line="170"/>
+        <location filename="../gui/SettingsView.qml" line="177"/>
+        <location filename="../gui/SettingsView.qml" line="1873"/>
+        <location filename="../gui/SettingsView.qml" line="1926"/>
+        <location filename="../gui/SettingsView.qml" line="1984"/>
         <source>Automatic (Recommended)</source>
         <translation>Automático (recomendado)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1705"/>
+        <location filename="../gui/SettingsView.qml" line="177"/>
+        <location filename="../gui/SettingsView.qml" line="1877"/>
         <source>Force software decoding</source>
         <translation>Forzar la decodificación por software</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1709"/>
+        <location filename="../gui/SettingsView.qml" line="177"/>
+        <location filename="../gui/SettingsView.qml" line="1881"/>
         <source>Force hardware decoding</source>
         <translation>Forzar la decodificación por hardware</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1724"/>
+        <location filename="../gui/SettingsView.qml" line="166"/>
+        <location filename="../gui/SettingsView.qml" line="1896"/>
         <source>Video codec</source>
         <translation>Códec de vídeo</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1758"/>
+        <location filename="../gui/SettingsView.qml" line="170"/>
+        <location filename="../gui/SettingsView.qml" line="1930"/>
         <source>H.264</source>
         <translation>H.264</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1762"/>
+        <location filename="../gui/SettingsView.qml" line="170"/>
+        <location filename="../gui/SettingsView.qml" line="1934"/>
         <source>HEVC (H.265)</source>
         <translation>HEVC (H.265)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1781"/>
+        <location filename="../gui/SettingsView.qml" line="1953"/>
         <source>Renderer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1859"/>
+        <location filename="../gui/SettingsView.qml" line="2031"/>
         <source>Good for streaming desktop and text-heavy games, but not recommended for fast-paced games.</source>
         <translation>Bueno para la transmisión de juegos de escritorio y de texto pesado, pero no se recomienda para juegos de ritmo rápido.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1861"/>
+        <location filename="../gui/SettingsView.qml" line="2033"/>
         <source>YUV 4:4:4 is not supported on this PC.</source>
         <translation>YUV 4:4:4 no es compatible con este PC.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1867"/>
+        <location filename="../gui/SettingsView.qml" line="2039"/>
         <source>Unlock bitrate limit (Experimental)</source>
         <translation>Desbloqueo del límite de bits (Experimental)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1880"/>
+        <location filename="../gui/SettingsView.qml" line="2052"/>
         <source>This unlocks extremely high video bitrates for use with Sunshine hosts. It should only be used when streaming over an Ethernet LAN connection.</source>
         <translation>Esto desbloquea tasas de bits de vídeo extremadamente altas para su uso con hosts Sunshine. Solo debe utilizarse cuando se transmita a través de una conexión LAN Ethernet.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1886"/>
+        <location filename="../gui/SettingsView.qml" line="2058"/>
         <source>Automatically find PCs on the local network (Recommended)</source>
         <translation>Encuentre automáticamente los ordenadores de la red local (recomendado)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1907"/>
+        <location filename="../gui/SettingsView.qml" line="2079"/>
         <source>Automatically detect blocked connections (Recommended)</source>
         <translation>Detectar automáticamente las conexiones bloqueadas (recomendado)</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="979"/>
+        <location filename="../gui/SettingsView.qml" line="1110"/>
         <source>Mute audio stream when Perigee is not the active window</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Silenciar el flujo de audio cuando Perigee no es la ventana activa</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="990"/>
+        <location filename="../gui/SettingsView.qml" line="1121"/>
         <source>Mutes Perigee&apos;s audio when you Alt+Tab out of the stream or click on a different window.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Silencia el audio de Perigee cuando haces Alt+Tab fuera de la transmisión o haces clic en una ventana diferente.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1304"/>
+        <location filename="../gui/SettingsView.qml" line="1476"/>
         <source>You must restart Perigee for this change to take effect</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Debe reiniciar Perigee para que este cambio surta efecto</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1485"/>
+        <location filename="../gui/SettingsView.qml" line="1657"/>
         <source>NOTE: Certain keyboard shortcuts like Ctrl+Alt+Del on Windows cannot be intercepted by any application, including Perigee.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>NOTA: Ciertos atajos de teclado como Ctrl+Alt+Supr en Windows no pueden ser interceptados por ninguna aplicación, incluyendo Perigee.</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1646"/>
+        <location filename="../gui/SettingsView.qml" line="1818"/>
         <source>Process gamepad input when Perigee is in the background</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Procesar la entrada del mando cuando Perigee está en segundo plano</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1657"/>
+        <location filename="../gui/SettingsView.qml" line="1829"/>
         <source>Allows Perigee to capture gamepad inputs even if it&apos;s not the current window in focus</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Permite a Perigee capturar las entradas del mando incluso si no es la ventana actual</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1120"/>
+        <location filename="../gui/SettingsView.qml" line="1292"/>
         <source>Appearance</source>
         <translatorcomment>Perigee appearance setting; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
         <translation>Apariencia</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1129"/>
+        <location filename="../gui/SettingsView.qml" line="1301"/>
         <source>Dark</source>
         <translatorcomment>Perigee appearance setting; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
         <translation>Oscuro</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1130"/>
+        <location filename="../gui/SettingsView.qml" line="1302"/>
         <source>Light</source>
         <translatorcomment>Perigee appearance setting; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
         <translation>Claro</translation>
@@ -2038,7 +2163,7 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation>Controles de transmisión</translation>
     </message>
     <message>
-        <location filename="../streaming/input/input.cpp" line="166"/>
+        <location filename="../streaming/input/input.cpp" line="167"/>
         <source>Esc: Close</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         <translation>Esc: Cerrar</translation>
@@ -2101,7 +2226,7 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
 <context>
     <name>main</name>
     <message>
-        <location filename="../gui/main.qml" line="448"/>
+        <location filename="../gui/main.qml" line="450"/>
         <source>Settings</source>
         <translation>Ajustes</translation>
     </message>
@@ -2114,7 +2239,7 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">Únete a nuestra comunidad en Discord</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="330"/>
+        <location filename="../gui/main.qml" line="332"/>
         <source>Add PC manually</source>
         <translation>Agregar PC manualmente</translation>
     </message>
@@ -2123,12 +2248,12 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">Actualización disponible para Moonlight: versión %1</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="417"/>
+        <location filename="../gui/main.qml" line="419"/>
         <source>Gamepad Mapper</source>
         <translation>Mapeador de mandos</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="463"/>
+        <location filename="../gui/main.qml" line="465"/>
         <source>Hardware acceleration doesn&apos;t work on XWayland. Continuing on XWayland may result in poor streaming performance. Try running with QT_QPA_PLATFORM=wayland or switch to X11.</source>
         <translation>La aceleración por hardware no funciona en XWayland. Continuar con XWayland puede dar lugar a un rendimiento deficiente de la transmisión. Intente ejecutar con QT_QPA_PLATFORM=wayland o cambie a X11.</translation>
     </message>
@@ -2141,7 +2266,7 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">Moonlight detectó mandos sin mapeo:</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="394"/>
+        <location filename="../gui/main.qml" line="396"/>
         <source>Help</source>
         <translation>Ayuda</translation>
     </message>
@@ -2150,62 +2275,62 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
         <translation type="vanished">Moonlight no ha detectado ningún decodificador de vídeo acelerado por hardware que funcione. El rendimiento de la transmisión puede verse gravemente degradado con esta configuración.</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="457"/>
+        <location filename="../gui/main.qml" line="459"/>
         <source>Click the Help button for more information on solving this problem.</source>
         <translation>Haga clic en el botón de ayuda para obtener más información sobre cómo resolver este problema.</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="465"/>
+        <location filename="../gui/main.qml" line="467"/>
         <source>Click the Help button for more information.</source>
         <translation>Haga clic en el botón de ayuda para obtener más información.</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="483"/>
+        <location filename="../gui/main.qml" line="485"/>
         <source>Click the Help button for information on how to map your gamepads.</source>
         <translation>Haz clic en el botón de ayuda para obtener información sobre cómo asignar tus mandos.</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="491"/>
+        <location filename="../gui/main.qml" line="493"/>
         <source>Are you sure you want to quit?</source>
         <translation>¿Estás seguro de que quieres salir?</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="521"/>
+        <location filename="../gui/main.qml" line="523"/>
         <source>Enter the IP address of your host PC:</source>
         <translation>Introduzca la dirección IP del host de tu PC:</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="295"/>
+        <location filename="../gui/main.qml" line="297"/>
         <source>Perigee %1 (based on Moonlight Qt)</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Perigee %1 (basado en Moonlight Qt)</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="311"/>
+        <location filename="../gui/main.qml" line="313"/>
         <source>Visit the upstream Moonlight community on Discord</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Visite la comunidad upstream Moonlight en Discord</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="370"/>
+        <location filename="../gui/main.qml" line="372"/>
         <source>Update available for Perigee: Version %1</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Actualización disponible para Perigee: versión %1</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="455"/>
+        <location filename="../gui/main.qml" line="457"/>
         <source>No functioning hardware accelerated video decoder was detected by Perigee. Your streaming performance may be severely degraded in this configuration.</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Perigee no ha detectado ningún decodificador de vídeo acelerado por hardware que funcione. El rendimiento de la transmisión puede verse gravemente degradado con esta configuración.</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="472"/>
+        <location filename="../gui/main.qml" line="474"/>
         <source>This build of Perigee isn&apos;t optimized for your PC. A &apos;%1&apos; build is recommended for the best streaming performance.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Esta compilación de Perigee no está optimizada para su PC. Se recomienda una compilación &apos;%1&apos; para obtener el mejor rendimiento de transmisión.</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="481"/>
+        <location filename="../gui/main.qml" line="483"/>
         <source>Perigee detected gamepads without a mapping:</source>
         <translatorcomment>Reused upstream Moonlight translation; product name updated where needed.</translatorcomment>
         <translation>Perigee detectó mandos sin mapeo:</translation>

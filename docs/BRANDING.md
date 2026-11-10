@@ -292,3 +292,12 @@ shell grouping, installed launcher/icon-cache behavior, import and distributable
 package tests remain pending; live host pairing was skipped by user instruction.
 Detailed commands and limitations are in the implementation plan. Translation
 catalogs retain upstream contexts; new product strings currently fall back to English.
+
+
+## Milestone 6 verification (2026-11-10)
+
+Milestone 6 local settings use `sessionprofile` and `sessionprofiles/<name>` for
+the selected Programming/Gaming profile and its twelve video/audio/window fields.
+Host records add `transferurl`, `useappuuid`, and cached app UUIDs. Import excludes
+these integration fields. SFTP URLs cannot contain credentials; profiles contain
+no pairing identity or host records. No general preferences export is added.

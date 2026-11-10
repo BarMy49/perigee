@@ -53,8 +53,8 @@ Approved plan date: 2026-10-25. This document is the task/status entry point; re
 | 3B: Text clipboard | Done, user-accepted on GNOME Wayland | Manual and focused automatic sync; other backends manual-only; secondary-platform coverage follow-ups retained |
 | 4: Display launch controls | Implemented; user reports primary-host tests passed on 2026-10-28; detailed matrix follow-ups retained | Authenticated metadata, fresh launch, driver/permission readiness |
 | 5: Productivity UI and controls | Implementation delivered through shortcut editor and stream panel; local checks pass, live acceptance pending | Existing actions, ownership/performance checks |
-| 6: Optional integrations | Not started | Feature-specific evidence and prerequisites |
-| 7: Distribution and maintenance | Not started | Complete identity plus compatibility matrix |
+| 6: Optional integrations | Profiles, SFTP and gated UUID implemented locally; commands explicitly deferred by user on 2026-11-10 | Live-host acceptance remains pending |
+| 7: Distribution and maintenance | Current implementation stage, authorized on 2026-11-10; packaging not started | Distribution readiness and retained compatibility gates |
 
 ## Documentation delivery
 
@@ -1638,9 +1638,9 @@ not a recorded pass. KDE and Sunshine remain independent coverage requirements.
 
 Each item is an independent task; do not implement them as one change.
 
-- [ ] Profiles: reuse preference snapshots, editable Programming/Gaming presets,
+- [x] Profiles: reuse preference snapshots, editable Programming/Gaming presets,
   no mutation of active global state. Test session/profile isolation and restart.
-- [ ] SFTP: open a user-configured `sftp://` destination through desktop integration;
+- [x] SFTP: open a user-configured `sftp://` destination through desktop integration;
   no SSH provisioning or plaintext secret storage. Test unsupported/missing handlers.
 - [ ] Application UUID: parse/preserve host extensions and launch only supported
   hosts; standard numeric ID remains the compatibility path. Test both hosts.
@@ -1654,9 +1654,100 @@ Each item is an independent task; do not implement them as one change.
 **Blockers:** host APIs do not implement images/native transfer; command dependency
 publication/provenance must exist before a reproducible release can include it.
 
+### Task 6A foundation: independent session preference values (2026-11-10)
+
+Historical first increment; completed implementation and current status follow below.
+
+`StreamingPreferences::sessionPreferencesSnapshot()` returns a value map of twelve
+explicit video/audio/window preferences, without reading or writing settings.
+Draft changes do not mutate the preference singleton, and later singleton edits
+do not change a captured map. Identity, hosts, clipboard state and shortcut groups
+are excluded. This is a foundation only: named profile storage, Programming/Gaming
+presets, editing and session selection remain unimplemented. Milestone 7 has not
+been reached and no Milestone 6 aggregate acceptance is claimed.
+
+The old external build directory is absent. Fresh qmake build work uses
+`/tmp/perigee-6a-build`; ccache initially failed against a read-only cache, so
+subsequent builds use `CCACHE_DISABLE=1`. `qmake6 /home/barmy/Projects/perigee/moonlight-qt.pro`
+and `CCACHE_DISABLE=1 make -j2 debug` in `/tmp/perigee-6a-build` exit 0,
+producing `app/perigee`; logs are `qmake.log` and `build.log`.
+The current host identifies as Fedora
+45, Qt 6.11.2/GCC 16.2.1; these are separate observations from prior Fedora 44
+acceptance. No package, service, branch or dependency pin was changed.
+
+`qmake6 /home/barmy/Projects/perigee/tests/session-profiles/session-profiles.pro`,
+`CCACHE_DISABLE=1 make -j2` and `./tst_sessionprofiles` in
+`/tmp/perigee-profile-tests` exit 0: **3 passed, 0 failed/skipped**. The target
+compiles real preferences with deterministic WMUtils environment stubs and tests
+snapshot/draft isolation and absence of settings writes. It is not stream, preset,
+profile persistence or compositor acceptance. See
+[focused snapshot checks](../tests/session-profiles/README.md).
+
+
+### Tasks 6A–6C: profiles, SFTP and UUID launch (2026-11-10)
+
+Profiles now provide editable Programming/Gaming presets, a persistent selection,
+strict twelve-field validation and restart persistence. Programming starts with
+SDR/60 FPS/automatic codec and the upstream bitrate calculation; Gaming starts
+from current preferences. Each Session owns a detached preference object, including
+non-profile settings and shortcut bindings. Later global edits cannot change that
+session. Explicit CLI preferences bypass the selected GUI profile. Failed writes
+restore the settings cache; invalid drafts remain open without saving.
+
+Per-host SFTP stores only a validated destination and explicitly dispatches it via
+QDesktopServices. Credentials, query/fragment fields and control characters are
+rejected. Missing-handler failure is reported; desktop dispatch is not a transfer
+success claim. No SSH service or credentials are provisioned.
+
+Per-host UUID launch is default-off. Only fresh launches with authenticated launch
+permission, a pinned HTTPS app list and an unambiguous current numeric/UUID pair
+may use it. UUID requests use `appid=0` because Apollo matches numeric ID OR UUID;
+standard numeric launches and resume retain their existing behavior. Invalid or
+duplicate UUID fields cannot enable UUID launch. No decoder, pacing or media
+algorithm changes were made.
+
+**Executed checks:** fresh debug build with `CCACHE_DISABLE=1 make -j2 debug` in
+`/tmp/perigee-6a-build` passes. `tests/session-profiles` passes **8** cases, including
+restart, detached settings and failed-storage rollback; Valgrind reports **0 errors**
+and no definitely/indirectly lost bytes. `tests/milestone6-options` passes **9**
+cases for URI dispatch, UUID identity/trust and inactive command preparation.
+Application-linked `tests/ui-theme` passes **47 offscreen**, **47 native Wayland**
+and **6 selected 2× scale** cases. Actual editor Save clicks, invalid draft retention,
+opaque light/dark dialogs, keyboard scrolling, two Session instances, CLI bypass,
+parser behavior and synthetic host persistence are covered. Importer **35**,
+compiled translation catalogs **32**, and app favorites **13** cases pass.
+Translation coverage checks report **163 keys across 30 locales, 0 errors**;
+all changed QM catalogs were regenerated. See [profiles](../tests/session-profiles/README.md),
+[integration policies](../tests/milestone6-options/README.md),
+[application UI](../tests/ui-theme/README.md),
+[importer](../tests/identity-import/README.md) and
+[catalog checks](../tests/translations/README.md) for commands.
+
+The observed machine is Fedora 45, Qt 6.11.2, GCC 16.2.1 and OpenSSL 4.0.3;
+Fedora 44 remains the primary target. The importer synthetic certificate fixture
+now owns its X509_NAME to compile with OpenSSL 4; production authentication is unchanged.
+Live SSH/file-manager transfer, Apollo UUID launch, ordinary Sunshine regression,
+profile codec/audio behavior and controlled performance were **not run**. Local
+checks do not close those acceptance gates or prior Milestone 5 live-input gaps.
+
+**Command decision and Milestone 7 boundary:** on 2026-11-10 the user explicitly
+answered “Defer commands; advance to Milestone 7.” Commands remain disabled, with
+no command UI or live dispatch. The additive proposal in
+[patches/common-c](../patches/common-c/README.md) is unapplied; its temporary-copy
+apply/compile/inactive smoke check passes. Active transport and shutdown behavior
+remain unverified. Common C stays pinned to
+`04053843c90c4268583f2496b997d54d59f03957`; no fork was published or pin changed.
+The selected local implementation is delivered and progression is authorized;
+full live acceptance is not claimed. Images/native transfer/multimonitor/VRR
+remain deferred for host/hardware evidence.
+
+
 ## Milestone 7: distribution and maintenance
 
 **Goal:** reproducible independent packages and sustainable upstream updates.
+Current stage authorized on 2026-11-10 after explicit command deferral. Next task:
+audit RPM/staged-manifest readiness while retaining live acceptance release gates.
+Packaging implementation, installation and publication have not been performed.
 **Sources:** deploy metadata, scripts and CI; new RPM/Flatpak packaging reviewed
 against then-current dependencies. **Depends on:** complete identity and acceptance.
 
@@ -1755,7 +1846,9 @@ Wayland automatic integration, now accepted by the user for the primary target.
 KDE and real Sunshine checks remain coverage follow-ups. Services stay off by default. All ADRs in [DECISIONS.md](DECISIONS.md) are accepted design;
 implementation and acceptance status are recorded separately.
 
-Next implementation stage: Milestone 6 preference profiles. Milestone 5 feature
+Next implementation stage: Milestone 7 distribution readiness. Profiles, SFTP and
+gated UUID launch are implemented locally; commands are explicitly deferred by the
+user. No packages have been built, installed or published for this milestone. Milestone 5 feature
 implementation now includes shortcut editing and the stream panel. Appearance,
 live input/OSD and controlled streaming performance acceptance remain open;
 Tasks 5A/5B/5C remain user-accepted. See Tasks 5G/5H for exact checks and limits.

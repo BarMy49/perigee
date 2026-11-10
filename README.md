@@ -44,6 +44,11 @@ Upstream Moonlight downloads are separate products and do not include these chan
   number for an available action or **Escape** to close. Clipboard actions retain
   their consent and permission checks. Disconnect, then launch/resume normally
   for a new session. See [shortcut behavior](tests/shortcut-modifiers/README.md).
+- Editable **Programming/Gaming** session profiles preserve global preferences;
+  changes apply to new GUI sessions. Explicit CLI stream options remain independent.
+- Configure a per-host **SFTP** destination to open it in a desktop handler. No SSH
+  service or credentials are provisioned. Optional **Use application UUID** requires
+  authenticated host support and fresh pinned identity checks.
 - Inherited hardware decoding, codec, audio, gamepad and mouse/keyboard features.
   Actual availability depends on the host, GPU, drivers and build.
 
@@ -55,8 +60,9 @@ images, file transfer and background Wayland access are outside this feature.
 Milestone 0, Task 3B and the primary-host display tests are user-accepted.
 Milestone 5 adds desktop keyboard navigation, app favorites, responsive settings
 light/dark appearance, shortcut editing and a keyboard-only stream panel.
-The Milestone 5 implementation is at the Milestone 6 boundary; live input, panel
-readability and controlled streaming performance acceptance remain pending.
+Milestone 6 profiles, SFTP and gated UUID launch are implemented locally; the user
+deferred commands and authorized Milestone 7. Live input, panel readability and
+controlled streaming performance acceptance remain pending.
 KDE, real Sunshine and broader controlled
 performance/hardware coverage remain documented follow-ups. See the
 [implementation plan](docs/IMPLEMENTATION_PLAN.md) for evidence and current scope.
@@ -122,3 +128,8 @@ upstream artwork; see [asset provenance](ASSET_NOTICES.md). See
 
 Moonlight's community, translations and package infrastructure belong to the
 [upstream project](https://moonlight-stream.org). Perigee is a separate fork.
+
+Milestone 7 distribution readiness is the current implementation stage. Commands
+are explicitly deferred and disabled; the Common C pin is unchanged. Local checks
+pass for the selected Milestone 6 features, while live-host, transfer and performance
+acceptance remain pending in the [implementation plan](docs/IMPLEMENTATION_PLAN.md).

@@ -252,6 +252,7 @@ private:
     static
     int drSubmitDecodeUnit(PDECODE_UNIT du);
 
+    std::unique_ptr<StreamingPreferences> m_SessionPreferences;
     StreamingPreferences* m_Preferences;
     bool m_IsFullScreen;
     SupportedVideoFormatList m_SupportedVideoFormats; // Sorted in order of descending priority
@@ -267,6 +268,7 @@ private:
     void updateAutomaticClipboard();
     bool m_ClipboardEnabled = false;
     bool m_RequestVirtualDisplay = false;
+    bool m_UseAppUuid = false;
     SDL_Window* m_Window;
     IVideoDecoder* m_VideoDecoder;
     SDL_mutex* m_DecoderLock;

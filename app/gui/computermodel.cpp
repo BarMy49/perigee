@@ -1,5 +1,8 @@
 #include "computermodel.h"
 #include "backend/hostadministration.h"
+#include <QDesktopServices>
+#include <algorithm>
+#include "backend/appuuidlaunch.h"
 #include "backend/displaylaunchoptions.h"
 
 #include <QThreadPool>
@@ -44,6 +47,15 @@ QVariant ComputerModel::data(const QModelIndex& index, int role) const
         return computer->clipboardEnabled;
     case HostUuidRole:
         return computer->uuid;
+    case UseAppUuidRole:
+        return computer->useAppUuid;
+    case AppUuidAvailableRole:
+        return computer->state == NvComputer::CS_ONLINE && !computer->isNvidiaServerSoftware &&
+                computer->apolloCapabilities.authenticated &&
+                computer->apolloCapabilities.permission(ApolloCapabilities::Launch) == ApolloCapabilities::State::Available &&
+                std::any_of(computer->appList.cbegin(), computer->appList.cend(), [](const NvApp& app) { return app.id > 0 && !app.uuid.isEmpty(); });
+    case TransferUrlRole:
+        return computer->transferUrl;
     case AdministrationUrlRole:
         return computer->administrationUrl;
     case CapabilitiesRole:
@@ -183,6 +195,55 @@ bool ComputerModel::setClipboardEnabled(QString hostUuid, bool enabled)
     return false;
 }
 
+bool ComputerModel::setUseAppUuid(QString hostUuid, bool enabled)
+{
+    for (NvComputer* computer : std::as_const(m_Computers)) {
+        {
+            QWriteLocker lock(&computer->lock);
+            if (computer->uuid != hostUuid) continue;
+            if (enabled && (computer->state != NvComputer::CS_ONLINE || computer->isNvidiaServerSoftware ||
+                    !computer->apolloCapabilities.authenticated ||
+                    computer->apolloCapabilities.permission(ApolloCapabilities::Launch) != ApolloCapabilities::State::Available ||
+                    !std::any_of(computer->appList.cbegin(), computer->appList.cend(), [](const NvApp& app) { return app.id > 0 && !app.uuid.isEmpty(); }))) return false;
+            computer->useAppUuid = enabled;
+        }
+        m_ComputerManager->clientSideAttributeUpdated(computer);
+        return true;
+    }
+    return false;
+}
+
+bool ComputerModel::setTransferUrl(QString hostUuid, QString text)
+{
+    const QUrl url = HostAdministration::validatedSftpUrl(text);
+    if (!text.trimmed().isEmpty() && url.isEmpty()) return false;
+    for (NvComputer* computer : std::as_const(m_Computers)) {
+        {
+            QWriteLocker lock(&computer->lock);
+            if (computer->uuid != hostUuid) continue;
+            computer->transferUrl = url.toString(QUrl::FullyEncoded);
+        }
+        m_ComputerManager->clientSideAttributeUpdated(computer);
+        return true;
+    }
+    return false;
+}
+
+bool ComputerModel::openTransferUrl(QString hostUuid)
+{
+    QUrl url;
+    for (NvComputer* computer : std::as_const(m_Computers)) {
+        QReadLocker lock(&computer->lock);
+        if (computer->uuid == hostUuid) {
+            url = HostAdministration::validatedSftpUrl(computer->transferUrl);
+            break;
+        }
+    }
+    return HostAdministration::openSftpUrl(url.toString(QUrl::FullyEncoded), [](const QUrl& destination) {
+        return QDesktopServices::openUrl(destination);
+    });
+}
+
 bool ComputerModel::setAdministrationUrl(QString hostUuid, QString text)
 {
     const QUrl url = HostAdministration::validatedUrl(text);
@@ -228,6 +289,9 @@ QHash<int, QByteArray> ComputerModel::roleNames() const
     names[DetailsRole] = "details";
     names[CapabilitiesRole] = "capabilities";
     names[CapabilityDetailsRole] = "capabilityDetails";
+    names[UseAppUuidRole] = "useAppUuid";
+    names[AppUuidAvailableRole] = "appUuidAvailable";
+    names[TransferUrlRole] = "transferUrl";
     names[AdministrationUrlRole] = "administrationUrl";
     names[ClipboardEnabledRole] = "clipboardEnabled";
     names[RequestVirtualDisplayRole] = "requestVirtualDisplay";

@@ -1,5 +1,7 @@
 #include "nvcomputer.h"
 #include "displaylaunchoptions.h"
+#include "appuuidlaunch.h"
+#include <QCoreApplication>
 #include <Limelight.h>
 
 #include <QDebug>
@@ -216,16 +218,28 @@ NvHTTP::startApp(QString verb,
                  int gamepadMask,
                  bool persistGameControllersOnDisconnect,
                  QString& rtspSessionUrl,
-                 bool requestVirtualDisplay)
+                 bool requestVirtualDisplay,
+                 QString appUuid, bool useAppUuid)
 {
     QString displayQuery;
-    if (requestVirtualDisplay) {
+    const bool requestUuid = useAppUuid && appId > 0 && !AppUuidLaunch::normalized(appUuid).isEmpty() && verb == "launch";
+    if (requestVirtualDisplay || requestUuid) {
         const QString serverInfo = getServerInfo(NVLL_ERROR);
         const auto capabilities = ApolloCapabilities::parse(serverInfo, serverInfoPinnedHttps());
-        const auto state = DisplayLaunchOptions::evaluate(true, isGfe,
-                    verb == "launch" && getCurrentGame(serverInfo) == 0, capabilities);
-        if (state != DisplayLaunchOptions::State::Ready) throw DisplayLaunchError(DisplayLaunchOptions::description(state));
-        displayQuery = DisplayLaunchOptions::query(state);
+        if (requestVirtualDisplay) {
+            const auto state = DisplayLaunchOptions::evaluate(true, isGfe,
+                        verb == "launch" && getCurrentGame(serverInfo) == 0, capabilities);
+            if (state != DisplayLaunchOptions::State::Ready) throw DisplayLaunchError(DisplayLaunchOptions::description(state));
+            displayQuery = DisplayLaunchOptions::query(state);
+        }
+        if (requestUuid) {
+            const auto apps = getAppList();
+            const bool matching = AppUuidLaunch::matchesAppIdentity(apps, appId, appUuid);
+            if (!AppUuidLaunch::eligible(isGfe, getCurrentGame(serverInfo) == 0, capabilities,
+                                         m_AppListPinnedHttps, matching, appUuid)) {
+                throw DisplayLaunchError(QCoreApplication::translate("NvHTTP", "Application identity changed or UUID launch is unavailable. Refresh the app list and try again."));
+            }
+        }
     }
     int riKeyId;
 
@@ -235,7 +249,7 @@ NvHTTP::startApp(QString verb,
     QString response =
             openConnectionToString(m_BaseUrlHttps,
                                    verb,
-                                   "appid="+QString::number(appId)+
+                                   AppUuidLaunch::query(appId, appUuid, requestUuid)+
                                    "&mode="+QString::number(streamConfig->width)+"x"+
                                    QString::number(streamConfig->height)+"x"+
                                    // Using an FPS value over 60 causes SOPS to default to 720p60,
@@ -325,10 +339,15 @@ NvHTTP::getAppList()
                                             nullptr,
                                             REQUEST_TIMEOUT_MS,
                                             NvLogLevel::NVLL_ERROR);
-    verifyResponseStatus(appxml);
+    return parseAppList(appxml);
+}
 
+QVector<NvApp> NvHTTP::parseAppList(QString appxml)
+{
+    verifyResponseStatus(appxml);
     QXmlStreamReader xmlReader(appxml);
     QVector<NvApp> apps;
+    bool appUuidSeen = false;
     while (!xmlReader.atEnd()) {
         while (xmlReader.readNextStartElement()) {
             auto name = xmlReader.name();
@@ -339,6 +358,7 @@ NvHTTP::getAppList()
                     throw std::runtime_error("Invalid applist XML");
                 }
                 apps.append(NvApp());
+                appUuidSeen = false;
             }
             else if (!apps.isEmpty()) {
                 if (XML_NAME_EQUALS(name, "AppTitle")) {
@@ -356,6 +376,11 @@ NvHTTP::getAppList()
                 else if (XML_NAME_EQUALS(name, "ID")) {
                     apps.last().id = xmlReader.readElementText().toInt();
                 }
+                else if (XML_NAME_EQUALS(name, "UUID")) {
+                    const QString value = xmlReader.readElementText();
+                    apps.last().uuid = appUuidSeen ? QString() : AppUuidLaunch::normalized(value);
+                    appUuidSeen = true;
+                }
                 else if (XML_NAME_EQUALS(name, "IsHdrSupported")) {
                     apps.last().hdrSupported = xmlReader.readElementText() == "1";
                 }
@@ -366,6 +391,9 @@ NvHTTP::getAppList()
         }
     }
 
+    if (xmlReader.hasError()) {
+        for (NvApp& app : apps) app.uuid.clear();
+    }
     return apps;
 }
 
@@ -484,7 +512,12 @@ NvHTTP::openConnectionToString(QUrl baseUrl,
     if (command == "serverinfo") {
         m_ServerInfoPinnedHttps = false;
     }
+    if (command == "applist") m_AppListPinnedHttps = false;
     QNetworkReply* reply = openConnection(baseUrl, command, arguments, timeoutMs, logLevel);
+    if (command == "applist") {
+        m_AppListPinnedHttps = AppUuidLaunch::acceptsAppListReply(baseUrl, reply->url(),
+                              m_ServerCert.toDer(), reply->sslConfiguration().peerCertificate().toDer());
+    }
     if (command == "serverinfo") {
         m_ServerInfoPinnedHttps = ApolloCapabilities::acceptsPinnedReply(baseUrl, reply->url(),
                                                                        m_ServerCert.toDer(), reply->sslConfiguration().peerCertificate().toDer());

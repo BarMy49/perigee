@@ -386,6 +386,11 @@
             <source>Missing audio capture device. Reinstalling GeForce Experience should resolve this error.</source>
             <translation type="unfinished"/>
         </message>
+        <message>
+            <source>Application identity changed or UUID launch is unavailable. Refresh the app list and try again.</source>
+            <translation>ناسنامەی بەرنامە گۆڕاوە یان دەستپێکردن بە UUID بەردەست نییە. لیستی بەرنامەکان نوێ بکەرەوە و دووبارە هەوڵ بدەرەوە.</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
     </context>
     <context>
         <name>PcView</name>
@@ -651,6 +656,40 @@
             <source>Your PC's current network connection seems to be blocking Perigee. Streaming over the Internet may not work while connected to this network.</source>
             <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
             <translation>پێدەچێت پەیوەندی تۆڕی ئێستای کۆمپیوتەرەکەت Perigee بلۆک بکات. ڕەنگە ستریمکردن لە ڕێگەی ئینتەرنێتەوە لەکاتی پەیوەندیکردن بەم تۆڕەوە کار نەکات.</translation>
+        </message>
+        <message>
+            <source>Use application UUID</source>
+            <translation>بەکارهێنانی UUIDی بەرنامە</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Configure SFTP</source>
+            <translation>ڕێکخستنی SFTP</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Open SFTP</source>
+            <translation>کردنەوەی SFTP</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Unable to open SFTP. Check your desktop handler.</source>
+            <translation>نەتوانرا SFTP بکرێتەوە. هەڵگری ڕوومێز بپشکنە.</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Use an existing SSH service. Enter an sftp:// URL without login credentials. Leave empty to remove it.</source>
+            <translation>خزمەتگوزاری SSHی هەبوو بەکاربهێنە. ناونیشانی sftp:// بەبێ زانیاری چوونەژوورەوە بنووسە. بۆ سڕینەوە بەتاڵی بهێڵە.</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Enter a valid SFTP URL without credentials, query parameters, or a fragment.</source>
+            <translation>ناونیشانی SFTPی دروست بەبێ زانیاری چوونەژوورەوە، پارامەتەر یان بەش بنووسە.</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Save</source>
+            <translation>پاشەکەوتکردن</translation>
         </message>
     </context>
     <context>
@@ -1683,6 +1722,51 @@
         <message>
             <source>Unable to save shortcuts</source>
             <translation>نەتوانرا کورتەکلیلەکان پاشەکەوت بکرێن</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Session profile</source>
+            <translation>پرۆفایلی دانیشتن</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+            <translation>پرۆفایلەکان بۆ دانیشتنە نوێکانی ڕووکارن. ڕێکخستنە گشتییەکان و ستریمە چالاکەکان ناگۆڕێن.</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Current settings</source>
+            <translation>ڕێکخستنە ئێستاکان</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Programming</source>
+            <translation>بەرنامەسازی</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Gaming</source>
+            <translation>یاری</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Edit profile</source>
+            <translation>دەستکاری پرۆفایل</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Unable to save profile</source>
+            <translation>نەتوانرا پرۆفایل پاشەکەوت بکرێت</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Width</source>
+            <translation>پانی</translation>
+            <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
+        </message>
+        <message>
+            <source>Height</source>
+            <translation>بەرزی</translation>
             <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         </message>
     </context>

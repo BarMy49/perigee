@@ -3,6 +3,8 @@
 #include "utils.h"
 
 #include <QSettings>
+#include <QMetaProperty>
+#include <QRegularExpression>
 #include <QTranslator>
 #include <QCoreApplication>
 #include <QLocale>
@@ -470,4 +472,131 @@ bool StreamingPreferences::resetLocalShortcuts()
     QVariantList keys;
     for (const auto& key : LocalShortcuts::defaults()) keys.append(key);
     return setLocalShortcuts(keys);
+}
+
+QVariantMap StreamingPreferences::sessionPreferencesSnapshot() const
+{
+    return {{"width", width}, {"height", height}, {"fps", fps},
+            {"bitrate", bitrateKbps}, {"videocfg", static_cast<int>(videoCodecConfig)},
+            {"videodec", static_cast<int>(videoDecoderSelection)},
+            {"hdr", enableHdr}, {"yuv444", enableYUV444},
+            {"vsync", enableVsync}, {"framepacing", framePacing},
+            {"audiocfg", static_cast<int>(audioConfig)},
+            {"windowmode", static_cast<int>(windowMode)}};
+}
+
+namespace {
+bool validProfileName(const QString& name)
+{
+    return name == QLatin1String("programming") || name == QLatin1String("gaming");
+}
+
+bool storeProfileSetting(const QString& key, const QVariant& value)
+{
+    QSettings settings;
+    const bool existed = settings.contains(key);
+    const QVariant previous = settings.value(key);
+    settings.setValue(key, value);
+    settings.sync();
+    if (settings.status() == QSettings::NoError) return true;
+    if (existed) settings.setValue(key, previous);
+    else settings.remove(key);
+    settings.sync();
+    return false;
+}
+}
+
+bool StreamingPreferences::validSessionProfile(const QVariantMap& values)
+{
+    const QMap<QString, QPair<int, int>> ranges{
+        {"width", {1, 16384}}, {"height", {1, 16384}}, {"fps", {10, 480}},
+        {"bitrate", {500, 500000}}, {"videocfg", {0, 4}}, {"videodec", {0, 2}},
+        {"audiocfg", {0, 2}}, {"windowmode", {0, 2}}};
+    if (values.size() != 12) return false;
+    const QRegularExpression decimal("^[0-9]+$");
+    for (auto field = ranges.cbegin(); field != ranges.cend(); ++field) {
+        const auto value = values.value(field.key());
+        bool ok;
+        const int number = value.toString().toInt(&ok);
+        if (value.userType() == QMetaType::Bool || !ok || !decimal.match(value.toString()).hasMatch() ||
+                number < field->first || number > field->second) return false;
+    }
+    if (values.value("videocfg").toInt() == VCC_FORCE_HEVC_HDR_DEPRECATED) return false;
+    for (const auto& field : {"hdr", "yuv444", "vsync", "framepacing"}) {
+        if (values.value(field).userType() != QMetaType::Bool) return false;
+    }
+    return true;
+}
+
+QString StreamingPreferences::sessionProfile() const
+{
+    const auto name = QSettings().value("sessionprofile").toString();
+    return validProfileName(name) ? name : QString();
+}
+
+bool StreamingPreferences::selectSessionProfile(QString name)
+{
+    if (!name.isEmpty() && !validProfileName(name)) return false;
+    if (!storeProfileSetting("sessionprofile", name)) return false;
+    emit sessionProfileChanged();
+    return true;
+}
+
+QVariantMap StreamingPreferences::sessionProfileDefaults(QString name) const
+{
+    if (!validProfileName(name)) return {};
+    auto values = sessionPreferencesSnapshot();
+    if (name == QLatin1String("programming")) {
+        values["fps"] = 60;
+        values["hdr"] = false;
+        values["yuv444"] = false;
+        values["videocfg"] = static_cast<int>(VCC_AUTO);
+        values["bitrate"] = getDefaultBitrate(width, height, 60, false);
+    }
+    return values;
+}
+
+QVariantMap StreamingPreferences::sessionProfileValues(QString name) const
+{
+    if (!validProfileName(name)) return {};
+    const QVariant stored = QSettings().value("sessionprofiles/" + name);
+    if (stored.isValid() && validSessionProfile(stored.toMap())) return stored.toMap();
+    return sessionProfileDefaults(name);
+}
+
+bool StreamingPreferences::saveSessionProfile(QString name, QVariantMap values)
+{
+    if (!validProfileName(name) || !validSessionProfile(values)) return false;
+    if (!storeProfileSetting("sessionprofiles/" + name, values)) return false;
+    emit sessionProfileChanged();
+    return true;
+}
+
+std::unique_ptr<StreamingPreferences> StreamingPreferences::createSessionPreferences(bool applyProfile) const
+{
+    auto snapshot = std::unique_ptr<StreamingPreferences>(new StreamingPreferences(nullptr));
+    for (int index = QObject::staticMetaObject.propertyCount(); index < staticMetaObject.propertyCount(); index++) {
+        const QMetaProperty property = staticMetaObject.property(index);
+        if (property.isWritable()) property.write(snapshot.get(), property.read(this));
+    }
+    snapshot->recommendedFullScreenMode = recommendedFullScreenMode;
+    snapshot->localShortcutKeys = localShortcutKeys;
+    snapshot->packetSize = packetSize;
+    const QString selected = applyProfile ? sessionProfile() : QString();
+    if (selected.isEmpty()) return snapshot;
+    const auto values = sessionProfileValues(selected);
+    if (!validSessionProfile(values)) return snapshot;
+    snapshot->width = values.value("width").toInt();
+    snapshot->height = values.value("height").toInt();
+    snapshot->fps = values.value("fps").toInt();
+    snapshot->bitrateKbps = values.value("bitrate").toInt();
+    snapshot->videoCodecConfig = static_cast<VideoCodecConfig>(values.value("videocfg").toInt());
+    snapshot->videoDecoderSelection = static_cast<VideoDecoderSelection>(values.value("videodec").toInt());
+    snapshot->enableHdr = values.value("hdr").toBool();
+    snapshot->enableYUV444 = values.value("yuv444").toBool();
+    snapshot->enableVsync = values.value("vsync").toBool();
+    snapshot->framePacing = values.value("framepacing").toBool();
+    snapshot->audioConfig = static_cast<AudioConfig>(values.value("audiocfg").toInt());
+    snapshot->windowMode = static_cast<WindowMode>(values.value("windowmode").toInt());
+    return snapshot;
 }

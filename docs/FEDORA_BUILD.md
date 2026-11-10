@@ -661,3 +661,15 @@ remaining acceptance gate are in
 The frozen baseline release build and dependency pins were preserved. Milestone 6
 profiles are the next implementation stage; Milestone 5 aggregate live acceptance
 remains open.
+
+
+## Milestone 6 verification (2026-11-10)
+
+The 2026-11-10 implementation run observed Fedora 45, Qt 6.11.2, GCC 16.2.1 and
+OpenSSL 4.0.3. Fedora 44 remains the target. The old external build was absent;
+`qmake6 /home/barmy/Projects/perigee/moonlight-qt.pro` and
+`CCACHE_DISABLE=1 make -j2 debug` in `/tmp/perigee-6a-build` pass. The binary is
+`/tmp/perigee-6a-build/app/perigee`. Build logs are `/tmp/perigee-m6-build.log` and
+`/tmp/perigee-m6-ui-build.log`. Local UI/policy results and exact limits are recorded
+in the [Milestone 6 evidence](IMPLEMENTATION_PLAN.md#tasks-6a6c-profiles-sftp-and-uuid-launch-2026-11-10).
+No GPU/streaming/host acceptance or package installation is inferred from this build.

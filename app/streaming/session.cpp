@@ -569,7 +569,8 @@ bool Session::populateDecoderProperties(SDL_Window* window)
 }
 
 Session::Session(NvComputer* computer, NvApp& app, StreamingPreferences *preferences)
-    : m_Preferences(preferences ? preferences : StreamingPreferences::get()),
+    : m_SessionPreferences((preferences ? preferences : StreamingPreferences::get())->createSessionPreferences(preferences == nullptr)),
+      m_Preferences(m_SessionPreferences.get()),
       m_IsFullScreen(m_Preferences->windowMode != StreamingPreferences::WM_WINDOWED || !WMUtils::isRunningDesktopEnvironment()),
       m_Computer(computer),
       m_App(app),
@@ -1635,7 +1636,7 @@ bool Session::startConnectionAsync()
                       m_Preferences->playAudioOnHost,
                       m_InputHandler->getAttachedGamepadMask(),
                       !m_Preferences->multiController,
-                      rtspSessionUrl, m_RequestVirtualDisplay);
+                      rtspSessionUrl, m_RequestVirtualDisplay, m_App.uuid, m_UseAppUuid);
     } catch (const DisplayLaunchError& e) {
         emit displayLaunchError(QString::fromUtf8(e.what()));
         return false;
@@ -1832,6 +1833,7 @@ void Session::start()
         QReadLocker lock(&m_Computer->lock);
         serviceSnapshot.hostUuid = m_Computer->uuid;
         m_RequestVirtualDisplay = m_Computer->requestVirtualDisplay;
+        m_UseAppUuid = m_Computer->useAppUuid;
         serviceSnapshot.endpoint.setScheme("https");
         serviceSnapshot.endpoint.setHost(m_Computer->activeAddress.address());
         serviceSnapshot.endpoint.setPort(m_Computer->activeHttpsPort);

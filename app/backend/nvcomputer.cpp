@@ -45,6 +45,9 @@ NvComputer::NvComputer(QSettings& settings)
     this->isNvidiaServerSoftware = settings.value(SER_NVIDIASOFTWARE).toBool();
     this->administrationUrl = HostAdministration::validatedUrl(settings.value(SER_ADMINISTRATIONURL).toString()).toString(QUrl::FullyEncoded);
 
+    this->useAppUuid = settings.value("useappuuid", false).toBool();
+    this->transferUrl = HostAdministration::validatedSftpUrl(settings.value("transferurl").toString()).toString(QUrl::FullyEncoded);
+
     this->clipboardEnabled = settings.value(SER_CLIPBOARDENABLED, false).toBool();
     this->requestVirtualDisplay = settings.value(SER_REQUESTVIRTUALDISPLAY, false).toBool();
 
@@ -86,6 +89,9 @@ void NvComputer::serialize(QSettings& settings, bool serializeApps) const
 {
     QReadLocker lock(&this->lock);
 
+    if (transferUrl.isEmpty()) settings.remove("transferurl");
+    else settings.setValue("transferurl", transferUrl);
+    settings.setValue("useappuuid", useAppUuid);
     settings.setValue(SER_CLIPBOARDENABLED, clipboardEnabled);
     settings.setValue(SER_REQUESTVIRTUALDISPLAY, requestVirtualDisplay);
     settings.setValue(SER_NAME, name);
@@ -134,6 +140,8 @@ bool NvComputer::isEqualSerialized(const NvComputer &that) const
            this->serverCert == that.serverCert &&
            this->isNvidiaServerSoftware == that.isNvidiaServerSoftware &&
            this->administrationUrl == that.administrationUrl &&
+           this->transferUrl == that.transferUrl &&
+           this->useAppUuid == that.useAppUuid &&
            this->clipboardEnabled == that.clipboardEnabled &&
            this->requestVirtualDisplay == that.requestVirtualDisplay &&
            this->appList == that.appList;

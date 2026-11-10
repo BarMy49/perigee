@@ -5,6 +5,7 @@
 #include <QStringList>
 #include <QVariantList>
 #include <QQmlEngine>
+#include <memory>
 
 class StreamingPreferences : public QObject
 {
@@ -19,6 +20,16 @@ public:
     Q_INVOKABLE void save();
 
     void reload();
+
+    QVariantMap sessionPreferencesSnapshot() const;
+    std::unique_ptr<StreamingPreferences> createSessionPreferences(bool applyProfile = true) const;
+    Q_PROPERTY(QString sessionProfile READ sessionProfile NOTIFY sessionProfileChanged)
+    QString sessionProfile() const;
+    Q_INVOKABLE bool selectSessionProfile(QString name);
+    Q_INVOKABLE QVariantMap sessionProfileValues(QString name) const;
+    Q_INVOKABLE QVariantMap sessionProfileDefaults(QString name) const;
+    Q_INVOKABLE bool saveSessionProfile(QString name, QVariantMap values);
+    static bool validSessionProfile(const QVariantMap& values);
 
     enum AudioConfig
     {
@@ -240,6 +251,7 @@ signals:
     void uiDisplayModeChanged();
     void uiThemeChanged();
     void localShortcutsChanged();
+    void sessionProfileChanged();
     void windowModeChanged();
     void framePacingChanged();
     void connectionWarningsChanged();

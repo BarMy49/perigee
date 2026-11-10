@@ -70,8 +70,15 @@ remain compatible. Stack: C++17, Qt/QML, SDL, FFmpeg, and Moonlight Common C.
   Z always releases capture. Debug build, 43 offscreen + 43 native Wayland + 5
   scale2 cases, 13 overlay/Memcheck, 6 policy, 32 catalog and 35 importer cases pass;
   146-key/30-locale coverage passes. Live input, OSD scaling and controlled
-  performance acceptance remain open. Milestone 6 profiles
-  are the next implementation stage; no Milestone 6 feature is started yet.
+  performance acceptance remain open. Milestone 6 profiles,
+  SFTP desktop dispatch and default-off authenticated UUID launch are implemented.
+  Debug build, 8 profile, 9 policy, 47 offscreen/47 Wayland/6 scale2 UI, 35 importer,
+  32 catalog and 13 favorites checks pass on Fedora 45. Profile Memcheck reports
+  zero errors. Translation coverage is 163 keys/30 locales. Live host/profile/
+  transfer and controlled performance acceptance remain pending. On 2026-11-10
+  the user explicitly deferred commands and authorized advancing to Milestone 7.
+  The core proposal is unapplied, commands disabled and dependency pins unchanged.
+  Milestone 7 distribution readiness is next; no packaging/install/publication done.
 - Milestone 0 is done by explicit user acceptance on 2026-10-25. Native Fedora
   debug/release builds, isolated startup and later real-host streaming passed.
   Pairing remains skipped; unrun performance/secondary-platform checks remain
@@ -122,7 +129,9 @@ qmake6 ../../perigee/moonlight-qt.pro
 make -j"$(nproc)" debug
 ```
 
-Current binary: `../perigee-build/debug/app/perigee` relative to the source root.
+Conventional binary: `../perigee-build/debug/app/perigee` relative to the source root.
+That build directory is absent on 2026-11-10; current verified debug binary is
+`/tmp/perigee-6a-build/app/perigee`, built with `CCACHE_DISABLE=1`.
 Run it with the isolated XDG/TMPDIR environment in `docs/FEDORA_BUILD.md`.
 Use `INSTALL_ROOT` for staging; do not install without user authorization.
 Use a separate build directory and `make release` for release validation.

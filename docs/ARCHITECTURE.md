@@ -282,10 +282,22 @@ live display changes stay unavailable rather than being simulated by an unsafe
 disconnect/relaunch. Reconnect means a new controlled session lifecycle, not a
 claim that the host display mode changed.
 
-Profiles will snapshot existing preferences without mutating active global state.
-The Programming starter preset uses SDR, 60 FPS, automatic codec selection and the
-upstream bitrate calculation. Gaming starts from upstream behavior. User overrides
-remain available. Do not enable 4:4:4 if it silently requires software decoding.
+Milestone 6 profiles persist two fixed editable twelve-field maps (Programming and
+Gaming) and a selection. Programming starts with SDR/60 FPS/automatic codec and the
+upstream bitrate calculation; Gaming starts from current preferences. Strict schema
+validation rejects unknown fields and invalid types/ranges. Saves synchronize and
+restore cached values on failure. Draft editing never mutates active settings.
+Session owns a detached StreamingPreferences object: all writable properties,
+shortcut bindings and packet size are copied before selected profile values apply.
+Explicit CLI preferences bypass the GUI selection. Its lifetime follows Session,
+including deferred cleanup; no new per-frame settings reads are introduced.
+
+SFTP is an explicit QDesktopServices dispatch of a locally configured, validated
+`sftp://` destination. No credentials, provisioning or transfer implementation are
+added. Per-host UUID launch is default-off and uses fresh authenticated capabilities,
+a pinned HTTPS app list and a unique current numeric/UUID pair on the existing
+startup worker path. The launch uses `appid=0&appuuid=...`; numeric launch and resume
+keep their existing behavior. No streaming media algorithms are changed.
 
 ## Streaming preservation and deferred interfaces
 

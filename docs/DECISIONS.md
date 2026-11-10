@@ -86,6 +86,11 @@ document the new evidence, and obtain review before an architectural deviation.
 - **References:** [Commands](APOLLO_PROTOCOL.md#host-commands),
   [Common C relationship](REPOSITORY_ANALYSIS.md#dependency-relationships).
 
+On 2026-11-10 the user explicitly deferred commands and authorized advancement to
+Milestone 7. The [candidate patch](../patches/common-c/README.md) is unapplied;
+only temporary-copy compile and inactive checks pass. No publication or dependency
+revision was authorized. The activation prerequisites above remain in force.
+
 ## ADR-006: incremental desktop UI and small in-stream controls
 
 - **Date/status:** 2026-10-25; accepted; desktop UI, shortcut editor and the

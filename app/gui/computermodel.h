@@ -24,7 +24,10 @@ class ComputerModel : public QAbstractListModel
         RequestVirtualDisplayRole,
         DisplayLaunchAvailableRole,
         DisplayLaunchDetailsRole,
-        HostUuidRole
+        HostUuidRole,
+        TransferUrlRole,
+        UseAppUuidRole,
+        AppUuidAvailableRole
     };
 
 public:
@@ -54,6 +57,9 @@ public:
     Q_INVOKABLE bool setClipboardEnabled(QString hostUuid, bool enabled);
     Q_INVOKABLE bool setRequestVirtualDisplay(QString hostUuid, bool requested);
 
+    Q_INVOKABLE bool setUseAppUuid(QString hostUuid, bool enabled);
+    Q_INVOKABLE bool setTransferUrl(QString hostUuid, QString text);
+    Q_INVOKABLE bool openTransferUrl(QString hostUuid);
     Q_INVOKABLE bool setAdministrationUrl(QString hostUuid, QString text);
 
     Q_INVOKABLE Session* createSessionForCurrentGame(int computerIndex);

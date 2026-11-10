@@ -115,6 +115,8 @@ public:
     QVector<NvApp> appList;
     bool isNvidiaServerSoftware;
     QString administrationUrl;
+    QString transferUrl;
+    bool useAppUuid = false;
     bool clipboardEnabled = false;
     bool requestVirtualDisplay = false;
     // Remember to update isEqualSerialized() when adding fields here!

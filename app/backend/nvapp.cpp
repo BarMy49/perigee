@@ -1,4 +1,5 @@
 #include "nvapp.h"
+#include "appuuidlaunch.h"
 
 #define SER_APPNAME "name"
 #define SER_APPID "id"
@@ -12,6 +13,7 @@ NvApp::NvApp(QSettings& settings)
 {
     name = settings.value(SER_APPNAME).toString();
     id = settings.value(SER_APPID).toInt();
+    uuid = AppUuidLaunch::normalized(settings.value("uuid").toString());
     hdrSupported = settings.value(SER_APPHDR).toBool();
     isAppCollectorGame = settings.value(SER_APPCOLLECTOR).toBool();
     hidden = settings.value(SER_HIDDEN).toBool();
@@ -23,6 +25,8 @@ void NvApp::serialize(QSettings& settings) const
 {
     settings.setValue(SER_APPNAME, name);
     settings.setValue(SER_APPID, id);
+    if (uuid.isEmpty()) settings.remove("uuid");
+    else settings.setValue("uuid", uuid);
     settings.setValue(SER_APPHDR, hdrSupported);
     settings.setValue(SER_APPCOLLECTOR, isAppCollectorGame);
     settings.setValue(SER_HIDDEN, hidden);

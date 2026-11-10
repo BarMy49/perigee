@@ -174,10 +174,13 @@ public:
              int gamepadMask,
              bool persistGameControllersOnDisconnect,
              QString& rtspSessionUrl,
-             bool requestVirtualDisplay = false);
+             bool requestVirtualDisplay = false,
+             QString appUuid = QString(), bool useAppUuid = false);
 
     QVector<NvApp>
     getAppList();
+
+    static QVector<NvApp> parseAppList(QString appxml);
 
     QImage
     getBoxArt(int appId);
@@ -204,4 +207,5 @@ private:
     QSslCertificate m_ServerCert;
     bool m_UseTrueUid;
     bool m_ServerInfoPinnedHttps = false;
+    bool m_AppListPinnedHttps = false;
 };

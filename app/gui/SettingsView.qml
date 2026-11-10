@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts 1.2
 import QtQuick.Window 2.2
 
@@ -89,6 +90,136 @@ Flickable {
                 autoScrollAnimation.to = Math.min(pos.y + item.height + scrollMargin - height, contentHeight - height)
                 autoScrollAnimation.start()
             }
+        }
+    }
+
+    NavigableDialog {
+        id: profileDialog
+        objectName: "sessionProfileDialog"
+        width: Math.min(528, settingsPage.width - 32)
+        background: Rectangle {
+            color: profileDialog.Material.theme === Material.Light ? "#fafafa" : "#303030"
+            radius: 8
+        }
+        property string profileName: ""
+        property var values: ({})
+        title: qsTr("Edit profile")
+        standardButtons: Dialog.Cancel
+        onOpened: {
+            profileDialogError.visible = false
+            profileWidth.forceActiveFocus()
+        }
+        Connections {
+            target: settingsPage.Window.window
+            function onActiveFocusItemChanged() {
+                if (!profileDialog.opened || !target || !target.activeFocusItem) return
+                var item = target.activeFocusItem
+                var ancestor = item
+                while (ancestor && ancestor !== profileFields) ancestor = ancestor.parent
+                if (!ancestor) return
+                var position = item.mapToItem(profileFields, 0, 0)
+                var flick = profileScroll.contentItem
+                if (position.y < flick.contentY) flick.contentY = position.y
+                else if (position.y + item.height > flick.contentY + flick.height)
+                    flick.contentY = Math.min(Math.max(0, flick.contentHeight - flick.height), position.y + item.height - flick.height)
+            }
+        }
+        function saveProfile() {
+            var draft = Object.assign({}, values)
+            draft.width = profileWidth.text
+            draft.height = profileHeight.text
+            draft.fps = profileFps.text
+            draft.bitrate = profileBitrate.text
+            draft.hdr = profileHdr.checked
+            draft.yuv444 = profileChroma.checked
+            draft.vsync = profileVsync.checked
+            draft.framepacing = profilePacing.checked
+            draft.videocfg = [0, 1, 2, 4][profileCodec.currentIndex]
+            draft.videodec = profileDecoder.currentIndex
+            draft.audiocfg = profileAudio.currentIndex
+            draft.windowmode = profileWindow.currentIndex
+            if (StreamingPreferences.saveSessionProfile(profileName, draft)) accept()
+            else profileDialogError.visible = true
+        }
+        ScrollView {
+            id: profileScroll
+            objectName: "profileScroll"
+            implicitWidth: profileDialog.availableWidth
+            implicitHeight: Math.max(100, Math.min(520, settingsPage.height - 160))
+            clip: true
+            contentWidth: availableWidth
+            contentHeight: profileFields.implicitHeight
+            ColumnLayout {
+                id: profileFields
+                width: profileScroll.availableWidth
+                GridLayout {
+                    Layout.fillWidth: true
+                    columns: 2
+                    Label { text: qsTr("Width") }
+                    TextField { id: profileWidth; objectName: "profileWidth"; text: profileDialog.values.width || ""; selectByMouse: true; Layout.fillWidth: true }
+                    Label { text: qsTr("Height") }
+                    TextField { id: profileHeight; text: profileDialog.values.height || ""; selectByMouse: true; Layout.fillWidth: true }
+                    Label { text: "FPS" }
+                    TextField { id: profileFps; text: profileDialog.values.fps || ""; selectByMouse: true; Layout.fillWidth: true }
+                    Label { text: "Kbit/s" }
+                    TextField { id: profileBitrate; text: profileDialog.values.bitrate || ""; selectByMouse: true; Layout.fillWidth: true }
+                    Label { text: qsTr("Video codec") }
+                    ComboBox {
+                        id: profileCodec
+                        Layout.fillWidth: true
+                        model: [qsTr("Automatic (Recommended)"), qsTr("H.264"), qsTr("HEVC (H.265)"), qsTr("AV1")]
+                        currentIndex: Math.max(0, [0, 1, 2, 4].indexOf(Number(profileDialog.values.videocfg || 0)))
+                    }
+                    Label { text: qsTr("Video decoder") }
+                    ComboBox {
+                        id: profileDecoder
+                        Layout.fillWidth: true
+                        model: [qsTr("Automatic (Recommended)"), qsTr("Force hardware decoding"), qsTr("Force software decoding")]
+                        currentIndex: Number(profileDialog.values.videodec || 0)
+                    }
+                    Label { text: qsTr("Audio configuration") }
+                    ComboBox {
+                        id: profileAudio
+                        Layout.fillWidth: true
+                        model: [qsTr("Stereo"), qsTr("5.1 surround sound"), qsTr("7.1 surround sound")]
+                        currentIndex: Number(profileDialog.values.audiocfg || 0)
+                    }
+                    Label { text: qsTr("Display mode") }
+                    ComboBox {
+                        id: profileWindow
+                        Layout.fillWidth: true
+                        model: [qsTr("Fullscreen"), qsTr("Borderless windowed"), qsTr("Windowed")]
+                        currentIndex: Number(profileDialog.values.windowmode || 0)
+                    }
+                }
+                CheckBox { id: profileHdr; text: "HDR"; checked: !!profileDialog.values.hdr }
+                CheckBox { id: profileChroma; text: "YUV 4:4:4"; checked: !!profileDialog.values.yuv444 }
+                CheckBox { id: profileVsync; text: qsTr("V-Sync"); checked: !!profileDialog.values.vsync }
+                CheckBox { id: profilePacing; objectName: "profilePacing"; text: qsTr("Frame pacing"); checked: !!profileDialog.values.framepacing }
+                Label {
+                    id: profileDialogError
+                    objectName: "profileSaveError"
+                    text: qsTr("Unable to save profile")
+                    visible: false
+                    wrapMode: Text.Wrap
+                    Layout.fillWidth: true
+                }
+                Button {
+                    text: qsTr("Restore defaults")
+                    objectName: "restoreSessionProfile"
+                    onClicked: profileDialog.values = StreamingPreferences.sessionProfileDefaults(profileDialog.profileName)
+                }
+            }
+        }
+        footer: DialogButtonBox {
+            standardButtons: profileDialog.standardButtons
+            Button {
+                objectName: "saveSessionProfile"
+                text: qsTr("Save")
+                DialogButtonBox.buttonRole: DialogButtonBox.ActionRole
+                onClicked: profileDialog.saveProfile()
+            }
+            onRejected: profileDialog.reject()
         }
     }
 
@@ -1100,6 +1231,47 @@ Flickable {
                             shortcutError.visible = !StreamingPreferences.resetLocalShortcuts()
                         }
                     }
+                }
+            }
+        }
+
+        GroupBox {
+            width: parent.width - parent.leftPadding - parent.rightPadding
+            title: qsTr("Session profile")
+            padding: 12
+            Column {
+                width: parent.width
+                spacing: 8
+                Label {
+                    width: parent.width
+                    text: qsTr("Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.")
+                    wrapMode: Text.Wrap
+                }
+                AutoResizingComboBox {
+                    id: sessionProfileSelector
+                    objectName: "sessionProfileSelector"
+                    Component.onCompleted: recalculateWidth()
+                    model: [qsTr("Current settings"), qsTr("Programming"), qsTr("Gaming")]
+                    currentIndex: StreamingPreferences.sessionProfile === "programming" ? 1 :
+                                  StreamingPreferences.sessionProfile === "gaming" ? 2 : 0
+                    onActivated: profileError.visible = !StreamingPreferences.selectSessionProfile(["", "programming", "gaming"][currentIndex])
+                }
+                Button {
+                    objectName: "editSessionProfile"
+                    text: qsTr("Edit profile")
+                    enabled: sessionProfileSelector.currentIndex > 0
+                    onClicked: {
+                        profileDialog.profileName = ["", "programming", "gaming"][sessionProfileSelector.currentIndex]
+                        profileDialog.values = StreamingPreferences.sessionProfileValues(profileDialog.profileName)
+                        profileDialog.open()
+                    }
+                }
+                Label {
+                    id: profileError
+                    visible: false
+                    width: parent.width
+                    wrapMode: Text.Wrap
+                    text: qsTr("Unable to save profile")
                 }
             }
         }

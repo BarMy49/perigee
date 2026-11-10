@@ -43,6 +43,8 @@ private:
         settings.setValue("renderer", 3);
         settings.setValue("uitheme", 1);
         settings.setValue("localshortcuts/stats", "t");
+        settings.setValue("sessionprofile", "programming");
+        settings.setValue("sessionprofiles/programming", QVariantMap{{"width", 3840}});
         settings.setValue("certificate", m_Certificate);
         settings.setValue("key", m_Key);
         settings.setValue("uniqueid", "00Ab0123456789Cd");
@@ -65,6 +67,9 @@ private:
         settings.setValue(prefix + "apps/1/hidden", true);
         settings.setValue(prefix + "apps/1/favorite", true);
         settings.setValue(prefix + "requestvirtualdisplay", true);
+        settings.setValue(prefix + "transferurl", "sftp://host/path");
+        settings.setValue(prefix + "useappuuid", true);
+        settings.setValue(prefix + "apps/1/uuid", "12345678-1234-1234-abcd-1234567890ab");
     }
 
     static QProcessEnvironment environment(const QString& root)
@@ -162,10 +167,12 @@ private slots:
         QVERIFY(X509_gmtime_adj(X509_getm_notBefore(certificate.get()), 0));
         QVERIFY(X509_gmtime_adj(X509_getm_notAfter(certificate.get()), 86400));
         QVERIFY(X509_set_pubkey(certificate.get(), key.get()) == 1);
-        auto subject = X509_get_subject_name(certificate.get());
-        QVERIFY(X509_NAME_add_entry_by_txt(subject, "CN", MBSTRING_ASC,
+        std::unique_ptr<X509_NAME, decltype(&X509_NAME_free)> subject(X509_NAME_new(), X509_NAME_free);
+        QVERIFY(subject);
+        QVERIFY(X509_NAME_add_entry_by_txt(subject.get(), "CN", MBSTRING_ASC,
                                          reinterpret_cast<const unsigned char*>("Synthetic import fixture"), -1, -1, 0) == 1);
-        QVERIFY(X509_set_issuer_name(certificate.get(), subject) == 1);
+        QVERIFY(X509_set_subject_name(certificate.get(), subject.get()) == 1);
+        QVERIFY(X509_set_issuer_name(certificate.get(), subject.get()) == 1);
         QVERIFY(X509_sign(certificate.get(), key.get(), EVP_sha256()) > 0);
         std::unique_ptr<BIO, decltype(&BIO_free)> buffer(BIO_new(BIO_s_mem()), BIO_free);
         QVERIFY(buffer);
@@ -230,6 +237,11 @@ private slots:
         QVERIFY(!settings.contains("renderer"));
         QVERIFY(!settings.contains("uitheme"));
         QVERIFY(!settings.contains("localshortcuts/stats"));
+        QVERIFY(!settings.contains("sessionprofile"));
+        QVERIFY(!settings.contains("sessionprofiles/programming"));
+        QVERIFY(!settings.contains("hosts/1/transferurl"));
+        QVERIFY(!settings.contains("hosts/1/useappuuid"));
+        QVERIFY(!settings.contains("hosts/1/apps/1/uuid"));
         QVERIFY(!settings.contains("hosts/1/requestvirtualdisplay"));
         QVERIFY(!settings.contains("hosts/1/apps/1/favorite"));
         QCOMPARE(settings.contains("certificate"), includePairing);

@@ -120,7 +120,7 @@ reads the following parameters; Artemis `NvHTTP::startApp()` is a client referen
 | `virtualDisplay=1` | Requests virtual display, also enabled by host per-client configuration | Per-host fresh-launch request implemented, gated by fresh paired HTTPS metadata, launch permission and reported driver readiness; live acceptance pending |
 | `scaleFactor` | Scales host rendering dimensions; default 100 | Label as render scaling, not verified Windows DPI configuration |
 | app-list `UUID`, `IDX`, `ID` | Additional application identity/order plus standard numeric ID | Parse extensions without breaking standard lists/order |
-| launch `appuuid` | Host can find an application using its UUID | Later capability-gated launch; numeric ID remains standard-host fallback |
+| launch `appuuid` | Host can find an application using its UUID | Implemented opt-in fresh-launch gate; numeric ID remains standard-host path |
 
 Standard Moonlight already sends stream dimensions/refresh and can benefit from
 host-configured virtual displays without Apollo UI. Apollo also creates displays
@@ -278,7 +278,7 @@ Here, implemented means source exists, not that the implementation passed tests.
 | Permission visibility | No Apollo-specific panel | Manager/UI implemented | Inherited | Read-only capability presentation |
 | Permission mutation | No paired-client permission control | No verified equivalent paired mutation path | No verified equivalent paired mutation path | Admin web link, no client grants |
 | Commands | No required core API | Fork API and unsafe fallback possibilities | Host-index correction and send semantics | Later narrow extension only |
-| UUID applications | Standard numeric ID path | Parses/sends extension | Inherited | Later extension with numeric fallback |
+| UUID applications | Standard numeric ID path | Parses/sends extension | Inherited | Opt-in authenticated/pinned fresh launch; numeric path by default |
 | Image/native file transfer | No implementation | No complete verified host-compatible implementation | No complete verified host-compatible implementation | Defer / optional existing SFTP |
 
 See [source catalog and commits](REPOSITORY_ANALYSIS.md#source-reference-catalog).
@@ -310,3 +310,14 @@ permissions, a matching active stream, Fedora GNOME/KDE clipboard focus behavior
 and unchanged Sunshine operation. These tests are pending; use the
 [verification strategy](IMPLEMENTATION_PLAN.md#verification-strategy) and record
 results in [Fedora evidence](FEDORA_BUILD.md#baseline-result-record).
+
+
+### UUID launch implementation boundary (2026-11-10)
+
+UUID parsing rejects invalid, duplicate or malformed-list identities. An opted-in
+fresh launch requires authenticated launch permission and a same-origin pinned
+HTTPS app list with a unique current ID/UUID pair. Apollo matches numeric ID OR
+UUID, so the UUID request uses `appid=0` to avoid selecting a reassigned numeric ID
+([pinned Apollo source](https://github.com/ClassicOldSong/Apollo/blob/adc5c5a0bd80831ce495434bb16aee2cd4175fb8/src/nvhttp.cpp)).
+Resume and default numeric launch remain unchanged. Synthetic parser/policy tests
+pass; live Apollo and Sunshine acceptance remain unrun.
