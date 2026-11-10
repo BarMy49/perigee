@@ -38,6 +38,14 @@ jobs:
           fetch-depth: 0
           submodules: recursive
           persist-credentials: false
+      - name: Trust checked-out repositories
+        shell: bash
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          find "$GITHUB_WORKSPACE" -name .git -type f -print0 |
+            while IFS= read -r -d '' git_file; do
+              git config --global --add safe.directory "$(dirname "$git_file")"
+            done
       - name: Install RPM build tools
         if: matrix.configuration == 'rpm'
         run: dnf install -y rpm-build redhat-rpm-config cpio
