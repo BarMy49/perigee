@@ -1745,13 +1745,16 @@ remain deferred for host/hardware evidence.
 ## Milestone 7: distribution and maintenance
 
 **Goal:** reproducible independent packages and sustainable upstream updates.
-Current stage authorized on 2026-11-10 after explicit command deferral. Next task:
-audit RPM/staged-manifest readiness while retaining live acceptance release gates.
-Packaging implementation, installation and publication have not been performed.
+Current stage authorized on 2026-11-10 after explicit command deferral. Current task:
+prepare the verified implementation snapshot for authorized remote CI execution.
+Native RPM packaging is implemented and undergoing local validation (Task 7A below).
+The user installed and removed the local RPM; installed launcher/coexistence checks
+pass below. Upgrade is also verified; broader release acceptance remains pending.
+Nothing was published.
 **Sources:** deploy metadata, scripts and CI; new RPM/Flatpak packaging reviewed
 against then-current dependencies. **Depends on:** complete identity and acceptance.
 
-- [ ] Native RPM `perigee`, staged manifest, dependency resolution and install/upgrade/
+- [x] Native RPM `perigee`, staged manifest, dependency resolution and install/upgrade/
   uninstall checks without Moonlight conflicts/overwrites.
 - [ ] Adapt existing AppImage build; independent artifact names and update channel.
 - [ ] Create independent Flatpak ID/manifest with tested GPU/audio/input/network and
@@ -1765,6 +1768,256 @@ against then-current dependencies. **Depends on:** complete identity and accepta
 have complete provenance/source access, and support a documented update procedure.
 **Blockers:** driver/codec/sandbox differences and access to representative hardware.
 No publication, commits or service provisioning without authorization.
+
+### Task 7A: native RPM packaging work (2026-11-10)
+
+Implementation adds [the RPM spec and workflow](../packaging/rpm/README.md), an
+explicit source archive tool and an exact Linux stage checker. The spec preserves
+qmake and Fedora compiler/link flags, uses release mode and stages only Perigee
+files. It has no Moonlight Conflicts/Obsoletes, service, settings payload or package
+scriptlets. Automatic ELF dependencies are retained; QML/Wayland/SVG dependencies
+are explicit. Native package notices include static dependency licenses and the
+original ModeSeven font README, verified against the author's byte-identical font.
+
+A fresh release build in `/tmp/perigee-m7-release` passes. Six native files stage
+under `/tmp/perigee-m7-native-stage`; desktop/AppStream and exact identity checks
+pass. AppStream reports two minor hints (uppercase component ID and missing release
+history); no invented release entry or ID migration was introduced. Negative
+checks reject a Moonlight payload and a missing icon. No linked library is missing.
+Two source snapshots from identical inputs matched byte for byte; this is source
+archive reproducibility, not a claim of reproducible binary RPMs.
+
+RPM tools were downloaded from Fedora and extracted under `/tmp`, without system
+installation. A source RPM builds. Binary RPM, debuginfo/debugsource and source RPM builds now pass. Final recipe
+validation used `rpmbuild -ba --noprep` after overlaying the final source snapshot
+onto the already clean-compiled tree; this is incremental packaging validation,
+not a fresh final-source rebuild in a clean Fedora 44 environment. Local tool
+path overrides and the exact command are in `/tmp/perigee-m7-rpm-command.json`.
+Fedora build flags and all policy checks remain enabled. An explicit local ELF
+attribute load fixes dependency generation with extracted tools; the final package
+has 75 requirements, including Qt, SDL, FFmpeg and graphics ABI dependencies.
+No short-circuited-build requirement is present.
+
+The extracted main RPM passes the exact 16-file payload check. It has no scriptlets,
+no missing linked library and no ownership intersection with installed
+`moonlight-qt-6.2.0-1.fc45.x86_64`. The copied-system-database transaction test passes:
+`rpm --dbpath /tmp/perigee-m7-rpmdb --define '_pkgverify_level digest' --nosignature
+--ignoresize --test -U /tmp/perigee-rpmbuild/RPMS/x86_64/perigee-6.2.0-0.1.fc45.x86_64.rpm`.
+Signature policy is adjusted only for this unsigned local artifact; size is ignored
+only because the sandbox exposes a read-only system filesystem. Dependencies and
+conflicts are still checked. This is not a real installation or dependency download.
+A disposable-root install was attempted with dependency/script execution disabled,
+but failed with `Unable to change root directory: Operation not permitted`,
+including an unsandboxed retry. No lifecycle pass is claimed.
+
+Candidate binary SHA256:
+`2f33f8ca51f25e7299ba65bd2cbaa99bbba4fb2b3c914eeb9c534254528cc5e4`.
+Final source archive SHA256:
+`6141e613288123dede32aee6073e4785f64317ec3cd66e67b1ff43fe411bf0a6`.
+Source archives from unchanged inputs were also verified byte-identical; file
+hashes and excluded IDE/Git/cache state were inspected. Logs are
+`/tmp/perigee-m7-rpm-final.log`, `/tmp/perigee-m7-transaction-test.log` and
+`/tmp/perigee-m7-lifecycle.log`.
+
+The user authorized installation, launcher/coexistence tests and removal. Sudo
+required a password, so the user performed installation in their terminal and
+confirmed “installed”. The installed NEVRA was verified as
+`perigee-6.2.0-0.1.fc45.x86_64`. Unsandboxed `rpm -V perigee` exits 0 with no output;
+root ownership is correct (sandbox UID mapping produced misleading owner warnings,
+so ownership acceptance uses the unsandboxed check).
+
+`gtk-launch io.github.BarMy49.Perigee` and
+`gtk-launch com.moonlight_stream.Moonlight` both exit 0. With disposable XDG/TMPDIR
+state and native Wayland, both installed processes coexist and receive compositor
+configure events, with distinct `io.github.BarMy49.Perigee` and
+`com.moonlight_stream.Moonlight` app IDs. Separate Perigee/Moonlight configuration
+files are created. SHA256 checks show the two production configuration files
+unchanged across those launches. Only marked test processes are terminated.
+Logs and result JSON are in `/tmp/perigee-installed-launchers-qh2d8c7j`;
+`/tmp/perigee-m7-installed-launchers.py` contains the exact isolated check.
+This verifies launcher startup and window identity, not visual shell grouping,
+streaming, user input or installed audio labels.
+
+Removal still needed a sudo password, so the user was given `sudo rpm -e perigee`.
+Subsequent observation confirms Perigee is uninstalled; its executable, desktop
+entry, metadata, icon and notice directories are gone. Moonlight remains installed,
+and `rpm -V moonlight-qt` results are unchanged before/after removal. Both production
+configuration files still exist; no before-removal configuration hash snapshot
+was available, so byte equality across removal is not claimed. The removed
+Perigee launcher no longer resolves; Moonlight's desktop entry still starts on
+Wayland with disposable state after removal. The post-removal script is
+`/tmp/perigee-m7-post-removal-launcher.py`; passing results/logs are in
+`/tmp/perigee-installed-launchers-2is0y3sa`. An initial five-second fixture
+deadline was too short for local hardware probes; the bounded compositor-ready
+retry passes. No hardware decoder acceptance is inferred from startup.
+
+RPM upgrade, Fedora 44 clean environment, visual shell grouping, live media/
+performance and publication remain pending. No dependency pin, branch or source
+was published or committed. Package installation/removal were explicitly authorized.
+
+
+### Task 7B: AppImage identity and build adaptation (2026-11-10)
+
+The [development AppImage flow](../packaging/appimage/README.md) now uses Perigee
+executable/metadata/artifact names and preserves upstream's X11/XWayland-only
+build and libva fallback policy. Native Wayland AppImage acceptance remains pending.
+The build uses INSTALL_ROOT, refuses pre-existing output directories and validates
+its native stage before bundling. The libva shim delegates to linuxdeploy's original
+AppRun to preserve Qt setup. Static dependency and font notices are included.
+
+`bash -n scripts/build-appimage.sh app/deploy/linux/appimage/AppRun` passes.
+Fixtures pass for spaced arguments, host-libva preference, fallback only after
+probe failure, and unsafe version rejection before creating outputs. The official
+linuxdeploy/plugin tools are verified against release API digests, with revisions
+recorded in tools.json; matching existing files are reused, mismatches and symlinks
+are rejected without overwriting. CI artifact names and tool downloads use these
+same independent names and digest checks. Remote CI has not been run.
+
+Local release build and native staging pass. Bundling requires `NO_STRIP=1` on
+Fedora 45 because the pinned tool's bundled strip cannot parse newer RELR sections.
+Only bundling/output were repeated after that failure; no media code changed.
+The runtime is now separately digest-pinned and passed with LDAI_RUNTIME_FILE.
+A PNG rendering of the attributed SVG supplies .DirIcon. The output is
+`/tmp/perigee-m7-appimage1/installer-release/Perigee-6.2.0-x86_64.AppImage`, SHA256
+`dc84dd8ce9767e958eaa428f19c739fe7f97448877a1bf969820dc1baa8e1dd6`.
+Logs: `/tmp/perigee-m7-appimage-build.log`,
+`/tmp/perigee-m7-appimage-bundle-retry.log`, `/tmp/perigee-m7-appimage-output.log`.
+
+The image's --help passes on xcb/XWayland (offscreen is not bundled). GUI startup
+maps `io.github.BarMy49.Perigee`, renders the Computers view, and leaves two
+production profile hashes unchanged. Results/screenshot:
+`/tmp/perigee-appimage-gui-78sleawp`; script `/tmp/perigee-m7-appimage-gui.py`.
+A first capture preceded painting; later inspection passes after settling. Runtime
+extraction retries hit temporary filesystem quota and exited 127; these are not
+passes. Completed generated extraction caches/object files were removed, preserving
+artifacts, logs and profiles, before the passing retry. Test processes were closed.
+
+Live host video/audio/input, GPU/performance, portable relocation, Fedora 44/older
+systems, complete bundled dynamic-library license/source inventory and release
+acceptance remain pending. No remote session, pairing, workflow publication,
+branch, commit or dependency-core pin change occurred. The user now confirms video, audible audio and keyboard/mouse input work in this
+AppImage against Apollo. Primary Apollo live acceptance is user-reported and
+accepted for this XWayland artifact; it is not native Wayland, ordinary Sunshine,
+Fedora 44, portable, codec/HDR/controller or controlled performance coverage. Flatpak and the remaining CI/maintenance work remain unimplemented.
+
+
+### Tasks 7C/7D: Flatpak prototype and Fedora CI draft (2026-11-10)
+
+Initial interrupted increment; current results are in the resumption section below.
+
+Added [the Flatpak manifest/workflow](../packaging/flatpak/README.md), source
+preparation/build scripts and a Fedora 44 debug/release CI workflow with a focused
+check runner. Flatpak dependencies use immutable Git commits and preserve the
+existing AppImage versions where applicable. No streaming/core source or submodule
+pin changes. Permission/source preparation checks and manifest parsing pass.
+The private SDK installed successfully; libplacebo compiled in the sandbox and
+SDL3 reached object 164/369 before CLion crashed and build processes terminated.
+No Flatpak artifact, GPU/compositor, portal, streaming or application-install
+acceptance is claimed. The manifest has no broad home/host/device=all/bus grants.
+
+The generated SDK/cache was originally in ignored build/flatpak, which appeared
+repeatedly in CLion logs. Inspection after the crash found ~630 MiB memory available
+and 6.6 GiB swap used, but no matching kernel/systemd-oomd or targeted JVM OOM record.
+The cause is unconfirmed. No IDE configuration/heap settings were changed. All
+saved worktree changes remain and git diff --check passes. Generated build state
+was moved without copying to /home/barmy/.cache/perigee-build/flatpak-20261110,
+outside the IDE project; sources, SDK, module cache and build log are preserved.
+The linked README provides a one-job resume command after resource recovery.
+
+The Fedora CI workflow builds debug/release separately, runs synthetic focused
+checks in the debug job and validates the release stage. Shell syntax is checked;
+the runner has not been executed locally and remote CI has not run. No commits,
+pushes, workflow dispatches or publication occurred. CI/source-license inventory
+and upstream merge-maintenance acceptance remain open. A documented update workflow
+is now in [upstream maintenance](UPSTREAM_MAINTENANCE.md); it records pins, conflict
+boundaries, isolated integration and required regression gates. No merge is claimed. Compilation was left stopped during the memory-pressure blocker. The user then
+reported freeing memory and explicitly requested resumption with one job and a
+1 GiB budget. The retained build is now resumed outside the project under a
+transient user scope: MemoryHigh=640M, MemoryMax=896M, MemorySwapMax=128M, jobs=1.
+This caps RAM plus swap at 1 GiB without changing IDE settings. Before resumption,
+1.7 GiB was available; the observed build peak through FFmpeg is about 412 MiB.
+No concurrent test compilation is being started. Resource recovery revokes the
+previous operational blocker; build/runtime results remain pending.
+
+The notice audit also found vendored FreeType linked statically through SDL_ttf.
+The clean-build template now copies its full license texts and attribution from
+the pinned submodule 535d2993d2cab67cc8b270132b1b1bcb62f269aa. Those same texts were
+manually staged into this already-running prototype while FFmpeg built; the exact
+staging note is retained with the external build. No codec/rendering code changed.
+A clean final-manifest rebuild remains a separate reproducibility gate.
+
+
+#### Task 7C/7D resumption results
+
+The capped single-job dependency build completed. Application setup exposed the
+SDK qmake naming difference; the final template checks Qt 6 and uses qmake. A cache
+retry rebuilt earlier modules unexpectedly and was stopped. Perigee was compiled
+against the completed dependency root with flatpak build, then finalized/exported
+with --finish-only. The prototype includes manually staged FreeType notices; a
+clean build of the final corrected manifest is not claimed. The direct Flatpak
+build moved its compiler into a separate scope; the 896 MiB RAM/128 MiB swap limits
+were applied to that actual scope. Observed peak was about 640 MiB plus 2 MiB swap.
+See the Flatpak README for exact paths, scope and logs.
+
+The local bundle SHA256 is
+4ca4108b57c945f6e9f5130da6c9eb1080bce91c3e278d3d732892840e2f3f28.
+Private installation, removal and reinstallation pass; no normal-user/system app
+was installed. Exported permissions match the intended narrow contract. Runtime
+library closure, hidden native profiles, denied direct host-file import and
+successful explicit document-portal forwarding of a synthetic INI pass. The fixture
+export is revoked, and both production profile hashes stay unchanged. Native
+Wayland GUI startup produces the correct app ID/configure with no QML load failure;
+its peak is about 471 MiB, zero swap. Test processes are closed. No visual/streaming/
+codec/audio/physical-input acceptance is inferred. The private app remains available
+for the user-supervised Apollo video/audio/input check using its separate profile.
+
+The complete new CI runner now passes locally on Fedora 45 with one job: 271 cases
+in 11 suites, all passed; translation coverage 163 keys/30 locales/zero errors.
+Detailed counts and result/log paths are in [focused checks](../tests/README.md).
+The Fedora 44 GitHub/container workflow has not run, and no Git commit, push,
+remote dispatch or publication occurred. RPM upgrade, clean Fedora 44/final-manifest
+builds, broader host/hardware/portal coverage and full release inventory remain open.
+The user now confirms native Wayland Flatpak video, audible audio and keyboard/mouse
+input work against Apollo. Primary-host live acceptance is user-reported and
+accepted for this prototype. A separate clean corrected-manifest build now passes
+compile/install/export with one job and no manual payload staging. Its guarded
+retry peaks at an aggregate sample of 909049856 bytes (about 867 MiB), with unchanged
+optimization and media source. The output root is
+/home/barmy/.cache/perigee-build/flatpak-clean-20261110; exact bundle/source hashes,
+logs and the 2108-file/39-notice inventory are recorded in the Flatpak README.
+Application source/resources match the accepted prototype; the binary differs,
+so new-artifact runtime acceptance remains separate. The accepted private app and
+profile are preserved. A one-job Fedora 44 container build is now running with
+896 MiB RAM/128 MiB swap limits. Kernel inspection caught a Podman CLI-to-cgroup
+swap mismatch and the build scope was corrected; the kernel swap peak was zero.
+The first Fedora 44 release attempt found a missing libavformat build dependency.
+The RPM/CI recipes now declare it. The retry passes clean Fedora 44 release/debug,
+staging, all 271 cases in 11 suites and 163-key/30-locale translation coverage.
+Evidence is in [focused results](../tests/README.md). Kernel RAM peak is 896 MiB,
+sampled combined peak about 896.4 MiB, zero OOM kills. Remote GitHub execution and
+clean Fedora 44 RPM construction remain separate gates.
+
+The clean Flatpak also passes private installation, unchanged permissions, library
+closure, hidden native profiles, denied direct host-file access, explicit selected
+file import and native Wayland startup. Portal export is revoked. Its test GUI
+peaks about 442 MiB with zero swap; all three production profile hashes stay
+unchanged and test processes close. A harness bug was caught: Flatpak resets XDG
+paths passed through --env. Two imports safely refused the user's existing
+destination; the corrected harness exports disposable paths inside the sandbox
+before Qt starts. The earlier prototype GUI-isolation claim is withdrawn. Live
+streaming for this different clean artifact is still not claimed.
+
+The native 0.2 RPM candidate passes packaging, the exact 16-file payload check,
+75 requirements and copied-database dependency/conflict dry run. It has no
+scriptlets/Conflicts/Obsoletes. One make/LTO job used a sampled peak of 508112896
+bytes, zero swap. Exact artifact/hash/logs and the reviewable terminal check are in
+[the RPM workflow](../packaging/rpm/README.md). Real upgrade now requires the user's
+sudo password: sudo -n true fails with password required. No new system install,
+commit, publication or dependency-pin change occurred. After the terminal test,
+verify its evidence and continue the remaining hardware/release inventory gates.
+Milestone 7 is not complete.
+
+
 
 ## Verification strategy
 
@@ -1902,3 +2155,79 @@ independent paths, credential persistence after restart and unchanged Moonlight
 state. Record exact commands/results and unavailable checks; update status/docs.
 Do not install, commit, push or publish. Stop after this task.
 ```
+
+
+### Task 7A upgrade acceptance and clean RPM follow-up (2026-11-10)
+
+The user reports the RPM upgrade script completed successfully. Retained evidence
+in /tmp/perigee-rpm-upgrade-result-fUvM2Z confirms install 0.1, upgrade to
+perigee-6.2.0-0.2.fc45.x86_64, package verification and removal. The script exits 0;
+Moonlight verification outputs and all three profile hash snapshots are identical.
+Current package queries confirm Perigee absent and Moonlight 6.2.0-1.fc45 installed.
+This closes the real local upgrade gate without claiming visual shell grouping,
+Fedora 44 package construction or live media on the installed RPM.
+
+The next check is a complete Fedora 44 rpmbuild from a new explicit source snapshot,
+including the final spec and libavformat dependency. Use one make/LTO job, verified
+kernel 896 MiB RAM/128 MiB swap limits and no host installation. Retain source/main/
+debug RPMs and environment/payload evidence outside the IDE project.
+
+
+The user also accepts Apollo video/audio/keyboard/mouse input in the clean-built
+Flatpak (SHA256 18f844ba2ed2ecc8e8764efc7d7af9865f293518243f1317cc52ab3c4b3391fb),
+launched from its separate private installation. This supersedes the new-artifact
+live-host pending status above for the primary GNOME Wayland/Apollo check only.
+
+### Task 7A/7B/7D clean packaging and provenance results (2026-11-10)
+
+Normal clean Fedora 44 rpmbuild passes from the frozen 619-file source snapshot
+42570ad5f7792e39ee2b0727516e57d6ea1807630a7cc14c632243e20e82ebd2. Main/source/
+debuginfo/debugsource RPMs are retained in
+/home/barmy/.cache/perigee-build/fedora44-rpm-20261110/work/rpmbuild.
+The main RPM SHA256 is
+32f418787b5b663d370fb984b8d3d1bf2ab15c2bb9e74767f20327408b3f1e3a.
+The exact 16-file final payload, 75 requirements, no scriptlets/conflicts/obsoletes,
+no Moonlight ownership overlap and byte-identical SRPM input archive/spec pass.
+Dependency transaction and actual install/verify/remove inside the disposable
+Fedora 44 container also pass. This is separate from the accepted real Fedora 45
+host upgrade and does not claim Fedora 44 compositor/hardware acceptance.
+
+Command: rpmbuild -ba --define '_topdir /work/rpmbuild' --define '_smp_mflags -j1'
+--define '_lto_cflags -flto=1 -ffat-lto-objects' /work/rpmbuild/SPECS/perigee.spec.
+The container uses the previously recorded immutable Fedora image. Kernel limits
+are 896 MiB RAM/128 MiB swap, CPU quota one; one make job and -flto=1 compilation
+are verified. Highest combined sample is 939655168 bytes; no OOM kills. The
+namespace-PID-1 self-stop was ignored during dependency setup; limits were corrected
+before compilation and lifetime kernel swap peak was 128 MiB. A readiness-file
+barrier is verified for the lifecycle check and documented for subsequent runs.
+Logs, environment, all artifact hashes and checks are build.log, work/environment.txt,
+resource-accounting.json, verification.json and work/lifecycle-result.txt in that root.
+
+The accepted development AppImage passes explicit portable preferences import,
+restart, moved paths with spaces, identity persistence and ignoring Moonlight's
+portable.dat. All three production profiles and Moonlight fixtures stay unchanged;
+only marked test processes are closed. Results/logs are in
+/home/barmy/.cache/perigee-build/appimage-portable-20261110; script is
+/tmp/perigee-appimage-portable-check.py. The capped run's highest combined sample
+is 683802624 bytes (about 652 MiB), with at most about 8 MiB sampled swap. This is
+portable startup/profile acceptance, not older-distro or streaming acceptance.
+
+The inventory tool now records every ELF's DT_NEEDED/SONAME/build IDs without
+executing it. Reports list 317 AppImage ELFs and 20 clean Flatpak ELFs. The Fedora
+RPM provenance audit maps 315 bundled ELFs to 155 RPMs/145 source RPMs and retains
+179 RPM-declared public license files. Two unmatched ELFs are the repository-built
+client and libva probe. Only seven matched files are byte-identical; build-ID
+correspondence is not proof of reproducibility. Fourteen source RPMs have no retained
+license text; corresponding source and full notice review remain open. The accepted
+artifact is unchanged. See [inventory evidence](../packaging/INVENTORY.md).
+
+CI now adds a Fedora RPM lane, final payload checks and native/RPM inventory JSON.
+The inherited packaging workflow is manual with unverified legacy targets off by
+default, avoiding automatic upstream-branded artifacts on push. AppImage compiler
+and LTO job defaults are one. Explicit untracked YAML workflow inclusion in source
+snapshots is now allowed without opening IDE/arbitrary hidden-file inclusion.
+ELF/provenance/source-snapshot safety fixtures, Python/YAML/embedded-Bash syntax and
+git diff --check pass. No application strings, streaming code or dependency pins
+changed. Remote CI requires an authorized commit/push; source/license clearance,
+original approved artwork, visual shell grouping and broader hardware/host coverage
+remain release gates. No release, commit, branch, push or merge has been performed.

@@ -1,0 +1,91 @@
+name: Perigee Fedora checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fedora:
+    runs-on: ubuntu-latest
+    container: fedora:44
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [debug, release, rpm]
+    env:
+      CCACHE_DISABLE: '1'
+      QT_QPA_PLATFORM: offscreen
+      SDL_VIDEODRIVER: dummy
+      QT_QUICK_BACKEND: software
+    steps:
+      - name: Install build and check dependencies
+        run: |
+          dnf install -y git gcc-c++ make python3 findutils which openssl \
+            qt6-qtbase-devel qt6-qtdeclarative-devel qt6-qtsvg-devel qt6-qtwayland qt6-linguist \
+            'pkgconfig(openssl)' 'pkgconfig(sdl2)' 'pkgconfig(SDL2_ttf)' 'pkgconfig(opus)' \
+            'pkgconfig(libavcodec)' 'pkgconfig(libavformat)' 'pkgconfig(libavutil)' 'pkgconfig(libswscale)' \
+            'pkgconfig(libva)' 'pkgconfig(libva-x11)' 'pkgconfig(libva-wayland)' \
+            'pkgconfig(libva-drm)' 'pkgconfig(vdpau)' 'pkgconfig(libdrm)' \
+            'pkgconfig(libplacebo)' 'pkgconfig(wayland-client)' 'pkgconfig(x11)' \
+            desktop-file-utils appstream
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          submodules: recursive
+          persist-credentials: false
+      - name: Install RPM build tools
+        if: matrix.configuration == 'rpm'
+        run: dnf install -y rpm-build redhat-rpm-config cpio
+      - name: Build
+        if: matrix.configuration != 'rpm'
+        shell: bash
+        run: |
+          mkdir -p build/ci-${{ matrix.configuration }}
+          cd build/ci-${{ matrix.configuration }}
+          qmake6 ../../moonlight-qt.pro PREFIX=/usr
+          make -j1 ${{ matrix.configuration }}
+      - name: Focused checks
+        if: matrix.configuration == 'debug'
+        shell: bash
+        run: scripts/check-linux-ci.sh build/ci-debug build/ci-results
+      - name: Stage release payload
+        if: matrix.configuration == 'release'
+        shell: bash
+        run: |
+          make -C build/ci-release/app -f Makefile.Release INSTALL_ROOT="$PWD/build/ci-stage" install
+          python3 scripts/check-linux-stage.py build/ci-stage
+          python3 scripts/package-inventory.py --tree build/ci-stage --output build/ci-native-inventory.json
+      - name: Build and check RPM payload
+        if: matrix.configuration == 'rpm'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/ci-rpm/SOURCES build/ci-rpm-payload
+          python3 scripts/create-source-archive.py --output build/ci-rpm/SOURCES/perigee-6.2.0.tar.gz
+          rpmbuild -ba --define "_topdir $PWD/build/ci-rpm" --define '_smp_mflags -j1' \
+            --define '_lto_cflags -flto=1 -ffat-lto-objects' packaging/rpm/perigee.spec
+          rpm_file="$PWD/build/ci-rpm/RPMS/$(uname -m)/perigee-6.2.0-0.1.fc44.$(uname -m).rpm"
+          test -z "$(rpm -qp --scripts "$rpm_file")"
+          test -z "$(rpm -qp --conflicts --obsoletes "$rpm_file")"
+          rpm2cpio "$rpm_file" | (cd build/ci-rpm-payload && cpio -idm --quiet)
+          python3 scripts/check-linux-stage.py --rpm build/ci-rpm-payload
+          python3 scripts/package-inventory.py --tree build/ci-rpm-payload --output build/ci-rpm-inventory.json
+      - name: Preserve focused results
+        if: always() && matrix.configuration == 'debug'
+        uses: actions/upload-artifact@v6
+        with:
+          name: Perigee-Fedora44-focused-results
+          path: build/ci-results/*.txt
+          if-no-files-found: warn
+      - name: Preserve package inventories
+        if: success() && matrix.configuration != 'debug'
+        uses: actions/upload-artifact@v6
+        with:
+          name: Perigee-Fedora44-${{ matrix.configuration }}-inventory
+          path: build/ci-*-inventory.json
+          if-no-files-found: error

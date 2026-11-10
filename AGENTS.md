@@ -78,7 +78,55 @@ remain compatible. Stack: C++17, Qt/QML, SDL, FFmpeg, and Moonlight Common C.
   transfer and controlled performance acceptance remain pending. On 2026-11-10
   the user explicitly deferred commands and authorized advancing to Milestone 7.
   The core proposal is unapplied, commands disabled and dependency pins unchanged.
-  Milestone 7 distribution readiness is next; no packaging/install/publication done.
+  Milestone 7 native RPM/source/debuginfo packaging and local validation pass.
+  Release build, 16-file RPM payload, generated ELF requirements and copied-RPM-db
+  dependency/conflict dry run pass. Disposable-root lifecycle is blocked by chroot
+  permissions. User-authorized installation, both installed launchers/coexistence, and removal
+  are now verified. Production settings remained unchanged across launches.
+  Install/upgrade/remove are verified, with unchanged Moonlight and three profiles.
+  Clean Fedora 44 main/source/debuginfo/debugsource RPM construction, dependency
+  transaction and container install/verify/remove also pass with one job and a
+  verified 896 MiB RAM/128 MiB swap cap, no OOM kills. Visual shell grouping remains pending.
+  Perigee is removed again; no publication performed.
+  See Task 7A for exact status and retained release gates.
+  Task 7B adapts AppImage identity/staging/tool digests and preserves inherited
+  X11/XWayland-only behavior. A Fedora 45 development image builds, its help and
+  rendered GUI pass, and production profiles are unchanged. User now confirms
+  Apollo video/audio/keyboard/mouse work in this XWayland AppImage. Fedora 44,
+  native Wayland and Sunshine remain pending. Portable import/restart, relocation
+  with spaces, identity persistence and legacy-marker isolation now pass with
+  unchanged production profiles; sampled peak about 652 MiB. Bundled provenance
+  maps 315 ELFs to 155 RPMs/145 source RPMs and retains 179 license files, with
+  14 source-package notice gaps. Full source/license clearance remains open.
+  Flatpak prototype now builds incrementally with a private KDE SDK and one job.
+  Private install/remove/reinstall, exact permissions, shared libraries, hidden
+  native profiles, selected-file portal import and native Wayland startup pass.
+  No host credentials are copied or sessions started. User now accepts
+  native Wayland Flatpak Apollo video/audio/keyboard/mouse on the prototype. A clean
+  corrected-manifest build/export passes with one job and a highest aggregate
+  memory sample about 867 MiB. Its different binary passes isolated sandbox/import
+  and native Wayland startup checks. The user also accepts Apollo video/audio/
+  keyboard/mouse on this exact clean bundle.
+  The harness now exports disposable XDG paths inside the sandbox shell because
+  Flatpak resets --env XDG values. All three production profiles are unchanged.
+  Clean output is flatpak-clean-20261110 alongside the prototype.
+  The private app/cache is outside
+  the project at /home/barmy/.cache/perigee-build/flatpak-20261110. Resource limits
+  are 896 MiB RAM/128 MiB swap on the actual Flatpak scope. The local Fedora CI
+  runner passes 271 cases plus 163-key/30-locale translation coverage. Clean
+  Fedora 44 container release/debug/staging and the same checks now pass with one
+  job under verified kernel 896 MiB RAM/128 MiB swap limits, no OOM kills. RPM/CI
+  now explicitly request libavformat headers. CI adds a separate RPM lane and
+  file/notice/ELF inventories. Legacy cross-platform packaging is manual/opt-in.
+  Remote GitHub CI remains unrun and needs an authorized source commit/push.
+  The proposed CI review snapshot is at
+  /home/barmy/.cache/perigee-build/ci-review-20261110. It includes required untracked
+  implementation prerequisites but excludes IDE data, profiles, the deferred
+  Common C patch and its local checker. No branch/commit/push is authorized yet.
+  The 0.2 RPM upgrade test passes with user-reported success and retained evidence
+  in /tmp/perigee-rpm-upgrade-result-fUvM2Z. Perigee is removed again.
+  Upstream maintenance is documented; no merge or
+  publication performed. Milestone 7 remains open.
 - Milestone 0 is done by explicit user acceptance on 2026-10-25. Native Fedora
   debug/release builds, isolated startup and later real-host streaming passed.
   Pairing remains skipped; unrun performance/secondary-platform checks remain

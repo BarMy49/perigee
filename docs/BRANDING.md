@@ -301,3 +301,14 @@ the selected Programming/Gaming profile and its twelve video/audio/window fields
 Host records add `transferurl`, `useappuuid`, and cached app UUIDs. Import excludes
 these integration fields. SFTP URLs cannot contain credentials; profiles contain
 no pairing identity or host records. No general preferences export is added.
+
+
+## Flatpak prototype isolation
+
+The development Flatpak uses io.github.BarMy49.Perigee with its own XDG namespace.
+It grants no access to native Perigee/Moonlight settings or broad home/host paths.
+Synthetic runtime checks verify direct host-file import is denied while explicit
+file forwarding through the document portal imports selected preferences. This is
+CLI selection, not a new GUI importer. The normal default still excludes pairing
+credentials. Native profiles remain unchanged; no implicit credential migration is
+added. Full live/portal acceptance is recorded separately in Task 7C.

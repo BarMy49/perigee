@@ -673,3 +673,40 @@ OpenSSL 4.0.3. Fedora 44 remains the target. The old external build was absent;
 `/tmp/perigee-m6-ui-build.log`. Local UI/policy results and exact limits are recorded
 in the [Milestone 6 evidence](IMPLEMENTATION_PLAN.md#tasks-6a6c-profiles-sftp-and-uuid-launch-2026-11-10).
 No GPU/streaming/host acceptance or package installation is inferred from this build.
+
+
+## Milestone 7 native package validation
+
+The [RPM workflow](../packaging/rpm/README.md) preserves the existing dependency
+and qmake strategy, applies Fedora build flags and checks an exact Perigee-only
+stage. Local Fedora 45 release compilation, native staging and metadata validation
+pass; this does not replace the Fedora 44 target build or live hardware matrix.
+Use `make -C app -f Makefile.Release INSTALL_ROOT=/tmp/perigee-native-stage install`
+from the build directory to stage release files. The generated root Makefile has
+no `install_release` target. Do not install over the system for a staging check.
+
+
+User-authorized RPM installation and removal are now observed. Installed package
+verification passes outside sandbox UID mapping; both desktop launchers coexist
+on native Wayland with disposable state and separate app IDs. After Perigee removal,
+its launcher no longer resolves and Moonlight still launches. See Task 7A for exact
+results and limitations. AppImage development is separately documented in the
+[AppImage workflow](../packaging/appimage/README.md); it deliberately retains the
+inherited X11/XWayland mode and is not native Wayland acceptance.
+
+Clean Fedora 44 container release/debug builds, exact release staging and the full
+focused runner now pass with one job. All 271 cases and 163-key/30-locale translation
+coverage pass. The first attempt exposed missing pkgconfig(libavformat), now declared
+in RPM/CI recipes; the retry passes with standard Fedora providers. The container
+used verified 896 MiB RAM/128 MiB swap limits and recorded no OOM kills. Exact image,
+source/environment and logs are in [focused results](../tests/README.md). This closes
+the clean target-distro compilation/check gate, not clean Fedora 44 RPM construction,
+codec availability, installed desktop behavior or hardware/streaming coverage.
+
+
+The real Fedora 45 RPM upgrade is now accepted: the user completed
+/tmp/perigee-rpm-upgrade-check.sh successfully. Retained evidence in
+/tmp/perigee-rpm-upgrade-result-fUvM2Z confirms 0.1 installation, 0.2 upgrade and
+verification, removal, identical Moonlight verification and three identical
+profile snapshots. Package queries confirm Perigee absent afterward. This closes
+the upgrade follow-up without implying target-hardware or visual shell acceptance.

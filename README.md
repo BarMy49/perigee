@@ -129,7 +129,38 @@ upstream artwork; see [asset provenance](ASSET_NOTICES.md). See
 Moonlight's community, translations and package infrastructure belong to the
 [upstream project](https://moonlight-stream.org). Perigee is a separate fork.
 
-Milestone 7 distribution readiness is the current implementation stage. Commands
+Milestone 7 distribution readiness is the current implementation stage; a
+[local development RPM recipe](packaging/rpm/README.md) passes local build and
+payload checks. Installed launcher/coexistence and install/upgrade/removal checks pass locally;
+broader distribution acceptance remains pending. Commands
 are explicitly deferred and disabled; the Common C pin is unchanged. Local checks
 pass for the selected Milestone 6 features, while live-host, transfer and performance
 acceptance remain pending in the [implementation plan](docs/IMPLEMENTATION_PLAN.md).
+
+
+A [development AppImage recipe](packaging/appimage/README.md) now builds with
+Perigee identity and passes local XWayland GUI startup. It retains the inherited
+X11/XWayland-only mode; the user accepts Apollo video/audio/keyboard/mouse for this
+artifact. Native Wayland and broader coverage remain pending. No public Perigee
+release is advertised.
+
+
+A [development Flatpak prototype](packaging/flatpak/README.md) now passes local
+sandbox/file-forwarding and native Wayland startup checks in a private test
+installation. The user confirms
+Apollo video/audio/keyboard/mouse work on the incremental prototype. A clean
+corrected-manifest build and isolated runtime smoke checks also pass under the
+one-job/1 GiB budget. The user also accepts Apollo video/audio/keyboard/mouse on
+that clean bundle. Broader release coverage remains pending; it is not published.
+
+Clean Fedora 44 debug/release builds, staged metadata and all 271 focused cases
+now pass, alongside 163-key/30-locale translation coverage. GitHub execution,
+broader hardware/release gates remain pending. The real local RPM upgrade also
+passes with unchanged Moonlight verification and all three profiles.
+
+
+Clean Fedora 44 main/source/debug RPM construction and disposable-container
+install/verify/remove also pass. AppImage portable restart/relocation passes.
+[Package inventories](packaging/INVENTORY.md) now include bundled ELF and source-RPM
+provenance; full corresponding-source/notice clearance remains open. The Fedora CI
+draft adds an RPM lane; GitHub execution still needs an authorized commit/push.

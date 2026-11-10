@@ -1,0 +1,202 @@
+{
+  "app-id": "io.github.BarMy49.Perigee",
+  "runtime": "org.kde.Platform",
+  "runtime-version": "6.11",
+  "sdk": "org.kde.Sdk",
+  "command": "perigee",
+  "branch": "devel",
+  "finish-args": [
+    "--require-version=1.17.0",
+    "--no-inherit-permissions",
+    "--share=network",
+    "--socket=wayland",
+    "--socket=fallback-x11",
+    "--share=ipc",
+    "--socket=pulseaudio",
+    "--device=dri",
+    "--device=input",
+    "--filesystem=/run/udev:ro",
+    "--talk-name=org.freedesktop.ScreenSaver",
+    "--env=QT_QUICK_CONTROLS_STYLE=Material",
+    "--unset-env=LIBVA_DRIVER_NAME",
+    "--unset-env=LIBVA_DRIVERS_PATH"
+  ],
+  "cleanup": [
+    "/include",
+    "/lib/pkgconfig",
+    "/lib/cmake",
+    "*.a"
+  ],
+  "modules": [
+    {
+      "name": "libplacebo",
+      "buildsystem": "meson",
+      "config-opts": [
+        "-Ddemos=false",
+        "-Dvulkan=enabled",
+        "-Dopengl=disabled"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/haasn/libplacebo.git",
+          "commit": "92b5ac6db79f4d680eb656692f7bf51e9606f42a"
+        }
+      ],
+      "post-install": [
+        "mkdir -p /app/share/licenses/perigee/dependencies/libplacebo",
+        "found=0; for notice in LICENSE* COPYING* ../LICENSE* ../COPYING*; do if test -f \"$notice\"; then install -m644 \"$notice\" \"/app/share/licenses/perigee/dependencies/libplacebo/$(basename \"$notice\")\"; found=1; fi; done; test \"$found\" = 1"
+      ]
+    },
+    {
+      "name": "SDL3",
+      "buildsystem": "cmake-ninja",
+      "config-opts": [
+        "-DSDL_ALSA=OFF",
+        "-DSDL_RPATH=OFF",
+        "-DSDL_KMSDRM=OFF",
+        "-DSDL_INSTALL_DOCS=OFF",
+        "-DSDL_TEST_LIBRARY=OFF"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/libsdl-org/SDL.git",
+          "commit": "829a65d769d935c4852f8159e964312c0957260a"
+        }
+      ],
+      "builddir": true,
+      "post-install": [
+        "mkdir -p /app/share/licenses/perigee/dependencies/SDL3",
+        "found=0; for notice in LICENSE* COPYING* ../LICENSE* ../COPYING*; do if test -f \"$notice\"; then install -m644 \"$notice\" \"/app/share/licenses/perigee/dependencies/SDL3/$(basename \"$notice\")\"; found=1; fi; done; test \"$found\" = 1"
+      ]
+    },
+    {
+      "name": "SDL2-compat",
+      "buildsystem": "cmake-ninja",
+      "config-opts": [
+        "-DSDL2COMPAT_TESTS=OFF"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/libsdl-org/sdl2-compat.git",
+          "commit": "e4df8a55f20da762290a78c2bbe8f8d89d01486a"
+        }
+      ],
+      "builddir": true,
+      "post-install": [
+        "mkdir -p /app/share/licenses/perigee/dependencies/SDL2-compat",
+        "found=0; for notice in LICENSE* COPYING* ../LICENSE* ../COPYING*; do if test -f \"$notice\"; then install -m644 \"$notice\" \"/app/share/licenses/perigee/dependencies/SDL2-compat/$(basename \"$notice\")\"; found=1; fi; done; test \"$found\" = 1"
+      ]
+    },
+    {
+      "name": "SDL2_ttf",
+      "buildsystem": "cmake-ninja",
+      "config-opts": [
+        "-DSDL2TTF_VENDORED=ON",
+        "-DSDL2TTF_SAMPLES=OFF"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/libsdl-org/SDL_ttf.git",
+          "commit": "a883e490e30fb44a5336ea3dcb990c6982c5216f"
+        }
+      ],
+      "builddir": true,
+      "post-install": [
+        "mkdir -p /app/share/licenses/perigee/dependencies/SDL2_ttf",
+        "found=0; for notice in LICENSE* COPYING* ../LICENSE* ../COPYING*; do if test -f \"$notice\"; then install -m644 \"$notice\" \"/app/share/licenses/perigee/dependencies/SDL2_ttf/$(basename \"$notice\")\"; found=1; fi; done; test \"$found\" = 1",
+        "found=0; for directory in external/freetype ../external/freetype; do if test -f \"$directory/docs/FTL.TXT\"; then install -Dm644 \"$directory/LICENSE.TXT\" /app/share/licenses/perigee/dependencies/SDL2_ttf/freetype/LICENSE.TXT; install -Dm644 \"$directory/docs/FTL.TXT\" /app/share/licenses/perigee/dependencies/SDL2_ttf/freetype/FTL.TXT; install -Dm644 \"$directory/docs/GPLv2.TXT\" /app/share/licenses/perigee/dependencies/SDL2_ttf/freetype/GPLv2.TXT; found=1; break; fi; done; test \"$found\" = 1",
+        "printf '%s\\n' 'This package uses FreeType, copyright The FreeType Project (https://freetype.org). See the included FreeType license texts.' > /app/share/licenses/perigee/dependencies/SDL2_ttf/freetype/NOTICE"
+      ]
+    },
+    {
+      "name": "dav1d",
+      "buildsystem": "meson",
+      "config-opts": [
+        "-Denable_tools=false",
+        "-Denable_tests=false"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://code.videolan.org/videolan/dav1d.git",
+          "commit": "54706fc6bc0cdecab7e9593974a4039cc038fca7"
+        }
+      ],
+      "post-install": [
+        "mkdir -p /app/share/licenses/perigee/dependencies/dav1d",
+        "found=0; for notice in LICENSE* COPYING* ../LICENSE* ../COPYING*; do if test -f \"$notice\"; then install -m644 \"$notice\" \"/app/share/licenses/perigee/dependencies/dav1d/$(basename \"$notice\")\"; found=1; fi; done; test \"$found\" = 1"
+      ]
+    },
+    {
+      "name": "ffmpeg",
+      "buildsystem": "autotools",
+      "config-opts": [
+        "--disable-stripping",
+        "--enable-pic",
+        "--enable-shared",
+        "--disable-static",
+        "--disable-all",
+        "--disable-autodetect",
+        "--enable-avcodec",
+        "--enable-avformat",
+        "--enable-swscale",
+        "--enable-decoder=h264",
+        "--enable-decoder=hevc",
+        "--enable-decoder=av1",
+        "--enable-vaapi",
+        "--enable-hwaccel=h264_vaapi",
+        "--enable-hwaccel=hevc_vaapi",
+        "--enable-hwaccel=av1_vaapi",
+        "--enable-vdpau",
+        "--enable-hwaccel=h264_vdpau",
+        "--enable-hwaccel=hevc_vdpau",
+        "--enable-hwaccel=av1_vdpau",
+        "--enable-libdrm",
+        "--enable-vulkan",
+        "--enable-hwaccel=h264_vulkan",
+        "--enable-hwaccel=hevc_vulkan",
+        "--enable-hwaccel=av1_vulkan",
+        "--enable-libdav1d",
+        "--enable-decoder=libdav1d"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/FFmpeg/FFmpeg.git",
+          "commit": "946fcce07b6dcd0331c8cc609192aeff5e1924f8"
+        }
+      ],
+      "post-install": [
+        "mkdir -p /app/share/licenses/perigee/dependencies/ffmpeg",
+        "found=0; for notice in LICENSE* COPYING* ../LICENSE* ../COPYING*; do if test -f \"$notice\"; then install -m644 \"$notice\" \"/app/share/licenses/perigee/dependencies/ffmpeg/$(basename \"$notice\")\"; found=1; fi; done; test \"$found\" = 1"
+      ]
+    },
+    {
+      "name": "perigee",
+      "buildsystem": "simple",
+      "build-commands": [
+        "test \"$(qmake -query QT_VERSION | cut -d. -f1)\" = 6",
+        "pkg-config --exists openssl sdl2 SDL2_ttf opus libavcodec libavutil libswscale libplacebo libva libdrm wayland-client x11",
+        "mkdir -p perigee-build",
+        "cd perigee-build && qmake ../moonlight-qt.pro PREFIX=/app QMAKE_RPATHDIR=/app/lib",
+        "cd perigee-build && make -j${FLATPAK_BUILDER_N_JOBS:-1} release",
+        "cd perigee-build/app && make -f Makefile.Release install",
+        "install -Dm644 SOURCE_SNAPSHOT.json /app/share/doc/perigee/SOURCE_SNAPSHOT.json",
+        "for entry in LICENSE packaging/rpm/ModeSeven-README moonlight-common-c/moonlight-common-c/LICENSE.txt moonlight-common-c/moonlight-common-c/enet/LICENSE moonlight-common-c/moonlight-common-c/nanors/LICENSE qmdnsengine/qmdnsengine/LICENSE.txt h264bitstream/LICENSE app/SDL_GameControllerDB/LICENSE; do install -Dm644 \"$entry\" \"/app/share/licenses/perigee/$entry\"; done",
+        "desktop-file-validate /app/share/applications/io.github.BarMy49.Perigee.desktop",
+        "appstreamcli validate --no-net /app/share/metainfo/io.github.BarMy49.Perigee.metainfo.xml"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "path": "@SOURCE_ARCHIVE@",
+          "sha256": "@SOURCE_SHA256@"
+        }
+      ]
+    }
+  ]
+}

@@ -35,3 +35,22 @@ source resources are retained. These are color adaptations of existing interface
 assets, not original Perigee artwork. Existing upstream licensing, attribution
 and corresponding-source obligations continue to apply. No external asset or
 new asset dependency was introduced.
+
+
+## Embedded ModeSeven font
+
+`app/ModeSeven.ttf` is byte-identical to `MODES___.TTF` from the author's
+[original Windows archive](https://dev.null.org/fonts/mode7win.zip), linked on
+[Andrew Bulhak's font page](https://dev.null.org/fonts/), inspected 2026-11-10.
+Both SHA256 hashes are
+`afb1601d2b8d368900f3181d972d44584da964b1f99f6580ec81f9ce1b0906f8`.
+The archive README explicitly permits free distribution; its full original text
+is preserved in [ModeSeven-README](packaging/rpm/ModeSeven-README) and installed
+with native RPM license material. The font remains upstream artwork and is not
+claimed as original Perigee work.
+
+
+The development AppImage flow also rasterizes the same attributed temporary SVG
+into a 256×256 PNG at build time for .DirIcon. This is a format conversion of the
+existing artwork, with the same provenance and license; no new design is claimed.
+The generated PNG stays in the AppDir and is not a new repository artwork source.

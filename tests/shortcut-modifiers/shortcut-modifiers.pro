@@ -1,0 +1,9 @@
+QT = core testlib
+CONFIG += console testcase c++17 link_pkgconfig
+CONFIG -= app_bundle
+PKGCONFIG += sdl2
+TEMPLATE = app
+TARGET = tst_shortcutmodifiers
+INCLUDEPATH += ../../app
+SOURCES += tst_shortcutmodifiers.cpp
+HEADERS += ../../app/streaming/input/shortcutmodifiers.h
