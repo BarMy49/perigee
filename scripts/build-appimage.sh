@@ -37,6 +37,8 @@ for entry in LICENSE packaging/rpm/ModeSeven-README \
     qmdnsengine/qmdnsengine/LICENSE.txt h264bitstream/LICENSE app/SDL_GameControllerDB/LICENSE; do
     install -Dm644 "$SOURCE_ROOT/$entry" "$DEPLOY_FOLDER/usr/share/licenses/perigee/$entry"
 done
+cp -a "$SOURCE_ROOT/packaging/appimage/runtime" \
+    "$DEPLOY_FOLDER/usr/share/licenses/perigee/appimage-runtime"
 
 RASTER_ICON=usr/share/icons/hicolor/256x256/apps/io.github.BarMy49.Perigee.png
 mkdir -p "$DEPLOY_FOLDER/$(dirname "$RASTER_ICON")"

@@ -55,3 +55,10 @@ The follow-up Fedora CI configuration serializes matrix jobs and passes Docker
 memory.swap.max=134217728 and cpu.max="100000 100000". It fails closed if the hosted
 runner does not apply these values. The previous successful remote run predates
 these explicit hosted limits; its result is not evidence of their enforcement.
+
+
+Constrained remote run 42999866715 at dfbf6689 now passes debug/release/RPM, with
+all three kernel-limit assertions passing in each job. This is the approved-icon
+run. Source retention is serial under the same native guard and CPU 0; its two
+passes peak at about 640 MiB combined, zero swap. The separate runtime-notice-only
+AppImage repack also stays below 640 MiB. No media optimization was reduced.

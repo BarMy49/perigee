@@ -111,3 +111,57 @@ complete bundled dynamic-library/runtime notices and corresponding source remain
 a release gate. Generate comparable reports with scripts/package-inventory.py;
 the tool reads ELF metadata without running packaged binaries and does not certify
 license clearance or discover every dynamically loaded dependency.
+
+
+## Approved orbit refresh, 2026-11-11
+
+The user approved the original orbit SVG; ASSET_NOTICES.md records its provenance.
+A fresh build of review commit dfbf6689 uses the same pinned tools/dependencies,
+one compiler/LTO job, CPU 0, NO_STRIP=1 and the existing 1 GiB guard. Output root:
+/home/barmy/.cache/perigee-build/appimage-branding-20261111. Highest sampled
+RAM-plus-swap is 725852160 bytes (about 692 MiB), with no guard interruption.
+Artifact: build/installer-release/Perigee-6.2.0-x86_64.AppImage beneath that root.
+SHA256: 593d0ec74fe7d3919108af066b8f6795864cd215de7e8c750a139b1fe3d23539.
+
+Approved SVG/notices, compiled window-icon colors, help/QML/XWayland startup,
+portable import/restart/relocation through spaces, identity persistence and
+legacy-marker isolation pass. Three production profiles stay unchanged; marked
+test processes close. Results are smoke-gflc9y0g/result.json; the retained harness
+is smoke-check.py. A first harness attempt used the wrong notice path and failed
+before launch; its corrected retry passes. Inventory records 1848 entries/294 ELFs;
+the older AppDir contained 23 additional SQL/print/folder-model plugin/library
+ELFs. This new artifact needs its own live acceptance; the earlier Apollo report
+is not transferred. Native Wayland/older-distribution coverage and full bundled
+notice/corresponding-source clearance remain open. No release is published.
+
+The user now explicitly accepts Apollo video, audible audio and keyboard/mouse
+input in this refreshed image. Its capped launcher exits zero with a 604344320-byte
+combined sample peak (about 576 MiB). This closes primary-host live acceptance for
+this exact hash; it does not establish codec/GPU paths or controlled performance.
+
+
+## Embedded runtime source and notices
+
+The pinned AppImage runtime is independently mapped to its upstream build log,
+exact source revision and six static libraries. The default recipe now installs
+12 original notice/provenance files; see [runtime provenance](RUNTIME_NOTICES.md).
+A separate repack adds only those files, preserving all 1848 existing payload
+entries and all 294 ELFs byte for byte. Its runtime differs only in the standard
+16-byte .digest_md5 packaging field. New artifact SHA256:
+d7e403523d6d841fe2ecb9dfa971037c5741b7d07df88318940cb50978a0c264.
+Output: /home/barmy/.cache/perigee-build/appimage-notice-refresh-20261111/Perigee-6.2.0-notices-x86_64.AppImage.
+
+The repack passes fresh XWayland/icon/portable import/restart/relocation/identity/
+legacy-marker checks, with unchanged production profiles and closed test processes.
+No new live streaming run is claimed. The unchanged executable/resource payload is
+explicitly compared with the user-accepted image. Source RPM/library notices are
+still separately retained review material; complete release/source hosting and
+notice clearance remain open. No media code, runtime pin or protocol pin changes.
+
+The finalized notice image uses the exact complete source copyright comment
+without its following separator blank line. Final SHA256:
+a98823a05e0bab56ae127b022880c193e3304bd60dc4ba503c378c2998d69bb1.
+Filename: Perigee-6.2.0-notices-final-x86_64.AppImage in the same output root.
+All original entries/ELFs and runtime code are again verified unchanged; packaged
+help passes. final-payload-comparison.json binds that comparison to this hash.
+The earlier full GUI/portable result remains separately recorded.

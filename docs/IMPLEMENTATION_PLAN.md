@@ -1746,7 +1746,7 @@ remain deferred for host/hardware evidence.
 
 **Goal:** reproducible independent packages and sustainable upstream updates.
 Current stage authorized on 2026-11-10 after explicit command deferral. Current task:
-verify the approved-icon package refresh and constrained Fedora CI follow-up.
+retain exact bundled-library source packages after approved-icon acceptance.
 Native RPM packaging is implemented and undergoing local validation (Task 7A below).
 The user installed and removed the local RPM; installed launcher/coexistence checks
 pass below. Upgrade is also verified; broader release acceptance remains pending.
@@ -2309,3 +2309,149 @@ profile preservation around the transactions. sudo -n true requires a password;
 no new host install occurred. AppImage branding rebuild, full source/license
 clearance and broader hardware/host coverage remain open. The original checkout's
 independently staged documentation and deferred Common C files are preserved.
+
+
+#### Installed orbit icon acceptance and constrained CI
+
+On 2026-11-11 the user explicitly reports that the installed orbit icon and
+separate Perigee/Moonlight GNOME overview/task-switcher groups pass. The retained
+report is branding-20261111/installed-visual-user-report.json under the build-cache
+root. The terminal transaction log was not located, so no additional 0.3 package
+transaction result is inferred. Perigee is currently absent from the RPM database;
+the earlier verified install/upgrade/remove evidence remains separately recorded.
+
+Commit dfbf6689 applies the approved icon, Flatpak wrapper and notice-audit fixes,
+and explicit hosted build limits on the authorized review branch.
+[Constrained Fedora run 42999866715](https://github.com/BarMy49/perigee/actions/runs/42999866715)
+passes its initial kernel-limit assertions. Its debug job passes; retained reports
+confirm 271 cases, zero failures/skips in 11 suites. Release/RPM results remain
+pending. This run builds the approved icon; no release/merge is performed.
+
+A fresh AppImage branding build uses this exact commit and dependency pins, one
+compiler/LTO job, CPU 0 and the existing 1 GiB guard. Sources/build/temp outputs are
+on disk under appimage-branding-20261111 in the private build cache. Its earlier
+/tmp artifact/tool/object trees are no longer available; old hashes/results remain
+historical evidence. The fresh build and automated runtime refresh now pass:
+
+- Artifact SHA256: 593d0ec74fe7d3919108af066b8f6795864cd215de7e8c750a139b1fe3d23539.
+- Highest sampled combined build memory: 725852160 bytes (about 692 MiB); one
+  compiler/LTO job, CPU 0, no guard interruption.
+- Approved SVG/asset notices, compiled window-icon palette, help, QML/XWayland
+  startup, portable preference import/restart, relocation through paths with
+  spaces, identity persistence and ignored legacy Moonlight marker all pass.
+- All three production profile hashes are unchanged and test processes close.
+  The successful smoke retry peaks at 515694592 bytes (about 492 MiB), zero swap.
+  The first harness attempt used the wrong notice path; it failed before launch
+  and was corrected to usr/share/doc/perigee/ASSET_NOTICES.md.
+- Reports/harness: build-memory.json, smoke-retry-memory.json, smoke-check.py and
+  smoke-gflc9y0g/result.json beneath the new AppImage cache root.
+
+Fresh inventory records 1848 files/symlinks, 294 ELFs and ten bundled notice/source
+records. Build-ID correspondence maps 292 ELFs to 138 RPMs/132 source RPMs; the two
+unmatched ELFs are the repository-built client/libva probe. The expanded audit
+retains 299 external notice/attribution files with three source-matched providers.
+numactl and xcb-util-keysyms still need the separately retained source candidates.
+The fresh tree omits 23 SQL/print/folder-model plugin/library ELFs present in the
+older development AppDir; no new RPM owner package is introduced. This is a new
+artifact/dependency inventory, not a reproducibility or license-clearance claim.
+No older-artifact live acceptance is transferred to this image.
+
+User-supervised Apollo video/audio/input for the branded AppImage and Flatpak
+is now requested using branding-20261111/launch-orbit-check.sh in the build cache.
+The helper checks artifact hashes, uses the respective existing profiles without
+copying credentials, starts from a fresh working directory, and applies the memory
+guard. Live results remain pending. Full source/license clearance, broader host/
+hardware coverage and the final RPM CI result also remain open.
+
+
+### Milestone 7 refreshed-package acceptance and source retention (2026-11-11)
+
+The user explicitly confirms video, audible audio and keyboard/mouse input work
+against Apollo in both refreshed packages: AppImage SHA256 593d0ec74fe7d3919108af066b8f6795864cd215de7e8c750a139b1fe3d23539
+and Flatpak SHA256 0263075f954addc5f14f03b5a18d7fa98b3c0a9f864fe1ce76693cc72fd16746.
+Their capped launch reports both exit zero without guard interruption; combined
+sample peaks are 604344320 bytes (about 576 MiB) and 500801536 bytes (about 478 MiB).
+Evidence: branding-20261111/refreshed-live-user-report.json under the build cache,
+plus live-appimage-fRo3WN/memory.json and live-flatpak-np7CyZ/memory.json there.
+Exact decoder/GPU paths, controlled performance and Sunshine remain unreported.
+
+[Constrained Fedora CI 42999866715](https://github.com/BarMy49/perigee/actions/runs/42999866715)
+now passes all debug/release/RPM jobs. Each job passes actual kernel-limit checks
+for one CPU, 896 MiB RAM and 128 MiB swap. Debug reports retain 271 passes, zero
+failures/skips; the final RPM inventory retains 17 file/symlink entries, 12 notice/
+source records and one ELF. No release, merge or Common C publication occurred.
+
+The next packaging increment adds scripts/retain-rpm-sources.py: exact installed
+RPM/source/vendor matching, official HTTPS source locations, serial downloads,
+source-package identity and header/payload digest checks, hashes, no-overwrite
+receipts and cache revalidation. It never executes source/build scripts. Publisher
+signature status is recorded separately; unsigned Koji sources do not become
+signature-verified. Current plan: 132 source RPMs for the refreshed AppImage, at
+/home/barmy/.cache/perigee-build/appimage-sources-20261111. Acquisition is running
+with one CPU and the existing 1 GiB guard. Complete source/build-environment and
+license clearance remain open.
+
+
+#### Source cache and embedded runtime notice completion
+
+All 132 exact RPM-derived source packages are retained (1701024835 bytes), with
+verified identity and header/payload digests. The first acquisition records a
+libyuv TLS failure; the successful resume revalidates 131 existing files and
+fetches the last source. Both passes peak at about 640 MiB combined, zero swap,
+without guard interruption. No publisher signature is verified, and no source
+scripts/key imports/package-policy overrides execute. Completion, attempt,
+receipt, fixture and kernel-limit reports are in appimage-sources-20261111 under
+the build cache. Source-helper fixtures pass unsafe name/vendor, wrong identity,
+truncation, cache/plan mismatch, symlink and no-overwrite checks.
+
+The runtime asset is independently matched to upstream build 39320578745 and
+source fedfad51acc2860b2916a1eef32ba4a500ff31ef. Its six static dependencies are
+libfuse, squashfuse, musl, zlib, zstd and mimalloc. The upstream top-level LICENSE
+omits mimalloc despite its Makefile linking it; the original MIT text is now
+retained separately. Full source archives, matching Alpine packaging snapshot,
+patches and build log are retained. All 21 Alpine recipe input checksums and both
+runtime recipe archive checksums pass. These are source/notice records, not a
+reproduced runtime build or complete release clearance.
+
+AppImage staging now includes the [runtime notices](../packaging/appimage/RUNTIME_NOTICES.md).
+A separate notice repack preserves all 1848 accepted payload entries byte for byte,
+including 294 ELFs, and initially adds 12 notice/provenance files. The packaged
+runtime matches the reviewed asset outside its 16-byte .digest_md5 metadata field.
+The repack passes help, real XWayland/icon, portable import/restart/relocation,
+identity and legacy-marker checks; three production profiles stay unchanged and
+test processes close. No new streaming result is claimed for this repack; its
+unchanged binaries/resources are explicitly compared with the user-accepted image.
+Repack SHA256: d7e403523d6d841fe2ecb9dfa971037c5741b7d07df88318940cb50978a0c264.
+Evidence root: appimage-notice-refresh-20261111 under the build cache, including
+payload-comparison.json, runtime-prefix-comparison.json and smoke-7ez4xg4s/result.json.
+The source-side runtime guide is outside the copied notice directory; this image
+contains the same 12 files staged by the final recipe.
+
+The user also explicitly accepts ordinary Sunshine launch/resume, video/audio/
+keyboard/mouse and disconnect/reconnect in the exact branded Flatpak. Evidence:
+branding-20261111/sunshine-flatpak-user-report.json. No new pairing is requested.
+Sunshine host version, codec/GPU path, other package formats, Fedora 44/KDE real
+hardware and controlled performance remain separate unreported coverage.
+
+
+Final notice-image staging retains the complete upstream leading copyright
+comment through its closing line, with no following separator blank line. The
+final notice/provenance files match the final recipe, and all original accepted
+payload files/294 ELFs and runtime executable bytes remain unchanged. Final image:
+appimage-notice-refresh-20261111/Perigee-6.2.0-notices-final-x86_64.AppImage under
+the build cache; SHA256 a98823a05e0bab56ae127b022880c193e3304bd60dc4ba503c378c2998d69bb1.
+Its packaged help passes under the cap. final-payload-comparison.json records the
+comparison; the full GUI/portable check of the prior notice variant is retained
+separately. No additional live-stream run is asserted for this notice-only variant.
+
+The user reports Fedora 44 GNOME Wayland hardware is available. A portable kit is
+prepared at fedora44-flatpak-check-20261111/Perigee-Fedora44-check.tar under the
+build cache. It includes the accepted branded Flatpak, the unchanged memory guard,
+checksums and a relative-path launcher. It verifies Fedora 44/GNOME/Wayland, bundle
+and app/runtime commits, creates a separate private installation, installs/pins
+KDE Platform 6.11, forces Qt/SDL native Wayland, caps launch, removes the private
+app and compares native Perigee/Moonlight profile hashes. Existing Flatpak user
+data is retained, credentials are never copied, and new pairing is not requested.
+If no paired Perigee Flatpak host exists there, only startup acceptance is requested.
+Bash syntax and Fedora 45 rejection preflight pass; actual Fedora 44 results need
+the user's desktop session. No target-machine install has been executed here.

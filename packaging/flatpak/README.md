@@ -245,3 +245,23 @@ Approved icon equality, library closure, native-profile isolation, selected-file
 portal import and native Wayland startup pass with unchanged production profiles.
 It is installed only in its separate private test installation; no accepted app
 installation was replaced. Live streaming of this branded binary is unreported.
+
+The user now explicitly accepts Apollo video, audible audio and keyboard/mouse
+input in the approved-orbit bundle SHA256
+0263075f954addc5f14f03b5a18d7fa98b3c0a9f864fe1ce76693cc72fd16746. Its capped launcher
+exits zero with a 500801536-byte combined sample peak (about 478 MiB). This is live
+acceptance for this exact bundle; codec/GPU paths and controlled performance remain
+separate unreported details.
+
+The user also confirms standard Sunshine launch/resume, video/audio/keyboard/mouse,
+and disconnect/reconnect pass in this same branded bundle on 2026-11-11. This
+adds ordinary-host acceptance without inferring an exact host version, codec/GPU
+path, controlled performance or another package's behavior.
+
+A portable Fedora 44 GNOME Wayland kit is prepared under
+/home/barmy/.cache/perigee-build/fedora44-flatpak-check-20261111. It carries this
+accepted branded bundle, pinned runtime/app commits, checksums and the existing
+memory guard. run-fedora44-check.sh creates/removes a private app installation,
+forces native Wayland and preserves native settings; it never copies credentials
+or requests pairing. Its syntax/negative preflight pass locally; real Fedora 44
+startup/streaming results remain pending on the user's available target machine.

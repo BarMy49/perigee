@@ -271,3 +271,47 @@ The notice audit now retains legacy COPYING/attribution files and source-matched
 split-package notices: 328 files plus 13 source notice candidates from three exact
 source RPMs. Raw Koji SRPMs are unsigned; header/payload digests are checked, not
 publisher-signature clearance. Full corresponding-source/license review remains open.
+
+The user now accepts the installed orbit icon and separate GNOME groups. No new
+0.3 transaction log was located; keep that distinct from visual acceptance.
+Commit dfbf6689 is pushed; constrained Fedora CI run 42999866715 passes debug
+(271 cases) and its initial kernel limits. Release/RPM remain pending. A fresh
+AppImage branding build is running at appimage-branding-20261111 outside the IDE,
+with one compiler/LTO job, CPU 0 and the existing 1 GiB guard.
+
+The fresh orbit AppImage now builds and passes XWayland/compiled-icon/portable
+import/restart/relocation/identity/legacy-marker checks with all three production
+profiles unchanged. Artifact SHA256 is
+593d0ec74fe7d3919108af066b8f6795864cd215de7e8c750a139b1fe3d23539.
+Build sample peak is 725852160 bytes (about 692 MiB). New inventory is 1848 entries/
+294 ELFs; external notices cover 138 owner RPMs/132 sources plus three providers.
+Full source/license clearance remains open. Fedora release now passes too; RPM is
+still running. Branded AppImage/Flatpak live checks are pending user feedback via
+branding-20261111/launch-orbit-check.sh.
+
+On 2026-11-11 the user accepts Apollo video/audio/keyboard/mouse in both refreshed
+packages. Capped launches exit zero at about 576 MiB AppImage/478 MiB Flatpak.
+Constrained Fedora CI 42999866715 now passes debug/release/RPM, all kernel limit
+assertions and 271 focused cases. Source retention for the refreshed AppImage is
+running serially under the 1 GiB guard at appimage-sources-20261111 outside the IDE;
+scripts/retain-rpm-sources.py records exact identities, hashes, separate signature
+status and verified receipts. No source scripts execute and no release is published.
+
+All 132 source RPMs are now retained and digest/identity checked (about 1.58 GiB
+on disk); serial fetch/resume peak about 640 MiB, zero swap. Publisher signatures
+remain unverified. Runtime source/build provenance and six static-library notices
+are now retained; the upstream runtime LICENSE omitted linked mimalloc, whose MIT
+license is included separately. AppImage staging copies packaging/appimage/runtime.
+A notice-only repack preserves all original 1848 payload entries/294 ELFs and passes
+isolated XWayland/portable checks. Its source/notice review is not release clearance.
+The user now accepts standard Sunshine launch/resume, video/audio/input and
+reconnect in the branded Flatpak; no new pairing, release or core change occurs.
+
+The final notice-only AppImage SHA256 is
+a98823a05e0bab56ae127b022880c193e3304bd60dc4ba503c378c2998d69bb1; all accepted
+payload files/294 ELFs and runtime code are unchanged, with packaged help passing.
+The user has Fedora 44 GNOME Wayland hardware. Its portable Flatpak test kit is
+fedora44-flatpak-check-20261111/Perigee-Fedora44-check.tar under the build cache;
+syntax/negative preflight pass, actual target tests need the user. It uses a
+private installation and existing Flatpak profile, never copies credentials or
+requests pairing, and preserves native profiles. No release is authorized.

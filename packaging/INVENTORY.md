@@ -100,3 +100,74 @@ that does not establish full static-dependency coverage or complete license revi
 Only three full source RPMs were acquired; remaining source acquisition/publication
 is open. Their raw Koji copies are unsigned, with header/payload digest inspection
 recorded separately. No accepted AppImage was modified by this audit.
+
+## Exact source RPM retention
+
+The refreshed AppImage audit has 132 source groups. Generate an exact plan from
+that audit on the same machine, where the recorded owner RPMs are still installed:
+
+```bash
+python3 scripts/retain-rpm-sources.py --provenance /absolute/rpm-provenance.json \
+  --directory /absolute/new-source-cache
+```
+
+The default only writes/verifies the plan. Add `--fetch` to retrieve sources
+serially. Use the memory wrapper and a fresh report filename for every invocation:
+
+```bash
+python3 scripts/limit-build-memory.py --report /absolute/source-fetch-memory.json -- \
+  taskset -c 0 python3 scripts/retain-rpm-sources.py \
+    --provenance /absolute/rpm-provenance.json --directory /absolute/source-cache --fetch
+```
+
+Installed NEVRA/source/vendor must exactly match the input inventory. Supported
+origins are Fedora's versioned Koji package archive and RPM Fusion's free Fedora
+release/update source repositories. Unknown vendors are rejected. The helper
+checks source-package identity and SHA256/SHA512 header/payload digests, retains
+file SHA256/size/URL/effective URL and independent publisher-signature results,
+and never executes source scripts or changes the installed RPM database. RPM
+source headers may report a build architecture; SOURCEPACKAGE=1 is checked rather
+than assuming that the ARCH field equals src.
+
+A matching cache can resume: existing sources are rehashed and digest/identity
+checked against their receipts. Different plans, incomplete cache entries,
+symlinked roots/subdirectories/receipts/sources and source hashes inconsistent
+with their receipts are rejected.
+Files and receipts are never overwritten. Each acquisition attempt writes a new
+summary beneath attempts/. A failed download remains pending while other sources
+continue; any pending item produces a nonzero exit. HTTPS redirects remain HTTPS.
+
+The current source cache is
+/home/barmy/.cache/perigee-build/appimage-sources-20261111. Its plan and per-source
+receipts cover the refreshed artifact's RPM-derived library sources. This does
+not cover the AppImage runtime, Perigee/static dependencies, Flatpak modules/runtime,
+additional source inputs referenced by a spec, the full build environment or
+complete license review. Source RPM presence and embedded digest checks do not
+prove that an inventoried binary was reproduced from it. Unsigned Koji sources
+remain explicitly unsigned; no key import or package-verification policy override
+is performed.
+
+Real numactl source fixtures verify valid unsigned digests, wrong identity,
+truncated payload, cache revalidation and symlink rejection. Additional checks
+cover unsafe names/vendors, idempotent/no-overwrite plans, changed plans and stale
+installed-source metadata. Download outcomes and full-source availability are
+recorded separately from these fixtures. Official background:
+[Fedora source RPM retrieval](https://fedoraproject.org/wiki/Building_a_custom_kernel/Source_RPM),
+[Koji build terminology](https://koji.readthedocs.io/en/latest/using_the_koji_build_system.html).
+
+
+The first serial acquisition retains 131 sources and reports one libyuv TLS
+failure. Resume revalidates all 131 receipts, fetches libyuv, and exits zero:
+132 source RPMs, 1701024835 bytes. All source identities/header/payload digests
+pass; zero publisher signatures are verified. No signature verification policy
+is relaxed. Combined sample peaks are 671088640 bytes and 671076352 bytes
+(about 640 MiB), zero swap; kernel limits/OOM counters during acquisition are
+retained separately. Reports, receipts, fixture-results.json and completion.json
+are under appimage-sources-20261111 in the private build cache.
+
+The embedded AppImage launcher is separately traced to its pinned release asset,
+source revision, matching upstream x86_64 build log and six static dependencies.
+See [runtime source/notices](appimage/RUNTIME_NOTICES.md). This closes the previously
+unrecorded runtime/mimalloc notice material, without claiming complete release
+license clearance. The 299 RPM-derived notices remain external review material;
+full distribution/source hosting and final notice review remain release gates.
