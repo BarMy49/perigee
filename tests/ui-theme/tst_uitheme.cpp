@@ -364,6 +364,8 @@ private slots:
         QVERIFY(standard[0].uuid.isEmpty());
         const auto extended = NvHTTP::parseAppList(prefix + "<UUID>" + uuid + "</UUID>" + suffix);
         QCOMPARE(extended[0].uuid, uuid);
+        QVERIFY(NvHTTP::parseAppList(prefix + "<UUID>" + uuid + "</UUID>")[0].uuid.isEmpty());
+        QVERIFY(NvHTTP::parseAppList(prefix + "<UUID>" + uuid + "</UUID>" + suffix + "<extra/>")[0].uuid.isEmpty());
         for (const auto& field : {"<UUID>invalid</UUID>", "<UUID>00000000-0000-0000-0000-000000000000</UUID>"})
             QVERIFY(NvHTTP::parseAppList(prefix + field + suffix)[0].uuid.isEmpty());
         QVERIFY(NvHTTP::parseAppList(prefix + "<UUID>" + uuid + "</UUID><UUID>" + uuid + "</UUID>" + suffix)[0].uuid.isEmpty());
@@ -546,7 +548,8 @@ private slots:
         QVERIFY(background);
         QCOMPARE(background->property("color").value<QColor>(), QColor("#ffffff"));
         QVERIFY(prefs->setProperty("uiTheme", StreamingPreferences::UI_THEME_DARK));
-        QTRY_COMPARE(background->property("color").value<QColor>(), QColor("#424242"));
+        const QColor darkPopupColor(SystemProperties().property("usesMaterial3Theme").toBool() ? "#424242" : "#303030");
+        QTRY_COMPARE(background->property("color").value<QColor>(), darkPopupColor);
         QVERIFY(!image->property("source").toString().contains("-light.svg"));
         QVERIFY(QMetaObject::invokeMethod(popup, "close"));
         const QString preview = qEnvironmentVariable("PERIGEE_THEME_PREVIEW_DIR");

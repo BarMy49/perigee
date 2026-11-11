@@ -62,3 +62,36 @@ all three kernel-limit assertions passing in each job. This is the approved-icon
 run. Source retention is serial under the same native guard and CPU 0; its two
 passes peak at about 640 MiB combined, zero swap. The separate runtime-notice-only
 AppImage repack also stays below 640 MiB. No media optimization was reduced.
+
+
+The approved-icon Fedora 44 0.4 RPM refresh puts the Podman controller and build
+container below one verified user slice, so its kernel 896 MiB RAM/128 MiB swap
+limit covers both. A readiness-file barrier remains closed until hierarchy, limits
+and one-CPU quota are checked. Podman's actual process can live in a container
+child below its .scope; resolve the .scope ancestor instead of passing the leaf
+name to systemctl. An initial lookup failure stopped before compilation. The
+corrected fresh build passes at a combined sample peak of 800784384 bytes (about
+764 MiB), no OOM kills. Its disposable lifecycle check additionally caps the
+bootstrap controller before container creation. These are task-owned transient
+scopes/slices; no service or IDE configuration is installed.
+
+
+The user raises the ceiling to 2 GiB on 2026-11-11, still one compiler job. The
+controlled Ubuntu AppImage run uses a shared 1792 MiB RAM/256 MiB swap budget,
+MemoryHigh=1280M, one CPU and a conservative 1792 MiB combined sample guard. Both
+controller and container are below the verified common slice. Smaller existing
+limits and historical 1 GiB reports are preserved. This does not change streaming
+optimization or the default memory helper. The manual AppImage workflow asserts
+the same kernel values before setup, and explicitly caps all dependency compiler/
+LTO jobs; no hosted manual AppImage execution is claimed from the local run.
+
+
+Controlled Ubuntu dependency builds reach a kernel RAM peak of 1342676992 bytes
+(about 1281 MiB), zero swap/OOM kills. That first phase stops on a packaging SDK
+lookup issue, not an OOM. Corrected application/UI/packaging retries pass with a
+924954624-byte combined sample peak (about 882 MiB); the existing 47 UI cases pass.
+The final notice-only repack peaks at about 298 MiB, GUI/portable smoke at about
+546 MiB and custom-source retention at about 564 MiB under the stricter original
+guard. Detailed per-phase limits, failures and outcomes remain in
+appimage-controlled-20261111 outside the IDE. No single uninterrupted clean final
+workflow run, hosted AppImage run or real target streaming is inferred.

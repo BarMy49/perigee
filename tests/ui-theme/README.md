@@ -1,6 +1,6 @@
 # Appearance preference checks
 
-This Fedora/Qt 6 Qt Test target links the current qmake debug objects with a
+This Qt 6 Qt Test target links the current qmake application objects with a
 synthetic-profile entry point. Build the application first, then from the source root:
 
 ```bash
@@ -87,3 +87,11 @@ QT_QPA_PLATFORM=wayland SDL_VIDEODRIVER=wayland QT_SCALE_FACTOR=2 \
     sessionProfileEditorAndSessionOwnership transferDialogPresentation \
     shortcutEditor applicationThemeAndPopup
 ```
+
+
+The make helper obtains moc and Qt Test include/library paths from the application's
+qmake instead of assuming a Fedora path or available Qt 6 pkg-config files. It excludes either debug/main.o or release/main.o, so the same
+synthetic entry point can validate the controlled Ubuntu AppImage's release
+objects using Makefile.Release. Keep compiler/LTO jobs at one. This verifies the
+actual older Qt/QML libraries; it does not replace real AppImage GPU/streaming
+acceptance. The original Fedora debug commands above remain valid.

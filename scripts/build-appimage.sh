@@ -39,6 +39,11 @@ for entry in LICENSE packaging/rpm/ModeSeven-README \
 done
 cp -a "$SOURCE_ROOT/packaging/appimage/runtime" \
     "$DEPLOY_FOLDER/usr/share/licenses/perigee/appimage-runtime"
+if [[ -n ${PERIGEE_APPIMAGE_NOTICE_BUNDLE:-} ]]; then
+    python3 "$SOURCE_ROOT/scripts/collect-appimage-notices.py" \
+        --install "$PERIGEE_APPIMAGE_NOTICE_BUNDLE" \
+        --output "$DEPLOY_FOLDER/usr/share/licenses/perigee/dependencies"
+fi
 
 RASTER_ICON=usr/share/icons/hicolor/256x256/apps/io.github.BarMy49.Perigee.png
 mkdir -p "$DEPLOY_FOLDER/$(dirname "$RASTER_ICON")"

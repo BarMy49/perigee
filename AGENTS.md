@@ -315,3 +315,58 @@ fedora44-flatpak-check-20261111/Perigee-Fedora44-check.tar under the build cache
 syntax/negative preflight pass, actual target tests need the user. It uses a
 private installation and existing Flatpak profile, never copies credentials or
 requests pairing, and preserves native profiles. No release is authorized.
+
+The user now reports Fedora 44 GNOME Wayland Flatpak startup and streaming pass.
+Target logs were not directly inspected; exact codec/GPU/performance remain
+unreported. Review commit b684374f is pushed and CI 43036260324 is running.
+A fresh approved-icon native Fedora 44 0.4 RPM build runs from clean 634-file
+source at fedora44-rpm-orbit-20261111/retry outside the IDE. No old objects remained.
+It uses the prior container's dependency snapshot offline, one make/LTO job/CPU,
+and a verified common controller/container 896 MiB RAM/128 MiB swap budget before
+compilation. Initial nested-cgroup unit lookup failed safely before the barrier;
+corrected retry is active. No host or target RPM installation occurs here.
+
+The fresh approved-icon Fedora 44 0.4 RPM now passes clean build, exact 16-file
+payload/icon/notices, SRPM source/spec equality, 75 requirements and disposable
+install/verify/remove. Shared controller/container combined sample peaks at
+800784384 bytes (about 764 MiB), zero OOM kills. Main RPM SHA256 is
+3ed8ea1c96e5528d8796c28652e837627b7be6b998af6e26c3375b2755e2579a.
+Native target kit: fedora44-rpm-orbit-20261111/Perigee-Fedora44-native-check.tar
+under the build cache. It needs the user's target-machine sudo/Wayland observations;
+no credentials are copied or pairing requested. Latest CI 43036260324 passes all
+three jobs at b684374f. Documentation evidence after that commit is uncommitted
+in this isolated worktree; original checkout/index remain preserved.
+
+On 2026-11-11 the user accepts the Fedora 44 native RPM 0.4 install/startup/icon/
+video/audio/input/reconnect/removal. Target logs were not directly inspected.
+The build ceiling is now 2 GiB, still one job. Controlled AppImage build is active
+at appimage-controlled-20261111 outside the IDE, from a frozen 635-file source.
+Its Ubuntu 22.04 workflow container and local common controller/container budget
+verify 1792 MiB RAM/256 MiB swap/one CPU before setup. All dependency version refs
+are preserved and asserted against exact commits; make/ninja/CMake/LTO use one job.
+The IPO hook keeps optimization enabled. No new artifact/runtime pass is claimed
+until the build finishes. Previous Fedora CI/native/source work remains retained.
+
+
+The controlled Ubuntu AppImage now completes with documented SDK/configuration/
+metadata/test retries. Qt 6.2.4 application-linked checks pass 47/0/0 after fixing
+NvHTTP's XML end-of-document iteration and matching the existing Material 2 color
+in the fixture. No streaming/core/trust/wire or pin changes. Corrected GUI startup/
+icon/portable import/restart/relocation/identity/legacy marker and three-profile
+preservation pass. Final notice-only image SHA256:
+02e6b1c82758751f1a37844feb469a81cdd28c05aca53b1ca171b606791f1c77.
+It preserves all 112 executable ELF files, includes 29 notice files for all 16
+custom source repositories, and passes final help/runtime-byte checks. All 16
+exact source archives/build patches are retained (94211745 bytes). Maximum kernel
+RAM across build phases is about 1281 MiB, zero swap/OOM kills; one job/CPU remains.
+Current task is the final AppImage Fedora 44 hardware check. Native RPM and Flatpak
+Fedora 44 user reports remain accepted; AppImage target/live acceptance and full
+Ubuntu system-library source/notice/publication clearance remain open. See the
+plan's final controlled-build section; all output stays outside the original tree.
+
+The final AppImage kit is ready at appimage-controlled-20261111/
+Perigee-Fedora44-AppImage-check.tar under the cache, SHA256
+28c20f23d7d9237c5baca2401fddac0af088f3e6d74c2c22b06d3943d3e453c6.
+Syntax/transfer hashes/Fedora 45 refusal and 496 compiled-input source matches
+pass. The user has been asked for target startup/icon and Apollo A/V/input/
+reconnect. Continue independent review CI while awaiting that report.

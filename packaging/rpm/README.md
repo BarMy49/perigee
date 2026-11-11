@@ -173,3 +173,37 @@ verification.json retains all four RPM hashes; input/run-build.sh retains comman
 The build uses the recorded 619-file source snapshot before the subsequent CI/
 inventory-tool updates. App code/dependency pins are unchanged. Full commands,
 resource details and limitations are in Task 7A/7B/7D of the implementation plan.
+
+
+## Clean approved-icon Fedora 44 candidate, 2026-11-11
+
+A fresh 0.4 build uses committed b684374f source (634 files), the prior successful
+Fedora 44 container's dependency snapshot and no network/package updates. One
+make/LTO job runs under a verified common controller/container limit: 896 MiB RAM,
+128 MiB swap, one CPU. Highest combined sample is 800784384 bytes (about 764 MiB),
+zero OOM/kill events. Build/lifecycle reports are under
+/home/barmy/.cache/perigee-build/fedora44-rpm-orbit-20261111.
+
+Main RPM: retry/work/rpmbuild/RPMS/x86_64/perigee-6.2.0-0.4.fc44.x86_64.rpm.
+SHA256: 3ed8ea1c96e5528d8796c28652e837627b7be6b998af6e26c3375b2755e2579a.
+Source RPM SHA256: bc9d30dbd1e15787e60623d1f6a13aa35bb59b819e21d05922d9a899af71d9cf.
+Debuginfo/debugsource packages are retained alongside the main artifact.
+Exact payload, approved SVG/notices, source/spec equality, 75 requirements,
+no scripts/conflicts/obsoletes/Moonlight path overlap and disposable native Fedora
+44 dependency transaction/install/verify/remove pass. Real compositor/GPU/host
+behavior is not inferred.
+
+Perigee-Fedora44-native-check.tar in that root is a portable, checksummed target
+kit: main/source RPMs, memory guard and run-fedora44-rpm-check.sh. Copy/extract it
+on the user's Fedora 44 GNOME Wayland machine and run that script as the desktop
+user. It requests sudo for the verified unsigned development package transactions,
+retains dependency checks, caps launch, then removes the app and checks preservation
+around install/removal. No credentials are copied and no pairing is requested.
+It refuses another installed native Perigee version. Missing dependencies are a
+reported failure, never grounds to use --nodeps/--force. Target results remain
+pending; the container does not replace this check. No release is published.
+
+The user now explicitly accepts this exact Fedora 44 0.4 candidate's install,
+startup/icon, video/audio/input, reconnect and removal on real GNOME Wayland.
+This is target user-reported acceptance; exact codec/GPU paths and performance
+are separate unreported details. Target evidence files were not directly inspected.

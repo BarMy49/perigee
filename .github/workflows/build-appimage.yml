@@ -14,26 +14,56 @@ jobs:
   build:
     env:
       CI_VERSION: ${{ inputs.ci_version }}
+      PERIGEE_BUILD_JOBS: '1'
+      CMAKE_BUILD_PARALLEL_LEVEL: '1'
+      APPIMAGE_EXTRACT_AND_RUN: '1'
+      DEBIAN_FRONTEND: noninteractive
     runs-on: ubuntu-22.04
+    container:
+      image: ubuntu:22.04@sha256:076e7bf82319619f28dd0aa9c02ab34b055ad37100395b4f49a2ffba04fb5e11
+      options: --memory=1792m --memory-swap=2g --cpus=1
+    timeout-minutes: 180
+    defaults:
+      run:
+        shell: bash
 
     steps:
+      - name: Verify build resource limits
+        run: |
+          test "$(cat /sys/fs/cgroup/memory.max)" = 1879048192
+          test "$(cat /sys/fs/cgroup/memory.swap.max)" = 268435456
+          test "$(cat /sys/fs/cgroup/cpu.max)" = '100000 100000'
+
+      - name: Bootstrap container tools
+        run: |
+          apt-get update
+          apt-get install -y ca-certificates curl wget gnupg git build-essential pkg-config \
+            cmake ninja-build autoconf automake libtool file python3 python3-pip
+
       - name: Checkout Repository
         uses: actions/checkout@v5
         with:
           submodules: 'recursive'
           fetch-depth: 1
+          persist-credentials: false
 
       - name: Setup environment
         run: |
-          wget -qO - https://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo apt-key add -
-          sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-1.4.313-jammy.list https://packages.lunarg.com/vulkan/1.4.313/lunarg-vulkan-1.4.313-jammy.list
-          sudo apt update
-          sudo apt install -y qt6-base-dev qt6-declarative-dev libqt6svg6-dev qml6-module-qtquick-controls qml6-module-qtquick-templates qml6-module-qtquick-layouts \
+          curl --fail --location --proto '=https' --proto-redir '=https' \
+            --output /tmp/lunarg-key.asc https://packages.lunarg.com/lunarg-signing-key-pub.asc
+          gpg --dearmor --output /usr/share/keyrings/lunarg-archive-keyring.gpg /tmp/lunarg-key.asc
+          curl --fail --location --proto '=https' --proto-redir '=https' \
+            --output /tmp/lunarg.list https://packages.lunarg.com/vulkan/1.4.313/lunarg-vulkan-1.4.313-jammy.list
+          sed -E 's/^(deb|deb-src) /\1 [signed-by=\/usr\/share\/keyrings\/lunarg-archive-keyring.gpg] /' \
+            /tmp/lunarg.list > /etc/apt/sources.list.d/lunarg-vulkan-1.4.313-jammy.list
+          apt-get update
+          apt-get install -y qt6-base-dev qt6-declarative-dev libqt6svg6-dev qml6-module-qtquick-controls qml6-module-qtquick-templates qml6-module-qtquick-layouts \
             qml6-module-qtqml-workerscript qml6-module-qtquick-window qml6-module-qtquick imagemagick python3-pip nasm libgbm-dev libdrm-dev libfreetype-dev libasound2-dev \
             libdbus-1-dev libegl1-mesa-dev libgl1-mesa-dev libgles2-mesa-dev libglu1-mesa-dev libibus-1.0-dev libpulse-dev libudev-dev libx11-dev libxcursor-dev \
             libxext-dev libxi-dev libxinerama-dev libxkbcommon-dev libxrandr-dev libxss-dev libxt-dev libxv-dev libxxf86vm-dev libxcb-dri3-dev libx11-xcb-dev \
-            libxfixes-dev libxtst-dev wayland-protocols libopus-dev libvdpau-dev libgl-dev libpipewire-0.3-dev liburing-dev vulkan-sdk cmake
-          sudo pip3 install meson
+            libxfixes-dev libxtst-dev wayland-protocols libopus-dev libvdpau-dev libgl-dev libpipewire-0.3-dev liburing-dev vulkan-sdk cmake \
+            libssl-dev desktop-file-utils appstream
+          pip3 install meson
           mkdir -p dep_root/{bin,include,lib}
           echo "DEP_ROOT=$PWD/dep_root" >> "${GITHUB_ENV}"
           echo "$PWD/dep_root/bin" >> "${GITHUB_PATH}"
@@ -48,9 +78,12 @@ jobs:
       - name: Build SDL3
         working-directory: deps/SDL
         run: |
-          cmake -DSDL_KMSDRM=OFF -DSDL_TEST_LIBRARY=OFF -DSDL_INSTALL_DOCS=OFF -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON -S . -B build
-          cmake --build build -j
-          sudo cmake --install build
+          git config --global --add safe.directory "$PWD"
+          test "$(git rev-parse HEAD)" = 829a65d769d935c4852f8159e964312c0957260a
+          cmake -DSDL_KMSDRM=OFF -DSDL_TEST_LIBRARY=OFF -DSDL_INSTALL_DOCS=OFF -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON -DCMAKE_PROJECT_INCLUDE="$GITHUB_WORKSPACE/packaging/appimage/serial-lto.cmake" -S . -B build
+          cmake --build build -j1
+          cmake --install build
+          ldconfig
 
       - name: Checkout sdl2-compat
         uses: actions/checkout@v5
@@ -62,9 +95,19 @@ jobs:
       - name: Build sdl2-compat
         working-directory: deps/sdl2-compat
         run: |
-          cmake -DSDL2COMPAT_TESTS=OFF -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON -S . -B build
-          cmake --build build -j
-          sudo cmake --install build
+          git config --global --add safe.directory "$PWD"
+          test "$(git rev-parse HEAD)" = e4df8a55f20da762290a78c2bbe8f8d89d01486a
+          cmake -DSDL2COMPAT_TESTS=OFF -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON -DCMAKE_PROJECT_INCLUDE="$GITHUB_WORKSPACE/packaging/appimage/serial-lto.cmake" -S . -B build
+          cmake --build build -j1
+          cmake --install build
+          ldconfig
+          if ! pkg-config --exists sdl2; then
+            sdl_pc_dir=$(pkg-config --variable=pcfiledir sdl2-compat)
+            test -n "$sdl_pc_dir"
+            test ! -e "$sdl_pc_dir/sdl2.pc" && test ! -L "$sdl_pc_dir/sdl2.pc"
+            ln -s sdl2-compat.pc "$sdl_pc_dir/sdl2.pc"
+          fi
+          test "$(pkg-config --modversion sdl2)" = 2.32.74
 
       - name: Checkout SDL_ttf
         uses: actions/checkout@v5
@@ -77,10 +120,13 @@ jobs:
       - name: Build SDL_ttf
         working-directory: deps/SDL_ttf
         run: |
+          git config --global --add safe.directory "$PWD"
+          test "$(git rev-parse HEAD)" = a883e490e30fb44a5336ea3dcb990c6982c5216f
           ./autogen.sh
           ./configure
-          make -j$(nproc)
-          sudo make install
+          make -j1
+          make install
+          ldconfig
 
       - name: Checkout libva
         uses: actions/checkout@v5
@@ -92,10 +138,13 @@ jobs:
       - name: Build libva
         working-directory: deps/libva
         run: |
+          git config --global --add safe.directory "$PWD"
+          test "$(git rev-parse HEAD)" = 710eb465c6277ee2cac3e6948767b01eebe7e77a
           ./autogen.sh
           ./configure --enable-x11=yes --enable-glx=no --enable-drm=no --enable-wayland=no
-          make -j$(nproc)
-          sudo make install
+          make -j1
+          make install
+          ldconfig
 
       - name: Checkout libplacebo
         uses: actions/checkout@v5
@@ -108,21 +157,28 @@ jobs:
       - name: Build libplacebo
         working-directory: deps/libplacebo
         run: |
-          git apply ../../app/deploy/linux/appimage/*.patch
+          git config --global --add safe.directory "$PWD"
+          test "$(git rev-parse HEAD)" = 92b5ac6db79f4d680eb656692f7bf51e9606f42a
+          git -c safe.directory="$PWD" apply ../../app/deploy/linux/appimage/*.patch
           meson setup build -Dvulkan=enabled -Dopengl=disabled -Ddemos=false
-          ninja -C build
-          sudo ninja install -C build
+          ninja -j1 -C build
+          ninja -j1 -C build install
+          ldconfig
 
       - name: Build dav1d
         working-directory: deps
         env:
           DAV1D_VER: 1.5.4
+          DAV1D_COMMIT: 54706fc6bc0cdecab7e9593974a4039cc038fca7
         run: |
           git clone --branch $DAV1D_VER --depth 1 https://code.videolan.org/videolan/dav1d.git
           pushd dav1d
+          git config --global --add safe.directory "$PWD"
+          test "$(git rev-parse HEAD)" = "$DAV1D_COMMIT"
           meson setup build -Ddefault_library=static -Dbuildtype=release -Denable_tools=false -Denable_tests=false
-          ninja -C build
-          sudo ninja install -C build
+          ninja -j1 -C build
+          ninja -j1 -C build install
+          ldconfig
           popd
 
       - name: Checkout FFmpeg
@@ -135,15 +191,36 @@ jobs:
       - name: Build FFmpeg
         working-directory: deps/FFmpeg
         run: |
-          ./configure --enable-pic --enable-lto --disable-static --enable-shared --disable-all --disable-autodetect \
+          git config --global --add safe.directory "$PWD"
+          test "$(git rev-parse HEAD)" = 946fcce07b6dcd0331c8cc609192aeff5e1924f8
+          ./configure --enable-pic --enable-lto=1 --disable-static --enable-shared --disable-all --disable-autodetect \
             --enable-avcodec --enable-avformat --enable-swscale \
             --enable-decoder=h264 --enable-decoder=hevc --enable-decoder=av1 \
             --enable-vaapi --enable-hwaccel=h264_vaapi --enable-hwaccel=hevc_vaapi --enable-hwaccel=av1_vaapi \
             --enable-vdpau --enable-hwaccel=h264_vdpau  --enable-hwaccel=hevc_vdpau --enable-hwaccel=av1_vdpau \
             --enable-libdrm --enable-vulkan --enable-hwaccel=h264_vulkan --enable-hwaccel=hevc_vulkan --enable-hwaccel=av1_vulkan \
             --enable-libdav1d --enable-decoder=libdav1d
-          make -j$(nproc)
-          sudo make install
+          make -j1
+          make install
+          ldconfig
+
+      - name: Collect dependency notices
+        run: |
+          python3 scripts/collect-appimage-notices.py --output "$DEP_ROOT/notices" \
+            --source "SDL3=$PWD/deps/SDL" --source "SDL2-compat=$PWD/deps/sdl2-compat" \
+            --source "SDL2_ttf=$PWD/deps/SDL_ttf" \
+            --source "FreeType=$PWD/deps/SDL_ttf/external/freetype" \
+            --source "HarfBuzz=$PWD/deps/SDL_ttf/external/harfbuzz" \
+            --source "dlg=$PWD/deps/SDL_ttf/external/freetype/subprojects/dlg" \
+            --source "libva=$PWD/deps/libva" --source "libplacebo=$PWD/deps/libplacebo" \
+            --source "Vulkan-Headers=$PWD/deps/libplacebo/3rdparty/Vulkan-Headers" \
+            --source "fast_float=$PWD/deps/libplacebo/3rdparty/fast_float" \
+            --source "glad=$PWD/deps/libplacebo/3rdparty/glad" \
+            --source "Jinja=$PWD/deps/libplacebo/3rdparty/jinja" \
+            --source "MarkupSafe=$PWD/deps/libplacebo/3rdparty/markupsafe" \
+            --source "nuklear=$PWD/deps/libplacebo/demos/3rdparty/nuklear" \
+            --source "dav1d=$PWD/deps/dav1d" --source "FFmpeg=$PWD/deps/FFmpeg"
+          echo "PERIGEE_APPIMAGE_NOTICE_BUNDLE=$DEP_ROOT/notices" >> "$GITHUB_ENV"
 
       - name: Install linuxdeploy
         working-directory: dep_root/bin
@@ -152,7 +229,7 @@ jobs:
 
       - name: Build Binaries
         run: |
-          sudo ldconfig
+          ldconfig
           scripts/build-appimage.sh
 
       - name: Upload Binaries

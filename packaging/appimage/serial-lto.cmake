@@ -1,0 +1,6 @@
+if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
+    set(CMAKE_C_COMPILE_OPTIONS_IPO "-flto=1;-fno-fat-lto-objects")
+endif()
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    set(CMAKE_CXX_COMPILE_OPTIONS_IPO "-flto=1;-fno-fat-lto-objects")
+endif()

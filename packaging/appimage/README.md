@@ -165,3 +165,50 @@ Filename: Perigee-6.2.0-notices-final-x86_64.AppImage in the same output root.
 All original entries/ELFs and runtime code are again verified unchanged; packaged
 help passes. final-payload-comparison.json binds that comparison to this hash.
 The earlier full GUI/portable result remains separately recorded.
+
+
+## Controlled Ubuntu 22.04 build, 2026-11-11
+
+The manual workflow now runs in a digest-pinned Ubuntu 22.04 container with
+1792 MiB RAM/256 MiB swap/one CPU and a kernel preflight. All dependency and
+application compiler/LTO jobs are one; existing version refs are unchanged and
+checked against exact commits. Required bootstrap tools are explicit. The LunarG
+repository key is scoped to that repository. SDK-local sdl2.pc compatibility
+aliasing supports Ubuntu pkg-config 0.29.2 without replacing SDL. The CMake
+[IPO hook](serial-lto.cmake) retains optimization while limiting LTO workers.
+
+The [notice collector](../../scripts/collect-appimage-notices.py) records exact
+Git source bytes, origins, revisions and SHA256 digests for all 16 custom
+repositories, including nested sources and full LICENSES directory texts. It
+refuses modified notices, symlinks, unrecorded files, digest mismatches, oversize
+input and output replacement. PERIGEE_APPIMAGE_NOTICE_BUNDLE enables verified
+installation into the AppDir; the workflow supplies it explicitly. The retained
+29 files are source notice candidates and attribution, not complete legal or
+binary ownership classification. Corresponding custom sources/build patches and
+the SDK package list are retained separately; Ubuntu system-library source/notice
+review and release/source hosting remain required.
+
+Local execution completes the dependency builds, followed by verified application
+and packaging retries with that installed SDK. It is not a single clean run of
+the final manual GitHub workflow. Qt 6.2.4 application-linked checks pass 47/0/0,
+including malformed XML and all 30 locales. A valid UUID parser regression on old
+Qt was corrected using normal bounded token iteration. Staging now validates
+with AppStream 0.15.2 and current 1.1: an unsupported duplicate repository URL
+and an obsolete temporary-icon claim were removed. No new visible wording or
+translation changes, streaming changes or dependency pin changes are introduced.
+
+Final image: appimage-controlled-20261111/release-candidate-final/
+Perigee-6.2.0-ubuntu22-x86_64.AppImage under the private build cache. SHA256:
+02e6b1c82758751f1a37844feb469a81cdd28c05aca53b1ca171b606791f1c77.
+The GUI-tested corrected image passes XWayland/compiled icon/portable import/
+restart/relocation/identity/legacy marker checks with three production profiles
+unchanged. The final notice-only repack preserves all 112 ELF files and original
+payload bytes except the notice manifest, and passes packaged help/runtime-byte
+checks. Inventory: 693 entries/52 notice records. Highest observed ELF version
+names: GLIBC_2.35, GLIBCXX_3.4.29, CXXABI_1.3.13; this does not certify a minimum
+OS or real hardware streaming. Maximum build-phase RAM peak is about 1281 MiB,
+zero swap/OOM kills under the verified 2 GiB ceiling. Native Wayland stays disabled.
+
+The Fedora 44 GNOME Wayland AppImage hardware check remains pending. Accepted
+RPM/Flatpak runs and the older Fedora development AppImage are distinct artifacts.
+See the implementation plan for exact retained reports and remaining gates.

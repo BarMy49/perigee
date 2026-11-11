@@ -349,44 +349,45 @@ QVector<NvApp> NvHTTP::parseAppList(QString appxml)
     QVector<NvApp> apps;
     bool appUuidSeen = false;
     while (!xmlReader.atEnd()) {
-        while (xmlReader.readNextStartElement()) {
-            auto name = xmlReader.name();
-            if (XML_NAME_EQUALS(name, "App")) {
-                // We must have a valid app before advancing to the next one
-                if (!apps.isEmpty() && !apps.last().isInitialized()) {
-                    qWarning() << "Invalid applist XML";
-                    throw std::runtime_error("Invalid applist XML");
-                }
-                apps.append(NvApp());
-                appUuidSeen = false;
+        if (xmlReader.readNext() != QXmlStreamReader::StartElement) {
+            continue;
+        }
+        auto name = xmlReader.name();
+        if (XML_NAME_EQUALS(name, "App")) {
+            // We must have a valid app before advancing to the next one
+            if (!apps.isEmpty() && !apps.last().isInitialized()) {
+                qWarning() << "Invalid applist XML";
+                throw std::runtime_error("Invalid applist XML");
             }
-            else if (!apps.isEmpty()) {
-                if (XML_NAME_EQUALS(name, "AppTitle")) {
-                    // If an app has no name, Sunshine may send us <AppTitle/>,
-                    // which readElementText() returns as a null QString.
-                    // We want to treat this as an empty QString instead, so we
-                    // will explicitly convert it. An empty string will satisfy
-                    // NvApp's isInitialized() check.
-                    QString name = xmlReader.readElementText();
-                    if (name.isNull()) {
-                        name = "";
-                    }
-                    apps.last().name = name;
+            apps.append(NvApp());
+            appUuidSeen = false;
+        }
+        else if (!apps.isEmpty()) {
+            if (XML_NAME_EQUALS(name, "AppTitle")) {
+                // If an app has no name, Sunshine may send us <AppTitle/>,
+                // which readElementText() returns as a null QString.
+                // We want to treat this as an empty QString instead, so we
+                // will explicitly convert it. An empty string will satisfy
+                // NvApp's isInitialized() check.
+                QString name = xmlReader.readElementText();
+                if (name.isNull()) {
+                    name = "";
                 }
-                else if (XML_NAME_EQUALS(name, "ID")) {
-                    apps.last().id = xmlReader.readElementText().toInt();
-                }
-                else if (XML_NAME_EQUALS(name, "UUID")) {
-                    const QString value = xmlReader.readElementText();
-                    apps.last().uuid = appUuidSeen ? QString() : AppUuidLaunch::normalized(value);
-                    appUuidSeen = true;
-                }
-                else if (XML_NAME_EQUALS(name, "IsHdrSupported")) {
-                    apps.last().hdrSupported = xmlReader.readElementText() == "1";
-                }
-                else if (XML_NAME_EQUALS(name, "IsAppCollectorGame")) {
-                    apps.last().isAppCollectorGame = xmlReader.readElementText() == "1";
-                }
+                apps.last().name = name;
+            }
+            else if (XML_NAME_EQUALS(name, "ID")) {
+                apps.last().id = xmlReader.readElementText().toInt();
+            }
+            else if (XML_NAME_EQUALS(name, "UUID")) {
+                const QString value = xmlReader.readElementText();
+                apps.last().uuid = appUuidSeen ? QString() : AppUuidLaunch::normalized(value);
+                appUuidSeen = true;
+            }
+            else if (XML_NAME_EQUALS(name, "IsHdrSupported")) {
+                apps.last().hdrSupported = xmlReader.readElementText() == "1";
+            }
+            else if (XML_NAME_EQUALS(name, "IsAppCollectorGame")) {
+                apps.last().isAppCollectorGame = xmlReader.readElementText() == "1";
             }
         }
     }

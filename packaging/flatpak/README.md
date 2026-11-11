@@ -265,3 +265,8 @@ memory guard. run-fedora44-check.sh creates/removes a private app installation,
 forces native Wayland and preserves native settings; it never copies credentials
 or requests pairing. Its syntax/negative preflight pass locally; real Fedora 44
 startup/streaming results remain pending on the user's available target machine.
+
+The user subsequently reports startup and streaming pass on real Fedora 44 GNOME
+Wayland with this kit. This is user-reported acceptance for the exact bundle;
+target evidence files, exact GPU/codec path and controlled performance are not
+independently inspected or inferred. KDE and other package formats remain separate.

@@ -1746,11 +1746,11 @@ remain deferred for host/hardware evidence.
 
 **Goal:** reproducible independent packages and sustainable upstream updates.
 Current stage authorized on 2026-11-10 after explicit command deferral. Current task:
-retain exact bundled-library source packages after approved-icon acceptance.
+validate the controlled Ubuntu 22.04 AppImage on Fedora 44 hardware.
 Native RPM packaging is implemented and undergoing local validation (Task 7A below).
 The user installed and removed the local RPM; installed launcher/coexistence checks
 pass below. Upgrade is also verified; broader release acceptance remains pending.
-Nothing was published.
+No package release was published; the authorized review branch and CI are recorded below.
 **Sources:** deploy metadata, scripts and CI; new RPM/Flatpak packaging reviewed
 against then-current dependencies. **Depends on:** complete identity and acceptance.
 
@@ -2455,3 +2455,202 @@ data is retained, credentials are never copied, and new pairing is not requested
 If no paired Perigee Flatpak host exists there, only startup acceptance is requested.
 Bash syntax and Fedora 45 rejection preflight pass; actual Fedora 44 results need
 the user's desktop session. No target-machine install has been executed here.
+
+
+#### Fedora 44 hardware acceptance and native refresh
+
+The user explicitly reports startup and streaming pass on Fedora 44 GNOME Wayland
+using the portable Flatpak kit. This is accepted user-reported target-platform
+coverage for bundle 0263075f954addc5f14f03b5a18d7fa98b3c0a9f864fe1ce76693cc72fd16746.
+Target evidence files were not directly inspected, so no exact GPU/codec path,
+host version, resource counters or controlled performance is inferred. Report:
+fedora44-flatpak-check-20261111/user-acceptance.json under the private build cache.
+
+Review commit b684374f adds the source-retention helper and runtime notices, and
+is pushed. Follow-up CI run 43036260324 is in progress; the previous constrained
+run remains fully green. The clean committed source archive has 634 files and
+SHA256 9683f746cf88e5e4794ae1a1fe65958b1e6a63a3b4e505e8a33abff383ff867a.
+Deferred Common C files remain absent; the original checkout's independent index
+and file hashes are preserved.
+
+The retained Fedora 44 RPM BUILD tree has no reusable objects. A fresh 0.4 RPM
+build now uses this exact source and a private snapshot of the previous successful
+container's installed dependencies, without network/package updates. It keeps
+one make/LTO job and CPU quota. A readiness-file barrier releases compilation only
+after a shared container/controller cgroup and its container scope both verify
+896 MiB RAM/128 MiB swap/one CPU. Actual leaf limits also match. The first attempt
+mistook Podman's nested container cgroup for a systemd unit and stopped before
+compilation; the corrected retry is running. No host/target installation occurs.
+Evidence root: fedora44-rpm-orbit-20261111/retry under the build cache. The shared
+budget includes the Podman controller; no IDE/service installation is changed.
+
+
+#### Approved-icon Fedora 44 native RPM results
+
+The fresh 0.4 build completes normally from the clean b684374f source archive;
+main/source/debuginfo/debugsource RPMs are retained. Main RPM SHA256:
+3ed8ea1c96e5528d8796c28652e837627b7be6b998af6e26c3375b2755e2579a.
+Source RPM SHA256: bc9d30dbd1e15787e60623d1f6a13aa35bb59b819e21d05922d9a899af71d9cf.
+The exact 16-file payload, approved SVG/asset notices, SRPM archive/spec equality,
+75 generated requirements, absence of scripts/conflicts/obsoletes and absence of
+Moonlight package path overlap all pass. The disposable offline Fedora 44 dependency
+transaction/install/rpm-verify/remove also passes. This does not establish GPU,
+compositor or host streaming behavior.
+
+The common cgroup caps the controller and container together at 896 MiB RAM,
+128 MiB swap and one CPU, before the readiness barrier releases compilation.
+Highest combined sample: 800784384 bytes (about 764 MiB). Kernel RAM peak:
+671776768 bytes; kernel swap peak: 134217728 bytes. These separate peak counters
+need not occur simultaneously. OOM/kill counters remain zero; one make/LTO job
+and optimization settings are preserved. The lifecycle check also has verified
+common limits and zero OOM counters. Build/verification evidence is under
+fedora44-rpm-orbit-20261111/retry and lifecycle in the private build cache.
+
+A reviewable native target kit is ready at
+fedora44-rpm-orbit-20261111/Perigee-Fedora44-native-check.tar under that cache.
+It contains the main/matching source RPM, original memory guard, checked script,
+README and hashes. Script syntax, transfer checksums and Fedora 45 rejection
+preflight pass. The script requires the user's sudo password on Fedora 44, keeps
+RPM dependency validation enabled, installs/verifies the exact 0.4 artifact, forces
+native Wayland startup under the memory guard, removes the app and compares
+Moonlight/profile preservation around transactions. It refuses an existing native
+Perigee package and never requests pairing or copies credentials. If no native
+Perigee host is already paired there, only startup is requested. Real target-native
+results are pending; no host/target RPM install has been performed by the agent.
+
+[Review CI 43036260324](https://github.com/BarMy49/perigee/actions/runs/43036260324)
+now passes debug/release/RPM at b684374f with the existing constrained workflow.
+Milestone 7 remains open for native target observations, AppImage release-path/
+older-system coverage, final source/notice distribution review and other retained
+hardware/performance follow-ups. No release, tag, merge or Common C publication.
+
+
+### Fedora 44 native acceptance and controlled AppImage build (2026-11-11)
+
+The user explicitly accepts the native Fedora 44 0.4 RPM install, startup/icon,
+video/audio/keyboard/mouse, reconnect and removal checks. Exact main RPM SHA256:
+3ed8ea1c96e5528d8796c28652e837627b7be6b998af6e26c3375b2755e2579a.
+Evidence: fedora44-rpm-orbit-20261111/user-acceptance.json under the build cache.
+Target logs/counters were not directly inspected; host/codec/GPU version and
+controlled performance are not inferred. The user raises the build ceiling to
+2 GiB while retaining one compiler job. Existing accepted 1 GiB results stay
+unchanged; stricter limits on small tools/Fedora CI remain within that ceiling.
+
+The next increment runs the inherited controlled Ubuntu 22.04 AppImage recipe.
+Its manual workflow previously had unbounded dependency jobs and depended on
+hosted-VM tools implicitly. It now uses a digest-pinned Ubuntu 22.04 job container,
+1792 MiB RAM/256 MiB swap/one CPU with kernel preflight, one make/ninja/CMake/LTO
+job, explicit bootstrap/metadata/OpenSSL prerequisites and a repository-scoped
+LunarG key. Existing SDL3/SDL2-compat/SDL_ttf/libva/libplacebo/dav1d/FFmpeg version
+refs are unchanged; exact source commit assertions fail closed if a tag moves.
+The CMake IPO hook retains LTO and changes only its thread count. A real tiny C/C++
+shared-library fixture verifies one-thread compile/link flags; YAML/Bash syntax
+and binary/source repository-key rewrite fixtures pass.
+
+The local driver executes shell steps from the frozen workflow, substitutes
+anonymous shallow Git fetches for checkout actions, and omits artifact upload.
+Exact reviewed linuxdeploy/Qt-plugin/runtime tools are preseeded and reverified.
+Source archive: 635 files, SHA256
+83139c3f12970de7acddb940a6ea4c224b1fc8945b108ca4aa9ff1d0310ba1bc.
+Root: /home/barmy/.cache/perigee-build/appimage-controlled-20261111. A readiness
+barrier verifies common controller/container and actual leaf limits before any
+setup/build command. Actual limits match 1792 MiB RAM/256 MiB swap/one CPU.
+The initial source and failed-attempt logs are retained; corrected build results
+follow below. No host package installation, workflow dispatch or release occurs.
+
+
+The first controlled SDK build completed all seven custom dependency builds but
+application configuration failed because Ubuntu pkg-config 0.29.2 does not resolve
+sdl2-compat.pc's Provides alias. The workflow now creates an SDK-local sdl2.pc
+symlink only when the normal lookup is absent and asserts version 2.32.74. The
+installed SDK snapshot is retained; dependency versions and compiler options stay
+unchanged. A fresh application build then completed on Qt 6.2.4. Stage validation
+exposed AppStream 0.15.2's unsupported duplicate vcs-browser URL; removing that
+duplicate and the obsolete temporary-icon sentence makes both old and current
+validators pass. No new visible text or translation catalog changes are introduced.
+
+The first completed image was followed by the existing application-linked UI
+suite. Ubuntu has no Qt6Test.pc, so its include/library/moc lookup now uses the
+application's qmake paths. Of 47 cases, 45 passed and two failed: a valid app UUID
+was discarded, and the popup test assumed Material 3 colors on Material 2. An
+isolated Qt 6.2.4 XML probe reproduces the nested readNextStartElement loop reading
+beyond EndDocument, reporting Premature end of document on valid XML; the normal
+readNext/StartElement iteration used elsewhere in NvHTTP reports no error. The
+parser now uses that bounded iteration, retaining malformed-document UUID clearing,
+duplicate rejection and the existing authentication/launch gates. The fixture
+adds truncated/trailing XML rejection and reads the existing Material-version
+property for exact popup-color expectations. No worker, streaming, protocol wire
+format, trust policy or dependency pin changes. Corrected-suite/repack results
+will be recorded separately; the initial 45/2 result is not a pass.
+
+The workflow also retains exact Git-tracked notices for nine custom components,
+including FreeType and HarfBuzz statically embedded by SDL_ttf. The helper verifies
+source bytes/commits/origins and checks a bounded digest manifest before installation.
+Actual collection retains 17 notice/attribution files; real SDL round-trip, tamper,
+extra-file, symlink, traversal, oversize and no-overwrite fixtures pass. This does
+not establish full dynamic-library/source/license clearance or source publication.
+
+
+### Controlled Ubuntu AppImage results and hardware gate (2026-11-11)
+
+The corrected application-linked Qt 6.2.4 release target passes **47 cases, zero
+failures/skips**, including all 30 locales and valid/truncated/trailing/duplicate
+UUID XML checks. The same parser fix will be checked by Fedora CI at the next
+authorized review push. New test helper paths support both Fedora and Ubuntu,
+and both Debug and Release objects. No user-visible strings are added.
+
+All seven inherited dependency builds completed from the pinned Ubuntu 22.04
+container; application configuration/staging/test fixes were then verified with
+the retained installed SDK and fresh application/packaging outputs. This is a
+controlled build with documented retries, not a claim of a single uninterrupted
+clean run of the final manual GitHub workflow. The largest common kernel RAM
+peak across these phases is 1342676992 bytes (about 1281 MiB); swap peak is zero,
+with zero OOM kills. Corrected application/test/package phase combined sample
+peak is 924954624 bytes (about 882 MiB). One compiler/LTO job and CPU are preserved.
+
+Final artifact: release-candidate-final/Perigee-6.2.0-ubuntu22-x86_64.AppImage under
+appimage-controlled-20261111 in the private build cache. SHA256:
+02e6b1c82758751f1a37844feb469a81cdd28c05aca53b1ca171b606791f1c77.
+Its 693-entry inventory includes 112 ELFs and 52 notice/source records. The final
+notice-only repack adds the full nested source notice set: 29 files for 16 custom
+Git repositories, including libplacebo's fast_float/Vulkan headers and FreeType's
+nested dlg. Compiler commands reference fast_float/Vulkan headers; build-only
+source notices are also retained without implying they are linked. All 112 ELF
+files and every other original payload entry are byte-identical to the corrected
+GUI-tested image, except its dependency notice manifest. Runtime code is unchanged
+outside the standard 16-byte packaging digest. Final packaged help passes.
+
+The corrected GUI-tested image passes actual XWayland startup/compiled orbit
+icon, explicit portable preferences import, startup/restart, relocation through
+spaces, identity persistence and ignoring Moonlight's portable.dat. Three
+production profiles remain unchanged and only marked test processes close.
+GUI smoke peak: 572772352 bytes (about 546 MiB), zero sampled swap. Codec probing
+includes unavailable hardware/backend warnings and a successful local i965/VAAPI
+probe; neither is live streaming acceptance. Results: smoke-9w8ql19m/result.json,
+release-candidate-final/payload-comparison.json and abi-and-runtime.json. Maximum
+observed version names are GLIBC_2.35, GLIBCXX_3.4.29 and CXXABI_1.3.13; these do
+not certify an oldest supported OS or complete dynamic loader resolution.
+
+All 16 custom Git repositories are retained as exact-revision archives, with
+checked submodule pins, SHA256 receipts and tracked build patches (including the
+existing libplacebo adaptation and generated SDL_ttf configure files). Archives
+total 94211745 bytes. Serial retention peaks at 591396864 bytes (about 564 MiB),
+zero swap. The application build snapshot/recipe, SDK package list and logs are
+also retained. Full Ubuntu system-library corresponding-source/notice review,
+source hosting and final release clearance remain open; publisher verification
+and binary reproducibility are not claimed. The Fedora development image's
+retained source RPMs remain a distinct source set.
+
+The portable Fedora 44 GNOME Wayland test kit is ready at
+appimage-controlled-20261111/Perigee-Fedora44-AppImage-check.tar in the build cache
+(153856000 bytes, SHA256
+28c20f23d7d9237c5baca2401fddac0af088f3e6d74c2c22b06d3943d3e453c6).
+Shell syntax, all transfer hashes and Fedora 45 rejection preflight pass. Its
+application archive matches all 496 relevant application/dependency build inputs;
+deferred Common C files are absent. It includes the exact application and custom
+dependency sources, SDK package list and local evidence. Its capped launcher uses
+the existing native Perigee profile, requires no install or pairing, and compares
+Moonlight profile preservation. Actual target startup/icon and Apollo video/audio/input/reconnect need
+the user's compositor/GPU session. It remains an X11/XWayland artifact; native
+Wayland coverage belongs to the accepted native RPM and Flatpak. No release, tag,
+merge, manual AppImage workflow dispatch or Common C publication occurs.
