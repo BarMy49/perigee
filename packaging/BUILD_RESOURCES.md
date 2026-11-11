@@ -95,3 +95,14 @@ The final notice-only repack peaks at about 298 MiB, GUI/portable smoke at about
 guard. Detailed per-phase limits, failures and outcomes remain in
 appimage-controlled-20261111 outside the IDE. No single uninterrupted clean final
 workflow run, hosted AppImage run or real target streaming is inferred.
+
+
+The inherited output plugin used four mksquashfs workers even with a one-CPU
+quota; compiler/LTO jobs were still one. Final packaging now invokes the same
+embedded pinned appimagetool with an explicit compressor count matching
+PERIGEE_BUILD_JOBS (one by default). Its executed log reports one processor.
+Automatic system-notice collection/negative fixtures peak at about 500 MiB;
+full packaging tail at about 699 MiB; normalized final repack at about 268 MiB,
+all with zero swap/OOM kills. Resource reports remain under system-notices,
+system-notice-package and stable-system-package in appimage-controlled-20261111.
+The 2 GiB ceiling and existing stricter small-tool guards remain in effect.

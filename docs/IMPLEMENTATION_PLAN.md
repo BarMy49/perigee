@@ -1746,7 +1746,7 @@ remain deferred for host/hardware evidence.
 
 **Goal:** reproducible independent packages and sustainable upstream updates.
 Current stage authorized on 2026-11-10 after explicit command deferral. Current task:
-validate the controlled Ubuntu 22.04 AppImage on Fedora 44 hardware.
+complete AppImage standard Sunshine coverage and final source/notice review.
 Native RPM packaging is implemented and undergoing local validation (Task 7A below).
 The user installed and removed the local RPM; installed launcher/coexistence checks
 pass below. Upgrade is also verified; broader release acceptance remains pending.
@@ -2654,3 +2654,110 @@ Moonlight profile preservation. Actual target startup/icon and Apollo video/audi
 the user's compositor/GPU session. It remains an X11/XWayland artifact; native
 Wayland coverage belongs to the accepted native RPM and Flatpak. No release, tag,
 merge, manual AppImage workflow dispatch or Common C publication occurs.
+
+
+### Controlled AppImage Ubuntu provenance follow-up (2026-11-11)
+
+Review commit d208482f is pushed to ci/milestone-7-packaging. Fedora CI run
+[43060338754](https://github.com/BarMy49/perigee/actions/runs/43060338754) debug
+lane passes; downloaded reports verify 271 passing cases, zero failures/skips
+across 11 suites, including the corrected parser and portable test helper on
+Fedora. Release and RPM also pass; run metadata and the release inventory are retained.
+
+The final AppImage hardware kit remains byte-identical while awaiting the user's
+Fedora 44 report. An independent SDK audit matches its bundled ELF build IDs to
+73 Ubuntu/LunarG binary packages from 43 exact source versions. Nine ELF files
+match custom installed SDK libraries, with sources already retained in the
+16-repository custom source set. The application and libva probe are the two
+expected application-build ELFs without SDK counterparts. Ubuntu's merged-/usr
+path aliases are resolved against dpkg's original ownership paths; no unmatched
+system library remains. All 73 installed package copyright files and 17 common
+license texts are retained separately. These are ownership/notice records, not
+a complete legal or dynamic-loader classification.
+
+All **43 system source groups** are now downloaded serially using normal
+authenticated APT indexes and exact source-package versions, with no insecure
+options and no source scripts executed. All .dsc source/version identities and
+listed file sizes/SHA256 digests pass: 136 source files, 287214585 bytes. Five
+InRelease signatures pass independent gpgv verification against the retained SDK
+Ubuntu/LunarG public keyrings; 58 index/keyring/verification file receipts are
+retained. This verifies repository release signatures, not individual source
+uploader signatures or reproduced binaries. Peak fetch common RAM is 617914368
+bytes (about 589 MiB), zero swap/OOM kills under the verified shared 2 GiB cap.
+
+Evidence roots within appimage-controlled-20261111: deb-audit-usrmerge/work/
+provenance, deb-sources/work/sources/receipts.json, deb-sources/source-summary.json
+and deb-sources/repository-evidence/manifest.json. The first SDK readelf -n
+audit failed on SDL2-compat; the corrected audit reads the bounded GNU build-ID
+section directly. A subsequent container-layer creation returned ENOSPC before
+the readiness barrier despite df showing about 22 GiB available; the precise
+quota/metadata cause was not established. Removing seven verified exited
+task-owned AppImage containers allowed the audit to continue. Their state
+receipts, SDK image, all bind-mounted sources/artifacts/logs and original checkout
+are preserved; no unrelated containers or IDE files were removed.
+
+System copyright/source material remains external review evidence and has not
+been silently added to the already-provided hardware test image. Complete final
+notice integration/classification, source distribution/hosting and release
+acceptance remain open. Native/Flatpak prior acceptance is unchanged; no package
+release, tag, merge, manual AppImage dispatch or Common C publication occurs.
+
+
+### Accepted Fedora 44 AppImage and automatic system notices (2026-11-11)
+
+The user reports **all requested Fedora 44 AppImage checks pass** for kit artifact
+02e6b1c82758751f1a37844feb469a81cdd28c05aca53b1ca171b606791f1c77:
+startup/orbit icon, Apollo video/audible audio/keyboard/mouse, reconnect and the
+launcher's Moonlight preservation check. It is XWayland on GNOME Wayland. Target
+logs were not directly inspected; codec/GPU versions and controlled performance
+remain unreported. Evidence: appimage-controlled-20261111/user-acceptance.json.
+
+The controlled Ubuntu recipe now enables PERIGEE_APPIMAGE_SYSTEM_NOTICES=deb.
+After linuxdeploy stages actual libraries/Qt plugins, the new
+[system notice collector](../scripts/collect-appimage-system-notices.py) reads
+bounded GNU build-ID sections, resolves original/merged-/usr dpkg ownership
+paths and retains all applicable installed package copyright files plus common
+license texts. It binds 112 ELF hashes to 73 binary packages/43 source versions,
+nine custom SDK libraries with verified Git notice components, and two project
+binaries. Unknown ELF attribution, missing copyright/custom notices, unsafe
+symlinks, changed build IDs and output replacement fail closed. It reuses the
+verified bundle format; an exact round-trip and seven real-SDK negative cases pass.
+The resulting bundle has 90 original system notice files plus its manifest.
+
+The old output plugin exposed no compressor argument, and its log showed four
+mksquashfs workers despite the one-CPU quota. Compiler/LTO jobs were already one.
+Final packaging now calls the same embedded appimagetool from the verified
+linuxdeploy asset after normal linuxdeploy/Qt/custom-AppRun staging, passing an
+explicit compressor count of one. No new tool revision, runtime or optimization
+choice is introduced. The extracted tool directory is another no-overwrite build
+output. Actual full packaging-tail execution passes, including invalid-mode and
+missing-custom-evidence preflight refusal; a separate existing-output/spaced-path
+fixture passes before any build output is created.
+
+The first strict payload comparison detected only changing PNG timestamp chunks.
+SVG rasterization now excludes volatile date/time chunks. Two SDK renders one
+second apart are byte-identical; ImageMagick pixel comparison is zero, and raw
+PNG compressed pixel/color chunks match the accepted icon. No artwork changes.
+Final artifact: appimage-controlled-20261111/finish/work/system-notice-package/
+final/Perigee-6.2.0-ubuntu22-x86_64.AppImage under the build cache. SHA256:
+c2402b88e0a3f596d199b5f8fbf3cde4ebebf089fee417a1fae6b667fcdece1e.
+
+Inventory: 784 entries/143 notice records/112 ELFs. All 112 accepted ELFs and
+runtime code outside the normal digest field are unchanged. Of 693 prior payload
+entries, 692 are byte-identical.
+The sole changed existing file is PNG timestamp metadata; its pixels and color
+data are identical. The 91 new entries are system notices and their manifest,
+whose ELF hashes match the final payload. Final help/actual XWayland/icon/portable
+import/restart/relocation/identity/legacy-marker checks pass again, preserving all
+three production profiles and closing only marked test processes. Results:
+stable-system-package/payload-comparison.json and smoke-fa1e74y9/result.json.
+
+Shared kernel RAM peaks: collector/fixtures 524451840 bytes (about 500 MiB), full
+packaging tail 732651520 bytes (about 699 MiB), normalized one-thread final repack
+281296896 bytes (about 268 MiB). All have zero swap/OOM kills under the 2 GiB
+ceiling; no application/dependency recompilation beyond the unchanged tiny libva
+probe is needed for this notice task. Original accepted kit and source receipts
+remain intact. The user has been asked for AppImage launch/resume/A/V/input/
+reconnect against an already-paired standard Sunshine host using that same kit;
+no new pairing/import is requested. Broader compositor/performance and final
+source distribution/license review remain separately open.

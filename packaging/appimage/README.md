@@ -17,7 +17,7 @@ instead of assuming /usr/local/lib.
 ## Local build
 
 Build dependencies remain those of the inherited AppImage workflow, plus ImageMagick
-for a deterministic PNG rendering of the attributed SVG. The qmake
+for PNG rendering of the approved SVG, excluding volatile date/time chunks. The qmake
 Linux stage is validated before bundling. Source/static dependency/font notices
 are copied into the AppDir. A complete inventory and corresponding source for
 bundled dynamic libraries/runtime are still required before distribution.
@@ -31,7 +31,7 @@ PERIGEE_BUILD_JOBS=1 scripts/build-appimage.sh
 ```
 
 The build root must be absolute. The script refuses existing build-release,
-deploy-release or installer-release outputs and never deletes prior build trees.
+deploy-release, installer-release or packaging-tools outputs and never deletes prior build trees.
 Choose a fresh root for each attempt. `CI_VERSION` may override the inherited
 version with a filename-safe label. Arguments and paths with spaces are preserved.
 `INSTALL_ROOT` stages /usr payloads without system installation.
@@ -212,3 +212,44 @@ zero swap/OOM kills under the verified 2 GiB ceiling. Native Wayland stays disab
 The Fedora 44 GNOME Wayland AppImage hardware check remains pending. Accepted
 RPM/Flatpak runs and the older Fedora development AppImage are distinct artifacts.
 See the implementation plan for exact retained reports and remaining gates.
+
+
+## System notices and serialized final packaging
+
+PERIGEE_APPIMAGE_SYSTEM_NOTICES=deb enables the controlled Ubuntu SDK's
+[system collector](../../scripts/collect-appimage-system-notices.py). It requires
+the verified custom-source bundle, matches the actual staged ELF build IDs to
+dpkg ownership (including merged-/usr aliases), and includes original copyright
+files/common licenses with source-package/version/hash metadata. Unattributed
+ELFs, missing notices, unsafe symlinks and replacement outputs fail closed.
+Default development builds on other SDKs retain their existing behavior; this
+mode requires dpkg and does not certify complete license classification.
+
+linuxdeploy still performs library/Qt staging and creates AppRun hooks. The final
+image is built by its same embedded appimagetool with --mksquashfs-opt -processors
+and the selected job count, using the pinned runtime. The old plugin wrapper did
+not expose this option and used four compression workers under the one-CPU quota.
+No tool update or media optimization change occurs. Its extracted packaging-tools
+directory is protected by the same fresh-output rule as build/stage/installer.
+Compiler, install and compression jobs default to one. PNG date/time metadata is
+excluded; actual SDK renders are byte-stable and preserve all approved pixels.
+
+The real SDK collector passes a full 73-package/43-source/112-ELF audit, exact
+bundle round-trip and seven rejection cases. Actual packaging-tail execution
+passes with one compression worker and a highest kernel RAM peak about 699 MiB,
+zero swap/OOM kills. Final source/notice-refresh image SHA256:
+c2402b88e0a3f596d199b5f8fbf3cde4ebebf089fee417a1fae6b667fcdece1e.
+Output: appimage-controlled-20261111/finish/work/system-notice-package/final
+under the private build cache. Its 784 entries include 143 notice records and
+112 ELFs. All accepted ELF/runtime code is unchanged; only PNG timestamps change
+among prior entries, with exact pixel/color data preserved. Fresh GUI/portable/
+identity/profile checks pass. The user accepts the original 02e6b1c...1f1c77 kit
+on Fedora 44 GNOME Wayland against Apollo. Standard Sunshine AppImage coverage
+is now requested using that unchanged kit and existing native pairing.
+
+All 16 custom Git sources and all 43 exact system source groups are retained
+locally, including tracked build patches and verified source identities/digests.
+Five repository release signatures verify against retained SDK public keyrings.
+Full license/source distribution review and hosting remain required before a
+release; individual source uploader signatures and binary reproducibility are
+not inferred from these records.

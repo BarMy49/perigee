@@ -17,6 +17,7 @@ jobs:
       PERIGEE_BUILD_JOBS: '1'
       CMAKE_BUILD_PARALLEL_LEVEL: '1'
       APPIMAGE_EXTRACT_AND_RUN: '1'
+      PERIGEE_APPIMAGE_SYSTEM_NOTICES: deb
       DEBIAN_FRONTEND: noninteractive
     runs-on: ubuntu-22.04
     container:

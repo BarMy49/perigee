@@ -370,3 +370,32 @@ Perigee-Fedora44-AppImage-check.tar under the cache, SHA256
 Syntax/transfer hashes/Fedora 45 refusal and 496 compiled-input source matches
 pass. The user has been asked for target startup/icon and Apollo A/V/input/
 reconnect. Continue independent review CI while awaiting that report.
+
+Review commit d208482f is pushed. Fedora CI 43060338754 debug passes 271/0/0
+in 11 suites; release/RPM are still pending. The unchanged AppImage's Ubuntu
+ELFs map to 73 owner packages/43 source versions. All 73 package copyright files,
+17 common licenses and all 43 exact system source groups (136 files/287214585
+bytes) are retained outside the artifact, with .dsc identities/digests and five
+repository InRelease signatures verified. See deb-audit-usrmerge and deb-sources
+under appimage-controlled-20261111. Individual uploader signatures, full legal
+classification, source hosting and final release acceptance remain separate.
+Seven verified exited task containers were removed after a layer ENOSPC; SDK
+image, source/artifacts/logs, user files and original index are preserved.
+
+
+The user accepts all Fedora 44 AppImage kit checks for hash 02e6b1c...1f1c77
+(startup/icon, Apollo A/V/input/reconnect and Moonlight preservation). CI
+43060338754 at d208482f now passes debug/release/RPM, 271/0/0. A follow-up enables
+automatic dpkg system notice collection (73 packages/43 sources, 90 notices) and
+uses the same embedded appimagetool with explicit one-thread compression; source
+input/overwrite/attribution fixtures pass. The old plugin had four compression
+workers despite one CPU; compiler/LTO jobs were one. PNG date metadata is now
+removed, with two identical renders and equal pixel/color data. Final local image
+c2402b88e0a3f596d199b5f8fbf3cde4ebebf089fee417a1fae6b667fcdece1e preserves
+all 112 accepted ELFs/runtime code; 692 of 693 prior entries are byte-identical.
+It adds 91 notice entries.
+Final XWayland/portable/icon/profile preservation smoke passes (smoke-fa1e74y9).
+Current task: finish review snapshot/CI and await the already-paired native
+Sunshine AppImage check requested via the unchanged Fedora 44 kit. No new pairing
+or credential copying. Full source hosting/license and broader hardware gates
+remain open; no release, tag, merge or Common C publication is authorized.

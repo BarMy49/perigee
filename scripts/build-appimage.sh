@@ -7,28 +7,38 @@ BUILD_ROOT=${PERIGEE_APPIMAGE_BUILD_ROOT:-$SOURCE_ROOT/build}
 BUILD_FOLDER=$BUILD_ROOT/build-release
 DEPLOY_FOLDER=$BUILD_ROOT/deploy-release
 INSTALLER_FOLDER=$BUILD_ROOT/installer-release
+PACKAGING_TOOLS=$BUILD_ROOT/packaging-tools
 LINUXDEPLOY=${LINUXDEPLOY:-linuxdeploy-$(uname -m).AppImage}
 VERSION=${CI_VERSION:-$(cat "$SOURCE_ROOT/app/version.txt")}
 BUILD_JOBS=${PERIGEE_BUILD_JOBS:-1}
 [[ "$VERSION" =~ ^[A-Za-z0-9][A-Za-z0-9.+_-]*$ ]] || fail 'Invalid artifact version'
 [[ "$BUILD_JOBS" =~ ^[1-9][0-9]*$ ]] || fail 'Invalid build job count'
 [[ "$BUILD_ROOT" = /* ]] || fail 'PERIGEE_APPIMAGE_BUILD_ROOT must be absolute'
+case ${PERIGEE_APPIMAGE_SYSTEM_NOTICES:-} in
+    '') ;;
+    deb)
+        command -v dpkg-query >/dev/null || fail 'System notices require the dpkg SDK'
+        [[ -n ${PERIGEE_APPIMAGE_NOTICE_BUNDLE:-} ]] || fail 'System notices require the verified custom-source bundle'
+        ;;
+    *) fail 'Unsupported system notice mode' ;;
+esac
 command -v qmake6 >/dev/null || fail 'Unable to find qmake6'
 command -v convert >/dev/null || fail 'Unable to find ImageMagick convert'
 command -v "$LINUXDEPLOY" >/dev/null || fail 'Unable to find linuxdeploy'
+LINUXDEPLOY=$(readlink -f -- "$(command -v "$LINUXDEPLOY")")
 export LDAI_RUNTIME_FILE=${LDAI_RUNTIME_FILE:-$(dirname "$(command -v "$LINUXDEPLOY")")/runtime-$(uname -m)}
 [[ -s "$LDAI_RUNTIME_FILE" ]] || fail 'Unable to find the reviewed AppImage runtime'
-for directory in "$BUILD_FOLDER" "$DEPLOY_FOLDER" "$INSTALLER_FOLDER"; do
+for directory in "$BUILD_FOLDER" "$DEPLOY_FOLDER" "$INSTALLER_FOLDER" "$PACKAGING_TOOLS"; do
     [[ ! -e "$directory" && ! -L "$directory" ]] || fail "Output already exists: $directory"
 done
-mkdir -p "$BUILD_FOLDER" "$DEPLOY_FOLDER" "$INSTALLER_FOLDER"
+mkdir -p "$BUILD_FOLDER" "$DEPLOY_FOLDER" "$INSTALLER_FOLDER" "$PACKAGING_TOOLS"
 export CFLAGS="${CFLAGS:-} -flto=$BUILD_JOBS"
 export CXXFLAGS="${CXXFLAGS:-} -flto=$BUILD_JOBS"
 export LDFLAGS="${LDFLAGS:-} -flto=$BUILD_JOBS"
 cd "$BUILD_FOLDER"
 qmake6 "$SOURCE_ROOT/moonlight-qt.pro" CONFIG+=disable-wayland CONFIG+=disable-libdrm PREFIX=/usr DEFINES+=APP_IMAGE
 make -j"$BUILD_JOBS" release
-make -C app -f Makefile.Release INSTALL_ROOT="$DEPLOY_FOLDER" install
+make -C app -f Makefile.Release -j"$BUILD_JOBS" INSTALL_ROOT="$DEPLOY_FOLDER" install
 python3 "$SOURCE_ROOT/scripts/check-linux-stage.py" "$DEPLOY_FOLDER"
 for entry in LICENSE packaging/rpm/ModeSeven-README \
     moonlight-common-c/moonlight-common-c/LICENSE.txt \
@@ -48,7 +58,7 @@ fi
 RASTER_ICON=usr/share/icons/hicolor/256x256/apps/io.github.BarMy49.Perigee.png
 mkdir -p "$DEPLOY_FOLDER/$(dirname "$RASTER_ICON")"
 convert -background none "$SOURCE_ROOT/app/res/io.github.BarMy49.Perigee.svg" \
-    -resize 256x256 "$DEPLOY_FOLDER/$RASTER_ICON"
+    -resize 256x256 -define png:exclude-chunks=date,time "$DEPLOY_FOLDER/$RASTER_ICON"
 ln -s "$RASTER_ICON" "$DEPLOY_FOLDER/io.github.BarMy49.Perigee.png"
 ln -s io.github.BarMy49.Perigee.png "$DEPLOY_FOLDER/.DirIcon"
 export QML_SOURCES_PATHS=$SOURCE_ROOT/app/gui
@@ -77,14 +87,25 @@ EXTRA_LIBRARIES=()
 if [[ -n "$SDL3" ]]; then EXTRA_LIBRARIES+=("--library=$SDL3"); fi
 "$LINUXDEPLOY" --appdir "$DEPLOY_FOLDER" "${EXTRA_LIBRARIES[@]}" --plugin qt "${EXCLUDES[@]}"
 [[ -e "$DEPLOY_FOLDER/AppRun" ]] || fail 'linuxdeploy did not generate AppRun'
+if [[ ${PERIGEE_APPIMAGE_SYSTEM_NOTICES:-} == deb ]]; then
+    python3 "$SOURCE_ROOT/scripts/collect-appimage-system-notices.py" \
+        --tree "$DEPLOY_FOLDER" --output "$DEPLOY_FOLDER/usr/share/licenses/perigee/system-libraries"
+fi
 cp -a "$DEPLOY_FOLDER/AppRun" "$DEPLOY_FOLDER/AppRun.perigee"
 rm "$DEPLOY_FOLDER/AppRun"
 cd "$INSTALLER_FOLDER"
 export VERSION
 export LDAI_OUTPUT=Perigee-$VERSION-$(uname -m).AppImage
 "$LINUXDEPLOY" --appdir "$DEPLOY_FOLDER" \
-    --custom-apprun "$SOURCE_ROOT/app/deploy/linux/appimage/AppRun" \
-    "${EXCLUDES[@]}" --output appimage
+    --custom-apprun "$SOURCE_ROOT/app/deploy/linux/appimage/AppRun" "${EXCLUDES[@]}"
+cd "$PACKAGING_TOOLS"
+"$LINUXDEPLOY" --appimage-extract > extraction.log
+APPIMAGETOOL=$PACKAGING_TOOLS/squashfs-root/plugins/linuxdeploy-plugin-appimage/appimagetool-prefix/AppRun
+[[ -x "$APPIMAGETOOL" ]] || fail 'Pinned linuxdeploy does not contain the expected appimagetool'
+cd "$INSTALLER_FOLDER"
+ARCH=$(uname -m) "$APPIMAGETOOL" --runtime-file "$LDAI_RUNTIME_FILE" \
+    --mksquashfs-opt -processors --mksquashfs-opt "$BUILD_JOBS" \
+    "$DEPLOY_FOLDER" "$LDAI_OUTPUT"
 [[ -s "$LDAI_OUTPUT" ]] || fail "Expected artifact missing: $LDAI_OUTPUT"
 sha256sum "$LDAI_OUTPUT" > "$LDAI_OUTPUT.sha256"
 echo "Build successful: $INSTALLER_FOLDER/$LDAI_OUTPUT"
