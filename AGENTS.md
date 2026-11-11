@@ -118,11 +118,13 @@ remain compatible. Stack: C++17, Qt/QML, SDL, FFmpeg, and Moonlight Common C.
   job under verified kernel 896 MiB RAM/128 MiB swap limits, no OOM kills. RPM/CI
   now explicitly request libavformat headers. CI adds a separate RPM lane and
   file/notice/ELF inventories. Legacy cross-platform packaging is manual/opt-in.
-  Remote GitHub CI remains unrun and needs an authorized source commit/push.
+  User-authorized review branch ci/milestone-7-packaging is pushed. Fedora CI at
+  d14e4b9f passes debug/release/RPM; 271 focused cases pass. The initial container
+  Git ownership failure was fixed with exact workspace/submodule trust.
   The proposed CI review snapshot is at
   /home/barmy/.cache/perigee-build/ci-review-20261110. It includes required untracked
   implementation prerequisites but excludes IDE data, profiles, the deferred
-  Common C patch and its local checker. No branch/commit/push is authorized yet.
+  Common C patch and its local checker. The user authorized this branch/commit/push.
   The 0.2 RPM upgrade test passes with user-reported success and retained evidence
   in /tmp/perigee-rpm-upgrade-result-fUvM2Z. Perigee is removed again.
   Upstream maintenance is documented; no merge or
@@ -245,3 +247,27 @@ For documentation changes, check Markdown links, source references, and
 - Report files/behavior changed, exact commands and outcomes, unavailable checks,
   risks, documentation updates, and the next task. Mark completion only after the
   task's acceptance criteria are verified.
+
+
+## Milestone 7 continuation, 2026-11-11
+
+Work is isolated at /home/barmy/.cache/perigee-build/ci-milestone-7-worktree; preserve
+the original checkout and its independently staged docs/UPSTREAM_MAINTENANCE.md.
+The user approved the original orbit icon. SVG/provenance changes are in this
+worktree; original Moonlight artwork remains attributed and unchanged. Local 0.3
+RPM with approved icon passes incremental build and exact payload checks, source
+SHA 5f509bb9d53f597ca3680ac17eda4ed58964dd79e3b8bbca6f6e6bba84faccde.
+Branding output root: /home/barmy/.cache/perigee-build/branding-20261111.
+The Flatpak branding rebuild/export/bundle and isolated sandbox/Wayland smoke
+checks pass under one job/CPU and the aggregate 1 GiB guard at
+/home/barmy/.cache/perigee-build/flatpak-branding-20261111. Highest combined sample
+is 934137856 bytes (about 891 MiB). Native compiled-window-icon palette passes,
+with unchanged production profiles. Installed GNOME visual grouping needs the
+user to run /tmp/perigee-orbit-installed-check.sh (sudo password required). The prior turn
+interruption sent SIGTERM during FFmpeg preparation; no compiler failure is claimed.
+The wrapper now copies sources inside a dedicated manifest-local sources directory
+and keeps updates disabled. Collision/no-overwrite/failure-propagation fixtures pass.
+The notice audit now retains legacy COPYING/attribution files and source-matched
+split-package notices: 328 files plus 13 source notice candidates from three exact
+source RPMs. Raw Koji SRPMs are unsigned; header/payload digests are checked, not
+publisher-signature clearance. Full corresponding-source/license review remains open.

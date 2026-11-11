@@ -312,3 +312,14 @@ file forwarding through the document portal imports selected preferences. This i
 CLI selection, not a new GUI importer. The normal default still excludes pairing
 credentials. Native profiles remain unchanged; no implicit credential migration is
 added. Full live/portal acceptance is recorded separately in Task 7C.
+
+
+## Milestone 7 approved original icon
+
+On 2026-11-10 the user approved the original orbit SVG for application and package
+assets. The existing app/res/io.github.BarMy49.Perigee.svg now uses that geometry;
+resource/desktop/application identifiers and configuration paths stay unchanged.
+The final SVG carries the Perigee name and license metadata, with no new visible
+product text. The old Moonlight SVG remains attributed in source. See
+[asset provenance](../ASSET_NOTICES.md) and the implementation plan for exact
+rebuild/startup evidence; older accepted artifacts still contain the temporary icon.

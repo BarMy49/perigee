@@ -11,10 +11,13 @@ permissions:
 jobs:
   fedora:
     runs-on: ubuntu-latest
-    container: fedora:44
+    container:
+      image: fedora:44
+      options: --memory=896m --memory-swap=1g --cpus=1
     timeout-minutes: 45
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         configuration: [debug, release, rpm]
     env:
@@ -23,6 +26,12 @@ jobs:
       SDL_VIDEODRIVER: dummy
       QT_QUICK_BACKEND: software
     steps:
+      - name: Verify build resource limits
+        shell: bash
+        run: |
+          test "$(cat /sys/fs/cgroup/memory.max)" = 939524096
+          test "$(cat /sys/fs/cgroup/memory.swap.max)" = 134217728
+          test "$(cat /sys/fs/cgroup/cpu.max)" = '100000 100000'
       - name: Install build and check dependencies
         run: |
           dnf install -y git gcc-c++ make python3 findutils which openssl \

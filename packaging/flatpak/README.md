@@ -220,3 +220,28 @@ This accepts the primary-host live check for bundle SHA256
 The capped launch command was provided with report path
 /tmp/perigee-clean-flatpak-live-memory.json. Decoder-specific, Sunshine, KDE,
 HDR/controller and controlled performance coverage remain separate follow-ups.
+
+
+## Approved-icon refresh and wrapper fix
+
+The user approved the original orbit icon. A branded refresh is building at
+/home/barmy/.cache/perigee-build/flatpak-branding-20261111 with unchanged SDK/runtime
+pins, one job/CPU and the aggregate memory guard. The interrupted attempt stopped
+with SIGTERM during FFmpeg preparation; resume results are recorded separately.
+
+The build wrapper now copies the verified input archive into output-root/sources/
+before preparing its manifest. Flatpak's --sandbox requires the source to remain
+inside that directory tree. The separate sources directory prevents input filenames
+from colliding with io.github.BarMy49.Perigee.json or sdk-commit.txt. Updates stay
+disabled. Real-archive fixtures cover spaces, both metadata-name collisions,
+unchanged input bytes, existing-output rejection and builder failure propagation.
+
+
+The branded refresh now passes build/export/bundle and isolated runtime smoke
+checks. Highest combined memory sample: 934137856 bytes (about 891 MiB), one job.
+Bundle: /home/barmy/.cache/perigee-build/flatpak-branding-20261111/Perigee-6.2.0-orbit-x86_64.flatpak.
+SHA256: 0263075f954addc5f14f03b5a18d7fa98b3c0a9f864fe1ce76693cc72fd16746.
+Approved icon equality, library closure, native-profile isolation, selected-file
+portal import and native Wayland startup pass with unchanged production profiles.
+It is installed only in its separate private test installation; no accepted app
+installation was replaced. Live streaming of this branded binary is unreported.

@@ -1746,7 +1746,7 @@ remain deferred for host/hardware evidence.
 
 **Goal:** reproducible independent packages and sustainable upstream updates.
 Current stage authorized on 2026-11-10 after explicit command deferral. Current task:
-prepare the verified implementation snapshot for authorized remote CI execution.
+verify the approved-icon package refresh and constrained Fedora CI follow-up.
 Native RPM packaging is implemented and undergoing local validation (Task 7A below).
 The user installed and removed the local RPM; installed launcher/coexistence checks
 pass below. Upgrade is also verified; broader release acceptance remains pending.
@@ -2231,3 +2231,81 @@ git diff --check pass. No application strings, streaming code or dependency pins
 changed. Remote CI requires an authorized commit/push; source/license clearance,
 original approved artwork, visual shell grouping and broader hardware/host coverage
 remain release gates. No release, commit, branch, push or merge has been performed.
+
+
+### Authorized remote CI and approved-icon refresh (2026-11-11)
+
+The user authorized branch ci/milestone-7-packaging, committing the 74-file reviewed
+snapshot and pushing to BarMy49/perigee. Isolated worktree:
+/home/barmy/.cache/perigee-build/ci-milestone-7-worktree. Commit acac2b65 is the exact
+snapshot; deferred Common C patch/checker are absent from tree/history and remain
+in the original checkout. GitHub CLI browser login was completed by the user;
+credentials/settings stay in private build-cache/keyring storage, outside Git.
+
+Initial CI run 42915587541 passed release but rejected repository ownership in
+RPM source export and debug baseline translation checks. Commit d14e4b9f adds only
+exact checkout/submodule safe.directory entries. A forced-ownership fixture verifies
+all six intended repositories work and an outside worktree remains untrusted.
+[Run 42916603917](https://github.com/BarMy49/perigee/actions/runs/42916603917) passes
+all debug/release/RPM jobs. Downloaded reports verify 271 passes, zero failures/skips
+in 11 suites. No PR merge, release or Common C publication occurred.
+
+The user approved the original orbit icon. Its exact geometry replaces the
+independently named application SVG; no application ID, protocol, configuration
+path or visible text changes. Upstream Moonlight SVG remains byte-identical.
+Native 0.3 RPM rebuild uses unchanged object inputs, one make/LTO job, one CPU and
+a 1 GiB guard. It is incremental, not a clean final-source rebuild. Exact 16-file
+payload, approved SVG and asset-notice equality pass; no host installation occurred.
+RPM SHA256: 4071f890ba62dfa7542d70f8d574aae5d1f51f7bb8d9633297f8d829970d5436.
+Evidence: /home/barmy/.cache/perigee-build/branding-20261111/native-verification.json.
+
+Flatpak sandbox source-path rejection exposed a wrapper bug: external source files
+must be copied beneath the manifest directory. The wrapper now places exact source
+bytes in sources/, avoiding collisions with generated manifest/SDK metadata names.
+Three filename/path fixtures, no-overwrite and builder-failure propagation pass.
+The actual branded build uses the same source, SDK/runtime pins and narrow runtime
+permissions. It resumed after the explicit turn interruption, with one job/CPU
+and the existing aggregate guard. Completed results are recorded below.
+
+Legacy source-package notice audit now records 328 notice/attribution files and
+three explicitly source-matched notice providers. The remaining Firebird, numactl
+and xcb-util-keysyms source RPMs were retrieved from official Fedora archives;
+13 license/copyright candidates are retained by archive path and SHA256. Raw source
+RPMs have no publisher signatures; header/payload digests are checked separately.
+This is material retention, not complete legal/source-publication clearance.
+
+
+#### Branded refresh completion
+
+The resumed Flatpak build, export and bundle pass with one job/CPU. The highest
+sampled aggregate memory is 934137856 bytes (about 891 MiB), below 1 GiB; report:
+/home/barmy/.cache/perigee-build/flatpak-branding-20261111/build-resume-memory.json.
+Bundle SHA256: 0263075f954addc5f14f03b5a18d7fa98b3c0a9f864fe1ce76693cc72fd16746.
+The bundle installs only into a new private test installation. Approved SVG bytes,
+library closure, hidden native profiles, denied direct host-file import, explicit
+selected-file import and native Wayland app-ID/configure pass. All three production
+profile hashes are unchanged. No streaming acceptance for this branded binary is
+inferred; the earlier exact-bundle Apollo passes remain separately recorded.
+Results: smoke-result.json and smoke-memory.json in that root; harness:
+/tmp/perigee-orbit-flatpak-smoke.py. Test processes are closed.
+
+The unpacked native 0.3 binary also passes an actual compiled-window-icon check:
+its XWayland _NET_WM_ICON contains all four approved palette colors and retains
+the independent WM_CLASS. Production profiles stay unchanged; only marked test
+processes are terminated. This does not prove installed GNOME shell grouping.
+Results: branding-20261111/native-icon-bedmxb3k/result.json under the build-cache
+root; harness: /tmp/perigee-branded-native-icon-check.py.
+
+Follow-up CI now serializes the matrix and requests 896 MiB RAM/128 MiB swap plus
+one CPU per container, checking actual kernel limits before building. YAML and
+embedded Bash syntax pass; remote execution for these new constraints remains
+pending until the follow-up push. The earlier d14e4b9f green run is not relabeled
+as a constrained run or an approved-icon build.
+
+The real installed-icon check is concrete in /tmp/perigee-orbit-installed-check.sh:
+verify artifact hash, install/verify 0.3, pause for user inspection of the orbit
+icon and separate Moonlight/Perigee GNOME groups, then remove and compare package/
+profile preservation around the transactions. sudo -n true requires a password;
+no new host install occurred. AppImage branding rebuild, full source/license
+clearance and broader hardware/host coverage remain open. The original checkout's
+independently staged documentation and deferred Common C files are preserved.

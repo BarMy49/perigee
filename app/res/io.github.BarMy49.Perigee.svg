@@ -1,1 +1,12 @@
-<?xml version="1.0" standalone="no"?><!-- Generator: Gravit.io --><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 256 256" width="256" height="256"><g><circle vector-effect="non-scaling-stroke" cx="128" cy="128" r="128" fill="rgb(86,92,100)"/><circle vector-effect="non-scaling-stroke" cx="128.00000000000003" cy="128.00000000000003" r="96" fill="rgb(255,255,255)"/><path d=" M 137.66 132 L 224 132 L 224 124 L 137.66 124 L 198.71 62.95 L 193.05 57.29 L 132 118.34 L 132 32 L 124 32 L 124 118.34 L 62.95 57.29 L 57.29 62.95 L 118.34 124 L 32 124 L 32 132 L 118.34 132 L 57.29 193.05 L 62.95 198.71 L 124 137.66 L 124 224 L 132 224 L 132 137.66 L 193.05 198.71 L 198.71 193.05 L 137.66 132 Z " fill-rule="evenodd" fill="rgb(86,92,100)"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <title>Perigee</title>
+  <metadata>Original Perigee orbit artwork approved 2026-11-10. No external artwork or fonts. GPL-3.0-or-later; see the project LICENSE and ASSET_NOTICES.md.</metadata>
+  <rect x="32" y="40" width="448" height="440" rx="104" fill="#10192b"/>
+  <rect x="32" y="32" width="448" height="432" rx="104" fill="#1c2945"/>
+  <g transform="rotate(-28 256 248)">
+    <ellipse cx="256" cy="248" rx="154" ry="122" fill="none" stroke="#8ce0e8" stroke-width="28"/>
+    <circle cx="162" cy="248" r="29" fill="#e3edff"/>
+    <circle cx="102" cy="248" r="24" fill="#1c2945"/>
+    <circle cx="102" cy="248" r="18" fill="#ffbd70"/>
+  </g>
+</svg>

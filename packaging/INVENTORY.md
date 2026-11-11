@@ -79,3 +79,24 @@ The Fedora checkout retains full history so translation checks can archive the
 recorded public Moonlight baseline, which a default shallow checkout could omit.
 The proposed CI review snapshot includes required implementation prerequisites
 and excludes IDE/runtime state plus the deferred Common C patch/local checker.
+
+
+## Legacy and split-package notice follow-up
+
+The helper now retains RPM-owned public COPYING/LICENSE/NOTICE/COPYRIGHT candidates
+and AUTHORS/README attribution documents when older packages lack %license flags.
+Every retained file records its basis; attribution-only documents do not satisfy
+license-candidate coverage. --notice-package may name an installed split/common
+package only when its exact source RPM matches an inventoried library source.
+Unrelated providers fail closed. Real libXau/GCC fixtures verify legacy discovery,
+source association, exact bytes, no-overwrite and unrelated-provider rejection.
+
+The expanded local report is appimage-rpm-provenance-split-notices-20261110.json
+under the private build-cache root. It retains 328 files from 155 ELF-owner RPMs
+and three notice-provider RPMs. Source-RPM inspection retains 13 more candidates
+for Firebird, numactl and xcb-util-keysyms under appimage-source-notices-20261110.
+All 145 source groups now have retained license candidates across these records;
+that does not establish full static-dependency coverage or complete license review.
+Only three full source RPMs were acquired; remaining source acquisition/publication
+is open. Their raw Koji copies are unsigned, with header/payload digest inspection
+recorded separately. No accepted AppImage was modified by this audit.

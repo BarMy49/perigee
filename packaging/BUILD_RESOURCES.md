@@ -48,3 +48,10 @@ PID 1 is not a reliable barrier: it was ignored during the RPM build's dependenc
 setup. Its limits were corrected before compilation; lifetime kernel swap peak
 at that point was 128 MiB. Container verification remains separate from GPU/
 streaming acceptance.
+
+
+The follow-up Fedora CI configuration serializes matrix jobs and passes Docker
+--memory=896m --memory-swap=1g --cpus=1. A first step asserts memory.max=939524096,
+memory.swap.max=134217728 and cpu.max="100000 100000". It fails closed if the hosted
+runner does not apply these values. The previous successful remote run predates
+these explicit hosted limits; its result is not evidence of their enforcement.
