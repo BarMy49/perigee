@@ -7,6 +7,9 @@ Approved plan date: 2026-10-25. This document is the task/status entry point; re
 
 ## Current state
 
+- Milestone 7 is complete. The final Fedora 45 RPM and Flatpak passed live
+  streaming checks, and [the unsigned prerelease](https://github.com/BarMy49/perigee/releases/tag/v6.2.0-perigee.1)
+  is published. The reviewed implementation was fast-forwarded into master.
 - Source is based on Moonlight Qt `ac296864ace96f51ad75f78b90644bdbca76c332`
   with unchanged dependency pins. Task 1A implements Linux native runtime identity
   and output `perigee`. Task 1B now adds Linux desktop/install metadata, portable
@@ -54,7 +57,7 @@ Approved plan date: 2026-10-25. This document is the task/status entry point; re
 | 4: Display launch controls | Implemented; user reports primary-host tests passed on 2026-10-28; detailed matrix follow-ups retained | Authenticated metadata, fresh launch, driver/permission readiness |
 | 5: Productivity UI and controls | Implemented; functional checks confirmed complete by user on 2026-11-12 | Separate controlled performance measurements remain unreported |
 | 6: Optional integrations | Selected scope complete; profiles, SFTP and gated UUID checks confirmed by user on 2026-11-12 | Commands and advanced integrations remain explicitly deferred |
-| 7: Distribution and maintenance | Final AppImage, Flatpak, Fedora 44 and Fedora 45 RPM builds verified | Final live package checks and release publication |
+| 7: Distribution and maintenance | Complete on 2026-11-21 | Final Fedora 45 RPM and Flatpak live checks passed, the unsigned prerelease was published, and the reviewed work was merged into master |
 
 ## Documentation delivery
 
@@ -1766,40 +1769,31 @@ remain deferred for host/hardware evidence.
 
 ## Milestone 7: distribution and maintenance
 
-**2026-11-11 target correction:** the user clarifies that the installed desktop is
-Fedora 45. Earlier user reports labelled Fedora 44 below do not establish Fedora
-44 hardware coverage. The strict Fedora 44 kit refuses Fedora 45; exact execution
-of that kit is therefore unverified. Keep real Fedora 44 compositor/GPU checks
-pending. Fedora 44 container/CI/build results remain valid, as do independently
-recorded Fedora 45 checks. The new Fedora 45 AppImage launcher uses final artifact
-c2402b88e0a3f596d199b5f8fbf3cde4ebebf089fee417a1fae6b667fcdece1e; the user now confirms its Fedora 45 GNOME Wayland/XWayland
-Sunshine launch/resume, video/audio/input and reconnect checks pass. Original user reports are preserved, not treated as
-verified runs of a different artifact or distribution.
+**Complete on 2026-11-21.** Fedora 45 is the verified desktop target for the
+final RPM and Flatpak live checks. The Fedora 44 RPM passed its container
+checks, and the user waived a separate Fedora 44 hardware confirmation.
 
 **Goal:** reproducible independent packages and sustainable upstream updates.
-Current stage authorized on 2026-11-10 after explicit command deferral. Current task:
-complete final source/notice review; Fedora 45 AppImage Sunshine is user-accepted.
-Native RPM packaging is implemented and undergoing local validation (Task 7A below).
-The user installed and removed the local RPM; installed launcher/coexistence checks
-pass below. Upgrade is also verified; broader release acceptance remains pending.
-No package release was published; the authorized review branch and CI are recorded below.
-**Sources:** deploy metadata, scripts and CI; new RPM/Flatpak packaging reviewed
-against then-current dependencies. **Depends on:** complete identity and acceptance.
+The project distributes RPMs, a Flatpak and an AppImage with corresponding source
+packages and checksums through [GitHub Releases](https://github.com/BarMy49/perigee/releases/tag/v6.2.0-perigee.1). The AppImage uses
+X11/XWayland and obtains updates through manual download. The RPM and Flatpak
+support native Wayland.
 
-- [x] Native RPM `perigee`, staged manifest, dependency resolution and install/upgrade/
-  uninstall checks without Moonlight conflicts/overwrites.
-- [ ] Adapt existing AppImage build; independent artifact names and update channel.
-- [ ] Create independent Flatpak ID/manifest with tested GPU/audio/input/network and
-  file-selection permissions; no broad home access for import.
-- [ ] CI for debug/release, new focused automated tests, metadata and license/source
-  inventory; supervised hardware matrix remains separately recorded.
-- [ ] Dedicated upstream merge changes: record baseline/pins, inspect conflict-heavy
-  files, rerun fixtures and real pairing/stream/input/performance regression gates.
+- [x] Build the native RPM and verify its manifest, dependencies and install,
+  upgrade and removal behavior. Confirm file coexistence with Moonlight.
+- [x] Adapt the AppImage build with independent artifact names, matching source
+  material and a GitHub release channel.
+- [x] Build and test the independent Flatpak manifest, sandbox permissions and
+  selected-file import. Verify the final bundle's live media and input.
+- [x] Run Fedora debug, release and RPM CI, focused tests and packaging metadata
+  checks. Retain the license and source inventory for each release format.
+- [x] Document the upstream baseline, pins, conflict review and verification
+  steps in [the upstream maintenance procedure](UPSTREAM_MAINTENANCE.md).
+  Apply that procedure when undertaking a future upstream update.
 
-**Acceptance:** tested packages coexist with Moonlight, publish accurate features,
-have complete provenance/source access, and support a documented update procedure.
-**Blockers:** driver/codec/sandbox differences and access to representative hardware.
-No publication, commits or service provisioning without authorization.
+See [the final acceptance and publication record](#milestone-7-completion-2026-11-21)
+for the live results, release tag and merge commit. The detailed entries below
+preserve earlier build attempts and their evidence.
 
 ### Task 7A: native RPM packaging work (2026-11-10)
 
@@ -2928,3 +2922,26 @@ user-reported Apollo/Sunshine acceptance record. The Flatpak source package
 includes the exact manifest with libplacebo's additional notices. The review
 branch records release packaging and documentation separately from the shared
 application source 82fa8811. The deferred Common C proposal remains local.
+
+
+### Milestone 7 completion, 2026-11-21
+
+The user confirmed that video, audible audio, keyboard and mouse input, and
+disconnect/reconnect passed on both final packages on Fedora 45 GNOME Wayland.
+
+| Live-tested package | SHA256 |
+| --- | --- |
+| perigee-6.2.0-0.5.fc45.x86_64.rpm | 3c010900dab7954f20722bcc0099f23cda1d00b23c1452182322003d26a57b27 |
+| Perigee-6.2.0-x86_64.flatpak | 97bf27de95eedac3a00ae385b23d0ba4a70ea7f70805ac9939e0ec42bf060b7c |
+
+The [unsigned prerelease v6.2.0-perigee.1](https://github.com/BarMy49/perigee/releases/tag/v6.2.0-perigee.1) was published at
+6306dea51c26602d85c068565ec28e6777803d22 on 2026-11-21 local time. It contains
+the Fedora 44 and Fedora 45 RPMs, Flatpak, AppImage, four matching source
+packages and SHA256SUMS. GitHub reported matching digests for all nine assets,
+and the publicly downloaded SHA256SUMS matched the local manifest.
+
+After publication, the GitHub default branch master was fast-forwarded from
+3501bd53b523f758b255ee965ea6b2717cff171f to the released commit
+6306dea51c26602d85c068565ec28e6777803d22. The remote branch tip and the release
+tag were verified at that commit. This completes Milestone 7 within the
+approved scope.
