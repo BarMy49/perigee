@@ -1,12 +1,54 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
   <title>Perigee</title>
-  <metadata>Original Perigee orbit artwork approved 2026-11-10. No external artwork or fonts. GPL-3.0-or-later; see the project LICENSE and ASSET_NOTICES.md.</metadata>
-  <rect x="32" y="40" width="448" height="440" rx="104" fill="#10192b"/>
-  <rect x="32" y="32" width="448" height="432" rx="104" fill="#1c2945"/>
-  <g transform="rotate(-28 256 248)">
-    <ellipse cx="256" cy="248" rx="154" ry="122" fill="none" stroke="#8ce0e8" stroke-width="28"/>
-    <circle cx="162" cy="248" r="29" fill="#e3edff"/>
-    <circle cx="102" cy="248" r="24" fill="#1c2945"/>
-    <circle cx="102" cy="248" r="18" fill="#ffbd70"/>
+  <desc>The Moon at perigee, the nearest point of its elliptical orbit around Earth.</desc>
+  <metadata>Original Perigee artwork. GPL-3.0-or-later; see LICENSE and ASSET_NOTICES.md.</metadata>
+  <defs>
+    <linearGradient id="sky" x1="0.14" y1="0" x2="0.86" y2="1">
+      <stop stop-color="#203c62"/>
+      <stop offset="1" stop-color="#0a1428"/>
+    </linearGradient>
+    <linearGradient id="orbit" x1="0" y1="1" x2="1" y2="0">
+      <stop stop-color="#527c9d"/>
+      <stop offset="0.55" stop-color="#7fdedd"/>
+      <stop offset="1" stop-color="#a7f1e8"/>
+    </linearGradient>
+    <radialGradient id="ocean" cx="0.31" cy="0.23" r="0.83">
+      <stop stop-color="#70d6ff"/>
+      <stop offset="0.62" stop-color="#2d91e4"/>
+      <stop offset="1" stop-color="#16458c"/>
+    </radialGradient>
+    <linearGradient id="land" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#bdf7b1"/>
+      <stop offset="1" stop-color="#5dcf9f"/>
+    </linearGradient>
+    <linearGradient id="lunar-surface" x1="0.15" y1="0.05" x2="0.87" y2="1">
+      <stop stop-color="#fff2d6"/>
+      <stop offset="1" stop-color="#c3bdc2"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="28" y="32" width="456" height="456" rx="104" fill="#070d1a"/>
+  <rect x="28" y="24" width="456" height="456" rx="104" fill="url(#sky)" stroke="#3c5776" stroke-width="4"/>
+  <g fill="#afd1e6">
+    <circle cx="134" cy="205" r="5" opacity="0.52"/>
+    <circle cx="203" cy="319" r="4" opacity="0.46"/>
+    <circle cx="371" cy="346" r="4" opacity="0.55"/>
+  </g>
+
+  <g transform="rotate(-32 238 260)">
+    <ellipse cx="238" cy="260" rx="174" ry="151.26136" fill="none" stroke="#1a414f" stroke-width="24"/>
+    <ellipse cx="238" cy="260" rx="174" ry="151.26136" fill="none" stroke="url(#orbit)" stroke-width="12"/>
+
+    <circle cx="324" cy="260" r="49" fill="url(#ocean)" stroke="#0a243f" stroke-width="6"/>
+    <path fill="url(#land)" d="M286 244l11-15 19-6 15 4 2 9-12 8-4 9-10 3-10-4-7 3zm28 13 12 5 11 12-3 11-11 15-7-4 1-14-6-10zm26-30 15 3 9 10 3 11-9 7-6-7-9-2-6-9zm10 32 14 3 4 12-10 11-8-4-5-10z"/>
+    <circle cx="324" cy="260" r="48" fill="none" stroke="#a5e8ff" stroke-width="3" opacity="0.77"/>
+
+    <circle cx="412" cy="260" r="32" fill="#172a40"/>
+    <circle cx="412" cy="260" r="27" fill="url(#lunar-surface)" stroke="#fff1d7" stroke-width="3"/>
+    <g fill="#a9a2a2">
+      <circle cx="405" cy="254" r="7"/>
+      <circle cx="420" cy="264" r="5"/>
+      <circle cx="407" cy="274" r="3.5"/>
+    </g>
   </g>
 </svg>

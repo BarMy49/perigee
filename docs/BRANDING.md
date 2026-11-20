@@ -308,11 +308,12 @@ credentials. Native profiles remain unchanged; no implicit credential migration 
 added. Full live/portal acceptance is recorded separately in Task 7C.
 
 
-## Milestone 7 approved original icon
+## Application icon
 
-On 2026-11-10 the user approved the original orbit SVG for application and package
-assets. The existing app/res/io.github.BarMy49.Perigee.svg now uses that geometry;
-resource/desktop/application identifiers and configuration paths stay unchanged.
-The final SVG carries the Perigee name and license metadata, with no new visible
-product text. The old Moonlight SVG remains attributed in source. See
-[asset provenance](../ASSET_NOTICES.md) and the [release record](https://github.com/BarMy49/perigee/releases/tag/v6.2.0-perigee.1) for package evidence. Older development builds used the temporary icon.
+Perigee's icon shows the Moon at perigee, the closest point of its elliptical
+orbit around Earth. The design places Earth at one focus of the ellipse and
+the Moon at the nearer end of the major axis.
+
+The desktop icon, application resource and AppImage rasterization use the same
+[SVG source](../app/res/io.github.BarMy49.Perigee.svg). See
+[asset provenance](../ASSET_NOTICES.md) for licensing and icon history.

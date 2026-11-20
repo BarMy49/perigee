@@ -1,5 +1,7 @@
 # Perigee
 
+<img src="app/res/io.github.BarMy49.Perigee.svg" alt="The Moon at perigee around Earth" width="96" height="96">
+
 Perigee is a low-latency remote desktop and game-streaming client for Linux,
 based on [Moonlight Qt](https://github.com/moonlight-stream/moonlight-qt).
 Connect to Apollo or Sunshine for remote work or play.
@@ -79,5 +81,5 @@ make -j1 debug
 
 Perigee derives from Moonlight Qt at `ac296864ace96f51ad75f78b90644bdbca76c332`.
 See the [GPL license](LICENSE), [asset provenance](ASSET_NOTICES.md) for the
-Perigee orbit icon, and [repository analysis](docs/REPOSITORY_ANALYSIS.md) for
+Earth and Moon icon, and [repository analysis](docs/REPOSITORY_ANALYSIS.md) for
 dependency pins and source provenance.

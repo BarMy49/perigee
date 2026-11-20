@@ -4,14 +4,17 @@ Perigee is based on Moonlight Qt. Existing upstream and dependency notices remai
 in the source tree. This file records application/interface artwork provenance;
 it does not replace the complete release license and corresponding-source review.
 
-## Approved Perigee application icon
+## Perigee application icon
 
-`app/res/io.github.BarMy49.Perigee.svg` is original geometric artwork approved by
-the user on 2026-11-10. An elliptical orbit, a body at one focus and a warm
-closest-approach marker represent Perigee. No external artwork, Moonlight geometry
-or fonts were copied. It uses the project's GPL-3.0-or-later terms; see LICENSE.
-The installed filename/application ID is unchanged. Package/GUI verification is
-recorded separately; approval is not a claim that every older artifact contains it.
+`app/res/io.github.BarMy49.Perigee.svg` depicts Earth at one focus of an ellipse
+and the Moon at its perigee, the nearest point on that orbit. The bodies, orbit
+and craters are drawn with original vector geometry. The artwork is schematic
+and uses the project's GPL-3.0-or-later terms. See [LICENSE](LICENSE).
+
+The v6.2.0-perigee.1 packages contain the previous original orbit icon approved
+on 2026-11-10, with a warm marker at the closest point. Both Perigee designs
+use original artwork. The icon filename and application ID identify the current
+artwork in future package builds.
 
 ## Retained upstream Moonlight icon
 
@@ -58,7 +61,6 @@ with native RPM license material. The font remains upstream artwork and is not
 claimed as original Perigee work.
 
 
-The development AppImage flow also rasterizes the approved Perigee SVG
-into a 256×256 PNG at build time for .DirIcon. This is a format conversion of the
-approved artwork, with its recorded provenance and project license.
+The AppImage build rasterizes the Perigee SVG into a 256×256 PNG for .DirIcon.
+The raster image uses the same artwork provenance and project license.
 The generated PNG stays in the AppDir and is not a new repository artwork source.
