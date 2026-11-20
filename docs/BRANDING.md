@@ -310,9 +310,9 @@ added. Full live/portal acceptance is recorded separately in Task 7C.
 
 ## Application icon
 
-Perigee's icon shows the Moon at perigee, the closest point of its elliptical
-orbit around Earth. The design places Earth at one focus of the ellipse and
-the Moon at the nearer end of the major axis.
+Earth is at the center of Perigee's icon. The elliptical lunar orbit surrounds
+it with Earth at one focus. The Moon sits at perigee, the point on the orbit
+closest to Earth.
 
 The desktop icon, application resource and AppImage rasterization use the same
 [SVG source](../app/res/io.github.BarMy49.Perigee.svg). See

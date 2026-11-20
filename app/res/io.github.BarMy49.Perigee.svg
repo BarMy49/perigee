@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
   <title>Perigee</title>
-  <desc>The Moon at perigee, the nearest point of its elliptical orbit around Earth.</desc>
+  <desc>Earth at the center of the icon, with the Moon at the nearest point of its elliptical orbit.</desc>
   <metadata>Original Perigee artwork. GPL-3.0-or-later; see LICENSE and ASSET_NOTICES.md.</metadata>
   <defs>
     <linearGradient id="sky" x1="0.14" y1="0" x2="0.86" y2="1">
@@ -35,20 +35,20 @@
     <circle cx="371" cy="346" r="4" opacity="0.55"/>
   </g>
 
-  <g transform="rotate(-32 238 260)">
-    <ellipse cx="238" cy="260" rx="174" ry="151.26136" fill="none" stroke="#1a414f" stroke-width="24"/>
-    <ellipse cx="238" cy="260" rx="174" ry="151.26136" fill="none" stroke="url(#orbit)" stroke-width="12"/>
+  <g transform="rotate(-32 256 256)">
+    <ellipse cx="202" cy="256" rx="163" ry="153.79532" fill="none" stroke="#1a414f" stroke-width="24"/>
+    <ellipse cx="202" cy="256" rx="163" ry="153.79532" fill="none" stroke="url(#orbit)" stroke-width="12"/>
 
-    <circle cx="324" cy="260" r="49" fill="url(#ocean)" stroke="#0a243f" stroke-width="6"/>
-    <path fill="url(#land)" d="M286 244l11-15 19-6 15 4 2 9-12 8-4 9-10 3-10-4-7 3zm28 13 12 5 11 12-3 11-11 15-7-4 1-14-6-10zm26-30 15 3 9 10 3 11-9 7-6-7-9-2-6-9zm10 32 14 3 4 12-10 11-8-4-5-10z"/>
-    <circle cx="324" cy="260" r="48" fill="none" stroke="#a5e8ff" stroke-width="3" opacity="0.77"/>
+    <circle cx="256" cy="256" r="60" fill="url(#ocean)" stroke="#0a243f" stroke-width="6"/>
+    <path transform="translate(256 256) scale(1.22) translate(-324 -260)" fill="url(#land)" d="M286 244l11-15 19-6 15 4 2 9-12 8-4 9-10 3-10-4-7 3zm28 13 12 5 11 12-3 11-11 15-7-4 1-14-6-10zm26-30 15 3 9 10 3 11-9 7-6-7-9-2-6-9zm10 32 14 3 4 12-10 11-8-4-5-10z"/>
+    <circle cx="256" cy="256" r="59" fill="none" stroke="#a5e8ff" stroke-width="3" opacity="0.77"/>
 
-    <circle cx="412" cy="260" r="32" fill="#172a40"/>
-    <circle cx="412" cy="260" r="27" fill="url(#lunar-surface)" stroke="#fff1d7" stroke-width="3"/>
+    <circle cx="365" cy="256" r="32" fill="#172a40"/>
+    <circle cx="365" cy="256" r="27" fill="url(#lunar-surface)" stroke="#fff1d7" stroke-width="3"/>
     <g fill="#a9a2a2">
-      <circle cx="405" cy="254" r="7"/>
-      <circle cx="420" cy="264" r="5"/>
-      <circle cx="407" cy="274" r="3.5"/>
+      <circle cx="358" cy="250" r="7"/>
+      <circle cx="373" cy="260" r="5"/>
+      <circle cx="360" cy="270" r="3.5"/>
     </g>
   </g>
 </svg>

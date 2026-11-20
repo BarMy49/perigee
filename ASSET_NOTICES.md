@@ -6,10 +6,10 @@ it does not replace the complete release license and corresponding-source review
 
 ## Perigee application icon
 
-`app/res/io.github.BarMy49.Perigee.svg` depicts Earth at one focus of an ellipse
-and the Moon at its perigee, the nearest point on that orbit. The bodies, orbit
-and craters are drawn with original vector geometry. The artwork is schematic
-and uses the project's GPL-3.0-or-later terms. See [LICENSE](LICENSE).
+`app/res/io.github.BarMy49.Perigee.svg` centers Earth in the icon and places
+the Moon at perigee, the closest point on the surrounding elliptical orbit.
+The bodies, orbit and craters use original vector geometry. The artwork is
+schematic and uses the project's GPL-3.0-or-later terms. See [LICENSE](LICENSE).
 
 The v6.2.0-perigee.1 packages contain the previous original orbit icon approved
 on 2026-11-10, with a warm marker at the closest point. Both Perigee designs
