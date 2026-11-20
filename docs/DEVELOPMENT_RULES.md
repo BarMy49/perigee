@@ -1,13 +1,13 @@
 # Development rules
 
-Status: approved workflow. See [AGENTS.md](../AGENTS.md) first, then the assigned
-[implementation task](IMPLEMENTATION_PLAN.md) and its linked decision records.
+See [AGENTS.md](../AGENTS.md) first and consult the [decision records](DECISIONS.md)
+for the relevant engineering boundaries.
 
 ## Session and Git workflow
 
 1. Inspect the worktree and submodule state. Preserve unrelated changes, including
    the pre-existing `TODO.md` and IDE files; do not stage them incidentally.
-2. Identify one checklist task, its prerequisites, likely files, and acceptance.
+2. Identify the task, its prerequisites, affected files and verification.
    Read relevant source rather than rediscovering the entire repository.
 3. Before editing, summarize intended behavior, purpose, files, constraints, and
    verification. Proceed with approved routine work without repeated permission.
@@ -120,9 +120,9 @@ Do not assume all assets or dependencies inherit the root license.
 - Record exact command, source/dependency versions, environment, exit/result,
   observed behavior, and limitations. Separate automated, manual, and proposed tests.
 - Update protocol docs for wire changes, branding docs for identity/storage changes,
-  architecture/ADRs for boundaries, and the plan for task status. Cross-link rather
-  than duplicating source catalogs or approval history.
-- An unavailable check is pending, not passed. Complete a milestone only when all
-  acceptance criteria have evidence. Do not invent latency thresholds or results.
+  and architecture and decision records for boundaries. Link to existing source
+  catalogs and decision history.
+- Record unavailable checks as pending. Use measurements to justify any latency
+  thresholds or results.
 - Report files/behavior changed, build/test outcomes, unresolved risks, docs updated,
   and the next task. Distinguish completed documentation from an unverified feature.

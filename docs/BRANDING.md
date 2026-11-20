@@ -1,14 +1,10 @@
 # Perigee branding and identity migration
 
-Status: Tasks 1A/1B implement Linux native and portable identity, desktop/AppStream
-metadata, visible branding and artifact-update suppression. Native/portable
-restart, staged metadata, separate Moonlight state, Wayland IDs and XWayland
-properties are verified; visual shell grouping and system install remain pending.
-Temporary upstream icon attribution is recorded in [ASSET_NOTICES.md](../ASSET_NOTICES.md).
-Task 1C explicit import is implemented and locally verified; live pairing tests
-are skipped by user instruction. See
+Perigee uses independent native and portable identities, explicit Moonlight
+import, and its own desktop and AppStream metadata. See
 [ADR-004](DECISIONS.md#adr-004-independent-application-identity-and-explicit-pairing-import)
-and [Milestone 1](IMPLEMENTATION_PLAN.md#milestone-1-perigee-identity-and-isolation).
+for the identity decision and [asset provenance](../ASSET_NOTICES.md) for icon
+and attribution details.
 
 Perigee app favorites are stored as `favorite` in each host's app settings record,
 defaulting to false for older profiles. They use the existing independent native
@@ -238,8 +234,8 @@ arguments. Messages contain safe counts/status only. No ordinary preferences-exp
 feature exists yet; default import is credential-free and this task does not add
 an export path. Any future ordinary export must preserve the exclusion contract.
 Focused fixtures and the exact verification commands are in
-[tests/identity-import](../tests/identity-import/README.md); runtime evidence and
-remaining acceptance are in the [plan](IMPLEMENTATION_PLAN.md#task-1c-explicit-import).
+[tests/identity-import](../tests/identity-import/README.md). Earlier runtime and import
+results are in the [implementation history](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#task-1c-explicit-import).
 
 ## Desktop, assets, packages, and attribution
 
@@ -286,12 +282,10 @@ Flatpak isolation/file selection, explicit/non-pairing import, interrupted/corru
 imports, destination races, source immutability, and real host pairing/authentication
 after migration. Assert no credential regeneration on a valid imported tuple.
 
-Tasks 1A/1B native/portable paths and identity persistence, Wayland IDs, XWayland
-window properties, staged metadata and process coexistence checks passed. Visual
-shell grouping, installed launcher/icon-cache behavior, import and distributable
-package tests remain pending; live host pairing was skipped by user instruction.
-Detailed commands and limitations are in the implementation plan. Translation
-catalogs retain upstream contexts; new product strings currently fall back to English.
+Initial checks covered native and portable paths, identity persistence, Wayland
+IDs, XWayland window properties, staged metadata and process coexistence.
+See the [historical identity checks](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#milestone-1-perigee-identity-and-isolation)
+for the early commands and limitations. Translation catalogs retain upstream contexts.
 
 
 ## Milestone 6 verification (2026-11-10)
@@ -321,5 +315,4 @@ assets. The existing app/res/io.github.BarMy49.Perigee.svg now uses that geometr
 resource/desktop/application identifiers and configuration paths stay unchanged.
 The final SVG carries the Perigee name and license metadata, with no new visible
 product text. The old Moonlight SVG remains attributed in source. See
-[asset provenance](../ASSET_NOTICES.md) and the implementation plan for exact
-rebuild/startup evidence; older accepted artifacts still contain the temporary icon.
+[asset provenance](../ASSET_NOTICES.md) and the [release record](https://github.com/BarMy49/perigee/releases/tag/v6.2.0-perigee.1) for package evidence. Older development builds used the temporary icon.

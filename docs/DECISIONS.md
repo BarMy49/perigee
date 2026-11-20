@@ -2,7 +2,7 @@
 
 Approved on 2026-10-25 when the user requested implementation of the presented
 plan. Acceptance authorizes the recorded approach; it does not mark application
-features or environment checks complete. [Implementation status](IMPLEMENTATION_PLAN.md#current-state)
+features or environment checks complete. [Implementation status](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#current-state)
 is maintained separately. Revisit a decision when its stated evidence changes,
 document the new evidence, and obtain review before an architectural deviation.
 
@@ -139,8 +139,8 @@ revision was authorized. The activation prerequisites above remain in force.
   of Perigee changes.
 - **Consequences:** Documentation can complete now, but application work waits for
   recorded baseline acceptance. Numerical performance gates follow measured variance.
-- **References:** [Environment/evidence](FEDORA_BUILD.md#verification-status),
-  [Milestone 0](IMPLEMENTATION_PLAN.md#milestone-0-baseline).
+- **References:** [Environment/evidence](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/FEDORA_BUILD.md#verification-status),
+  [Milestone 0](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#milestone-0-baseline).
 
 ### ADR-008 user-directed implementation gate exception, 2026-10-25
 
@@ -150,7 +150,7 @@ This authorizes advancing to Task 1A without full Milestone 0 acceptance. Pairin
 tests are skipped; streaming/input/audio/recovery/performance remain unverified.
 No test is marked passed by this exception. The identity architecture and all
 security/protocol boundaries remain as approved. Task 1A native evidence is in the
-[implementation plan](IMPLEMENTATION_PLAN.md#task-1a-runtime-identity-isolation).
+[implementation plan](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#task-1a-runtime-identity-isolation).
 
 ### ADR-008 user acceptance and closure, 2026-10-25
 

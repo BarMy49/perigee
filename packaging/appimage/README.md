@@ -55,7 +55,7 @@ Shell syntax and launcher fixtures verify argument preservation, host-libva choi
 and fallback behavior. Downloader checks cover matching files, digest mismatches
 and symlink refusal. These fixtures do not prove GPU decoding, artifact startup,
 portable relocation, Qt plugin availability or compatibility with older Fedora.
-Record actual build/runtime outcomes in Task 7B of the implementation plan.
+Record build and runtime outcomes in the package documentation and release notes.
 
 
 ## Executed local checks, 2026-11-10
@@ -211,7 +211,7 @@ zero swap/OOM kills under the verified 2 GiB ceiling. Native Wayland stays disab
 
 The Fedora 44 GNOME Wayland AppImage hardware check remains pending. Accepted
 RPM/Flatpak runs and the older Fedora development AppImage are distinct artifacts.
-See the implementation plan for exact retained reports and remaining gates.
+See the [implementation history](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#milestone-7-distribution-and-maintenance) for the retained build reports.
 
 
 ## System notices and serialized final packaging

@@ -64,11 +64,18 @@ server pins and GFE unique-ID behavior.
 4. Review changed dependency/source/asset licenses, notices, build flags, full
    corresponding-source availability and update metadata before release. Do not
    publish an unsigned development artifact as an accepted release.
-5. Update the implementation plan with the chosen upstream revision, conflict
-   decisions, exact new dependency revisions (if any), commands, environment and
-   unavailable checks. Mark a gate complete only from executed or explicit user
-   acceptance evidence.
+5. Update the relevant documentation and release notes with the upstream
+   revision, conflict decisions, dependency pins, verification and unavailable
+   checks. Record executed checks and explicit user acceptance.
 
 A clean compile, container check or manifest review does not establish compositor,
 GPU, host authentication or streaming success. Retain pending secondary-platform,
 host and performance coverage explicitly.
+
+
+For performance comparisons, use the same release build, host workload, codec,
+resolution, FPS, bitrate and network. Alternate repeated runs with the feature
+enabled and disabled. Record received FPS, drops, decode/render timing and
+CPU/GPU/RAM when available. Check video, audible audio, input and capture after
+repeated disconnect/reconnect cycles. Compare resource use across cycles.
+Use synthetic text for clipboard workloads.

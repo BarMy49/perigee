@@ -29,7 +29,7 @@ QT_QPA_PLATFORM=offscreen valgrind --tool=memcheck --leak-check=full \
 ```
 
 Actual placement and readability on a streaming window remain a live UI check.
-See [clipboard feedback evidence](../../docs/IMPLEMENTATION_PLAN.md#clipboard-confirmation-follow-up-2026-10-25).
+See [clipboard feedback evidence](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#clipboard-confirmation-follow-up-2026-10-25).
 
 The command-panel cases additionally check persistent visibility, warning
 preemption without reopening, notification coexistence, absent-renderer refusal,

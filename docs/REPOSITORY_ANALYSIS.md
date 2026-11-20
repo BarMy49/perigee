@@ -2,9 +2,9 @@
 
 Research date: 2026-10-25. This is source/history evidence and an approved design,
 not a claim that any Perigee feature was implemented or run. See
-[implementation status](IMPLEMENTATION_PLAN.md#current-state),
+[implementation status](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#current-state),
 [architecture](ARCHITECTURE.md), [protocol](APOLLO_PROTOCOL.md), and
-[Fedora verification](FEDORA_BUILD.md#verification-status).
+[Fedora verification](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/FEDORA_BUILD.md#verification-status).
 
 ## Executive summary
 
@@ -244,6 +244,6 @@ Primary license evidence: [Moonlight](https://github.com/moonlight-stream/moonli
 - Fedora package pages and accessible RPM Fusion package indexes were inspected;
   DNF resolution was not executed. RPM Fusion configuration/Fedora Quick Docs were
   access-protected. GNU web pages timed out; repository license texts were inspected.
-- [Build verification](FEDORA_BUILD.md#verification-status) and
-  [the implementation ledger](IMPLEMENTATION_PLAN.md#verification-ledger) distinguish
+- [Build verification](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/FEDORA_BUILD.md#verification-status) and
+  [the implementation ledger](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#verification-ledger) distinguish
   evidence collected from work still requiring a suitable environment.

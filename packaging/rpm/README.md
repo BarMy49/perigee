@@ -71,7 +71,7 @@ identity, except RPM-generated build-ID links resolving to the client itself. It
   the inherited X11/XWayland-only build; its acceptance is recorded separately.
 
 See [third-party notices](THIRD_PARTY.md), [asset provenance](../../ASSET_NOTICES.md)
-and the [implementation plan](../../docs/IMPLEMENTATION_PLAN.md).
+and the [implementation history](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#milestone-7-distribution-and-maintenance).
 
 
 ## Local evidence, 2026-11-10
@@ -172,7 +172,7 @@ SHA256: 32f418787b5b663d370fb984b8d3d1bf2ab15c2bb9e74767f20327408b3f1e3a.
 verification.json retains all four RPM hashes; input/run-build.sh retains commands.
 The build uses the recorded 619-file source snapshot before the subsequent CI/
 inventory-tool updates. App code/dependency pins are unchanged. Full commands,
-resource details and limitations are in Task 7A/7B/7D of the implementation plan.
+resource details and limitations are in the [historical packaging results](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#task-7a7b7d-clean-packaging-and-provenance-results-2026-11-10).
 
 
 ## Clean approved-icon Fedora 44 candidate, 2026-11-11

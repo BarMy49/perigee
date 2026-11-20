@@ -78,7 +78,7 @@ host/port/path only, with no userinfo, query or fragment. Empty input removes it
 The client opens it only on user action in the external browser; administrative
 login remains there. No inferred port or administrative API call is introduced.
 
-See [Milestone 2 evidence](IMPLEMENTATION_PLAN.md#milestone-2-implementation-and-local-evidence-2026-10-25)
+See [Milestone 2 evidence](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#milestone-2-implementation-and-local-evidence-2026-10-25)
 and [fixture commands](../tests/apollo-capabilities/README.md). Pure tests and local
 HTTP polling are verified; real pinned TLS, Sunshine/Apollo grants/revocation and
 interactive UI/browser acceptance remain pending.
@@ -233,7 +233,7 @@ automatic transfers, baseline preservation, focus/reconnect and permission behav
 secondary-platform and controlled latency coverage remain follow-ups.
 `SdlClipboard` uses SDL text APIs on their owner thread, records duration without
 content, and never accesses PRIMARY or Qt's clipboard. See
-[Task 3B evidence](IMPLEMENTATION_PLAN.md#task-3b-implementation-and-local-evidence-2026-10-25)
+[Task 3B evidence](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#task-3b-implementation-and-local-evidence-2026-10-25)
 for tests, shortcuts and live prerequisites. No real clipboard endpoint has been
 contacted by the agent. The user has verified GNOME manual Unicode transfers,
 notices, focus/reconnect protection and permission revoke/restore.
@@ -307,9 +307,9 @@ disconnects, old-generation replies, and local/remote edits during a request.
 
 Real acceptance requires the recorded Windows Apollo version, granted/revoked
 permissions, a matching active stream, Fedora GNOME/KDE clipboard focus behavior,
-and unchanged Sunshine operation. These tests are pending; use the
-[verification strategy](IMPLEMENTATION_PLAN.md#verification-strategy) and record
-results in [Fedora evidence](FEDORA_BUILD.md#baseline-result-record).
+and unchanged Sunshine operation. Use the
+[maintenance verification procedure](UPSTREAM_MAINTENANCE.md#verification-and-release-gate)
+for follow-up changes. See [the release record](https://github.com/BarMy49/perigee/releases/tag/v6.2.0-perigee.1) for package validation.
 
 
 ### UUID launch implementation boundary (2026-11-10)

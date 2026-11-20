@@ -1,14 +1,10 @@
 # Perigee architecture
 
-Status: approved design; Tasks 1A/1B Linux native/portable and desktop identity
-implemented, with explicit import/profile locking in Task 1C. Session-source
-changes are cosmetic labels/icon only; no streaming threading,
-decoding, rendering, input or networking lifecycle change.
-Apollo integration components remain unimplemented. Source observations are frozen to the
-2026-10-25 [repository manifest](REPOSITORY_ANALYSIS.md#inspected-revisions).
-[Decisions](DECISIONS.md) record approval and alternatives. The application still
-has upstream behavior; [milestone status](IMPLEMENTATION_PLAN.md#current-state)
-is the source of truth for implementation progress.
+This guide describes the upstream Moonlight Qt baseline and the Perigee changes
+to identity, Apollo integration, clipboard services, display launch and in-stream
+controls. The [baseline manifest](REPOSITORY_ANALYSIS.md#inspected-revisions)
+records the source revisions. See [the README](../README.md) for current features
+and [decisions](DECISIONS.md) for design tradeoffs.
 
 ## Existing Moonlight Qt architecture
 
@@ -333,7 +329,7 @@ addressed setter for the separate admin link. The capabilities panel displays a
 plain-text snapshot; browser launch is explicit. No stream/session behavior or
 permission mutation is introduced. This is the metadata part of ADR-002, not an
 implementation of the planned asynchronous session services. Test and acceptance
-limits are recorded in [Milestone 2](IMPLEMENTATION_PLAN.md#milestone-2-apollo-foundation).
+limits are recorded in [Milestone 2](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#milestone-2-apollo-foundation).
 
 ## Implemented Task 3A bridge
 
@@ -362,7 +358,7 @@ clipboard path described below. No clipboard/window action is attached to the di
 Transport operation policy and owner-thread clipboard adapters remain Task 3B;
 there is no change to the approved media loop or renderer ownership.
 
-See [Task 3A evidence](IMPLEMENTATION_PLAN.md#task-3a-implementation-and-local-evidence-2026-10-25)
+See [Task 3A evidence](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#task-3a-implementation-and-local-evidence-2026-10-25)
 for fixture coverage and pending real-stream/performance checks. This implements
 the bridge part of ADR-003, not compositor clipboard acceptance.
 
@@ -404,7 +400,7 @@ automatic read duration and fallback diagnostics are logged, without content.
 The controller's clock enforces poll/backoff deadlines; worker ticks supply the
 previously missing owner wakeup. The integrated GNOME automatic path is accepted
 by the user; secondary-platform and controlled latency coverage remain follow-ups.
-See [Task 3B](IMPLEMENTATION_PLAN.md#milestone-0-and-task-3b-closure-2026-10-25).
+See [Task 3B](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#milestone-0-and-task-3b-closure-2026-10-25).
 
 ## Clipboard result notifications
 
@@ -415,7 +411,7 @@ only when rendered content changes. Expiry is checked in the SDL owner loop and
 bounds its idle wait. No new overlay type or DRM plane is required, and no renderer
 or media-loop architecture is replaced. Controller outcomes reach the display only
 on the owner thread, after host acknowledgement/local application respectively.
-See [verification](IMPLEMENTATION_PLAN.md#clipboard-confirmation-follow-up-2026-10-25).
+See [verification](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#clipboard-confirmation-follow-up-2026-10-25).
 
 ## Virtual-display launch intent
 
@@ -439,13 +435,13 @@ The only new wire value is `virtualDisplay=1` for an eligible new launch. Intege
 mode/FPS, GFE's existing high-FPS workaround and stream/video/audio/input/pacing
 algorithms are preserved. Requested stream dimensions are not confirmation of a
 host display mode. Scaling, fractional refresh, monitor selection and live changes
-remain deferred. Real host creation/mode/ordinary-Sunshine regression checks are
-still pending in [Milestone 4](IMPLEMENTATION_PLAN.md#milestone-4-display-launch-management).
+remain deferred. The [historical display launch record](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#milestone-4-display-launch-management)
+contains the policy and acceptance evidence.
 
 ## Validation and navigation
 
 Use [development rules](DEVELOPMENT_RULES.md) for changes and review,
 [Fedora build](FEDORA_BUILD.md) for actual test commands and platform caveats,
 [branding](BRANDING.md) for identity/authentication separation, and
-[implementation plan](IMPLEMENTATION_PLAN.md#verification-strategy) for acceptance.
+[upstream maintenance](UPSTREAM_MAINTENANCE.md#verification-and-release-gate) for release checks.
 No compile, runtime, or performance result is implied by these diagrams.

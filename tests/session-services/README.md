@@ -51,4 +51,4 @@ receive-only/send-only grants. Linking the SDL adapter permits platform-policy
 checks; these fixtures still never read or write the OS clipboard.
 These tests do not establish live Apollo/Sunshine session compatibility,
 clipboard ownership/latency, media performance, or compositor behavior. See the
-[implementation plan](../../docs/IMPLEMENTATION_PLAN.md#task-3a-session-service-bridge).
+[historical lifecycle checks](https://github.com/BarMy49/perigee/blob/18c34bf1e44c5fd3c9fa1fe3f735fc96a8a2539b/docs/IMPLEMENTATION_PLAN.md#task-3a-session-service-bridge).
