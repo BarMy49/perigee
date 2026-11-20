@@ -18,6 +18,33 @@ remain compatible. Stack: C++17, Qt/QML, SDL, FFmpeg, and Moonlight Common C.
 
 ## Current state and gate
 
+**2026-11-20 release status:** the clean AppImage is accepted on Apollo and
+Sunshine. The user confirms the Apollo performance/reconnect comparison passed
+without noticeable regression or growing resources. Final Flatpak and Fedora
+44/45 RPM rebuilds use application source 82fa8811. Container transactions and
+local Fedora 45 isolated startup checks are documented in the implementation
+plan. The release artifacts have matching source packages and checksums.
+
+**2026-11-12 acceptance correction:** the user confirms Milestone 5 and 6
+functional checks are complete and were previously undocumented. Treat their
+implemented UI/input/profile/SFTP/UUID scope as user-accepted; historical pending
+functional-check statements below are superseded. Commands/advanced integrations
+remain deferred. No numerical performance results or unavailable hardware passes
+are inferred. See the updated milestone sections in the implementation plan.
+
+**2026-11-11 target correction:** the user clarifies that the installed desktop is
+Fedora 45. Earlier user reports labelled Fedora 44 below do not establish Fedora
+44 hardware coverage. The strict Fedora 44 kit refuses Fedora 45; exact execution
+of that kit is therefore unverified. Keep real Fedora 44 compositor/GPU checks
+pending. Fedora 44 container/CI/build results remain valid, as do independently
+recorded Fedora 45 checks. The new Fedora 45 AppImage launcher uses final artifact
+c2402b88e0a3f596d199b5f8fbf3cde4ebebf089fee417a1fae6b667fcdece1e; the user now confirms its Fedora 45 GNOME Wayland/XWayland
+Sunshine launch/resume, video/audio/input and reconnect checks pass. Original user reports are preserved, not treated as
+verified runs of a different artifact or distribution. The user confirms neither
+Fedora 44 GNOME nor KDE Wayland is available. CI 43068988446 passes all three
+lanes at 82fa8811; a 376-entry source review archive passes hash verification.
+See the latest implementation-plan entry for remaining release gates.
+
 - Source baseline: Moonlight Qt `ac296864ace96f51ad75f78b90644bdbca76c332`.
 - Tasks 1A/1B Linux identity are implemented: `perigee`, independent native and
   portable state, desktop/AppStream metadata, attributed temporary icon and disabled
@@ -399,3 +426,10 @@ Current task: finish review snapshot/CI and await the already-paired native
 Sunshine AppImage check requested via the unchanged Fedora 44 kit. No new pairing
 or credential copying. Full source hosting/license and broader hardware gates
 remain open; no release, tag, merge or Common C publication is authorized.
+
+
+On 2026-11-11 the user authorizes skipping Fedora 44 hardware confirmation and
+using the local Fedora 45 machine for this Milestone 7 continuation. Fedora 44
+container results remain valid; no Fedora 44 hardware pass is claimed. KDE
+coverage remains unavailable. Clean final AppImage reproduction and the
+[source distribution review](packaging/appimage/SOURCE_DISTRIBUTION.md) are the current work.

@@ -52,9 +52,9 @@ Approved plan date: 2026-10-25. This document is the task/status entry point; re
 | 3A: Session service bridge | Implemented; local lifecycle checks pass; live disabled-stream comparison pending | User-directed 3A; capability values and ADR-003 |
 | 3B: Text clipboard | Done, user-accepted on GNOME Wayland | Manual and focused automatic sync; other backends manual-only; secondary-platform coverage follow-ups retained |
 | 4: Display launch controls | Implemented; user reports primary-host tests passed on 2026-10-28; detailed matrix follow-ups retained | Authenticated metadata, fresh launch, driver/permission readiness |
-| 5: Productivity UI and controls | Implementation delivered through shortcut editor and stream panel; local checks pass, live acceptance pending | Existing actions, ownership/performance checks |
-| 6: Optional integrations | Profiles, SFTP and gated UUID implemented locally; commands explicitly deferred by user on 2026-11-10 | Live-host acceptance remains pending |
-| 7: Distribution and maintenance | Current implementation stage, authorized on 2026-11-10; packaging not started | Distribution readiness and retained compatibility gates |
+| 5: Productivity UI and controls | Implemented; functional checks confirmed complete by user on 2026-11-12 | Separate controlled performance measurements remain unreported |
+| 6: Optional integrations | Selected scope complete; profiles, SFTP and gated UUID checks confirmed by user on 2026-11-12 | Commands and advanced integrations remain explicitly deferred |
+| 7: Distribution and maintenance | Final AppImage, Flatpak, Fedora 44 and Fedora 45 RPM builds verified | Final live package checks and release publication |
 
 ## Documentation delivery
 
@@ -1150,15 +1150,26 @@ Unsupported live/physical display changes and fractional refresh remain deferred
 
 ## Milestone 5: productivity UI and in-stream controls
 
+**Acceptance update, 2026-11-12:** the user confirms that the Milestone 5 and 6
+checks were completed but had not been documented. Record the previously listed
+functional acceptance checks as user-verified: appearance/restart, shortcut and
+stream-panel input/focus/scaling behavior, profile selection/isolation, desktop
+SFTP dispatch, Apollo UUID launch and standard Sunshine compatibility. This
+supersedes historical pending functional-acceptance wording below. No new tests
+were run by the agent, and no exact test build, logs or numerical performance
+measurements were supplied with this confirmation. Controlled performance and
+unavailable secondary-hardware coverage remain separate; commands and advanced
+integrations remain deferred by the prior scope decision.
+
 **Goal:** workstation-oriented navigation, input configuration and accessible controls.
 **Sources:** existing `app/gui/` views/models, `StreamingPreferences`, input actions
 and `OverlayManager` hooks. **Dependencies:** relevant integration capability/state.
 
-- [ ] Incrementally improve host/app/desktop selection, favorites, settings layout,
+- [x] Incrementally improve host/app/desktop selection, favorites, settings layout,
   light/dark behavior, keyboard navigation, spacing and native decorations.
-- [ ] Expose configurable local/remote shortcuts with an emergency escape action;
+- [x] Expose configurable local/remote shortcuts with an emergency escape action;
   test key releases, AltGr/Windows keys/dead keys/IME and focus transitions.
-- [ ] Add a keyboard-accessible small OSD command panel for existing disconnect,
+- [x] Add a keyboard-accessible small OSD command panel for existing disconnect,
   fullscreen, capture/mouse, clipboard and stats actions; reconnect uses a controlled
   new session lifecycle. Unsupported host/display controls remain unavailable.
 - [ ] Validate scaling, pointer transitions, no video readback/continuous QML scene,
@@ -1372,7 +1383,7 @@ continues the desktop UI work below.
 - [x] Translate Appearance, Dark and Light in all 30 TS/QM locales.
 - [x] Focused application-window/popup, preference/import, translation and isolated
   startup/restart checks.
-- [ ] User acceptance of light/dark views, menus/dialogs and restart persistence.
+- [x] User acceptance of light/dark views, menus/dialogs and restart persistence.
 
 `StreamingPreferences` stores local `uitheme` separately from stream preferences;
 the explicit Moonlight importer excludes it. Startup selects the saved Material
@@ -1636,13 +1647,24 @@ not a recorded pass. KDE and Sunshine remain independent coverage requirements.
 
 ## Milestone 6: additional integrations
 
+**Acceptance update, 2026-11-12:** the user confirms that the Milestone 5 and 6
+checks were completed but had not been documented. Record the previously listed
+functional acceptance checks as user-verified: appearance/restart, shortcut and
+stream-panel input/focus/scaling behavior, profile selection/isolation, desktop
+SFTP dispatch, Apollo UUID launch and standard Sunshine compatibility. This
+supersedes historical pending functional-acceptance wording below. No new tests
+were run by the agent, and no exact test build, logs or numerical performance
+measurements were supplied with this confirmation. Controlled performance and
+unavailable secondary-hardware coverage remain separate; commands and advanced
+integrations remain deferred by the prior scope decision.
+
 Each item is an independent task; do not implement them as one change.
 
 - [x] Profiles: reuse preference snapshots, editable Programming/Gaming presets,
   no mutation of active global state. Test session/profile isolation and restart.
 - [x] SFTP: open a user-configured `sftp://` destination through desktop integration;
   no SSH provisioning or plaintext secret storage. Test unsupported/missing handlers.
-- [ ] Application UUID: parse/preserve host extensions and launch only supported
+- [x] Application UUID: parse/preserve host extensions and launch only supported
   hosts; standard numeric ID remains the compatibility path. Test both hosts.
 - [ ] Commands: separately review an additive Common C patch and distributable pin,
   host-list-only uint8 indices, permission/session gating and sent/failed status.
@@ -1744,9 +1766,19 @@ remain deferred for host/hardware evidence.
 
 ## Milestone 7: distribution and maintenance
 
+**2026-11-11 target correction:** the user clarifies that the installed desktop is
+Fedora 45. Earlier user reports labelled Fedora 44 below do not establish Fedora
+44 hardware coverage. The strict Fedora 44 kit refuses Fedora 45; exact execution
+of that kit is therefore unverified. Keep real Fedora 44 compositor/GPU checks
+pending. Fedora 44 container/CI/build results remain valid, as do independently
+recorded Fedora 45 checks. The new Fedora 45 AppImage launcher uses final artifact
+c2402b88e0a3f596d199b5f8fbf3cde4ebebf089fee417a1fae6b667fcdece1e; the user now confirms its Fedora 45 GNOME Wayland/XWayland
+Sunshine launch/resume, video/audio/input and reconnect checks pass. Original user reports are preserved, not treated as
+verified runs of a different artifact or distribution.
+
 **Goal:** reproducible independent packages and sustainable upstream updates.
 Current stage authorized on 2026-11-10 after explicit command deferral. Current task:
-complete AppImage standard Sunshine coverage and final source/notice review.
+complete final source/notice review; Fedora 45 AppImage Sunshine is user-accepted.
 Native RPM packaging is implemented and undergoing local validation (Task 7A below).
 The user installed and removed the local RPM; installed launcher/coexistence checks
 pass below. Upgrade is also verified; broader release acceptance remains pending.
@@ -2761,3 +2793,138 @@ remain intact. The user has been asked for AppImage launch/resume/A/V/input/
 reconnect against an already-paired standard Sunshine host using that same kit;
 no new pairing/import is requested. Broader compositor/performance and final
 source distribution/license review remain separately open.
+
+
+### Fedora 45 Sunshine acceptance and source review bundle (2026-11-11)
+
+The user reports “tested and works” for run-fedora45-appimage-check.sh and final
+AppImage SHA256 c2402b88e0a3f596d199b5f8fbf3cde4ebebf089fee417a1fae6b667fcdece1e.
+Record the requested standard Sunshine launch/resume, video, audible audio,
+keyboard/mouse and disconnect/reconnect checks as user-reported passes on Fedora
+45 GNOME Wayland with the XWayland AppImage. Target logs, memory counters and
+controlled performance were not inspected. Evidence: fedora45-sunshine-user-acceptance.json
+in appimage-controlled-20261111 under the private build cache. Earlier Fedora
+44-labelled hardware reports remain superseded by the target correction above.
+The user confirms neither Fedora 44 GNOME nor KDE Wayland is available; both
+hardware coverage gates remain unavailable, not passed.
+
+[Fedora CI 43068988446](https://github.com/BarMy49/perigee/actions/runs/43068988446)
+passes all three debug/release/RPM lanes at 82fa881156c61b218043bed882a3bc18ad467c7a.
+The existing workflow enforces one build job and serial lanes with 896 MiB RAM
+and 128 MiB swap. This is container verification, separate from hardware tests.
+
+Local source review archive: appimage-controlled-20261111/
+Perigee-c2402b88-source-review.tar, 546631680 bytes, SHA256
+7d7527258ccd8ab167a9a1358e23c7ff2ca0c6591eb0cb5cf32a6acbcf258199.
+It contains 376 entries: exact committed application/build source, 16 custom Git
+source archives and recorded patches, 43 system source groups, runtime/Alpine
+source and recipe inputs, the final license tree, repository signature evidence
+and payload inventories. Explicit file selection excludes profiles, login settings,
+IDE data and deferred Common C proposal files. The manifest and SHA256SUMS bind
+each selected file; all archive members pass streamed round-trip hash verification.
+The single-process uncompressed archive operation stays under the stricter
+896 MiB RAM/128 MiB swap guard: sampled RAM peak 671199232 bytes, zero sampled
+swap, exit 0. No application rebuild or package change occurs.
+
+The bundle is local review material, not source hosting, a published release,
+a complete license classification or a reproducible-build claim. A clean final
+workflow reproduction, final source-access/distribution review and unavailable
+hardware checks remain open. No release/tag/merge/manual workflow dispatch occurs.
+
+
+On 2026-11-11 the user authorizes skipping Fedora 44 hardware confirmation and
+using the local Fedora 45 machine for this Milestone 7 continuation. Fedora 44
+container results remain valid; no Fedora 44 hardware pass is claimed. KDE
+coverage remains unavailable. Clean final AppImage reproduction and the
+[source distribution review](../packaging/appimage/SOURCE_DISTRIBUTION.md) are the current work.
+
+
+### Clean final AppImage reproduction (2026-11-12)
+
+The final 82fa8811 recipe completed from the pinned Ubuntu base, fresh application
+source and all seven fresh dependency builds, without retries. Kernel limits were
+verified before setup: 1792 MiB RAM, 256 MiB swap, one CPU; compiler/LTO/compressor
+jobs were one. RAM peak 1342865408 bytes, zero swap and OOM kills. Evidence root:
+appimage-clean-final-20261111 in the private build cache.
+
+Artifact SHA256: 4ceee61c1ae51c3901b3927b56fb72853ddd23b5f795e41e41811e1ee2085675.
+All 47 Qt 6.2 application-linked cases pass. Ubuntu's older readelf rejected an SDL
+note during the separate inventory step; Fedora 45 inventory succeeds. Local
+XWayland/icon/help, portable import/restart/relocation, identity and legacy-marker
+checks pass; all three production profiles remain unchanged. Local checks peak
+at 519397376 bytes with zero sampled swap. Results: smoke-heel3abq/result.json.
+
+All 73 system package records and 16 custom notice/source records match the prior
+image; 110 of 112 ELF hashes match. Perigee build paths/compiler identifiers and
+SDL2-compat's build timestamp differ. Clean-build success is not bitwise
+reproducibility. The user now confirms video/audio/keyboard/mouse/reconnect against both Apollo
+and Sunshine on this exact clean-built artifact;
+run-fedora45-clean-check.sh verifies its checksum and uses existing pairing.
+Fedora 44 hardware confirmation is skipped at the user's direction.
+
+
+### Recovery and distribution review (2026-11-12)
+
+Fresh Fedora 45 session-services build with make -j1 passes 22/22 cases. The same
+suite under Memcheck passes 22/22 with zero errors and zero definitely, indirectly
+or possibly lost bytes (574272 bytes still reachable). Valgrind reports degraded
+system zlib debug information; retain that diagnostic limitation. Evidence:
+/tmp/perigee-recovery-20261112 and /tmp/perigee-recovery{,-memcheck}-memory.json.
+Both runs use the existing 896 MiB RAM/128 MiB swap guard. These synthetic TLS,
+timeout, permission, rapid-restart and cancellation checks are not live media
+performance or network-loss acceptance.
+
+The user can run the controlled Apollo comparison in
+[the performance procedure](PERFORMANCE_CHECKS.md); measurements remain pending.
+Distribution review identifies that retained RPM/Flatpak artifacts predate the
+final AppImage parser fix; a release of all formats needs matching final rebuilds
+and source/artifact associations. Their documentation now prominently corrects
+old Fedora 44 hardware labels. No release or source hosting has occurred.
+
+
+### Apollo performance acceptance and final package rebuilds (2026-11-12)
+
+The user confirms the proposed Apollo performance and reconnect checks pass,
+with no noticeable regression or growing resource use. Record qualitative
+user acceptance; numerical timing/resource values were not supplied. The user
+authorizes continuing final RPM/Flatpak rebuilds through release, one build job
+and a 2 GiB ceiling. New packages use the same 82fa8811 application source as the
+accepted clean AppImage. A fresh native 0.5 RPM build is started in
+rpm-final-20261112 under the stricter existing verified 896 MiB RAM/128 MiB swap
+guard, with one compiler/LTO job. No final package pass is claimed before checks.
+
+
+### Final Flatpak rebuild, 2026-11-20
+
+The clean one-job Flatpak build passes using the final 82fa8811 application
+source archive. The final manifest includes exact fast_float and Vulkan-Headers
+notices for libplacebo. Private install/removal, permissions, loader, help and
+isolated Fedora 45 native Wayland startup pass. The matching source archive
+contains 15 dependency repositories and the exact application snapshot.
+See [the package record](../packaging/flatpak/README.md) for hashes and SDK and
+runtime details. The earlier exact-bundle live streaming results are retained
+separately from the final candidate's startup checks.
+
+
+### Final Fedora RPM ABI check, 2026-11-20
+
+The final Fedora 44 0.5 binary and source RPMs were rebuilt from 82fa8811
+with one job. The Fedora 44 container passed install, 0.4-to-0.5 upgrade,
+verification and removal. Fedora 45 has a newer FFmpeg ABI and cannot launch
+the Fedora 44 binary with its installed libraries. A separate Fedora 45 RPM
+build uses the same application inputs, a pinned official Fedora 45 container,
+one job and a verified shared 1536 MiB RAM/256 MiB swap cap. See
+[the RPM record](../packaging/rpm/README.md) for hashes and the target distinction.
+
+
+### Release assembly, 2026-11-20
+
+The Fedora 45 native RPM build, container transactions, matching source RPM
+verification and isolated local startup pass. The final release set contains
+the tested AppImage, final Flatpak, Fedora 44 and Fedora 45 RPMs, their matching
+source packages and SHA256SUMS. All downloads in the local set are hash-verified.
+The AppImage source README now describes the clean build and includes the
+user-reported Apollo/Sunshine acceptance record. The Flatpak source package
+includes the exact manifest with libplacebo's additional notices. The review
+branch records release packaging and documentation separately from the shared
+application source 82fa8811. The deferred Common C proposal remains local.

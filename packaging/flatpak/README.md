@@ -270,3 +270,36 @@ The user subsequently reports startup and streaming pass on real Fedora 44 GNOME
 Wayland with this kit. This is user-reported acceptance for the exact bundle;
 target evidence files, exact GPU/codec path and controlled performance are not
 independently inspected or inferred. KDE and other package formats remain separate.
+
+
+## Target correction and distribution status
+
+The user later clarified that the installed desktop is Fedora 45. Earlier Fedora
+44-labelled hardware reports above do not establish Fedora 44 hardware coverage.
+The strict Fedora 44 launchers refuse Fedora 45. Fedora 44 container results remain
+valid; hardware confirmation is skipped at the user's direction. Local Fedora 45
+acceptance and unavailable KDE coverage are recorded separately in the plan.
+These retained packages predate the Qt 6.2 parser fix in the final AppImage review
+snapshot. Do not label them as the same final source revision without rebuilding
+and checking their source/artifact association. No release has been published.
+
+
+## Final source rebuild, 2026-11-20
+
+The final Flatpak uses application source 82fa8811 and includes libplacebo's
+vendored fast_float and Vulkan-Headers notices. The manifest records exactly how
+those files are installed from the pinned source tree. The clean build used one
+job and peaked at 915562496 bytes in the sampled aggregate memory guard.
+
+Bundle SHA256 97bf27de95eedac3a00ae385b23d0ba4a70ea7f70805ac9939e0ec42bf060b7c.
+Its matching Flatpak source archive has SHA256
+51c9411bd27e82504981af44721c4287d7b205e794a86b40dc36b72eb1db26c7.
+The archive includes the manifest, exact application snapshot, 15 dependency
+archives, build/runtime commits, packaged notices and checksums. KDE Platform
+remains a separate runtime. The SDK used its retained f77a6522 commit. Local
+Fedora 45 tests used Platform commit 2c059c88.
+
+Private install, permissions, loader/help, isolated Wayland startup, notice and
+source verification, and removal pass. Exact-candidate live media/input/reconnect
+checks remain separate. Logs and artifacts are in flatpak-final-20261112 under
+the private build cache.

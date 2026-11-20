@@ -45,7 +45,9 @@
       ],
       "post-install": [
         "mkdir -p /app/share/licenses/perigee/dependencies/libplacebo",
-        "found=0; for notice in LICENSE* COPYING* ../LICENSE* ../COPYING*; do if test -f \"$notice\"; then install -m644 \"$notice\" \"/app/share/licenses/perigee/dependencies/libplacebo/$(basename \"$notice\")\"; found=1; fi; done; test \"$found\" = 1"
+        "found=0; for notice in LICENSE* COPYING* ../LICENSE* ../COPYING*; do if test -f \"$notice\"; then install -m644 \"$notice\" \"/app/share/licenses/perigee/dependencies/libplacebo/$(basename \"$notice\")\"; found=1; fi; done; test \"$found\" = 1",
+        "for root in 3rdparty ../3rdparty; do if test -f \"$root/fast_float/LICENSE-MIT\"; then source_root=$root; break; fi; done; test -n \"$source_root\"; for notice in LICENSE-MIT LICENSE-BOOST LICENSE-APACHE; do install -Dm644 \"$source_root/fast_float/$notice\" \"/app/share/licenses/perigee/dependencies/libplacebo/fast_float/$notice\" || exit; done",
+        "for root in 3rdparty ../3rdparty; do if test -f \"$root/Vulkan-Headers/LICENSE.md\"; then source_root=$root; break; fi; done; test -n \"$source_root\"; install -Dm644 \"$source_root/Vulkan-Headers/LICENSE.md\" /app/share/licenses/perigee/dependencies/libplacebo/Vulkan-Headers/LICENSE.md && for notice in Apache-2.0.txt MIT.txt; do install -Dm644 \"$source_root/Vulkan-Headers/LICENSES/$notice\" \"/app/share/licenses/perigee/dependencies/libplacebo/Vulkan-Headers/LICENSES/$notice\" || exit; done"
       ]
     },
     {

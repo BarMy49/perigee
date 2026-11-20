@@ -207,3 +207,56 @@ The user now explicitly accepts this exact Fedora 44 0.4 candidate's install,
 startup/icon, video/audio/input, reconnect and removal on real GNOME Wayland.
 This is target user-reported acceptance; exact codec/GPU paths and performance
 are separate unreported details. Target evidence files were not directly inspected.
+
+
+## Target correction and distribution status
+
+The user later clarified that the installed desktop is Fedora 45. Earlier Fedora
+44-labelled hardware reports above do not establish Fedora 44 hardware coverage.
+The strict Fedora 44 launchers refuse Fedora 45. Fedora 44 container results remain
+valid; hardware confirmation is skipped at the user's direction. Local Fedora 45
+acceptance and unavailable KDE coverage are recorded separately in the plan.
+These retained packages predate the Qt 6.2 parser fix in the final AppImage review
+snapshot. Do not label them as the same final source revision without rebuilding
+and checking their source/artifact association. No release has been published.
+
+
+## Final Fedora 44 rebuild, 2026-11-20
+
+The 0.5 Fedora 44 build from 82fa8811 and its source RPM passed a disposable
+dependency test, fresh install, file verification, upgrade from 0.4 and removal.
+The source RPM contains the exact application source archive and spec file.
+The package has 16 regular files and one generated build-ID link. It shares
+a build-ID directory with Moonlight and has no overlapping files.
+
+- Binary SHA256 da1818650dec3036262a64207cd821a6677117a9303f3ba37d4878ff671ee3f8
+- Source RPM SHA256 72ac61ed9af44800334d34da63df6d89fa7de05f080ed3a92c7c2541325ac43b
+
+The successful retry recovered the pinned SDK into a fresh private VFS store
+after a container lock conflict. It verified the cgroup barrier before build.
+Serial compilation and LTO stayed under 896 MiB RAM and 128 MiB swap.
+The combined sample peak was 804519936 bytes and the kernel logged zero OOM kills.
+
+The Fedora 44 ELF requires FFmpeg 8 sonames. Local Fedora 45 has FFmpeg 9
+and rejected this binary at startup due to a missing libavcodec.so.62.
+Use the RPM built for the matching Fedora version. The Fedora 45 build tracks
+its own ABI, package lifecycle and local launch checks.
+
+
+## Final Fedora 45 rebuild, 2026-11-20
+
+The native 0.5 Fedora 45 RPM uses the same 82fa8811 application source.
+In the Fedora 45 container it passes dependency resolution, installation, file
+verification and removal. The exact source archive and spec match the SRPM.
+On the local Fedora 45 GNOME Wayland desktop the extracted binary resolves
+FFmpeg 9 and passes help and isolated startup. It has no file collision with
+the installed Moonlight package. Live acceptance of the final RPM is tracked
+separately from these checks.
+
+- Binary SHA256 3c010900dab7954f20722bcc0099f23cda1d00b23c1452182322003d26a57b27
+- Source RPM SHA256 f745e6e57f731a61e035bd81ae9ef65a851058f5f9823e850c5dae61d0b3fea1
+
+The build used the official Fedora 45 OCI image pinned by digest, one compiler
+and LTO job, a verified 1536 MiB RAM and 256 MiB swap cap, and one CPU.
+Sampled combined peak was 1076072448 bytes with zero OOM kills. Evidence is in
+rpm-fedora45-final-20261120 under the private build cache.

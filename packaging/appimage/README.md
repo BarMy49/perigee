@@ -253,3 +253,32 @@ Five repository release signatures verify against retained SDK public keyrings.
 Full license/source distribution review and hosting remain required before a
 release; individual source uploader signatures and binary reproducibility are
 not inferred from these records.
+
+
+## Test-host correction, 2026-11-11
+
+The user clarifies Fedora 45 is installed. Previous Fedora 44-labelled hardware
+reports are not verified Fedora 44 coverage; the original strict-44 kit would
+refuse this host. Actual container/CI results remain separate and valid. A local
+Fedora 45 launcher is appimage-controlled-20261111/run-fedora45-appimage-check.sh
+under the build cache. It checks the exact c2402b88...dece1e artifact checksum and
+uses the existing native Perigee profile under the original stricter memory cap.
+The user confirms the Fedora 45 Sunshine launch/resume, video/audio/keyboard/mouse
+and reconnect check passes for this exact final artifact. Target logs and memory
+counters were not inspected. Actual Fedora 44 hardware coverage remains pending.
+
+
+The local matching source review bundle is
+appimage-controlled-20261111/Perigee-c2402b88-source-review.tar under the build cache.
+Its README maps application, custom Git, system and runtime sources to the final
+notice tree. All 376 entries pass hash verification; SHA256SUMS is included.
+Bundle SHA256: 7d7527258ccd8ab167a9a1358e23c7ff2ca0c6591eb0cb5cf32a6acbcf258199.
+This is local review material; source hosting and final distribution review remain
+open. Fedora 44 GNOME and KDE hardware checks are unavailable per the user.
+
+
+On 2026-11-11 the user authorizes skipping Fedora 44 hardware confirmation and
+using the local Fedora 45 machine for this Milestone 7 continuation. Fedora 44
+container results remain valid; no Fedora 44 hardware pass is claimed. KDE
+coverage remains unavailable. Clean final AppImage reproduction and the
+[source distribution review](SOURCE_DISTRIBUTION.md) are the current work.
