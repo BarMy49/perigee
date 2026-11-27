@@ -71,8 +71,8 @@ host-library development AppImage. The inherited controlled dependency build
 remains the intended AppImage release path.
 
 The inherited Build workflow formerly ran Windows/macOS/Steam Link packaging on
-every push despite their unverified identity. It is now manual, with legacy targets
-off by default. The upstream Steam Link workflow was removed in November 2026. Push/PR checks use the Perigee Fedora debug/release/RPM workflow;
+every push despite their unverified identity. It is now manual. The upstream Steam Link and macOS workflows were removed in
+November 2026; Windows builds in its own workflow. Push/PR checks use the Perigee Fedora debug/release/RPM workflow;
 manual packaging can still exercise the independent AppImage workflow. GitHub
 execution needs an authorized commit/push; no remote action has occurred.
 The Fedora checkout retains full history so translation checks can archive the
