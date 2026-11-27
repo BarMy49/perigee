@@ -105,7 +105,7 @@ QString Path::getDataFilePath(QString fileName)
 void Path::initialize(bool portable)
 {
     if (portable) {
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_LINUX) || defined(Q_OS_WIN32)
         const QString portableRoot = QDir::currentPath() + "/perigee-data";
         s_LogDir = portableRoot + "/logs";
         s_BoxArtCacheDir = portableRoot + "/boxart";

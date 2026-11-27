@@ -292,7 +292,7 @@ LONG WINAPI UnhandledExceptionHandler(struct _EXCEPTION_POINTERS *ExceptionInfo)
     }
 
     WCHAR dmpFileName[MAX_PATH];
-    swprintf_s(dmpFileName, L"%ls\\Moonlight-%I64u.dmp",
+    swprintf_s(dmpFileName, L"%ls\\Perigee-%I64u.dmp",
                (PWCHAR)QDir::toNativeSeparators(Path::getLogDir()).utf16(), QDateTime::currentSecsSinceEpoch());
     QString qDmpFileName = QString::fromUtf16((const char16_t*)dmpFileName);
     HANDLE dumpHandle = CreateFileW(dmpFileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
@@ -435,7 +435,7 @@ int main(int argc, char *argv[])
     // Set these here to allow us to use the default QSettings constructor.
     // These also ensure that our cache directory is named correctly. As such,
     // it is critical that these be called before Path::initialize().
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_LINUX) || defined(Q_OS_WIN32)
     QCoreApplication::setOrganizationName("io.github.BarMy49");
     QCoreApplication::setOrganizationDomain("barmy49.github.io");
     QCoreApplication::setApplicationName("Perigee");
@@ -446,7 +446,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("Moonlight");
 #endif
 
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_LINUX) || defined(Q_OS_WIN32)
     const QString portableMarker = "/perigee-portable.dat";
     const QString portableConfigDir = QDir::currentPath() + "/perigee-data/config";
 #else
@@ -769,7 +769,7 @@ int main(int argc, char *argv[])
     // Set our app name for SDL to use with PulseAudio and PipeWire. This matches what we
     // provide as our app name to libsoundio too. On SDL 2.0.18+, SDL_APP_NAME is also used
     // for screensaver inhibitor reporting.
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_LINUX) || defined(Q_OS_WIN32)
     SDL_SetHint(SDL_HINT_AUDIO_DEVICE_APP_NAME, "Perigee");
     SDL_SetHint(SDL_HINT_APP_NAME, "Perigee");
 #else

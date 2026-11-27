@@ -1,5 +1,5 @@
 ---
-name: Build - Windows and macOS
+name: Build - macOS
 permissions:
   contents: read
 
@@ -18,9 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # Windows
-          - os: windows-2025
-            qt_version: 6.12.0
+          # Windows builds are in build-windows.yml
           # macOS
           - os: macos-26
             qt_version: 6.11.2
