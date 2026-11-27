@@ -39,7 +39,7 @@ notices; see [asset provenance](../../ASSET_NOTICES.md).
 
 Extract into a new directory, then run `sha256sum --check SHA256SUMS` there before
 using source files. The application archive contains the final
-`.github/workflows/build-appimage.yml`, `scripts/build-appimage.sh`, pinned packaging
+`.github/workflows/package-linux-appimage.yml`, `scripts/build-appimage.sh`, pinned packaging
 tool digests and the controlled build flags. Use the digest-pinned Ubuntu base,
 one compiler/LTO/compression job, and an enforced combined 2 GiB ceiling.
 

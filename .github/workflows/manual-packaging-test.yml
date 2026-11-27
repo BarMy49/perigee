@@ -1,5 +1,5 @@
 ---
-name: Perigee manual packaging checks
+name: Manual test - AppImage and Windows packaging
 permissions:
   contents: read
 
@@ -25,7 +25,7 @@ jobs:
 
   build-appimage:
     needs: setup
-    uses: ./.github/workflows/build-appimage.yml
+    uses: ./.github/workflows/package-linux-appimage.yml
     with:
       ci_version: ${{ needs.setup.outputs.ci_version }}
 
@@ -33,6 +33,6 @@ jobs:
     needs: setup
     permissions:
       contents: write
-    uses: ./.github/workflows/build-windows.yml
+    uses: ./.github/workflows/release-windows.yml
     with:
       ci_version: ${{ needs.setup.outputs.ci_version }}

@@ -1,5 +1,5 @@
 ---
-name: Build - Linux AppImage
+name: Package - Linux AppImage (reusable)
 permissions:
   contents: read
 
