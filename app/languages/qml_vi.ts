@@ -6,23 +6,23 @@
     <message>
         <location filename="../gui/AppView.qml" line="143"/>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Resume Game</source>
+        <source>Resume game</source>
         <translation>Tiếp tục trò chơi</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="169"/>
         <location filename="../gui/AppView.qml" line="316"/>
-        <source>Quit Game</source>
+        <source>Quit game</source>
         <translation>Thoát trò chơi</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Launch Game</source>
+        <source>Launch game</source>
         <translation>Khởi động trò chơi</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="329"/>
-        <source>Direct Launch</source>
+        <source>Direct launch</source>
         <translation>Khởi động trực tiếp</translation>
     </message>
     <message>
@@ -32,7 +32,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="341"/>
-        <source>Hide Game</source>
+        <source>Hide game</source>
         <translation>Ẩn trò chơi</translation>
     </message>
     <message>
@@ -42,7 +42,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="345"/>
-        <source>View All Apps</source>
+        <source>View all apps</source>
         <translation>Xem tất cả ứng dụng</translation>
     </message>
     <message>
@@ -691,13 +691,19 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
         <translation>Đang tìm kiếm máy chủ tương thích trên mạng cục bộ của bạn...</translation>
     </message>
     <message>
+        <location filename="../gui/PcView.qml" line="135"/>
+        <source>Make sure your host PC is turned on, running Sunshine or Apollo, and connected to the same network as this device.</source>
+        <translatorcomment>Perigee empty-state hint; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Hãy đảm bảo máy chủ đang bật, đang chạy Sunshine hoặc Apollo và được kết nối cùng mạng với thiết bị này.</translation>
+    </message>
+    <message>
         <location filename="../gui/PcView.qml" line="185"/>
         <source>Wake PC</source>
         <translation>Đánh thức PC</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="190"/>
-        <source>Test Network</source>
+        <source>Test network</source>
         <translation>Thử nghiệm mạng</translation>
     </message>
     <message>
@@ -712,8 +718,9 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="214"/>
-        <source>View Details</source>
-        <translation type="unfinished"></translation>
+        <source>View details</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Xem chi tiết</translation>
     </message>
     <message>
         <source>The version of GeForce Experience on %1 is not supported by this build of Moonlight. You must update Moonlight to stream from %1.</source>
@@ -748,7 +755,7 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="171"/>
-        <source>PC Status: %1</source>
+        <source>PC status: %1</source>
         <translation>Trạng thái PC: %1</translation>
     </message>
     <message>
@@ -763,7 +770,7 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="176"/>
-        <source>View All Apps</source>
+        <source>View all apps</source>
         <translation>Xem tất cả ứng dụng</translation>
     </message>
     <message>
@@ -798,27 +805,27 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Disable Session Text Clipboard</source>
+        <source>Disable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Tắt Clipboard văn bản phiên</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Enable Session Text Clipboard</source>
+        <source>Enable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Bật Clipboard văn bản phiên</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="231"/>
         <location filename="../gui/PcView.qml" line="404"/>
-        <source>Host Capabilities</source>
+        <source>Host capabilities</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Khả năng của máy chủ</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="239"/>
         <location filename="../gui/PcView.qml" line="352"/>
-        <source>Display Launch Options</source>
+        <source>Display launch options</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Tùy chọn màn hình khi khởi chạy</translation>
     </message>
@@ -843,13 +850,13 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="271"/>
-        <source>Configure Administration Link</source>
+        <source>Configure administration link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Cấu hình liên kết quản trị</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="279"/>
-        <source>Open Administration</source>
+        <source>Open administration</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Quản trị mở</translation>
     </message>
@@ -873,19 +880,19 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="379"/>
-        <source>Display Options Not Saved</source>
+        <source>Display options not saved</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Tùy chọn hiển thị chưa được lưu</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="384"/>
-        <source>Host availability changed. Reopen Display Launch Options to check current permissions and driver status.</source>
+        <source>Host availability changed. Reopen display launch options to check current permissions and driver status.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Tính khả dụng của máy chủ đã thay đổi. Mở lại Tùy chọn khởi chạy hiển thị để kiểm tra các quyền hiện tại và trạng thái trình điều khiển.</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="391"/>
-        <source>Session Text Clipboard</source>
+        <source>Session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Bảng tạm văn bản phiên</translation>
     </message>
@@ -920,7 +927,7 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="494"/>
-        <source>Host Administration Link</source>
+        <source>Host administration link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Liên kết quản trị máy chủ</translation>
     </message>
@@ -1399,7 +1406,7 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="260"/>
-        <source>Basic Settings</source>
+        <source>Basic settings</source>
         <translation>Cài đặt cơ bản</translation>
     </message>
     <message>
@@ -1558,7 +1565,7 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1037"/>
-        <source>Audio Settings</source>
+        <source>Audio settings</source>
         <translation>Cài đặt âm thanh</translation>
     </message>
     <message>
@@ -1599,7 +1606,7 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1283"/>
-        <source>UI Settings</source>
+        <source>UI settings</source>
         <translation>Cài đặt giao diện</translation>
     </message>
     <message>
@@ -1633,7 +1640,7 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1615"/>
-        <source>Input Settings</source>
+        <source>Input settings</source>
         <translation>Cài đặt đầu vào</translation>
     </message>
     <message>
@@ -1713,7 +1720,7 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1763"/>
-        <source>Gamepad Settings</source>
+        <source>Gamepad settings</source>
         <translation>Cài đặt tay cầm điều khiển</translation>
     </message>
     <message>
@@ -1756,12 +1763,12 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1130"/>
-        <source>Host Settings</source>
+        <source>Host settings</source>
         <translation>Cài đặt máy chủ</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1838"/>
-        <source>Advanced Settings</source>
+        <source>Advanced settings</source>
         <translation>Cài đặt nâng cao</translation>
     </message>
     <message>

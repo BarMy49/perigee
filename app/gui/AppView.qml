@@ -140,7 +140,7 @@ CenteredGridView {
                         launchOrResumeSelectedApp(true)
                     }
 
-                    ToolTip.text: qsTr("Resume Game")
+                    ToolTip.text: qsTr("Resume game")
                     ToolTip.delay: 1000
                     ToolTip.timeout: 3000
                     ToolTip.visible: hovered
@@ -166,7 +166,7 @@ CenteredGridView {
                         doQuitGame()
                     }
 
-                    ToolTip.text: qsTr("Quit Game")
+                    ToolTip.text: qsTr("Quit game")
                     ToolTip.delay: 1000
                     ToolTip.timeout: 3000
                     ToolTip.visible: hovered
@@ -309,11 +309,11 @@ CenteredGridView {
                 id: appContextMenu
                 initiator: appContextMenuLoader.parent
                 NavigableMenuItem {
-                    text: model.running ? qsTr("Resume Game") : qsTr("Launch Game")
+                    text: model.running ? qsTr("Resume game") : qsTr("Launch game")
                     onTriggered: launchOrResumeSelectedApp(true)
                 }
                 NavigableMenuItem {
-                    text: qsTr("Quit Game")
+                    text: qsTr("Quit game")
                     onTriggered: doQuitGame()
                     visible: model.running
                 }
@@ -326,7 +326,7 @@ CenteredGridView {
                 NavigableMenuItem {
                     checkable: true
                     checked: model.directLaunch
-                    text: qsTr("Direct Launch")
+                    text: qsTr("Direct launch")
                     onTriggered: appModel.setAppDirectLaunch(model.index, !model.directLaunch)
                     enabled: !model.hidden
 
@@ -338,11 +338,11 @@ CenteredGridView {
                 NavigableMenuItem {
                     checkable: true
                     checked: model.hidden
-                    text: qsTr("Hide Game")
+                    text: qsTr("Hide game")
                     onTriggered: appModel.setAppHidden(model.index, !model.hidden)
                     enabled: model.hidden || (!model.running && !model.directLaunch)
 
-                    ToolTip.text: qsTr("Hide this game from the app grid. To access hidden games, right-click on the host and choose %1.").arg(qsTr("View All Apps"))
+                    ToolTip.text: qsTr("Hide this game from the app grid. To access hidden games, right-click on the host and choose %1.").arg(qsTr("View all apps"))
                     ToolTip.delay: 1000
                     ToolTip.timeout: 5000
                     ToolTip.visible: hovered
@@ -351,17 +351,15 @@ CenteredGridView {
         }
     }
 
-    Row {
+    Label {
         anchors.centerIn: parent
-        spacing: 5
+        width: Math.min(appGrid.width - 48, 520)
         visible: appGrid.count === 0
-
-        Label {
-            text: qsTr("This computer doesn't seem to have any applications or some applications are hidden")
-            font.pointSize: 20
-            verticalAlignment: Text.AlignVCenter
-            wrapMode: Text.Wrap
-        }
+        text: qsTr("This computer doesn't seem to have any applications or some applications are hidden")
+        font.pointSize: 15
+        font.bold: true
+        horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.Wrap
     }
 
     NavigableMessageDialog {

@@ -6,23 +6,23 @@
     <message>
         <location filename="../gui/AppView.qml" line="143"/>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Resume Game</source>
+        <source>Resume game</source>
         <translation>게임 재개</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="169"/>
         <location filename="../gui/AppView.qml" line="316"/>
-        <source>Quit Game</source>
+        <source>Quit game</source>
         <translation>게임 종료</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Launch Game</source>
+        <source>Launch game</source>
         <translation>게임 실행</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="329"/>
-        <source>Direct Launch</source>
+        <source>Direct launch</source>
         <translation>즉시 실행</translation>
     </message>
     <message>
@@ -32,7 +32,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="341"/>
-        <source>Hide Game</source>
+        <source>Hide game</source>
         <translation>게임 숨기기</translation>
     </message>
     <message>
@@ -42,7 +42,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="345"/>
-        <source>View All Apps</source>
+        <source>View all apps</source>
         <translation>모든 앱 보기</translation>
     </message>
     <message>
@@ -691,13 +691,19 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation>로컬 네트워크에서 호환되는 호스트를 검색하는 중...</translation>
     </message>
     <message>
+        <location filename="../gui/PcView.qml" line="135"/>
+        <source>Make sure your host PC is turned on, running Sunshine or Apollo, and connected to the same network as this device.</source>
+        <translatorcomment>Perigee empty-state hint; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>호스트 PC가 켜져 있고 Sunshine 또는 Apollo를 실행 중이며 이 기기와 같은 네트워크에 연결되어 있는지 확인하세요.</translation>
+    </message>
+    <message>
         <location filename="../gui/PcView.qml" line="185"/>
         <source>Wake PC</source>
         <translation>PC 켜기</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="190"/>
-        <source>Test Network</source>
+        <source>Test network</source>
         <translation>네트워크 검사</translation>
     </message>
     <message>
@@ -712,7 +718,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="214"/>
-        <source>View Details</source>
+        <source>View details</source>
         <translation>세부사항 보기</translation>
     </message>
     <message>
@@ -748,7 +754,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="171"/>
-        <source>PC Status: %1</source>
+        <source>PC status: %1</source>
         <translation>PC 상태: %1</translation>
     </message>
     <message>
@@ -763,7 +769,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="176"/>
-        <source>View All Apps</source>
+        <source>View all apps</source>
         <translation>모든 앱 보기</translation>
     </message>
     <message>
@@ -798,27 +804,27 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Disable Session Text Clipboard</source>
+        <source>Disable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>세션 텍스트 클립보드 비활성화</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Enable Session Text Clipboard</source>
+        <source>Enable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>세션 텍스트 클립보드 활성화</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="231"/>
         <location filename="../gui/PcView.qml" line="404"/>
-        <source>Host Capabilities</source>
+        <source>Host capabilities</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>호스트 기능</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="239"/>
         <location filename="../gui/PcView.qml" line="352"/>
-        <source>Display Launch Options</source>
+        <source>Display launch options</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>실행 시 디스플레이 설정</translation>
     </message>
@@ -843,13 +849,13 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="271"/>
-        <source>Configure Administration Link</source>
+        <source>Configure administration link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>관리 링크 구성</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="279"/>
-        <source>Open Administration</source>
+        <source>Open administration</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>개방형 관리</translation>
     </message>
@@ -873,19 +879,19 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="379"/>
-        <source>Display Options Not Saved</source>
+        <source>Display options not saved</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>표시 옵션이 저장되지 않음</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="384"/>
-        <source>Host availability changed. Reopen Display Launch Options to check current permissions and driver status.</source>
+        <source>Host availability changed. Reopen display launch options to check current permissions and driver status.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>호스트 가용성이 변경되었습니다. 디스플레이 시작 옵션을 다시 열어 현재 권한과 드라이버 상태를 확인하세요.</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="391"/>
-        <source>Session Text Clipboard</source>
+        <source>Session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>세션 텍스트 클립보드</translation>
     </message>
@@ -920,7 +926,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="494"/>
-        <source>Host Administration Link</source>
+        <source>Host administration link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>호스트 관리 링크</translation>
     </message>
@@ -1399,7 +1405,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="260"/>
-        <source>Basic Settings</source>
+        <source>Basic settings</source>
         <translation>기본 설정</translation>
     </message>
     <message>
@@ -1558,7 +1564,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1037"/>
-        <source>Audio Settings</source>
+        <source>Audio settings</source>
         <translation>오디오 설정</translation>
     </message>
     <message>
@@ -1599,7 +1605,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1283"/>
-        <source>UI Settings</source>
+        <source>UI settings</source>
         <translation>UI 설정</translation>
     </message>
     <message>
@@ -1633,7 +1639,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1615"/>
-        <source>Input Settings</source>
+        <source>Input settings</source>
         <translation>입력 설정</translation>
     </message>
     <message>
@@ -1713,7 +1719,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1763"/>
-        <source>Gamepad Settings</source>
+        <source>Gamepad settings</source>
         <translation>게임패드 설정</translation>
     </message>
     <message>
@@ -1756,12 +1762,12 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1130"/>
-        <source>Host Settings</source>
+        <source>Host settings</source>
         <translation>호스트 설정</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1838"/>
-        <source>Advanced Settings</source>
+        <source>Advanced settings</source>
         <translation>고급 설정</translation>
     </message>
     <message>

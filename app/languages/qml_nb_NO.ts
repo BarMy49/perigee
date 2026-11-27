@@ -6,23 +6,23 @@
     <message>
         <location filename="../gui/AppView.qml" line="143"/>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Resume Game</source>
+        <source>Resume game</source>
         <translation>Fortsett spill</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="169"/>
         <location filename="../gui/AppView.qml" line="316"/>
-        <source>Quit Game</source>
+        <source>Quit game</source>
         <translation>Avslutt spill</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Launch Game</source>
+        <source>Launch game</source>
         <translation>Start spill</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="329"/>
-        <source>Direct Launch</source>
+        <source>Direct launch</source>
         <translation>Direkteoppstart</translation>
     </message>
     <message>
@@ -32,7 +32,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="341"/>
-        <source>Hide Game</source>
+        <source>Hide game</source>
         <translation>Skjul spill</translation>
     </message>
     <message>
@@ -42,7 +42,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="345"/>
-        <source>View All Apps</source>
+        <source>View all apps</source>
         <translation>Vis alle programmer</translation>
     </message>
     <message>
@@ -691,13 +691,19 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
         <translation>Søker etter kompatible verter på ditt lokale nettverk...</translation>
     </message>
     <message>
+        <location filename="../gui/PcView.qml" line="135"/>
+        <source>Make sure your host PC is turned on, running Sunshine or Apollo, and connected to the same network as this device.</source>
+        <translatorcomment>Perigee empty-state hint; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Kontroller at vertsmaskinen er slått på, kjører Sunshine eller Apollo og er koblet til samme nettverk som denne enheten.</translation>
+    </message>
+    <message>
         <location filename="../gui/PcView.qml" line="185"/>
         <source>Wake PC</source>
         <translation>Vekk PC</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="190"/>
-        <source>Test Network</source>
+        <source>Test network</source>
         <translation>Test nettverk</translation>
     </message>
     <message>
@@ -712,7 +718,7 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="214"/>
-        <source>View Details</source>
+        <source>View details</source>
         <translation>Vis detaljer</translation>
     </message>
     <message>
@@ -748,7 +754,7 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="171"/>
-        <source>PC Status: %1</source>
+        <source>PC status: %1</source>
         <translation>PC-status: %1</translation>
     </message>
     <message>
@@ -763,7 +769,7 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="176"/>
-        <source>View All Apps</source>
+        <source>View all apps</source>
         <translation>Vis alle programmer</translation>
     </message>
     <message>
@@ -798,27 +804,27 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Disable Session Text Clipboard</source>
+        <source>Disable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Deaktiver utklippstavle for økttekst</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Enable Session Text Clipboard</source>
+        <source>Enable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Aktiver utklippstavle for økttekst</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="231"/>
         <location filename="../gui/PcView.qml" line="404"/>
-        <source>Host Capabilities</source>
+        <source>Host capabilities</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Vertsegenskaper</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="239"/>
         <location filename="../gui/PcView.qml" line="352"/>
-        <source>Display Launch Options</source>
+        <source>Display launch options</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Skjermvalg ved oppstart</translation>
     </message>
@@ -843,13 +849,13 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="271"/>
-        <source>Configure Administration Link</source>
+        <source>Configure administration link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Konfigurer administrasjonskobling</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="279"/>
-        <source>Open Administration</source>
+        <source>Open administration</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Åpen administrasjon</translation>
     </message>
@@ -873,19 +879,19 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="379"/>
-        <source>Display Options Not Saved</source>
+        <source>Display options not saved</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Visningsalternativer ikke lagret</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="384"/>
-        <source>Host availability changed. Reopen Display Launch Options to check current permissions and driver status.</source>
+        <source>Host availability changed. Reopen display launch options to check current permissions and driver status.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Vertens tilgjengelighet endret. Åpne Display Launch Options på nytt for å sjekke gjeldende tillatelser og driverstatus.</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="391"/>
-        <source>Session Text Clipboard</source>
+        <source>Session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Utklippstavle for økttekst</translation>
     </message>
@@ -920,7 +926,7 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="494"/>
-        <source>Host Administration Link</source>
+        <source>Host administration link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Vertsadministrasjonskobling</translation>
     </message>
@@ -1399,7 +1405,7 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="260"/>
-        <source>Basic Settings</source>
+        <source>Basic settings</source>
         <translation>Grunnleggende innstillinger</translation>
     </message>
     <message>
@@ -1558,7 +1564,7 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1037"/>
-        <source>Audio Settings</source>
+        <source>Audio settings</source>
         <translation>Lydinnstillinger</translation>
     </message>
     <message>
@@ -1599,7 +1605,7 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1283"/>
-        <source>UI Settings</source>
+        <source>UI settings</source>
         <translation>Grensesnittinnstillinger</translation>
     </message>
     <message>
@@ -1633,7 +1639,7 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1615"/>
-        <source>Input Settings</source>
+        <source>Input settings</source>
         <translation>Inndata-innstillinger</translation>
     </message>
     <message>
@@ -1713,7 +1719,7 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1763"/>
-        <source>Gamepad Settings</source>
+        <source>Gamepad settings</source>
         <translation>Spillkontrolller-innstillinger</translation>
     </message>
     <message>
@@ -1756,12 +1762,12 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1130"/>
-        <source>Host Settings</source>
+        <source>Host settings</source>
         <translation>Vertsinnstillinger</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1838"/>
-        <source>Advanced Settings</source>
+        <source>Advanced settings</source>
         <translation>Avanserte innstillinger</translation>
     </message>
     <message>

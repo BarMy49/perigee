@@ -135,7 +135,7 @@ enumeration/selection and multi-display topology lack a verified general paired
 API. Current client architecture supports one active session per process.
 
 Milestone 4's first increment stores a default-off `requestvirtualdisplay` host
-preference. The PC context menu exposes Display Launch Options with availability
+preference. The PC context menu exposes Display launch options with availability
 and host-reported driver/permission information. `NvHTTP::startApp()` performs a
 fresh serverinfo check only when this option is requested, on the existing
 connection-start worker. It requires an authenticated Apollo-compatible snapshot,

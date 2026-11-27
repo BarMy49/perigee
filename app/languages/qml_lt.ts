@@ -6,23 +6,23 @@
     <message>
         <location filename="../gui/AppView.qml" line="143"/>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Resume Game</source>
+        <source>Resume game</source>
         <translation>Tęsti Žaidimą</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="169"/>
         <location filename="../gui/AppView.qml" line="316"/>
-        <source>Quit Game</source>
+        <source>Quit game</source>
         <translation>Išeiti Iš Žaidimo</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Launch Game</source>
+        <source>Launch game</source>
         <translation>Paleisti Žaidimą</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="329"/>
-        <source>Direct Launch</source>
+        <source>Direct launch</source>
         <translation>Tiesioginis Paleidimas</translation>
     </message>
     <message>
@@ -32,7 +32,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="341"/>
-        <source>Hide Game</source>
+        <source>Hide game</source>
         <translation>Paslėpti Žaidimą</translation>
     </message>
     <message>
@@ -42,7 +42,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="345"/>
-        <source>View All Apps</source>
+        <source>View all apps</source>
         <translation>Peržiūrėti Visas Programėles</translation>
     </message>
     <message>
@@ -691,13 +691,19 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
         <translation>Ieškome suderinamus kompiuterius jūsų vietiniame tinkle...</translation>
     </message>
     <message>
+        <location filename="../gui/PcView.qml" line="135"/>
+        <source>Make sure your host PC is turned on, running Sunshine or Apollo, and connected to the same network as this device.</source>
+        <translatorcomment>Perigee empty-state hint; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Įsitikinkite, kad pagrindinis kompiuteris įjungtas, jame veikia Sunshine arba Apollo ir jis prijungtas prie to paties tinklo kaip šis įrenginys.</translation>
+    </message>
+    <message>
         <location filename="../gui/PcView.qml" line="185"/>
         <source>Wake PC</source>
         <translation>Pažadinti kompiuterį</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="190"/>
-        <source>Test Network</source>
+        <source>Test network</source>
         <translation>Patikrinti tinklą</translation>
     </message>
     <message>
@@ -712,7 +718,7 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="214"/>
-        <source>View Details</source>
+        <source>View details</source>
         <translation>Peržiūrėti detales</translation>
     </message>
     <message>
@@ -748,7 +754,7 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="171"/>
-        <source>PC Status: %1</source>
+        <source>PC status: %1</source>
         <translation>Kompiuterio statusas: %1</translation>
     </message>
     <message>
@@ -763,7 +769,7 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="176"/>
-        <source>View All Apps</source>
+        <source>View all apps</source>
         <translation>Peržiūrėti visas programėles</translation>
     </message>
     <message>
@@ -798,27 +804,27 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Disable Session Text Clipboard</source>
+        <source>Disable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Išjungti seanso teksto iškarpinę</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Enable Session Text Clipboard</source>
+        <source>Enable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Įgalinti seanso teksto iškarpinę</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="231"/>
         <location filename="../gui/PcView.qml" line="404"/>
-        <source>Host Capabilities</source>
+        <source>Host capabilities</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Prieglobos galimybės</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="239"/>
         <location filename="../gui/PcView.qml" line="352"/>
-        <source>Display Launch Options</source>
+        <source>Display launch options</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Ekrano parinktys paleidžiant</translation>
     </message>
@@ -843,13 +849,13 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="271"/>
-        <source>Configure Administration Link</source>
+        <source>Configure administration link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Konfigūruoti administravimo nuorodą</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="279"/>
-        <source>Open Administration</source>
+        <source>Open administration</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Atidarykite administravimą</translation>
     </message>
@@ -873,19 +879,19 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="379"/>
-        <source>Display Options Not Saved</source>
+        <source>Display options not saved</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Ekrano parinktys neišsaugotos</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="384"/>
-        <source>Host availability changed. Reopen Display Launch Options to check current permissions and driver status.</source>
+        <source>Host availability changed. Reopen display launch options to check current permissions and driver status.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Prieglobos pasiekiamumas pasikeitė. Iš naujo atidarykite ekrano paleidimo parinktis, kad patikrintumėte esamus leidimus ir tvarkyklės būseną.</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="391"/>
-        <source>Session Text Clipboard</source>
+        <source>Session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Sesijos teksto iškarpinė</translation>
     </message>
@@ -920,7 +926,7 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="494"/>
-        <source>Host Administration Link</source>
+        <source>Host administration link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Prieglobos administravimo nuoroda</translation>
     </message>
@@ -1399,8 +1405,9 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="260"/>
-        <source>Basic Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Basic settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Pagrindiniai nustatymai</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="405"/>
@@ -1558,8 +1565,9 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1037"/>
-        <source>Audio Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Audio settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Garso nustatymai</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="184"/>
@@ -1627,8 +1635,9 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1283"/>
-        <source>UI Settings</source>
-        <translation type="unfinished"></translation>
+        <source>UI settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Sąsajos nustatymai</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1315"/>
@@ -1657,8 +1666,9 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1615"/>
-        <source>Input Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Input settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Įvesties nustatymai</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1636"/>
@@ -1733,8 +1743,9 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1763"/>
-        <source>Gamepad Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Gamepad settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Žaidimų pultelio nustatymai</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1773"/>
@@ -1768,13 +1779,15 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1130"/>
-        <source>Host Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Host settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Pagrindinio kompiuterio nustatymai</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1838"/>
-        <source>Advanced Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Advanced settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Išplėstiniai nustatymai</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="180"/>

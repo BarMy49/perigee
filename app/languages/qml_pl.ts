@@ -6,23 +6,23 @@
     <message>
         <location filename="../gui/AppView.qml" line="143"/>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Resume Game</source>
+        <source>Resume game</source>
         <translation>Wznów grę</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="169"/>
         <location filename="../gui/AppView.qml" line="316"/>
-        <source>Quit Game</source>
+        <source>Quit game</source>
         <translation>Opuść grę</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Launch Game</source>
+        <source>Launch game</source>
         <translation>Uruchom grę</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="329"/>
-        <source>Direct Launch</source>
+        <source>Direct launch</source>
         <translation>Uruchom bezpośrednio</translation>
     </message>
     <message>
@@ -32,7 +32,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="341"/>
-        <source>Hide Game</source>
+        <source>Hide game</source>
         <translation>Ukryj grę</translation>
     </message>
     <message>
@@ -42,7 +42,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="345"/>
-        <source>View All Apps</source>
+        <source>View all apps</source>
         <translation>Wyświetl wszystkie aplikacje</translation>
     </message>
     <message>
@@ -691,13 +691,19 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
         <translation>Wyszukiwanie kompatybilnych hostów w sieci lokalnej...</translation>
     </message>
     <message>
+        <location filename="../gui/PcView.qml" line="135"/>
+        <source>Make sure your host PC is turned on, running Sunshine or Apollo, and connected to the same network as this device.</source>
+        <translatorcomment>Perigee empty-state hint; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Upewnij się, że komputer-host jest włączony, działa na nim Sunshine lub Apollo i jest połączony z tą samą siecią co to urządzenie.</translation>
+    </message>
+    <message>
         <location filename="../gui/PcView.qml" line="185"/>
         <source>Wake PC</source>
         <translation>Obudź komputer</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="190"/>
-        <source>Test Network</source>
+        <source>Test network</source>
         <translation>Testuj połączenie</translation>
     </message>
     <message>
@@ -712,7 +718,7 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="214"/>
-        <source>View Details</source>
+        <source>View details</source>
         <translation>Wyświetl szczegóły</translation>
     </message>
     <message>
@@ -748,7 +754,7 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="171"/>
-        <source>PC Status: %1</source>
+        <source>PC status: %1</source>
         <translation>Status komputera: %1</translation>
     </message>
     <message>
@@ -763,7 +769,7 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="176"/>
-        <source>View All Apps</source>
+        <source>View all apps</source>
         <translation>Wyświetl wszystkie aplikacje</translation>
     </message>
     <message>
@@ -798,27 +804,27 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Disable Session Text Clipboard</source>
+        <source>Disable session text clipboard</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Wyłącz schowek tekstowy sesji</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Enable Session Text Clipboard</source>
+        <source>Enable session text clipboard</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Włącz schowek tekstowy sesji</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="231"/>
         <location filename="../gui/PcView.qml" line="404"/>
-        <source>Host Capabilities</source>
+        <source>Host capabilities</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Możliwości komputera-hosta</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="239"/>
         <location filename="../gui/PcView.qml" line="352"/>
-        <source>Display Launch Options</source>
+        <source>Display launch options</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Opcje ekranu przy uruchamianiu</translation>
     </message>
@@ -843,13 +849,13 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="271"/>
-        <source>Configure Administration Link</source>
+        <source>Configure administration link</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Skonfiguruj odnośnik do panelu administracyjnego</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="279"/>
-        <source>Open Administration</source>
+        <source>Open administration</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Otwórz panel administracyjny</translation>
     </message>
@@ -873,19 +879,19 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="379"/>
-        <source>Display Options Not Saved</source>
+        <source>Display options not saved</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Nie zapisano opcji ekranu</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="384"/>
-        <source>Host availability changed. Reopen Display Launch Options to check current permissions and driver status.</source>
+        <source>Host availability changed. Reopen display launch options to check current permissions and driver status.</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Dostępność komputera-hosta uległa zmianie. Otwórz ponownie opcje ekranu przy uruchamianiu, aby sprawdzić aktualne uprawnienia i stan sterownika.</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="391"/>
-        <source>Session Text Clipboard</source>
+        <source>Session text clipboard</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Schowek tekstowy sesji</translation>
     </message>
@@ -920,7 +926,7 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="494"/>
-        <source>Host Administration Link</source>
+        <source>Host administration link</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Odnośnik do panelu administracyjnego komputera-hosta</translation>
     </message>
@@ -1399,7 +1405,7 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="260"/>
-        <source>Basic Settings</source>
+        <source>Basic settings</source>
         <translation>Podstawowe ustawienia</translation>
     </message>
     <message>
@@ -1558,7 +1564,7 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1037"/>
-        <source>Audio Settings</source>
+        <source>Audio settings</source>
         <translation>Ustawienia dźwięku</translation>
     </message>
     <message>
@@ -1599,7 +1605,7 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1283"/>
-        <source>UI Settings</source>
+        <source>UI settings</source>
         <translation>Ustawienia interfejsu</translation>
     </message>
     <message>
@@ -1633,7 +1639,7 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1615"/>
-        <source>Input Settings</source>
+        <source>Input settings</source>
         <translation>Ustawienia urządzeń wejściowych</translation>
     </message>
     <message>
@@ -1713,7 +1719,7 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1763"/>
-        <source>Gamepad Settings</source>
+        <source>Gamepad settings</source>
         <translation>Ustawienia kontrolera</translation>
     </message>
     <message>
@@ -1756,12 +1762,12 @@ Opcjonalny import parowania współdzieli z Moonlight tożsamość i uprawnienia
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1130"/>
-        <source>Host Settings</source>
+        <source>Host settings</source>
         <translation>Ustawienia gospodarza</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1838"/>
-        <source>Advanced Settings</source>
+        <source>Advanced settings</source>
         <translation>Zaawansowane ustawienia</translation>
     </message>
     <message>

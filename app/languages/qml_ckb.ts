@@ -6,24 +6,28 @@
         <message>
             <location filename="../gui/AppView.qml" line="143"/>
             <location filename="../gui/AppView.qml" line="299"/>
-            <source>Resume Game</source>
-            <translation type="unfinished"/>
+            <source>Resume game</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>درێژەدانی یاری</translation>
         </message>
         <message>
             <location filename="../gui/AppView.qml" line="169"/>
             <location filename="../gui/AppView.qml" line="303"/>
-            <source>Quit Game</source>
-            <translation type="unfinished"/>
+            <source>Quit game</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>داخستنی یاری</translation>
         </message>
         <message>
             <location filename="../gui/AppView.qml" line="299"/>
-            <source>Launch Game</source>
-            <translation type="unfinished"/>
+            <source>Launch game</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>دەستپێکردنی یاری</translation>
         </message>
         <message>
             <location filename="../gui/AppView.qml" line="310"/>
-            <source>Direct Launch</source>
-            <translation type="unfinished"/>
+            <source>Direct launch</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>دەستپێکردنی ڕاستەوخۆ</translation>
         </message>
         <message>
             <location filename="../gui/AppView.qml" line="314"/>
@@ -32,8 +36,9 @@
         </message>
         <message>
             <location filename="../gui/AppView.qml" line="322"/>
-            <source>Hide Game</source>
-            <translation type="unfinished"/>
+            <source>Hide game</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>شاردنەوەی یاری</translation>
         </message>
         <message>
             <location filename="../gui/AppView.qml" line="326"/>
@@ -42,8 +47,9 @@
         </message>
         <message>
             <location filename="../gui/AppView.qml" line="326"/>
-            <source>View All Apps</source>
-            <translation type="unfinished"/>
+            <source>View all apps</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>هەموو بەرنامەکان ببینە</translation>
         </message>
         <message>
             <location filename="../gui/AppView.qml" line="341"/>
@@ -424,6 +430,12 @@
             <source>Searching for compatible hosts on your local network...</source>
             <translation type="unfinished"/>
         </message>
+    <message>
+        <location filename="../gui/PcView.qml" line="135"/>
+        <source>Make sure your host PC is turned on, running Sunshine or Apollo, and connected to the same network as this device.</source>
+        <translatorcomment>Perigee empty-state hint; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>دڵنیابە لەوەی کە کۆمپیوتەری خانەخوێکەت هەڵکراوە، Sunshine یان Apollo کار دەکات و بە هەمان تۆڕی ئەم ئامێرەوە پەیوەستە.</translation>
+    </message>
         <message>
             <location filename="../gui/PcView.qml" line="184"/>
             <source>Wake PC</source>
@@ -431,8 +443,9 @@
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="189"/>
-            <source>Test Network</source>
-            <translation type="unfinished"/>
+            <source>Test network</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>تاقیکردنەوەی تۆڕ</translation>
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="197"/>
@@ -446,8 +459,9 @@
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="213"/>
-            <source>View Details</source>
-            <translation type="unfinished"/>
+            <source>View details</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>وردەکارییەکان ببینە</translation>
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="225"/>
@@ -486,8 +500,9 @@
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="170"/>
-            <source>PC Status: %1</source>
-            <translation type="unfinished"/>
+            <source>PC status: %1</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>دۆخی کۆمپیوتەر: %1</translation>
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="170"/>
@@ -501,8 +516,9 @@
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="175"/>
-            <source>View All Apps</source>
-            <translation type="unfinished"/>
+            <source>View all apps</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>هەموو بەرنامەکان ببینە</translation>
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="297"/>
@@ -537,39 +553,39 @@
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="220"/>
-            <source>Disable Session Text Clipboard</source>
+            <source>Disable session text clipboard</source>
             <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
             <translation>کلیپبۆردەکەی دەقی دانیشتن لەکاربخە</translation>
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="220"/>
-            <source>Enable Session Text Clipboard</source>
+            <source>Enable session text clipboard</source>
             <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
             <translation>کلیپبۆردەکەی دەقی دانیشتن چالاک بکە</translation>
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="230"/>
             <location filename="../gui/PcView.qml" line="381"/>
-            <source>Host Capabilities</source>
+            <source>Host capabilities</source>
             <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
             <translation>تواناکانی هۆست</translation>
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="238"/>
             <location filename="../gui/PcView.qml" line="329"/>
-            <source>Display Launch Options</source>
+            <source>Display launch options</source>
             <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
             <translation>هەڵبژاردەکانی شاشە لە دەستپێکردندا</translation>
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="248"/>
-            <source>Configure Administration Link</source>
+            <source>Configure administration link</source>
             <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
             <translation>ڕێکخستنی بەستەری بەڕێوەبردن</translation>
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="256"/>
-            <source>Open Administration</source>
+            <source>Open administration</source>
             <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
             <translation>ئیدارەی کراوە</translation>
         </message>
@@ -593,19 +609,19 @@
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="356"/>
-            <source>Display Options Not Saved</source>
+            <source>Display options not saved</source>
             <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
             <translation>هەڵبژاردەکانی پیشاندانی هەڵنەگیراون</translation>
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="361"/>
-            <source>Host availability changed. Reopen Display Launch Options to check current permissions and driver status.</source>
+            <source>Host availability changed. Reopen display launch options to check current permissions and driver status.</source>
             <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
             <translation>بەردەستبوونی هۆست گۆڕدرا. دووبارە هەڵبژاردەکانی دەستپێکردنی پیشاندانی بکەرەوە بۆ پشکنینی مۆڵەتەکانی ئێستا و دۆخی شۆفێر.</translation>
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="368"/>
-            <source>Session Text Clipboard</source>
+            <source>Session text clipboard</source>
             <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
             <translation>کلیپبۆردێکی دەقی دانیشتن</translation>
         </message>
@@ -617,7 +633,7 @@
         </message>
         <message>
             <location filename="../gui/PcView.qml" line="404"/>
-            <source>Host Administration Link</source>
+            <source>Host administration link</source>
             <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
             <translation>لینکی بەڕێوەبردنی میواندار</translation>
         </message>
@@ -1134,8 +1150,9 @@
         </message>
         <message>
             <location filename="../gui/SettingsView.qml" line="106"/>
-            <source>Basic Settings</source>
-            <translation type="unfinished"/>
+            <source>Basic settings</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>ڕێکخستنە سەرەتاییەکان</translation>
         </message>
         <message>
             <location filename="../gui/SettingsView.qml" line="250"/>
@@ -1261,8 +1278,9 @@
         </message>
         <message>
             <location filename="../gui/SettingsView.qml" line="856"/>
-            <source>Audio Settings</source>
-            <translation type="unfinished"/>
+            <source>Audio settings</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>ڕێکخستنەکانی دەنگ</translation>
         </message>
         <message>
             <location filename="../gui/SettingsView.qml" line="891"/>
@@ -1301,8 +1319,9 @@
         </message>
         <message>
             <location filename="../gui/SettingsView.qml" line="989"/>
-            <source>UI Settings</source>
-            <translation type="unfinished"/>
+            <source>UI settings</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>ڕێکخستنەکانی ڕووکار</translation>
         </message>
         <message>
             <location filename="../gui/SettingsView.qml" line="999"/>
@@ -1336,8 +1355,9 @@
         </message>
         <message>
             <location filename="../gui/SettingsView.qml" line="1298"/>
-            <source>Input Settings</source>
-            <translation type="unfinished"/>
+            <source>Input settings</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>ڕێکخستنەکانی تێخستن</translation>
         </message>
         <message>
             <location filename="../gui/SettingsView.qml" line="1319"/>
@@ -1416,8 +1436,9 @@
         </message>
         <message>
             <location filename="../gui/SettingsView.qml" line="1446"/>
-            <source>Gamepad Settings</source>
-            <translation type="unfinished"/>
+            <source>Gamepad settings</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>ڕێکخستنەکانی گەیمپاد</translation>
         </message>
         <message>
             <location filename="../gui/SettingsView.qml" line="1456"/>
@@ -1461,13 +1482,15 @@
         </message>
         <message>
             <location filename="../gui/SettingsView.qml" line="949"/>
-            <source>Host Settings</source>
-            <translation type="unfinished"/>
+            <source>Host settings</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>ڕێکخستنەکانی خانەخوێ</translation>
         </message>
         <message>
             <location filename="../gui/SettingsView.qml" line="1521"/>
-            <source>Advanced Settings</source>
-            <translation type="unfinished"/>
+            <source>Advanced settings</source>
+            <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>ڕێکخستنە پێشکەوتووەکان</translation>
         </message>
         <message>
             <location filename="../gui/SettingsView.qml" line="866"/>

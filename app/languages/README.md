@@ -80,3 +80,9 @@ review as a quality follow-up. Qt 6.11.2 Linguist tools were extracted locally t
 `/tmp/perigee-translation-tools/usr/lib64/qt6/bin` without system installation;
 ckb messages were supplied explicitly because lupdate does not recognize that
 translation target. Regenerate QMs with lrelease after TS edits.
+
+The readability pass adds one PcView empty-state hint and changes several menu
+items, setting group titles and AppView actions to sentence case (for example
+"View all apps" and "Basic settings"). Renamed keys keep their existing
+translations; locales whose inherited entry was unfinished received
+machine-assisted translations with a provenance note.

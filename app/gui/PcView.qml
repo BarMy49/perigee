@@ -18,7 +18,7 @@ CenteredGridView {
     activeFocusOnTab: true
     topMargin: 20
     bottomMargin: 88
-    cellWidth: 310; cellHeight: 330;
+    cellWidth: 272; cellHeight: 252;
     objectName: qsTr("Computers")
 
     Component.onCompleted: {
@@ -83,33 +83,98 @@ CenteredGridView {
         return model
     }
 
-    Row {
+    AdwaitaPalette {
+        id: adwaita
+        dark: pcGrid.Material.theme === Material.Dark
+    }
+
+    Column {
         anchors.centerIn: parent
-        spacing: 5
+        width: Math.min(pcGrid.width - 48, 520)
+        spacing: 16
         visible: pcGrid.count === 0
 
-        BusyIndicator {
-            id: searchSpinner
-            visible: StreamingPreferences.enableMdns
-            running: visible
+        Item {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 96
+            height: 96
+
+            ThemedImage {
+                anchors.fill: parent
+                iconSource: "qrc:/res/desktop_windows-48px.svg"
+                sourceSize {
+                    width: 96
+                    height: 96
+                }
+                opacity: 0.35
+            }
+
+            BusyIndicator {
+                id: searchSpinner
+                anchors.centerIn: parent
+                anchors.verticalCenterOffset: -8
+                width: 40
+                height: 40
+                visible: StreamingPreferences.enableMdns
+                running: visible
+            }
         }
 
         Label {
-            height: searchSpinner.height
-            elide: Label.ElideRight
+            width: parent.width
             text: StreamingPreferences.enableMdns ? qsTr("Searching for compatible hosts on your local network...")
                                                   : qsTr("Automatic PC discovery is disabled. Add your PC manually.")
-            font.pointSize: 16
-            opacity: 0.8
-            verticalAlignment: Text.AlignVCenter
+            font.pointSize: 15
+            font.bold: true
+            horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.Wrap
+        }
+
+        Label {
+            width: parent.width
+            text: qsTr("Make sure your host PC is turned on, running Sunshine or Apollo, and connected to the same network as this device.")
+            color: adwaita.dimForeground
+            font.pointSize: 11
+            lineHeight: 1.2
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.Wrap
+        }
+
+        Button {
+            id: emptyAddPcButton
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTranslate("main", "Add PC manually")
+            focusPolicy: Qt.StrongFocus
+            leftPadding: 24
+            rightPadding: 24
+            topPadding: 10
+            bottomPadding: 10
+            font.bold: true
+            onClicked: addPcDialog.open()
+
+            contentItem: Label {
+                text: emptyAddPcButton.text
+                font: emptyAddPcButton.font
+                color: adwaita.accentForeground
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+
+            background: Rectangle {
+                implicitHeight: 40
+                radius: height / 2
+                color: emptyAddPcButton.down ? Qt.darker(adwaita.accent, 1.2) :
+                       emptyAddPcButton.hovered ? Qt.lighter(adwaita.accent, 1.08) : adwaita.accent
+                border.width: emptyAddPcButton.visualFocus ? 3 : 0
+                border.color: adwaita.dark ? "#99c1f1" : "#1a5fb4"
+            }
         }
     }
 
     model: computerModel
 
     delegate: NavigableItemDelegate {
-        width: 300; height: 320;
+        width: 260; height: 240;
         grid: pcGrid
 
         property alias pcContextMenu : pcContextMenuLoader.item
@@ -117,24 +182,26 @@ CenteredGridView {
         ThemedImage {
             id: pcIcon
             anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: 20
             iconSource: "qrc:/res/desktop_windows-48px.svg"
+            opacity: model.online || model.statusUnknown ? 0.85 : 0.5
             sourceSize {
-                width: 200
-                height: 200
+                width: 120
+                height: 120
             }
         }
 
         ThemedImage {
-            // TODO: Tooltip
             id: stateIcon
             anchors.horizontalCenter: pcIcon.horizontalCenter
             anchors.verticalCenter: pcIcon.verticalCenter
-            anchors.verticalCenterOffset: !model.online ? -18 : -16
+            anchors.verticalCenterOffset: -10
             visible: !model.statusUnknown && (!model.online || !model.paired)
             iconSource: !model.online ? "qrc:/res/warning_FILL1_wght300_GRAD200_opsz24.svg" : "qrc:/res/baseline-lock-24px.svg"
             sourceSize {
-                width: !model.online ? 75 : 70
-                height: !model.online ? 75 : 70
+                width: !model.online ? 46 : 42
+                height: !model.online ? 46 : 42
             }
         }
 
@@ -142,9 +209,9 @@ CenteredGridView {
             id: statusUnknownSpinner
             anchors.horizontalCenter: pcIcon.horizontalCenter
             anchors.verticalCenter: pcIcon.verticalCenter
-            anchors.verticalCenterOffset: -15
-            width: 75
-            height: 75
+            anchors.verticalCenterOffset: -9
+            width: 46
+            height: 46
             visible: model.statusUnknown
             running: visible
         }
@@ -155,15 +222,46 @@ CenteredGridView {
 
             width: parent.width
             anchors.top: pcIcon.bottom
-            anchors.bottom: parent.bottom
-            leftPadding: 12
-            rightPadding: 12
-            font.pointSize: 22
+            anchors.topMargin: 8
+            leftPadding: 16
+            rightPadding: 16
+            font.pointSize: 15
             font.bold: true
             horizontalAlignment: Text.AlignHCenter
-            wrapMode: Text.Wrap
+            maximumLineCount: 1
             elide: Text.ElideRight
         }
+
+        Row {
+            id: pcStatusRow
+            anchors.top: pcNameText.bottom
+            anchors.topMargin: 6
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 6
+
+            readonly property color statusColor: model.statusUnknown ? adwaita.neutralForeground :
+                                                 !model.online ? adwaita.neutralForeground :
+                                                 !model.paired ? adwaita.warningForeground : adwaita.successForeground
+            readonly property string statusText: model.statusUnknown ? qsTranslate("ComputerModel", "Unknown") :
+                                                 !model.online ? qsTr("Offline") :
+                                                 !model.paired ? qsTranslate("ComputerModel", "Unpaired") : qsTr("Online")
+
+            Rectangle {
+                anchors.verticalCenter: parent.verticalCenter
+                width: 8
+                height: 8
+                radius: 4
+                color: pcStatusRow.statusColor
+            }
+
+            Label {
+                text: pcStatusRow.statusText
+                color: adwaita.dimForeground
+                font.pointSize: 11
+            }
+        }
+
+        Accessible.name: model.name + ", " + pcStatusRow.statusText
 
         Loader {
             id: pcContextMenuLoader
@@ -172,12 +270,12 @@ CenteredGridView {
                 id: pcContextMenu
                 initiator: pcContextMenuLoader.parent
                 MenuItem {
-                    text: qsTr("PC Status: %1").arg(model.online ? qsTr("Online") : qsTr("Offline"))
+                    text: qsTr("PC status: %1").arg(model.online ? qsTr("Online") : qsTr("Offline"))
                     font.bold: true
                     enabled: false
                 }
                 NavigableMenuItem {
-                    text: qsTr("View All Apps")
+                    text: qsTr("View all apps")
                     onTriggered: {
                         var component = Qt.createComponent("AppView.qml")
                         var appView = component.createObject(stackView, {"computerIndex": index, "objectName": model.name, "showHiddenGames": true})
@@ -191,7 +289,7 @@ CenteredGridView {
                     visible: !model.online && model.wakeable
                 }
                 NavigableMenuItem {
-                    text: qsTr("Test Network")
+                    text: qsTr("Test network")
                     onTriggered: {
                         computerModel.testConnectionForComputer(index)
                         testConnectionDialog.open()
@@ -215,14 +313,14 @@ CenteredGridView {
                     }
                 }
                 NavigableMenuItem {
-                    text: qsTr("View Details")
+                    text: qsTr("View details")
                     onTriggered: {
                         showPcDetailsDialog.pcDetails = model.details
                         showPcDetailsDialog.open()
                     }
                 }
                 NavigableMenuItem {
-                    text: model.clipboardEnabled ? qsTr("Disable Session Text Clipboard") : qsTr("Enable Session Text Clipboard")
+                    text: model.clipboardEnabled ? qsTr("Disable session text clipboard") : qsTr("Enable session text clipboard")
                     onTriggered: {
                         if (model.clipboardEnabled) computerModel.setClipboardEnabled(model.hostUuid, false)
                         else {
@@ -232,7 +330,7 @@ CenteredGridView {
                     }
                 }
                 NavigableMenuItem {
-                    text: qsTr("Host Capabilities")
+                    text: qsTr("Host capabilities")
                     visible: model.capabilities.advertised
                     onTriggered: {
                         capabilityDialog.details = model.capabilityDetails
@@ -240,7 +338,7 @@ CenteredGridView {
                     }
                 }
                 NavigableMenuItem {
-                    text: qsTr("Display Launch Options")
+                    text: qsTr("Display launch options")
                     onTriggered: {
                         displayLaunchDialog.hostUuid = model.hostUuid
                         displayLaunchDialog.details = model.displayLaunchDetails
@@ -272,7 +370,7 @@ CenteredGridView {
                     }
                 }
                 NavigableMenuItem {
-                    text: qsTr("Configure Administration Link")
+                    text: qsTr("Configure administration link")
                     onTriggered: {
                         administrationDialog.hostUuid = model.hostUuid
                         administrationText.text = model.administrationUrl
@@ -280,7 +378,7 @@ CenteredGridView {
                     }
                 }
                 NavigableMenuItem {
-                    text: qsTr("Open Administration")
+                    text: qsTr("Open administration")
                     visible: model.administrationUrl.length > 0 && SystemProperties.hasBrowser
                     onTriggered: Qt.openUrlExternally(model.administrationUrl)
                 }
@@ -353,7 +451,7 @@ CenteredGridView {
         property string hostUuid: ""
         property string details: ""
         property bool available: false
-        title: qsTr("Display Launch Options")
+        title: qsTr("Display launch options")
         standardButtons: Dialog.Ok | Dialog.Cancel
         onAccepted: {
             if (!computerModel.setRequestVirtualDisplay(hostUuid, virtualDisplayCheck.checked)) displayLaunchSaveError.open()
@@ -380,19 +478,19 @@ CenteredGridView {
 
     NavigableDialog {
         id: displayLaunchSaveError
-        title: qsTr("Display Options Not Saved")
+        title: qsTr("Display options not saved")
         standardButtons: Dialog.Ok
         Label {
             width: 420
             wrapMode: Text.Wrap
-            text: qsTr("Host availability changed. Reopen Display Launch Options to check current permissions and driver status.")
+            text: qsTr("Host availability changed. Reopen display launch options to check current permissions and driver status.")
         }
     }
 
     NavigableDialog {
         id: clipboardConsent
         property string hostUuid: ""
-        title: qsTr("Session Text Clipboard")
+        title: qsTr("Session text clipboard")
         standardButtons: Dialog.Ok | Dialog.Cancel
         onAccepted: computerModel.setClipboardEnabled(hostUuid, true)
         Label {
@@ -405,7 +503,7 @@ CenteredGridView {
     NavigableDialog {
         id: capabilityDialog
         property string details: ""
-        title: qsTr("Host Capabilities")
+        title: qsTr("Host capabilities")
         standardButtons: Dialog.Ok
 
         ScrollView {
@@ -495,7 +593,7 @@ CenteredGridView {
     NavigableDialog {
         id: administrationDialog
         property string hostUuid: ""
-        title: qsTr("Host Administration Link")
+        title: qsTr("Host administration link")
         standardButtons: Dialog.Ok | Dialog.Cancel
 
         function saveLink() {

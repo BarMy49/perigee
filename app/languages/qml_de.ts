@@ -6,23 +6,23 @@
     <message>
         <location filename="../gui/AppView.qml" line="143"/>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Resume Game</source>
+        <source>Resume game</source>
         <translation>App fortsetzen</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="169"/>
         <location filename="../gui/AppView.qml" line="316"/>
-        <source>Quit Game</source>
+        <source>Quit game</source>
         <translation>App beenden</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Launch Game</source>
+        <source>Launch game</source>
         <translation>App starten</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="329"/>
-        <source>Direct Launch</source>
+        <source>Direct launch</source>
         <translation>Autostart</translation>
     </message>
     <message>
@@ -32,7 +32,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="341"/>
-        <source>Hide Game</source>
+        <source>Hide game</source>
         <translation>App ausblenden</translation>
     </message>
     <message>
@@ -42,7 +42,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="345"/>
-        <source>View All Apps</source>
+        <source>View all apps</source>
         <translation>Zeige alle Apps</translation>
     </message>
     <message>
@@ -691,13 +691,19 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
         <translation>In Ihrem lokalen Netzwerk wird nach kompatiblen Hosts gesucht ...</translation>
     </message>
     <message>
+        <location filename="../gui/PcView.qml" line="135"/>
+        <source>Make sure your host PC is turned on, running Sunshine or Apollo, and connected to the same network as this device.</source>
+        <translatorcomment>Perigee empty-state hint; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Stellen Sie sicher, dass Ihr Host-PC eingeschaltet ist, Sunshine oder Apollo ausführt und mit demselben Netzwerk wie dieses Gerät verbunden ist.</translation>
+    </message>
+    <message>
         <location filename="../gui/PcView.qml" line="185"/>
         <source>Wake PC</source>
         <translation>PC aufwecken</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="190"/>
-        <source>Test Network</source>
+        <source>Test network</source>
         <translation>Netzwerk testen</translation>
     </message>
     <message>
@@ -712,7 +718,7 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="214"/>
-        <source>View Details</source>
+        <source>View details</source>
         <translation>Details anzeigen</translation>
     </message>
     <message>
@@ -748,7 +754,7 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="171"/>
-        <source>PC Status: %1</source>
+        <source>PC status: %1</source>
         <translation>PC-Status: %1</translation>
     </message>
     <message>
@@ -763,7 +769,7 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="176"/>
-        <source>View All Apps</source>
+        <source>View all apps</source>
         <translation>Zeige alle Apps</translation>
     </message>
     <message>
@@ -798,27 +804,27 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Disable Session Text Clipboard</source>
+        <source>Disable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Deaktivieren Sie die Zwischenablage für Sitzungstext</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Enable Session Text Clipboard</source>
+        <source>Enable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Aktivieren Sie die Zwischenablage für Sitzungstext</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="231"/>
         <location filename="../gui/PcView.qml" line="404"/>
-        <source>Host Capabilities</source>
+        <source>Host capabilities</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Host-Fähigkeiten</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="239"/>
         <location filename="../gui/PcView.qml" line="352"/>
-        <source>Display Launch Options</source>
+        <source>Display launch options</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Anzeigeoptionen beim Start</translation>
     </message>
@@ -843,13 +849,13 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="271"/>
-        <source>Configure Administration Link</source>
+        <source>Configure administration link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Administrationslink konfigurieren</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="279"/>
-        <source>Open Administration</source>
+        <source>Open administration</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Öffnen Sie die Verwaltung</translation>
     </message>
@@ -873,19 +879,19 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="379"/>
-        <source>Display Options Not Saved</source>
+        <source>Display options not saved</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Anzeigeoptionen nicht gespeichert</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="384"/>
-        <source>Host availability changed. Reopen Display Launch Options to check current permissions and driver status.</source>
+        <source>Host availability changed. Reopen display launch options to check current permissions and driver status.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Die Verfügbarkeit des Gastgebers hat sich geändert. Öffnen Sie die Display-Startoptionen erneut, um die aktuellen Berechtigungen und den Treiberstatus zu überprüfen.</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="391"/>
-        <source>Session Text Clipboard</source>
+        <source>Session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Sitzungstext-Zwischenablage</translation>
     </message>
@@ -920,7 +926,7 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="494"/>
-        <source>Host Administration Link</source>
+        <source>Host administration link</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Administrationslink des Hosts</translation>
     </message>
@@ -1399,7 +1405,7 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="260"/>
-        <source>Basic Settings</source>
+        <source>Basic settings</source>
         <translation>Basis Einstellungen</translation>
     </message>
     <message>
@@ -1558,7 +1564,7 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1037"/>
-        <source>Audio Settings</source>
+        <source>Audio settings</source>
         <translation>Audio Einstellungen</translation>
     </message>
     <message>
@@ -1599,7 +1605,7 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1283"/>
-        <source>UI Settings</source>
+        <source>UI settings</source>
         <translation>Oberflächen Einstellungen</translation>
     </message>
     <message>
@@ -1633,7 +1639,7 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1615"/>
-        <source>Input Settings</source>
+        <source>Input settings</source>
         <translation>Eingabe Einstellungen</translation>
     </message>
     <message>
@@ -1713,7 +1719,7 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1763"/>
-        <source>Gamepad Settings</source>
+        <source>Gamepad settings</source>
         <translation>Controller-Einstellungen</translation>
     </message>
     <message>
@@ -1756,12 +1762,12 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1130"/>
-        <source>Host Settings</source>
+        <source>Host settings</source>
         <translation>Host-Einstellungen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1838"/>
-        <source>Advanced Settings</source>
+        <source>Advanced settings</source>
         <translation>Erweiterte Einstellungen</translation>
     </message>
     <message>
