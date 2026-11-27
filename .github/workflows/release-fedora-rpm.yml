@@ -19,8 +19,12 @@ on:
         description: RPM release number (perigee_rpm_release)
         required: true
         default: '0.5'
+      prerelease:
+        description: Mark a newly created release as a prerelease
+        type: boolean
+        default: true
       release_tag:
-        description: Optional GitHub release tag to attach the RPMs to (created as a prerelease if missing)
+        description: Optional GitHub release tag to attach the RPMs to (created if missing)
         required: false
         default: ''
 
@@ -161,6 +165,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
       TAG: ${{ inputs.release_tag }}
+      PRERELEASE: ${{ inputs.prerelease }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -176,6 +181,11 @@ jobs:
         run: |
           set -euo pipefail
           notes="$PWD/workflow-src/packaging/release-notes/$TAG.md"
+          title="Perigee ${TAG#v}"
+          prerelease_flag=--prerelease
+          if [ "$PRERELEASE" = false ]; then
+            prerelease_flag=--latest
+          fi
           mkdir upload
           : > upload/SHA256SUMS.new
           source_sha=""
@@ -199,11 +209,11 @@ jobs:
           cd upload
           if ! gh release view "$TAG" > /dev/null 2>&1; then
             if [ -f "$notes" ]; then
-              gh release create "$TAG" --prerelease --target "$source_sha" \
-                --title "Perigee $TAG" --notes-file "$notes"
+              gh release create "$TAG" $prerelease_flag --target "$source_sha" \
+                --title "$title" --notes-file "$notes"
             else
-              gh release create "$TAG" --prerelease --target "$source_sha" \
-                --title "Perigee $TAG" --notes "Fedora RPMs built from $source_sha. Unsigned prerelease."
+              gh release create "$TAG" $prerelease_flag --target "$source_sha" \
+                --title "$title" --notes "Fedora RPMs built from $source_sha. Unsigned prerelease."
             fi
           fi
           assets="$(gh release view "$TAG" --json assets --jq '.assets[].name')"

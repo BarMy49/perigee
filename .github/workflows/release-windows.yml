@@ -19,8 +19,12 @@ on:
         description: Application source commit, tag or branch to package
         required: true
         default: master
+      prerelease:
+        description: Mark a newly created release as a prerelease
+        type: boolean
+        default: true
       release_tag:
-        description: Optional GitHub release tag to attach the Windows packages to (created as a prerelease if missing)
+        description: Optional GitHub release tag to attach the Windows packages to (created if missing)
         required: false
         default: ''
 
@@ -114,7 +118,7 @@ jobs:
           $info = (Get-Item $exe).VersionInfo
           Write-Host "ProductName=$($info.ProductName) FileVersion=$($info.FileVersion)"
           if ($info.ProductName -ne 'Perigee') { throw "Unexpected product name $($info.ProductName)" }
-          if ([version]$info.FileVersion -lt [version]'6.2.0') { throw "Unexpected file version $($info.FileVersion)" }
+          if ([version]$info.FileVersion -lt [version]'7.0.0') { throw "Unexpected file version $($info.FileVersion)" }
 
       - uses: actions/upload-artifact@v6
         with:
@@ -142,6 +146,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
       TAG: ${{ inputs.release_tag }}
+      PRERELEASE: ${{ inputs.prerelease }}
       SOURCE_SHA: ${{ needs.windows.outputs.source_sha }}
     steps:
       - uses: actions/checkout@v5
@@ -158,14 +163,19 @@ jobs:
         run: |
           set -euo pipefail
           notes="$PWD/workflow-src/packaging/release-notes/$TAG.md"
+          title="Perigee ${TAG#v}"
+          prerelease_flag=--prerelease
+          if [ "$PRERELEASE" = false ]; then
+            prerelease_flag=--latest
+          fi
           cd out
           if ! gh release view "$TAG" > /dev/null 2>&1; then
             if [ -f "$notes" ]; then
-              gh release create "$TAG" --prerelease --target "$SOURCE_SHA" \
-                --title "Perigee $TAG" --notes-file "$notes"
+              gh release create "$TAG" $prerelease_flag --target "$SOURCE_SHA" \
+                --title "$title" --notes-file "$notes"
             else
-              gh release create "$TAG" --prerelease --target "$SOURCE_SHA" \
-                --title "Perigee $TAG" --notes "Windows packages built from $SOURCE_SHA. Unsigned prerelease."
+              gh release create "$TAG" $prerelease_flag --target "$SOURCE_SHA" \
+                --title "$title" --notes "Windows packages built from $SOURCE_SHA. Unsigned prerelease."
             fi
           fi
           assets="$(gh release view "$TAG" --json assets --jq '.assets[].name')"
