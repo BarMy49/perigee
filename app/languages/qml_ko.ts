@@ -1925,9 +1925,9 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>프로필은 새 GUI 세션에 적용됩니다. 전역 설정과 활성 스트림은 변경되지 않습니다.</translation>
+        <translation>프로필을 선택하면 해당 설정을 불러옵니다. 프로필이 선택되어 있는 동안 변경한 내용은 그 프로필에 저장됩니다. 활성 스트림은 변경되지 않습니다.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

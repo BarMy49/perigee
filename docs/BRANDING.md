@@ -296,6 +296,7 @@ for the early commands and limitations. Translation catalogs retain upstream con
 
 Milestone 6 local settings use `sessionprofile` and `sessionprofiles/<name>` for
 the selected Programming/Gaming profile and its twelve video/audio/window fields.
+The same fields are also stored in the global settings while a profile is selected.
 Host records add `transferurl`, `useappuuid`, and cached app UUIDs. Import excludes
 these integration fields. SFTP URLs cannot contain credentials; profiles contain
 no pairing identity or host records. No general preferences export is added.

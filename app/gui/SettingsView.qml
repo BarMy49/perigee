@@ -15,6 +15,18 @@ Flickable {
 
     signal languageChanged()
 
+    property bool profileReloaded: false
+    property real restoredContentY: 0
+
+    function reloadProfileSettings() {
+        var view = StackView.view
+        var position = contentY
+        Qt.callLater(function() {
+            view.replace(settingsPage, "qrc:/gui/SettingsView.qml",
+                         {"profileReloaded": true, "restoredContentY": position}, StackView.Immediate)
+        })
+    }
+
     AdwaitaPalette {
         id: adwaita
         dark: settingsPage.Material.theme === Material.Dark
@@ -143,7 +155,10 @@ Flickable {
             draft.videodec = profileDecoder.currentIndex
             draft.audiocfg = profileAudio.currentIndex
             draft.windowmode = profileWindow.currentIndex
-            if (StreamingPreferences.saveSessionProfile(profileName, draft)) accept()
+            if (StreamingPreferences.saveSessionProfile(profileName, draft)) {
+                accept()
+                if (profileName === StreamingPreferences.sessionProfile) settingsPage.reloadProfileSettings()
+            }
             else profileDialogError.visible = true
         }
         ScrollView {
@@ -244,6 +259,15 @@ Flickable {
 
         // Save the prefs so the Session can observe the changes
         StreamingPreferences.save()
+    }
+
+    Component.onCompleted: {
+        if (profileReloaded) {
+            Qt.callLater(function() {
+                contentY = Math.min(restoredContentY, Math.max(0, contentHeight - height))
+                sessionProfileSelector.forceActiveFocus(Qt.TabFocusReason)
+            })
+        }
     }
 
     Component.onDestruction: {
@@ -1251,7 +1275,7 @@ Flickable {
                 spacing: 8
                 Label {
                     width: parent.width
-                    text: qsTr("Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.")
+                    text: qsTr("Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.")
                     wrapMode: Text.Wrap
                 }
                 AutoResizingComboBox {
@@ -1261,7 +1285,11 @@ Flickable {
                     model: [qsTr("Current settings"), qsTr("Programming"), qsTr("Gaming")]
                     currentIndex: StreamingPreferences.sessionProfile === "programming" ? 1 :
                                   StreamingPreferences.sessionProfile === "gaming" ? 2 : 0
-                    onActivated: profileError.visible = !StreamingPreferences.selectSessionProfile(["", "programming", "gaming"][currentIndex])
+                    onActivated: {
+                        var name = ["", "programming", "gaming"][currentIndex]
+                        profileError.visible = !StreamingPreferences.selectSessionProfile(name)
+                        if (!profileError.visible && name !== "") settingsPage.reloadProfileSettings()
+                    }
                 }
                 Button {
                     objectName: "editSessionProfile"

@@ -1925,9 +1925,9 @@ Valgfri sammenkoblingsimport deler identitet og tillatelser på vertssiden med M
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>Profiler gjelder nye økter fra grensesnittet. Globale innstillinger og aktive strømmer forblir uendret.</translation>
+        <translation>Når du velger en profil, lastes innstillingene dens. Mens en profil er valgt, lagres endringene dine i den. Aktive strømmer forblir uendret.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

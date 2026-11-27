@@ -20,6 +20,7 @@
 #include "streaming/session.h"
 #include "settings/localshortcuts.h"
 #include <QScopeGuard>
+#include <QPointer>
 #include <QTranslator>
 #include <QDesktopServices>
 
@@ -249,13 +250,19 @@ private slots:
         QVERIFY(window);
         auto windowCleanup = qScopeGuard([&] { delete window; });
         QVERIFY(QTest::qWaitForWindowExposed(window));
-        auto selector = window->findChild<QObject*>("sessionProfileSelector");
-        auto edit = window->findChild<QObject*>("editSessionProfile");
-        auto dialog = window->findChild<QObject*>("sessionProfileDialog");
-        QVERIFY(selector && edit && dialog);
+        QPointer<QObject> selector = window->findChild<QObject*>("sessionProfileSelector");
+        QVERIFY(selector && window->findChild<QObject*>("editSessionProfile") && window->findChild<QObject*>("sessionProfileDialog"));
         QVERIFY(selector->setProperty("currentIndex", 1));
         QVERIFY(QMetaObject::invokeMethod(selector, "activated", Q_ARG(int, 1)));
         QCOMPARE(prefs->sessionProfile(), QString("programming"));
+        QCOMPARE(prefs->sessionPreferencesSnapshot(), prefs->sessionProfileDefaults("programming"));
+        QTRY_VERIFY(!selector);
+        selector = window->findChild<QObject*>("sessionProfileSelector");
+        QVERIFY(selector);
+        QCOMPARE(selector->property("currentIndex").toInt(), 1);
+        auto edit = window->findChild<QObject*>("editSessionProfile");
+        auto dialog = window->findChild<QObject*>("sessionProfileDialog");
+        QVERIFY(edit && dialog);
         QVERIFY(QMetaObject::invokeMethod(edit, "clicked"));
         QTRY_VERIFY(dialog->property("opened").toBool());
         auto background = dialog->property("background").value<QObject*>();
@@ -268,15 +275,17 @@ private slots:
         QVERIFY(width);
         auto save = findVisual(window->contentItem(), "saveSessionProfile");
         QVERIFY(save);
+        const int storedWidth = prefs->sessionProfileValues("programming").value("width").toInt();
         QVERIFY(width->setProperty("text", "0"));
         QVERIFY(QMetaObject::invokeMethod(save, "clicked"));
         QVERIFY(dialog->property("opened").toBool());
-        QVERIFY(!QSettings().contains("sessionprofiles/programming"));
+        QCOMPARE(QSettings().value("sessionprofiles/programming").toMap().value("width").toInt(), storedWidth);
+        QCOMPARE(prefs->width, storedWidth);
         QVERIFY(width->setProperty("text", "2560"));
         QVERIFY(QMetaObject::invokeMethod(save, "clicked"));
-        QTRY_VERIFY(!dialog->property("opened").toBool());
+        QTRY_VERIFY(!selector);
         QCOMPARE(prefs->sessionProfileValues("programming").value("width").toInt(), 2560);
-        QCOMPARE(prefs->sessionPreferencesSnapshot(), original);
+        QCOMPARE(prefs->width, 2560);
         NvComputer computer{};
         NvApp app{};
         Session first(&computer, app);
@@ -285,17 +294,26 @@ private slots:
         auto updated = prefs->sessionProfileValues("programming");
         updated["width"] = 3840;
         QVERIFY(prefs->saveSessionProfile("programming", updated));
+        QCOMPARE(prefs->width, 3840);
         Session second(&computer, app);
         QCOMPARE(second.m_Preferences->width, 3840);
         QCOMPARE(first.m_Preferences->width, 2560);
         Session cli(&computer, app, prefs);
-        QCOMPARE(cli.m_Preferences->sessionPreferencesSnapshot(), original);
-        QCOMPARE(prefs->sessionPreferencesSnapshot(), original);
+        QCOMPARE(cli.m_Preferences->sessionPreferencesSnapshot(), prefs->sessionPreferencesSnapshot());
+        QVERIFY(prefs->selectSessionProfile(""));
+        QCOMPARE(prefs->width, 3840);
+        QVERIFY(prefs->setProperty("width", original.value("width")));
+        QCOMPARE(prefs->sessionProfileValues("programming").value("width").toInt(), 3840);
+        QVERIFY(prefs->selectSessionProfile("programming"));
+        edit = window->findChild<QObject*>("editSessionProfile");
+        dialog = window->findChild<QObject*>("sessionProfileDialog");
+        QVERIFY(edit && dialog);
         QVERIFY(QMetaObject::invokeMethod(edit, "clicked"));
         QTRY_VERIFY(dialog->property("opened").toBool());
+        width = findVisual(window->contentItem(), "profileWidth");
         auto pacing = findVisual(window->contentItem(), "profilePacing");
         auto scroll = findVisual(window->contentItem(), "profileScroll");
-        QVERIFY(pacing && scroll);
+        QVERIFY(width && pacing && scroll);
         pacing->forceActiveFocus(Qt::TabFocusReason);
         QTRY_VERIFY(pacing->mapToItem(scroll, QPointF()).y() >= 0);
         QTRY_VERIFY(pacing->mapToItem(scroll, QPointF()).y() + pacing->height() <= scroll->height());

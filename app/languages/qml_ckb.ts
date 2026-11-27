@@ -1753,8 +1753,8 @@
             <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         </message>
         <message>
-            <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
-            <translation>پرۆفایلەکان بۆ دانیشتنە نوێکانی ڕووکارن. ڕێکخستنە گشتییەکان و ستریمە چالاکەکان ناگۆڕێن.</translation>
+            <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
+            <translation>هەڵبژاردنی پرۆفایلێک ڕێکخستنەکانی بار دەکات. کاتێک پرۆفایلێک هەڵبژێردراوە، گۆڕانکارییەکانت تێیدا پاشەکەوت دەکرێن. ستریمە چالاکەکان ناگۆڕێن.</translation>
             <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
         </message>
         <message>

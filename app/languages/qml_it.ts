@@ -1925,9 +1925,9 @@ L&apos;importazione di abbinamento opzionale condivide l&apos;identità e le aut
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>I profili si applicano alle nuove sessioni dell’interfaccia. Impostazioni globali e streaming attivi restano invariati.</translation>
+        <translation>Scegliere un profilo ne carica le impostazioni. Finché un profilo è selezionato, le modifiche vengono salvate in esso. Gli streaming attivi restano invariati.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

@@ -1925,9 +1925,9 @@ L&apos;importation de couplage facultative partage l&apos;identité et les autor
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>Les profils s’appliquent aux nouvelles sessions de l’interface. Les réglages globaux et les flux actifs restent inchangés.</translation>
+        <translation>Choisir un profil charge ses réglages. Tant qu’un profil est sélectionné, vos modifications y sont enregistrées. Les flux actifs restent inchangés.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>
