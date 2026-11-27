@@ -25,6 +25,7 @@ ApplicationWindow {
     Material.background: adwaita.windowBackground
     Material.foreground: adwaita.windowForeground
     Material.accent: adwaita.accent
+    font.capitalization: Font.MixedCase
 
     AdwaitaPalette {
         id: adwaita

@@ -6,23 +6,23 @@
     <message>
         <location filename="../gui/AppView.qml" line="143"/>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Resume Game</source>
+        <source>Resume game</source>
         <translation>חזרה למשחק</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="169"/>
         <location filename="../gui/AppView.qml" line="316"/>
-        <source>Quit Game</source>
+        <source>Quit game</source>
         <translation>יציאה מהמשחק</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Launch Game</source>
+        <source>Launch game</source>
         <translation>הפעלת משחק</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="329"/>
-        <source>Direct Launch</source>
+        <source>Direct launch</source>
         <translation>הפעלה ישירה</translation>
     </message>
     <message>
@@ -32,7 +32,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="341"/>
-        <source>Hide Game</source>
+        <source>Hide game</source>
         <translation>הסתר משחק</translation>
     </message>
     <message>
@@ -42,8 +42,9 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="345"/>
-        <source>View All Apps</source>
-        <translation type="unfinished"></translation>
+        <source>View all apps</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>הצגת כל היישומים</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="360"/>
@@ -687,14 +688,21 @@ Optional pairing import shares host-side identity and permissions with Moonlight
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../gui/PcView.qml" line="135"/>
+        <source>Make sure your host PC is turned on, running Sunshine or Apollo, and connected to the same network as this device.</source>
+        <translatorcomment>Perigee empty-state hint; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>ודאו שמחשב המארח מופעל, מריץ את Sunshine או Apollo ומחובר לאותה רשת כמו מכשיר זה.</translation>
+    </message>
+    <message>
         <location filename="../gui/PcView.qml" line="185"/>
         <source>Wake PC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="190"/>
-        <source>Test Network</source>
-        <translation type="unfinished"></translation>
+        <source>Test network</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>בדיקת רשת</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="198"/>
@@ -708,8 +716,9 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="214"/>
-        <source>View Details</source>
-        <translation type="unfinished"></translation>
+        <source>View details</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>הצגת פרטים</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="581"/>
@@ -728,8 +737,9 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="171"/>
-        <source>PC Status: %1</source>
-        <translation type="unfinished"></translation>
+        <source>PC status: %1</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>מצב המחשב: %1</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="171"/>
@@ -743,8 +753,9 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="176"/>
-        <source>View All Apps</source>
-        <translation type="unfinished"></translation>
+        <source>View all apps</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>הצגת כל היישומים</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="554"/>
@@ -774,27 +785,27 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Disable Session Text Clipboard</source>
+        <source>Disable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>השבת לוח טקסט הפעלה</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Enable Session Text Clipboard</source>
+        <source>Enable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>הפעל לוח טקסט הפעלה</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="231"/>
         <location filename="../gui/PcView.qml" line="404"/>
-        <source>Host Capabilities</source>
+        <source>Host capabilities</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>יכולות מארח</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="239"/>
         <location filename="../gui/PcView.qml" line="352"/>
-        <source>Display Launch Options</source>
+        <source>Display launch options</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>אפשרויות תצוגה בהפעלה</translation>
     </message>
@@ -819,13 +830,13 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="271"/>
-        <source>Configure Administration Link</source>
+        <source>Configure administration link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>הגדר קישור ניהול</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="279"/>
-        <source>Open Administration</source>
+        <source>Open administration</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>פתח ניהול</translation>
     </message>
@@ -849,19 +860,19 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="379"/>
-        <source>Display Options Not Saved</source>
+        <source>Display options not saved</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>אפשרויות תצוגה לא נשמרו</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="384"/>
-        <source>Host availability changed. Reopen Display Launch Options to check current permissions and driver status.</source>
+        <source>Host availability changed. Reopen display launch options to check current permissions and driver status.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>זמינות המארח השתנתה. פתח מחדש את אפשרויות הפעלת התצוגה כדי לבדוק את ההרשאות הנוכחיות ואת מצב מנהל ההתקן.</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="391"/>
-        <source>Session Text Clipboard</source>
+        <source>Session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>לוח טקסט הפעלה</translation>
     </message>
@@ -896,7 +907,7 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="494"/>
-        <source>Host Administration Link</source>
+        <source>Host administration link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>קישור לניהול מארח</translation>
     </message>
@@ -1363,8 +1374,9 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="260"/>
-        <source>Basic Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Basic settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>הגדרות בסיסיות</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="405"/>
@@ -1522,8 +1534,9 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1037"/>
-        <source>Audio Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Audio settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>הגדרות שמע</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="184"/>
@@ -1591,8 +1604,9 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1283"/>
-        <source>UI Settings</source>
-        <translation type="unfinished"></translation>
+        <source>UI settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>הגדרות ממשק</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1315"/>
@@ -1621,8 +1635,9 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1615"/>
-        <source>Input Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Input settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>הגדרות קלט</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1636"/>
@@ -1697,8 +1712,9 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1763"/>
-        <source>Gamepad Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Gamepad settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>הגדרות בקר משחק</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1773"/>
@@ -1732,13 +1748,15 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1130"/>
-        <source>Host Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Host settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>הגדרות מארח</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1838"/>
-        <source>Advanced Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Advanced settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>הגדרות מתקדמות</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="180"/>

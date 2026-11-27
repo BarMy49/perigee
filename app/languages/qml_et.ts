@@ -6,23 +6,23 @@
     <message>
         <location filename="../gui/AppView.qml" line="143"/>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Resume Game</source>
+        <source>Resume game</source>
         <translation>Jätka Mängu</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="169"/>
         <location filename="../gui/AppView.qml" line="316"/>
-        <source>Quit Game</source>
+        <source>Quit game</source>
         <translation>Välju Mängust</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="312"/>
-        <source>Launch Game</source>
+        <source>Launch game</source>
         <translation>Ava Mäng</translation>
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="329"/>
-        <source>Direct Launch</source>
+        <source>Direct launch</source>
         <translation>Otsene käivitus</translation>
     </message>
     <message>
@@ -32,7 +32,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="341"/>
-        <source>Hide Game</source>
+        <source>Hide game</source>
         <translation>Peida Mäng</translation>
     </message>
     <message>
@@ -42,7 +42,7 @@
     </message>
     <message>
         <location filename="../gui/AppView.qml" line="345"/>
-        <source>View All Apps</source>
+        <source>View all apps</source>
         <translation>Näita Kõik Äpid</translation>
     </message>
     <message>
@@ -687,14 +687,21 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../gui/PcView.qml" line="135"/>
+        <source>Make sure your host PC is turned on, running Sunshine or Apollo, and connected to the same network as this device.</source>
+        <translatorcomment>Perigee empty-state hint; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Veendu, et hostarvuti on sisse lülitatud, selles töötab Sunshine või Apollo ja see on ühendatud selle seadmega samasse võrku.</translation>
+    </message>
+    <message>
         <location filename="../gui/PcView.qml" line="185"/>
         <source>Wake PC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="190"/>
-        <source>Test Network</source>
-        <translation type="unfinished"></translation>
+        <source>Test network</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Testi võrku</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="198"/>
@@ -708,8 +715,9 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="214"/>
-        <source>View Details</source>
-        <translation type="unfinished"></translation>
+        <source>View details</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Vaata üksikasju</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="581"/>
@@ -728,8 +736,9 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="171"/>
-        <source>PC Status: %1</source>
-        <translation type="unfinished"></translation>
+        <source>PC status: %1</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Arvuti olek: %1</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="171"/>
@@ -743,8 +752,9 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="176"/>
-        <source>View All Apps</source>
-        <translation type="unfinished">Näita Kõik Äpid</translation>
+        <source>View all apps</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Vaata kõiki rakendusi</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="554"/>
@@ -774,27 +784,27 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Disable Session Text Clipboard</source>
+        <source>Disable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Keela seansi teksti lõikelaud</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="221"/>
-        <source>Enable Session Text Clipboard</source>
+        <source>Enable session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Luba seansi teksti lõikelaud</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="231"/>
         <location filename="../gui/PcView.qml" line="404"/>
-        <source>Host Capabilities</source>
+        <source>Host capabilities</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Hosti võimalused</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="239"/>
         <location filename="../gui/PcView.qml" line="352"/>
-        <source>Display Launch Options</source>
+        <source>Display launch options</source>
         <translatorcomment>Perigee terminology and placeholders reviewed by the coding assistant.</translatorcomment>
         <translation>Kuva käivitussuvandid</translation>
     </message>
@@ -819,13 +829,13 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="271"/>
-        <source>Configure Administration Link</source>
+        <source>Configure administration link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Halduslinki seadistamine</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="279"/>
-        <source>Open Administration</source>
+        <source>Open administration</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Avage haldus</translation>
     </message>
@@ -849,19 +859,19 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="379"/>
-        <source>Display Options Not Saved</source>
+        <source>Display options not saved</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Kuvavalikud pole salvestatud</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="384"/>
-        <source>Host availability changed. Reopen Display Launch Options to check current permissions and driver status.</source>
+        <source>Host availability changed. Reopen display launch options to check current permissions and driver status.</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Hosti saadavus muudetud. Praeguste lubade ja draiveri oleku kontrollimiseks avage uuesti kuva käivitusvalikud.</translation>
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="391"/>
-        <source>Session Text Clipboard</source>
+        <source>Session text clipboard</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Seansi teksti lõikelaud</translation>
     </message>
@@ -896,7 +906,7 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
     </message>
     <message>
         <location filename="../gui/PcView.qml" line="494"/>
-        <source>Host Administration Link</source>
+        <source>Host administration link</source>
         <translatorcomment>Machine-assisted Perigee translation; native-language review welcome.</translatorcomment>
         <translation>Hosti halduse link</translation>
     </message>
@@ -1363,8 +1373,9 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="260"/>
-        <source>Basic Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Basic settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Põhisätted</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="405"/>
@@ -1522,8 +1533,9 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1037"/>
-        <source>Audio Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Audio settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Helisätted</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="184"/>
@@ -1591,8 +1603,9 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1283"/>
-        <source>UI Settings</source>
-        <translation type="unfinished"></translation>
+        <source>UI settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Kasutajaliidese sätted</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1315"/>
@@ -1621,8 +1634,9 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1615"/>
-        <source>Input Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Input settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Sisendi sätted</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1636"/>
@@ -1697,8 +1711,9 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1763"/>
-        <source>Gamepad Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Gamepad settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Mängupuldi sätted</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1773"/>
@@ -1732,13 +1747,15 @@ Valikuline importimise sidumine jagab hostipoolset identiteeti ja õigusi rakend
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1130"/>
-        <source>Host Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Host settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Hosti sätted</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1838"/>
-        <source>Advanced Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Advanced settings</source>
+        <translatorcomment>Perigee sentence-case label; machine-assisted translation reviewed by the coding assistant.</translatorcomment>
+        <translation>Täpsemad sätted</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="180"/>

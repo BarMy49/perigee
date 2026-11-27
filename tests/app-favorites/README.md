@@ -35,5 +35,5 @@ excluded from Moonlight import, including explicit pairing import.
 For interactive acceptance, mark an app Favorite from its menu, confirm its star
 and position, reopen the host and restart the client, then uncheck Favorite.
 Verify selection stays on that app and normal launch/resume, hidden apps and
-Direct Launch still behave as expected. This target does not establish real
+Direct launch still behave as expected. This target does not establish real
 streaming, physical gamepad, performance or screen-reader acceptance.

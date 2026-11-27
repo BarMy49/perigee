@@ -15,6 +15,11 @@ Flickable {
 
     signal languageChanged()
 
+    AdwaitaPalette {
+        id: adwaita
+        dark: settingsPage.Material.theme === Material.Dark
+    }
+
     readonly property real minimumColumnWidth: Math.max(520, resolutionComboBox.desiredWidth + fpsComboBox.desiredWidth +
                                                        settingsColumn1.leftPadding + settingsColumn1.rightPadding +
                                                        basicSettingsGroupBox.leftPadding + basicSettingsGroupBox.rightPadding +
@@ -248,16 +253,16 @@ Flickable {
     }
 
     Column {
-        padding: 10
+        padding: 16
         id: settingsColumn1
         width: settingsPage.singleColumn ? settingsPage.contentWidth : settingsPage.contentWidth / 2
-        spacing: 15
+        spacing: 20
 
         PreferencesGroup {
             id: basicSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
-            padding: 12
-            title: qsTr("Basic Settings")
+            padding: 16
+            title: qsTr("Basic settings")
             font.pointSize: 12
 
             Column {
@@ -276,7 +281,8 @@ Flickable {
                     width: parent.width
                     id: resFPSdesc
                     text: qsTr("Setting values too high for your PC or network connection may cause lag, stuttering, or errors.")
-                    font.pointSize: 9
+                    font.pointSize: 10
+                    color: adwaita.dimForeground
                     wrapMode: Text.Wrap
                 }
 
@@ -833,7 +839,8 @@ Flickable {
                     width: parent.width
                     id: bitrateDesc
                     text: qsTr("Lower the bitrate on slower connections. Raise the bitrate to increase image quality.")
-                    font.pointSize: 9
+                    font.pointSize: 10
+                    color: adwaita.dimForeground
                     wrapMode: Text.Wrap
                 }
 
@@ -1033,8 +1040,8 @@ Flickable {
 
             id: audioSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
-            padding: 12
-            title: qsTr("Audio Settings")
+            padding: 16
+            title: qsTr("Audio settings")
             font.pointSize: 12
 
             Column {
@@ -1126,8 +1133,8 @@ Flickable {
         PreferencesGroup {
             id: hostSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
-            padding: 12
-            title: qsTr("Host Settings")
+            padding: 16
+            title: qsTr("Host settings")
             font.pointSize: 12
 
             Column {
@@ -1166,7 +1173,7 @@ Flickable {
         PreferencesGroup {
             width: parent.width - parent.leftPadding - parent.rightPadding
             title: qsTr("Keyboard shortcuts")
-            padding: 12
+            padding: 16
             font.pointSize: 12
 
             Column {
@@ -1238,7 +1245,7 @@ Flickable {
         PreferencesGroup {
             width: parent.width - parent.leftPadding - parent.rightPadding
             title: qsTr("Session profile")
-            padding: 12
+            padding: 16
             Column {
                 width: parent.width
                 spacing: 8
@@ -1279,8 +1286,8 @@ Flickable {
         PreferencesGroup {
             id: uiSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
-            padding: 12
-            title: qsTr("UI Settings")
+            padding: 16
+            title: qsTr("UI settings")
             font.pointSize: 12
 
             Column {
@@ -1600,19 +1607,19 @@ Flickable {
     }
 
     Column {
-        padding: 10
+        padding: 16
         rightPadding: 20
         x: settingsPage.singleColumn ? 0 : settingsColumn1.width
         y: settingsPage.singleColumn ? settingsColumn1.height : 0
         id: settingsColumn2
         width: settingsColumn1.width
-        spacing: 15
+        spacing: 20
 
         PreferencesGroup {
             id: inputSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
-            padding: 12
-            title: qsTr("Input Settings")
+            padding: 16
+            title: qsTr("Input settings")
             font.pointSize: 12
 
             Column {
@@ -1759,8 +1766,8 @@ Flickable {
         PreferencesGroup {
             id: gamepadSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
-            padding: 12
-            title: qsTr("Gamepad Settings")
+            padding: 16
+            title: qsTr("Gamepad settings")
             font.pointSize: 12
 
             Column {
@@ -1834,8 +1841,8 @@ Flickable {
         PreferencesGroup {
             id: advancedSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
-            padding: 12
-            title: qsTr("Advanced Settings")
+            padding: 16
+            title: qsTr("Advanced settings")
             font.pointSize: 12
 
             Column {

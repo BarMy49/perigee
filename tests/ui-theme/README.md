@@ -26,7 +26,7 @@ reload/save preservation and invalid-shortcut fallback. No pairing or stream is 
 closed loopback proxy and can report expected proxy-refusal warnings. Existing
 tooltip/shortcut and GTK initialization warnings remain separate from theme checks.
 
-For user acceptance, select **Settings → UI Settings → Appearance → Light**,
+For user acceptance, select **Settings → UI settings → Appearance → Light**,
 inspect host/status icons, menus, dialogs, settings and app tiles, restart the
 client and confirm the selection persists, then switch back to **Dark**. This
 does not establish secondary-platform, compositor-policy or streaming performance

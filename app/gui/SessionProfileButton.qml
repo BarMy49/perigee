@@ -42,7 +42,7 @@ Button {
                 text: qsTranslate("SettingsView", "Session profile")
                 color: adwaita.accentForeground
                 opacity: 0.85
-                font.pointSize: 8
+                font.pointSize: 9
             }
 
             Label {
