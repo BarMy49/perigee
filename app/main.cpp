@@ -9,6 +9,7 @@
 #include <QNetworkProxyFactory>
 #include <QPalette>
 #include <QFont>
+#include <QFontDatabase>
 #include <QCursor>
 #include <QElapsedTimer>
 #include <QTemporaryFile>
@@ -950,6 +951,24 @@ int main(int argc, char *argv[])
     g_DisableDrmHooks = QGuiApplication::platformName() != "eglfs";
 #endif
 
+#ifndef STEAM_LINK
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        const QStringList families = QFontDatabase::families();
+#else
+        const QStringList families = QFontDatabase().families();
+#endif
+        for (const auto& family : {QStringLiteral("Adwaita Sans"), QStringLiteral("Cantarell")}) {
+            if (families.contains(family)) {
+                QFont font = app.font();
+                font.setFamily(family);
+                app.setFont(font);
+                break;
+            }
+        }
+    }
+#endif
+
 #ifdef STEAM_LINK
     // Qt 5.9 from the Steam Link SDK is not able to load any fonts
     // since the Steam Link doesn't include any of the ones it looks
@@ -1035,7 +1054,7 @@ int main(int argc, char *argv[])
 
     // These are defaults that we allow the user to override
     if (!qEnvironmentVariableIsSet("QT_QUICK_CONTROLS_MATERIAL_ACCENT")) {
-        qputenv("QT_QUICK_CONTROLS_MATERIAL_ACCENT", "Purple");
+        qputenv("QT_QUICK_CONTROLS_MATERIAL_ACCENT", "#3584e4");
     }
     if (!qEnvironmentVariableIsSet("QT_QUICK_CONTROLS_MATERIAL_VARIANT")) {
         qputenv("QT_QUICK_CONTROLS_MATERIAL_VARIANT", "Dense");

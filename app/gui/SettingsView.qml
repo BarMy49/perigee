@@ -253,7 +253,7 @@ Flickable {
         width: settingsPage.singleColumn ? settingsPage.contentWidth : settingsPage.contentWidth / 2
         spacing: 15
 
-        GroupBox {
+        PreferencesGroup {
             id: basicSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12
@@ -1029,7 +1029,7 @@ Flickable {
             }
         }
 
-        GroupBox {
+        PreferencesGroup {
 
             id: audioSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
@@ -1123,7 +1123,7 @@ Flickable {
             }
         }
 
-        GroupBox {
+        PreferencesGroup {
             id: hostSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12
@@ -1163,7 +1163,7 @@ Flickable {
             }
         }
 
-        GroupBox {
+        PreferencesGroup {
             width: parent.width - parent.leftPadding - parent.rightPadding
             title: qsTr("Keyboard shortcuts")
             padding: 12
@@ -1235,7 +1235,7 @@ Flickable {
             }
         }
 
-        GroupBox {
+        PreferencesGroup {
             width: parent.width - parent.leftPadding - parent.rightPadding
             title: qsTr("Session profile")
             padding: 12
@@ -1276,7 +1276,7 @@ Flickable {
             }
         }
 
-        GroupBox {
+        PreferencesGroup {
             id: uiSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12
@@ -1608,7 +1608,7 @@ Flickable {
         width: settingsColumn1.width
         spacing: 15
 
-        GroupBox {
+        PreferencesGroup {
             id: inputSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12
@@ -1756,7 +1756,7 @@ Flickable {
             }
         }
 
-        GroupBox {
+        PreferencesGroup {
             id: gamepadSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12
@@ -1831,7 +1831,7 @@ Flickable {
             }
         }
 
-        GroupBox {
+        PreferencesGroup {
             id: advancedSettingsGroupBox
             width: (parent.width - (parent.leftPadding + parent.rightPadding))
             padding: 12

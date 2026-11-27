@@ -20,5 +20,8 @@
         <file>gui/NavigableDialog.qml</file>
         <file>gui/CenteredGridView.qml</file>
         <file>gui/CliPair.qml</file>
+        <file>gui/AdwaitaPalette.qml</file>
+        <file>gui/PreferencesGroup.qml</file>
+        <file>gui/SessionProfileButton.qml</file>
     </qresource>
 </RCC>

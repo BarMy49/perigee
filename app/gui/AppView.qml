@@ -17,7 +17,7 @@ CenteredGridView {
     focus: true
     activeFocusOnTab: true
     topMargin: 20
-    bottomMargin: 5
+    bottomMargin: 88
     cellWidth: 230; cellHeight: 297;
 
     function computerLost()

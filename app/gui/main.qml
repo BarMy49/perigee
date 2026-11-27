@@ -22,7 +22,14 @@ ApplicationWindow {
     width: 1280
     height: 600
     Material.theme: StreamingPreferences.uiTheme === StreamingPreferences.UI_THEME_LIGHT ? Material.Light : Material.Dark
-    Material.background: Material.theme === Material.Light ? "#fafafa" : "#303030"
+    Material.background: adwaita.windowBackground
+    Material.foreground: adwaita.windowForeground
+    Material.accent: adwaita.accent
+
+    AdwaitaPalette {
+        id: adwaita
+        dark: window.Material.theme === Material.Dark
+    }
 
     // This function runs prior to creation of the initial StackView item
     function doEarlyInit() {
@@ -236,28 +243,49 @@ ApplicationWindow {
         }
     }
 
+    SessionProfileButton {
+        id: sessionProfileButton
+        z: 1
+        visible: stackView.currentItem instanceof PcView || stackView.currentItem instanceof AppView
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.margins: 24
+    }
+
     header: ToolBar {
         id: toolBar
-        Material.foreground: "white"
-        height: 60
-        anchors.topMargin: 5
-        anchors.bottomMargin: 5
+        Material.foreground: adwaita.windowForeground
+        Material.elevation: 0
+        height: 52
+
+        background: Rectangle {
+            color: adwaita.headerBackground
+
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                height: 1
+                color: adwaita.headerShade
+            }
+        }
 
         Label {
             id: titleLabel
             visible: toolBar.width > 700
             anchors.fill: parent
             text: stackView.currentItem.objectName
-            font.pointSize: 20
+            font.pointSize: 12
+            font.bold: true
             elide: Label.ElideRight
             horizontalAlignment: Qt.AlignHCenter
             verticalAlignment: Qt.AlignVCenter
         }
 
         RowLayout {
-            spacing: 10
-            anchors.leftMargin: 10
-            anchors.rightMargin: 10
+            spacing: 6
+            anchors.leftMargin: 8
+            anchors.rightMargin: 8
             anchors.fill: parent
 
             NavigableToolButton {
@@ -278,6 +306,7 @@ ApplicationWindow {
             Label {
                 id: titleRowLabel
                 font.pointSize: titleLabel.font.pointSize
+                font.bold: true
                 elide: Label.ElideRight
                 horizontalAlignment: Qt.AlignHCenter
                 verticalAlignment: Qt.AlignVCenter
@@ -295,7 +324,8 @@ ApplicationWindow {
                 visible: stackView.currentItem instanceof SettingsView &&
                          toolBar.width > 2 * (implicitWidth + 180) + titleLabel.implicitWidth
                 text: qsTr("Perigee %1 (based on Moonlight Qt)").arg(SystemProperties.versionString)
-                font.pointSize: 12
+                font.pointSize: 10
+                opacity: 0.7
                 horizontalAlignment: Qt.AlignRight
                 verticalAlignment: Qt.AlignVCenter
             }
