@@ -82,11 +82,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          version="$(rpmspec -q --qf '%{version}\n' --srpm packaging/rpm/perigee.spec)"
           mkdir -p build/ci-rpm/SOURCES build/ci-rpm-payload
-          python3 scripts/create-source-archive.py --output build/ci-rpm/SOURCES/perigee-6.2.0.tar.gz
+          python3 scripts/create-source-archive.py --output "build/ci-rpm/SOURCES/perigee-$version.tar.gz"
           rpmbuild -ba --define "_topdir $PWD/build/ci-rpm" --define '_smp_mflags -j1' \
             --define '_lto_cflags -flto=1 -ffat-lto-objects' packaging/rpm/perigee.spec
-          rpm_file="$PWD/build/ci-rpm/RPMS/$(uname -m)/perigee-6.2.0-0.1.fc44.$(uname -m).rpm"
+          rpm_file="$PWD/build/ci-rpm/RPMS/$(uname -m)/perigee-$version-0.1.fc44.$(uname -m).rpm"
           test -z "$(rpm -qp --scripts "$rpm_file")"
           test -z "$(rpm -qp --conflicts --obsoletes "$rpm_file")"
           rpm2cpio "$rpm_file" | (cd build/ci-rpm-payload && cpio -idm --quiet)
