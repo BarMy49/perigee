@@ -6,7 +6,7 @@ QtObject {
     readonly property color accent: "#3584e4"
     readonly property color accentForeground: "#ffffff"
     readonly property color windowBackground: dark ? "#222226" : "#fafafb"
-    readonly property color windowForeground: dark ? "#ffffff" : "#2e2e32"
+    readonly property color windowForeground: dark ? "#ffffff" : "#333337"
     readonly property color dimForeground: dark ? "#c0bfc4" : "#5e5c64"
     readonly property color headerBackground: dark ? "#2e2e32" : "#ffffff"
     readonly property color headerShade: dark ? "#16161a" : "#e0e0e3"
