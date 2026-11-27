@@ -1,0 +1,170 @@
+name: Perigee Fedora 45 aarch64 RPM
+
+on:
+  push:
+    paths:
+      - .github/workflows/build-rpm-fedora45-aarch64.yml
+      - packaging/rpm/**
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Application source commit, tag or branch to package
+        required: true
+        default: master
+      rpm_release:
+        description: RPM release number (perigee_rpm_release)
+        required: true
+        default: '0.5'
+      release_tag:
+        description: Optional GitHub release tag to attach the RPM to (created as a prerelease if missing)
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  rpm:
+    runs-on: ubuntu-24.04-arm
+    container:
+      image: fedora:45
+      options: --memory=1536m --memory-swap=1792m --cpus=1
+    timeout-minutes: 120
+    env:
+      CCACHE_DISABLE: '1'
+      SOURCE_REF: ${{ inputs.source_ref || github.sha }}
+      RPM_RELEASE: ${{ inputs.rpm_release || '0.5' }}
+    outputs:
+      rpm_name: ${{ steps.build.outputs.rpm_name }}
+      srpm_name: ${{ steps.build.outputs.srpm_name }}
+      source_sha: ${{ steps.build.outputs.source_sha }}
+    steps:
+      - name: Verify architecture and build resource limits
+        shell: bash
+        run: |
+          test "$(uname -m)" = aarch64
+          grep -q '^VERSION_ID=45$' /etc/os-release
+          test "$(cat /sys/fs/cgroup/memory.max)" = 1610612736
+          test "$(cat /sys/fs/cgroup/memory.swap.max)" = 268435456
+          test "$(cat /sys/fs/cgroup/cpu.max)" = '100000 100000'
+      - name: Install build and packaging dependencies
+        run: |
+          dnf install -y git gcc-c++ make python3 findutils which openssl cpio \
+            rpm-build redhat-rpm-config \
+            qt6-qtbase-devel qt6-qtdeclarative-devel qt6-qtsvg-devel qt6-qtwayland qt6-linguist \
+            'pkgconfig(openssl)' 'pkgconfig(sdl2)' 'pkgconfig(SDL2_ttf)' 'pkgconfig(opus)' \
+            'pkgconfig(libavcodec)' 'pkgconfig(libavformat)' 'pkgconfig(libavutil)' 'pkgconfig(libswscale)' \
+            'pkgconfig(libva)' 'pkgconfig(libva-x11)' 'pkgconfig(libva-wayland)' \
+            'pkgconfig(libva-drm)' 'pkgconfig(vdpau)' 'pkgconfig(libdrm)' \
+            'pkgconfig(libplacebo)' 'pkgconfig(wayland-client)' 'pkgconfig(x11)' \
+            desktop-file-utils appstream
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.SOURCE_REF }}
+          fetch-depth: 0
+          submodules: recursive
+          persist-credentials: false
+      - name: Trust checked-out repositories
+        shell: bash
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          find "$GITHUB_WORKSPACE" -name .git -type f -print0 |
+            while IFS= read -r -d '' git_file; do
+              git config --global --add safe.directory "$(dirname "$git_file")"
+            done
+      - name: Build and check RPM payload
+        id: build
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(rpmspec -q --qf '%{version}\n' --srpm packaging/rpm/perigee.spec)"
+          dist="$(rpm --eval '%{dist}')"
+          mkdir -p build/rpm/SOURCES build/rpm-payload build/out
+          python3 scripts/create-source-archive.py --output "build/rpm/SOURCES/perigee-$version.tar.gz"
+          rpmbuild -ba --define "_topdir $PWD/build/rpm" --define '_smp_mflags -j1' \
+            --define '_lto_cflags -flto=1 -ffat-lto-objects' \
+            --define "perigee_rpm_release $RPM_RELEASE" packaging/rpm/perigee.spec
+          rpm_name="perigee-$version-$RPM_RELEASE$dist.aarch64.rpm"
+          srpm_name="perigee-$version-$RPM_RELEASE$dist.src.rpm"
+          rpm_file="$PWD/build/rpm/RPMS/aarch64/$rpm_name"
+          test -f "$rpm_file"
+          test -z "$(rpm -qp --scripts "$rpm_file")"
+          test -z "$(rpm -qp --conflicts --obsoletes "$rpm_file")"
+          rpm2cpio "$rpm_file" | (cd build/rpm-payload && cpio -idm --quiet)
+          python3 scripts/check-linux-stage.py --rpm build/rpm-payload
+          python3 scripts/package-inventory.py --tree build/rpm-payload --output build/out/rpm-inventory.json
+          cp "$rpm_file" "build/rpm/SRPMS/$srpm_name" build/out/
+          (cd build/out && sha256sum "$rpm_name" "$srpm_name" > SHA256SUMS.aarch64)
+          cat build/out/SHA256SUMS.aarch64
+          {
+            echo "rpm_name=$rpm_name"
+            echo "srpm_name=$srpm_name"
+            echo "source_sha=$(git rev-parse HEAD)"
+          } >> "$GITHUB_OUTPUT"
+      - name: Install, verify and remove the RPM
+        shell: bash
+        run: |
+          set -euo pipefail
+          dnf install -y "build/out/${{ steps.build.outputs.rpm_name }}"
+          rpm -V perigee
+          QT_QPA_PLATFORM=offscreen perigee --help > /dev/null
+          dnf remove -y perigee
+          test ! -e /usr/bin/perigee
+      - uses: actions/upload-artifact@v6
+        with:
+          name: Perigee-Fedora45-aarch64-rpm
+          path: build/out/*
+          if-no-files-found: error
+
+  publish:
+    if: github.event_name == 'workflow_dispatch' && inputs.release_tag != ''
+    needs: rpm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TAG: ${{ inputs.release_tag }}
+      RPM_NAME: ${{ needs.rpm.outputs.rpm_name }}
+      SRPM_NAME: ${{ needs.rpm.outputs.srpm_name }}
+      SOURCE_SHA: ${{ needs.rpm.outputs.source_sha }}
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          name: Perigee-Fedora45-aarch64-rpm
+          path: out
+      - name: Attach RPM to release
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd out
+          if ! gh release view "$TAG" > /dev/null 2>&1; then
+            gh release create "$TAG" --prerelease --target "$SOURCE_SHA" \
+              --title "Perigee $TAG" --notes "Fedora 45 aarch64 RPM built from $SOURCE_SHA. Unsigned prerelease."
+          fi
+          assets="$(gh release view "$TAG" --json assets --jq '.assets[].name')"
+          upload=("$RPM_NAME")
+          if grep -qxF "$SRPM_NAME" <<< "$assets"; then
+            rm -f "$SRPM_NAME"
+          else
+            upload+=("$SRPM_NAME")
+          fi
+          for name in "${upload[@]}"; do
+            if grep -qxF "$name" <<< "$assets"; then
+              echo "::error::$name already exists on $TAG"
+              exit 1
+            fi
+          done
+          if grep -qxF SHA256SUMS <<< "$assets"; then
+            gh release download "$TAG" --pattern SHA256SUMS --dir existing
+            cp existing/SHA256SUMS SHA256SUMS
+          else
+            : > SHA256SUMS
+          fi
+          for name in "${upload[@]}"; do
+            grep -F "  $name" SHA256SUMS.aarch64 >> SHA256SUMS
+          done
+          sha256sum --check --ignore-missing SHA256SUMS
+          gh release upload "$TAG" "${upload[@]}"
+          gh release upload "$TAG" SHA256SUMS --clobber
