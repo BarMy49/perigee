@@ -1,15 +1,10 @@
 ---
-name: Perigee manual packaging checks
+name: Manual test - AppImage and Windows packaging
 permissions:
   contents: read
 
 on:
   workflow_dispatch:
-    inputs:
-      legacy_targets:
-        description: Also run unverified upstream macOS and Steam Link builds
-        type: boolean
-        default: false
 
 concurrency:
   group: build-${{ github.ref }}
@@ -30,14 +25,7 @@ jobs:
 
   build-appimage:
     needs: setup
-    uses: ./.github/workflows/build-appimage.yml
-    with:
-      ci_version: ${{ needs.setup.outputs.ci_version }}
-
-  build-steamlink:
-    if: inputs.legacy_targets
-    needs: setup
-    uses: ./.github/workflows/build-steamlink.yml
+    uses: ./.github/workflows/package-linux-appimage.yml
     with:
       ci_version: ${{ needs.setup.outputs.ci_version }}
 
@@ -45,13 +33,6 @@ jobs:
     needs: setup
     permissions:
       contents: write
-    uses: ./.github/workflows/build-windows.yml
-    with:
-      ci_version: ${{ needs.setup.outputs.ci_version }}
-
-  build-macos:
-    if: inputs.legacy_targets
-    needs: setup
-    uses: ./.github/workflows/build-win-mac.yml
+    uses: ./.github/workflows/release-windows.yml
     with:
       ci_version: ${{ needs.setup.outputs.ci_version }}

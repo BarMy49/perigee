@@ -1,4 +1,4 @@
-name: Perigee Fedora checks
+name: CI - Fedora build and tests
 
 on:
   push:

@@ -1,9 +1,9 @@
-name: Perigee Windows
+name: Release - Windows packages (x64, ARM64)
 
 on:
   push:
     paths:
-      - .github/workflows/build-windows.yml
+      - .github/workflows/release-windows.yml
       - scripts/build-arch.bat
       - scripts/generate-bundle.bat
       - wix/**

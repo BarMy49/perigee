@@ -1,9 +1,9 @@
-name: Perigee Fedora RPM
+name: Release - Fedora RPMs (x86_64, aarch64)
 
 on:
   push:
     paths:
-      - .github/workflows/build-rpm-fedora45-aarch64.yml
+      - .github/workflows/release-fedora-rpm.yml
       - packaging/rpm/**
   workflow_dispatch:
     inputs:

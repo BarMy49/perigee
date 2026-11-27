@@ -31,7 +31,7 @@ Apollo and Sunshine on XWayland.
 ### Windows
 
 Windows 10 and 11 builds for x64 and ARM64 come from the
-[Windows workflow](.github/workflows/build-windows.yml). It produces an unsigned
+[Windows workflow](.github/workflows/release-windows.yml). It produces an unsigned
 `PerigeeSetup-VERSION.exe` installer and `PerigeePortable-ARCH-VERSION.zip`
 archives. Windows builds use their own settings
 (`HKCU\Software\io.github.BarMy49\Perigee`) and never share pairing with an

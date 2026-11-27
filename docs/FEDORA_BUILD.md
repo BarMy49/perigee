@@ -7,7 +7,7 @@ its library requirements match the installed FFmpeg ABI.
 
 ## Dependencies
 
-The [Fedora CI workflow](../.github/workflows/check-linux.yml) records the
+The [Fedora CI workflow](../.github/workflows/ci-fedora.yml) records the
 dependency set tested in a Fedora 44 container. Install the matching development
 providers for your Fedora version. The pkg-config requirements let DNF select
 providers compatible with your installed SDL and FFmpeg packages.

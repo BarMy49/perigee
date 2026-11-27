@@ -25,7 +25,7 @@ application dependencies are documented in docs/FEDORA_BUILD.md; service TLS tes
 also need the openssl command. The app binary path is supplied to importer fixtures.
 Do not run a second compilation alongside a memory-constrained Flatpak build.
 
-`.github/workflows/check-linux.yml` builds debug and release independently in
+`.github/workflows/ci-fedora.yml` builds debug and release independently in
 Fedora 44 containers. Debug runs the focused runner; release validates the staged
 Perigee-only payload. Only synthetic text results are retained as CI artifacts.
 The workflow uses the container's standard Fedora library providers; it does not
