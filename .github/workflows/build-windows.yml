@@ -133,6 +133,9 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && inputs.release_tag != ''
     needs: windows
     runs-on: ubuntu-latest
+    concurrency:
+      group: release-publish-${{ inputs.release_tag }}
+      cancel-in-progress: false
     permissions:
       contents: write
     env:
@@ -141,6 +144,11 @@ jobs:
       TAG: ${{ inputs.release_tag }}
       SOURCE_SHA: ${{ needs.windows.outputs.source_sha }}
     steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: packaging/release-notes
+          persist-credentials: false
+          path: workflow-src
       - uses: actions/download-artifact@v7
         with:
           name: Perigee-Windows
@@ -149,10 +157,16 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          notes="$PWD/workflow-src/packaging/release-notes/$TAG.md"
           cd out
           if ! gh release view "$TAG" > /dev/null 2>&1; then
-            gh release create "$TAG" --prerelease --target "$SOURCE_SHA" \
-              --title "Perigee $TAG" --notes "Windows packages built from $SOURCE_SHA. Unsigned prerelease."
+            if [ -f "$notes" ]; then
+              gh release create "$TAG" --prerelease --target "$SOURCE_SHA" \
+                --title "Perigee $TAG" --notes-file "$notes"
+            else
+              gh release create "$TAG" --prerelease --target "$SOURCE_SHA" \
+                --title "Perigee $TAG" --notes "Windows packages built from $SOURCE_SHA. Unsigned prerelease."
+            fi
           fi
           assets="$(gh release view "$TAG" --json assets --jq '.assets[].name')"
           rm -f SHA256SUMS.windows
