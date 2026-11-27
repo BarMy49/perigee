@@ -1,4 +1,4 @@
-name: Perigee Fedora 45 aarch64 RPM
+name: Perigee Fedora RPM
 
 on:
   push:
@@ -11,12 +11,16 @@ on:
         description: Application source commit, tag or branch to package
         required: true
         default: master
+      targets:
+        description: Comma-separated Fedora:arch targets to build, such as 45:aarch64,45:x86_64,44:x86_64
+        required: true
+        default: '45:aarch64'
       rpm_release:
         description: RPM release number (perigee_rpm_release)
         required: true
         default: '0.5'
       release_tag:
-        description: Optional GitHub release tag to attach the RPM to (created as a prerelease if missing)
+        description: Optional GitHub release tag to attach the RPMs to (created as a prerelease if missing)
         required: false
         default: ''
 
@@ -24,26 +28,53 @@ permissions:
   contents: read
 
 jobs:
+  targets:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.parse.outputs.matrix }}
+    steps:
+      - name: Parse build targets
+        id: parse
+        shell: bash
+        env:
+          TARGETS: ${{ inputs.targets || '45:aarch64' }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os, re
+          runners = {"aarch64": "ubuntu-24.04-arm", "x86_64": "ubuntu-24.04"}
+          include = []
+          for target in os.environ["TARGETS"].split(","):
+              match = re.fullmatch(r"\s*(\d+):(aarch64|x86_64)\s*", target)
+              if not match:
+                  raise SystemExit(f"Invalid target {target!r}")
+              fedora, arch = match.groups()
+              include.append({"fedora": fedora, "arch": arch, "runner": runners[arch]})
+          print("matrix=" + json.dumps({"include": include}))
+          PY
+
   rpm:
-    runs-on: ubuntu-24.04-arm
+    needs: targets
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.targets.outputs.matrix) }}
+    runs-on: ${{ matrix.runner }}
     container:
-      image: fedora:45
+      image: fedora:${{ matrix.fedora }}
       options: --memory=1536m --memory-swap=1792m --cpus=1
     timeout-minutes: 120
     env:
       CCACHE_DISABLE: '1'
       SOURCE_REF: ${{ inputs.source_ref || github.sha }}
       RPM_RELEASE: ${{ inputs.rpm_release || '0.5' }}
-    outputs:
-      rpm_name: ${{ steps.build.outputs.rpm_name }}
-      srpm_name: ${{ steps.build.outputs.srpm_name }}
-      source_sha: ${{ steps.build.outputs.source_sha }}
+      ARCH: ${{ matrix.arch }}
+      FEDORA: ${{ matrix.fedora }}
     steps:
       - name: Verify architecture and build resource limits
         shell: bash
         run: |
-          test "$(uname -m)" = aarch64
-          grep -q '^VERSION_ID=45$' /etc/os-release
+          test "$(uname -m)" = "$ARCH"
+          grep -qx "VERSION_ID=$FEDORA" /etc/os-release
           test "$(cat /sys/fs/cgroup/memory.max)" = 1610612736
           test "$(cat /sys/fs/cgroup/memory.swap.max)" = 268435456
           test "$(cat /sys/fs/cgroup/cpu.max)" = '100000 100000'
@@ -84,9 +115,9 @@ jobs:
           rpmbuild -ba --define "_topdir $PWD/build/rpm" --define '_smp_mflags -j1' \
             --define '_lto_cflags -flto=1 -ffat-lto-objects' \
             --define "perigee_rpm_release $RPM_RELEASE" packaging/rpm/perigee.spec
-          rpm_name="perigee-$version-$RPM_RELEASE$dist.aarch64.rpm"
+          rpm_name="perigee-$version-$RPM_RELEASE$dist.$ARCH.rpm"
           srpm_name="perigee-$version-$RPM_RELEASE$dist.src.rpm"
-          rpm_file="$PWD/build/rpm/RPMS/aarch64/$rpm_name"
+          rpm_file="$PWD/build/rpm/RPMS/$ARCH/$rpm_name"
           test -f "$rpm_file"
           test -z "$(rpm -qp --scripts "$rpm_file")"
           test -z "$(rpm -qp --conflicts --obsoletes "$rpm_file")"
@@ -94,8 +125,9 @@ jobs:
           python3 scripts/check-linux-stage.py --rpm build/rpm-payload
           python3 scripts/package-inventory.py --tree build/rpm-payload --output build/out/rpm-inventory.json
           cp "$rpm_file" "build/rpm/SRPMS/$srpm_name" build/out/
-          (cd build/out && sha256sum "$rpm_name" "$srpm_name" > SHA256SUMS.aarch64)
-          cat build/out/SHA256SUMS.aarch64
+          (cd build/out && sha256sum "$rpm_name" "$srpm_name" > "SHA256SUMS.fc$FEDORA.$ARCH")
+          cat "build/out/SHA256SUMS.fc$FEDORA.$ARCH"
+          git rev-parse HEAD > build/out/source-sha.txt
           {
             echo "rpm_name=$rpm_name"
             echo "srpm_name=$srpm_name"
@@ -112,7 +144,7 @@ jobs:
           test ! -e /usr/bin/perigee
       - uses: actions/upload-artifact@v6
         with:
-          name: Perigee-Fedora45-aarch64-rpm
+          name: Perigee-Fedora${{ matrix.fedora }}-${{ matrix.arch }}-rpm
           path: build/out/*
           if-no-files-found: error
 
@@ -120,41 +152,71 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && inputs.release_tag != ''
     needs: rpm
     runs-on: ubuntu-latest
+    concurrency:
+      group: release-publish-${{ inputs.release_tag }}
+      cancel-in-progress: false
     permissions:
       contents: write
     env:
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
       TAG: ${{ inputs.release_tag }}
-      RPM_NAME: ${{ needs.rpm.outputs.rpm_name }}
-      SRPM_NAME: ${{ needs.rpm.outputs.srpm_name }}
-      SOURCE_SHA: ${{ needs.rpm.outputs.source_sha }}
     steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: packaging/release-notes
+          persist-credentials: false
+          path: workflow-src
       - uses: actions/download-artifact@v7
         with:
-          name: Perigee-Fedora45-aarch64-rpm
+          pattern: Perigee-Fedora*-rpm
           path: out
-      - name: Attach RPM to release
+      - name: Attach RPMs to release
         shell: bash
         run: |
           set -euo pipefail
-          cd out
+          notes="$PWD/workflow-src/packaging/release-notes/$TAG.md"
+          mkdir upload
+          : > upload/SHA256SUMS.new
+          source_sha=""
+          for dir in out/*/; do
+            sha="$(cat "$dir/source-sha.txt")"
+            if [ -n "$source_sha" ] && [ "$sha" != "$source_sha" ]; then
+              echo "::error::Targets were built from different sources"
+              exit 1
+            fi
+            source_sha="$sha"
+            (cd "$dir" && sha256sum --check SHA256SUMS.fc*)
+            for file in "$dir"/*.rpm; do
+              name="$(basename "$file")"
+              if [ -e "upload/$name" ]; then
+                continue
+              fi
+              cp "$file" upload/
+              grep -F "  $name" "$dir"/SHA256SUMS.fc* >> upload/SHA256SUMS.new
+            done
+          done
+          cd upload
           if ! gh release view "$TAG" > /dev/null 2>&1; then
-            gh release create "$TAG" --prerelease --target "$SOURCE_SHA" \
-              --title "Perigee $TAG" --notes "Fedora 45 aarch64 RPM built from $SOURCE_SHA. Unsigned prerelease."
+            if [ -f "$notes" ]; then
+              gh release create "$TAG" --prerelease --target "$source_sha" \
+                --title "Perigee $TAG" --notes-file "$notes"
+            else
+              gh release create "$TAG" --prerelease --target "$source_sha" \
+                --title "Perigee $TAG" --notes "Fedora RPMs built from $source_sha. Unsigned prerelease."
+            fi
           fi
           assets="$(gh release view "$TAG" --json assets --jq '.assets[].name')"
-          upload=("$RPM_NAME")
-          if grep -qxF "$SRPM_NAME" <<< "$assets"; then
-            rm -f "$SRPM_NAME"
-          else
-            upload+=("$SRPM_NAME")
-          fi
-          for name in "${upload[@]}"; do
+          upload=()
+          for name in *.rpm; do
             if grep -qxF "$name" <<< "$assets"; then
+              if [[ "$name" == *.src.rpm ]]; then
+                continue
+              fi
               echo "::error::$name already exists on $TAG"
               exit 1
             fi
+            upload+=("$name")
           done
           if grep -qxF SHA256SUMS <<< "$assets"; then
             gh release download "$TAG" --pattern SHA256SUMS --dir existing
@@ -163,7 +225,7 @@ jobs:
             : > SHA256SUMS
           fi
           for name in "${upload[@]}"; do
-            grep -F "  $name" SHA256SUMS.aarch64 >> SHA256SUMS
+            grep -F "  $name" SHA256SUMS.new >> SHA256SUMS
           done
           sha256sum --check --ignore-missing SHA256SUMS
           gh release upload "$TAG" "${upload[@]}"
