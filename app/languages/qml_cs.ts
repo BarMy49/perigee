@@ -1925,9 +1925,9 @@ Volitelný import párování sdílí identitu a oprávnění na straně hostite
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>Profily platí pro nové relace z rozhraní. Globální nastavení a aktivní streamy se nemění.</translation>
+        <translation>Výběrem profilu se načtou jeho nastavení. Dokud je profil vybraný, ukládají se do něj provedené změny. Aktivní streamy se nemění.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

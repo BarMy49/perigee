@@ -63,6 +63,27 @@ static StreamingPreferences* s_GlobalPrefs;
 
 Q_GLOBAL_STATIC(QReadWriteLock, s_GlobalPrefsLock)
 
+namespace {
+bool validProfileName(const QString& name)
+{
+    return name == QLatin1String("programming") || name == QLatin1String("gaming");
+}
+
+bool storeProfileSetting(const QString& key, const QVariant& value)
+{
+    QSettings settings;
+    const bool existed = settings.contains(key);
+    const QVariant previous = settings.value(key);
+    settings.setValue(key, value);
+    settings.sync();
+    if (settings.status() == QSettings::NoError) return true;
+    if (existed) settings.setValue(key, previous);
+    else settings.remove(key);
+    settings.sync();
+    return false;
+}
+}
+
 StreamingPreferences::StreamingPreferences(QQmlEngine *qmlEngine)
     : m_QmlEngine(qmlEngine)
 {
@@ -201,6 +222,12 @@ void StreamingPreferences::reload()
     if (videoCodecConfig == VCC_FORCE_HEVC_HDR_DEPRECATED) {
         videoCodecConfig = VCC_AUTO;
         enableHdr = true;
+    }
+
+    const QString profile = settings.value("sessionprofile").toString();
+    if (validProfileName(profile)) {
+        const QVariantMap values = settings.value("sessionprofiles/" + profile).toMap();
+        if (validSessionProfile(values)) applySessionProfileValues(values);
     }
 }
 
@@ -373,6 +400,12 @@ void StreamingPreferences::save()
     settings.setValue(SER_SWAPFACEBUTTONS, swapFaceButtons);
     settings.setValue(SER_CAPTURESYSKEYS, captureSysKeysMode);
     settings.setValue(SER_KEEPAWAKE, keepAwake);
+
+    const QString profile = settings.value("sessionprofile").toString();
+    const QVariantMap values = sessionPreferencesSnapshot();
+    if (validProfileName(profile) && validSessionProfile(values)) {
+        settings.setValue("sessionprofiles/" + profile, values);
+    }
 }
 
 int StreamingPreferences::getDefaultBitrate(int width, int height, int fps, bool yuv444)
@@ -485,27 +518,6 @@ QVariantMap StreamingPreferences::sessionPreferencesSnapshot() const
             {"windowmode", static_cast<int>(windowMode)}};
 }
 
-namespace {
-bool validProfileName(const QString& name)
-{
-    return name == QLatin1String("programming") || name == QLatin1String("gaming");
-}
-
-bool storeProfileSetting(const QString& key, const QVariant& value)
-{
-    QSettings settings;
-    const bool existed = settings.contains(key);
-    const QVariant previous = settings.value(key);
-    settings.setValue(key, value);
-    settings.sync();
-    if (settings.status() == QSettings::NoError) return true;
-    if (existed) settings.setValue(key, previous);
-    else settings.remove(key);
-    settings.sync();
-    return false;
-}
-}
-
 bool StreamingPreferences::validSessionProfile(const QVariantMap& values)
 {
     const QMap<QString, QPair<int, int>> ranges{
@@ -537,9 +549,45 @@ QString StreamingPreferences::sessionProfile() const
 bool StreamingPreferences::selectSessionProfile(QString name)
 {
     if (!name.isEmpty() && !validProfileName(name)) return false;
+    save();
+    QVariantMap values;
+    if (!name.isEmpty()) {
+        values = sessionProfileValues(name);
+        if (!validSessionProfile(values)) return false;
+    }
     if (!storeProfileSetting("sessionprofile", name)) return false;
+    if (!values.isEmpty()) {
+        applySessionProfileValues(values);
+        save();
+    }
     emit sessionProfileChanged();
     return true;
+}
+
+void StreamingPreferences::applySessionProfileValues(const QVariantMap& values)
+{
+    width = values.value("width").toInt();
+    height = values.value("height").toInt();
+    fps = values.value("fps").toInt();
+    bitrateKbps = values.value("bitrate").toInt();
+    videoCodecConfig = static_cast<VideoCodecConfig>(values.value("videocfg").toInt());
+    videoDecoderSelection = static_cast<VideoDecoderSelection>(values.value("videodec").toInt());
+    enableHdr = values.value("hdr").toBool();
+    enableYUV444 = values.value("yuv444").toBool();
+    enableVsync = values.value("vsync").toBool();
+    framePacing = values.value("framepacing").toBool();
+    audioConfig = static_cast<AudioConfig>(values.value("audiocfg").toInt());
+    windowMode = static_cast<WindowMode>(values.value("windowmode").toInt());
+    emit displayModeChanged();
+    emit bitrateChanged();
+    emit videoCodecConfigChanged();
+    emit videoDecoderSelectionChanged();
+    emit enableHdrChanged();
+    emit enableYUV444Changed();
+    emit enableVsyncChanged();
+    emit framePacingChanged();
+    emit audioConfigChanged();
+    emit windowModeChanged();
 }
 
 QVariantMap StreamingPreferences::sessionProfileDefaults(QString name) const
@@ -559,6 +607,7 @@ QVariantMap StreamingPreferences::sessionProfileDefaults(QString name) const
 QVariantMap StreamingPreferences::sessionProfileValues(QString name) const
 {
     if (!validProfileName(name)) return {};
+    if (name == sessionProfile() && validSessionProfile(sessionPreferencesSnapshot())) return sessionPreferencesSnapshot();
     const QVariant stored = QSettings().value("sessionprofiles/" + name);
     if (stored.isValid() && validSessionProfile(stored.toMap())) return stored.toMap();
     return sessionProfileDefaults(name);
@@ -568,11 +617,15 @@ bool StreamingPreferences::saveSessionProfile(QString name, QVariantMap values)
 {
     if (!validProfileName(name) || !validSessionProfile(values)) return false;
     if (!storeProfileSetting("sessionprofiles/" + name, values)) return false;
+    if (name == sessionProfile()) {
+        applySessionProfileValues(values);
+        save();
+    }
     emit sessionProfileChanged();
     return true;
 }
 
-std::unique_ptr<StreamingPreferences> StreamingPreferences::createSessionPreferences(bool applyProfile) const
+std::unique_ptr<StreamingPreferences> StreamingPreferences::createSessionPreferences() const
 {
     auto snapshot = std::unique_ptr<StreamingPreferences>(new StreamingPreferences(nullptr));
     for (int index = QObject::staticMetaObject.propertyCount(); index < staticMetaObject.propertyCount(); index++) {
@@ -582,21 +635,5 @@ std::unique_ptr<StreamingPreferences> StreamingPreferences::createSessionPrefere
     snapshot->recommendedFullScreenMode = recommendedFullScreenMode;
     snapshot->localShortcutKeys = localShortcutKeys;
     snapshot->packetSize = packetSize;
-    const QString selected = applyProfile ? sessionProfile() : QString();
-    if (selected.isEmpty()) return snapshot;
-    const auto values = sessionProfileValues(selected);
-    if (!validSessionProfile(values)) return snapshot;
-    snapshot->width = values.value("width").toInt();
-    snapshot->height = values.value("height").toInt();
-    snapshot->fps = values.value("fps").toInt();
-    snapshot->bitrateKbps = values.value("bitrate").toInt();
-    snapshot->videoCodecConfig = static_cast<VideoCodecConfig>(values.value("videocfg").toInt());
-    snapshot->videoDecoderSelection = static_cast<VideoDecoderSelection>(values.value("videodec").toInt());
-    snapshot->enableHdr = values.value("hdr").toBool();
-    snapshot->enableYUV444 = values.value("yuv444").toBool();
-    snapshot->enableVsync = values.value("vsync").toBool();
-    snapshot->framePacing = values.value("framepacing").toBool();
-    snapshot->audioConfig = static_cast<AudioConfig>(values.value("audiocfg").toInt());
-    snapshot->windowMode = static_cast<WindowMode>(values.value("windowmode").toInt());
     return snapshot;
 }

@@ -1925,9 +1925,9 @@ La importación de emparejamiento opcional comparte identidad y permisos del lad
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>Los perfiles se aplican a nuevas sesiones de la interfaz. No cambian los ajustes globales ni las transmisiones activas.</translation>
+        <translation>Al elegir un perfil se cargan sus ajustes. Mientras haya un perfil seleccionado, los cambios que hagas se guardan en él. Las transmisiones activas no cambian.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

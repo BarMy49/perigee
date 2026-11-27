@@ -1925,9 +1925,9 @@ Opcionális párosítási importálás megosztja a gazdagépoldali identitást �
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>A profilok az új felületi munkamenetekre érvényesek. A globális beállítások és az aktív streamek nem változnak.</translation>
+        <translation>Egy profil kiválasztása betölti annak beállításait. Amíg egy profil ki van választva, a módosításai abba mentődnek. Az aktív streamek nem változnak.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

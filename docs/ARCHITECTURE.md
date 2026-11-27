@@ -282,10 +282,15 @@ Milestone 6 profiles persist two fixed editable twelve-field maps (Programming a
 Gaming) and a selection. Programming starts with SDR/60 FPS/automatic codec and the
 upstream bitrate calculation; Gaming starts from current preferences. Strict schema
 validation rejects unknown fields and invalid types/ranges. Saves synchronize and
-restore cached values on failure. Draft editing never mutates active settings.
-Session owns a detached StreamingPreferences object: all writable properties,
-shortcut bindings and packet size are copied before selected profile values apply.
-Explicit CLI preferences bypass the GUI selection. Its lifetime follows Session,
+restore cached values on failure. Selecting a profile first saves pending changes
+to the previous profile, then loads the selected profile's fields into the current
+settings. While a profile is selected, every preferences save also stores those
+fields in it, and editing the selected profile updates the current settings.
+Current settings is the state without a profile: selecting it keeps the values in
+use and stops saving them to a profile. On load, a valid stored profile wins over
+older global values. Session owns a detached StreamingPreferences object: all
+writable properties, shortcut bindings and packet size are copied when it starts.
+CLI options apply on top of the current settings. Its lifetime follows Session,
 including deferred cleanup; no new per-frame settings reads are introduced.
 
 SFTP is an explicit QDesktopServices dispatch of a locally configured, validated

@@ -1583,9 +1583,9 @@ Laŭvola parigimporto dividas gastigantan identecon kaj permesojn kun Moonlight;
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>Profiloj validas por novaj seancoj el la interfaco. Tutmondaj agordoj kaj aktivaj fluoj restas senŝanĝaj.</translation>
+        <translation>Elekto de profilo ŝargas ĝiajn agordojn. Dum profilo estas elektita, viaj ŝanĝoj konserviĝas en ĝi. Aktivaj fluoj restas senŝanĝaj.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

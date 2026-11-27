@@ -1611,9 +1611,9 @@ Pasirenkamas susiejimas importuojant bendrina pagrindinio kompiuterio tapatybę 
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>Profiliai taikomi naujiems sąsajos seansams. Bendrosios nuostatos ir aktyvūs srautai nesikeičia.</translation>
+        <translation>Pasirinkus profilį įkeliamos jo nuostatos. Kol profilis pasirinktas, jūsų pakeitimai įrašomi į jį. Aktyvūs srautai nesikeičia.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

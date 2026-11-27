@@ -569,7 +569,7 @@ bool Session::populateDecoderProperties(SDL_Window* window)
 }
 
 Session::Session(NvComputer* computer, NvApp& app, StreamingPreferences *preferences)
-    : m_SessionPreferences((preferences ? preferences : StreamingPreferences::get())->createSessionPreferences(preferences == nullptr)),
+    : m_SessionPreferences((preferences ? preferences : StreamingPreferences::get())->createSessionPreferences()),
       m_Preferences(m_SessionPreferences.get()),
       m_IsFullScreen(m_Preferences->windowMode != StreamingPreferences::WM_WINDOWED || !WMUtils::isRunningDesktopEnvironment()),
       m_Computer(computer),

@@ -1925,9 +1925,9 @@ A importação de emparelhamento opcional compartilha identidade e permissões d
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>Os perfis aplicam-se a novas sessões da interface. As definições globais e transmissões ativas não são alteradas.</translation>
+        <translation>Escolher um perfil carrega as suas definições. Enquanto um perfil estiver selecionado, as alterações que fizer são guardadas nele. As transmissões ativas não são alteradas.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

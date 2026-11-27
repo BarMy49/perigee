@@ -1925,9 +1925,9 @@ Der optionale Pairing-Import teilt die hostseitige Identität und Berechtigungen
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>Profile gelten für neue Sitzungen über die Oberfläche. Globale Einstellungen und laufende Streams bleiben unverändert.</translation>
+        <translation>Beim Auswählen eines Profils werden seine Einstellungen geladen. Solange ein Profil ausgewählt ist, werden Ihre Änderungen darin gespeichert. Laufende Streams bleiben unverändert.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

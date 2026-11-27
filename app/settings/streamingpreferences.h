@@ -22,7 +22,7 @@ public:
     void reload();
 
     QVariantMap sessionPreferencesSnapshot() const;
-    std::unique_ptr<StreamingPreferences> createSessionPreferences(bool applyProfile = true) const;
+    std::unique_ptr<StreamingPreferences> createSessionPreferences() const;
     Q_PROPERTY(QString sessionProfile READ sessionProfile NOTIFY sessionProfileChanged)
     QString sessionProfile() const;
     Q_INVOKABLE bool selectSessionProfile(QString name);
@@ -274,6 +274,7 @@ private:
     explicit StreamingPreferences(QQmlEngine *qmlEngine);
 
     QString getSuffixFromLanguage(Language lang);
+    void applySessionProfileValues(const QVariantMap& values);
 
     QQmlEngine* m_QmlEngine;
 };

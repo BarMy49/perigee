@@ -1925,9 +1925,9 @@ Optioneel koppelen van import deelt identiteit en machtigingen aan de hostzijde 
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>Profielen gelden voor nieuwe sessies vanuit de interface. Algemene instellingen en actieve streams blijven ongewijzigd.</translation>
+        <translation>Als je een profiel kiest, worden de instellingen ervan geladen. Zolang een profiel is geselecteerd, worden je wijzigingen erin opgeslagen. Actieve streams blijven ongewijzigd.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

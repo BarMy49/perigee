@@ -72,41 +72,91 @@ private slots:
         QCOMPARE(prefs->sessionPreferencesSnapshot(), original);
     }
 
-    void savedProfileAndSessionIsolation()
+    void selectingProfileLoadsAndKeepsItsSettings()
     {
         auto prefs = StreamingPreferences::get();
-        const auto original = prefs->sessionPreferencesSnapshot();
         prefs->packetSize = 1300;
-        auto draft = prefs->sessionProfileDefaults("programming");
-        draft["width"] = 2560;
-        QVERIFY(prefs->saveSessionProfile("programming", draft));
+        auto programming = prefs->sessionProfileDefaults("programming");
+        programming["width"] = 2560;
+        QVERIFY(prefs->saveSessionProfile("programming", programming));
+        auto gaming = prefs->sessionProfileDefaults("gaming");
+        gaming["width"] = 1280;
+        gaming["fps"] = 120;
+        QVERIFY(prefs->saveSessionProfile("gaming", gaming));
         QVERIFY(prefs->selectSessionProfile("programming"));
+        QCOMPARE(prefs->sessionPreferencesSnapshot(), programming);
+        QCOMPARE(QSettings().value("width").toInt(), 2560);
         auto first = prefs->createSessionPreferences();
         QCOMPARE(first->width, 2560);
         QCOMPARE(first->packetSize, 1300);
-        QCOMPARE(prefs->sessionPreferencesSnapshot(), original);
-        draft["width"] = 3840;
-        QVERIFY(prefs->saveSessionProfile("programming", draft));
+        prefs->width = 3840;
+        prefs->save();
+        QCOMPARE(QSettings().value("sessionprofiles/programming").toMap().value("width").toInt(), 3840);
+        QCOMPARE(prefs->sessionProfileValues("gaming"), gaming);
         auto second = prefs->createSessionPreferences();
         QCOMPARE(first->width, 2560);
         QCOMPARE(second->width, 3840);
         first->width = 1280;
         QCOMPARE(second->width, 3840);
-        QCOMPARE(prefs->width, original.value("width").toInt());
-        auto cli = prefs->createSessionPreferences(false);
-        QCOMPARE(cli->sessionPreferencesSnapshot(), original);
         QProcess probe;
         probe.start(QCoreApplication::applicationFilePath(), {"--profile-probe", m_Profile.path()});
         QVERIFY(probe.waitForFinished(5000));
         QCOMPARE(probe.exitStatus(), QProcess::NormalExit);
         QCOMPARE(probe.exitCode(), 0);
-        prefs->reload();
-        QCOMPARE(prefs->sessionProfile(), QString("programming"));
-        QCOMPARE(prefs->sessionProfileValues("programming").value("width").toInt(), 3840);
+        prefs->fps = 90;
+        QVERIFY(prefs->selectSessionProfile("gaming"));
+        QCOMPARE(prefs->sessionPreferencesSnapshot(), gaming);
+        QCOMPARE(prefs->sessionProfileValues("programming").value("fps").toInt(), 90);
+        QVERIFY(prefs->selectSessionProfile("programming"));
+        QCOMPARE(prefs->width, 3840);
+        QCOMPARE(prefs->fps, 90);
         QVERIFY(!prefs->selectSessionProfile("unknown"));
         QCOMPARE(prefs->sessionProfile(), QString("programming"));
         QVERIFY(prefs->selectSessionProfile(""));
-        QCOMPARE(prefs->createSessionPreferences()->sessionPreferencesSnapshot(), original);
+        QCOMPARE(prefs->width, 3840);
+        prefs->width = 1920;
+        prefs->save();
+        QCOMPARE(prefs->sessionProfileValues("programming").value("width").toInt(), 3840);
+        prefs->reload();
+        QCOMPARE(prefs->width, 1920);
+        QCOMPARE(prefs->createSessionPreferences()->width, 1920);
+    }
+
+    void editingActiveProfileUpdatesSettings()
+    {
+        auto prefs = StreamingPreferences::get();
+        QVERIFY(prefs->selectSessionProfile("gaming"));
+        prefs->fps = 144;
+        auto shown = prefs->sessionProfileValues("gaming");
+        QCOMPARE(shown.value("fps").toInt(), 144);
+        shown["width"] = 2560;
+        QVERIFY(prefs->saveSessionProfile("gaming", shown));
+        QCOMPARE(prefs->width, 2560);
+        QCOMPARE(prefs->fps, 144);
+        QCOMPARE(QSettings().value("width").toInt(), 2560);
+        auto programming = prefs->sessionProfileDefaults("programming");
+        programming["width"] = 1280;
+        QVERIFY(prefs->saveSessionProfile("programming", programming));
+        QCOMPARE(prefs->width, 2560);
+    }
+
+    void storedProfileWinsOverOlderSettings()
+    {
+        auto prefs = StreamingPreferences::get();
+        auto stored = prefs->sessionProfileDefaults("programming");
+        stored["width"] = 2560;
+        {
+            QSettings settings;
+            settings.setValue("width", 1280);
+            settings.setValue("sessionprofile", "programming");
+            settings.setValue("sessionprofiles/programming", stored);
+        }
+        prefs->reload();
+        QCOMPARE(prefs->width, 2560);
+        QCOMPARE(prefs->sessionPreferencesSnapshot(), stored);
+        QSettings().setValue("sessionprofile", "../escape");
+        prefs->reload();
+        QCOMPARE(prefs->width, 1280);
     }
 
     void detachedBasePreferences()
@@ -120,7 +170,7 @@ private slots:
         prefs->rendererSelection = StreamingPreferences::RS_VULKAN;
         prefs->packetSize = 1300;
         prefs->localShortcutKeys[3] = "t";
-        const auto detached = prefs->createSessionPreferences(false);
+        const auto detached = prefs->createSessionPreferences();
         for (int index = QObject::staticMetaObject.propertyCount(); index < prefs->metaObject()->propertyCount(); index++) {
             const QMetaProperty property = prefs->metaObject()->property(index);
             if (property.isWritable()) QCOMPARE(property.read(detached.get()), property.read(prefs));
@@ -151,6 +201,7 @@ private slots:
         draft["width"] = 3840;
         QVERIFY(!prefs->saveSessionProfile("programming", draft));
         QVERIFY(!QSettings().value("sessionprofiles/programming").isValid());
+        QCOMPARE(prefs->sessionPreferencesSnapshot(), original);
         QCOMPARE(prefs->createSessionPreferences()->sessionPreferencesSnapshot(), original);
     }
 
@@ -162,6 +213,8 @@ private slots:
         QSettings().setValue("sessionprofiles/programming", stored);
         QVERIFY(prefs->selectSessionProfile("programming"));
         QCOMPARE(prefs->sessionProfileValues("programming"), prefs->sessionProfileDefaults("programming"));
+        QCOMPARE(prefs->sessionPreferencesSnapshot(), prefs->sessionProfileDefaults("programming"));
+        QVERIFY(!QSettings().value("sessionprofiles/programming").toMap().contains("certificate"));
         QVERIFY(!prefs->createSessionPreferences()->sessionPreferencesSnapshot().contains("certificate"));
     }
 

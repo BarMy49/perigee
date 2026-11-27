@@ -1925,9 +1925,9 @@ Valfri parningsimport delar värdsidans identitet och behörigheter med Moonligh
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>Profiler gäller nya sessioner från gränssnittet. Globala inställningar och aktiva strömmar förblir oförändrade.</translation>
+        <translation>När du väljer en profil läses dess inställningar in. Medan en profil är vald sparas dina ändringar i den. Aktiva strömmar förblir oförändrade.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

@@ -67,7 +67,8 @@ the visual item tree. Do not run it against a production profile.
 Four additional application-linked cases cover the profile editor and detached
 Session preferences, SFTP dialogs, app UUID parser, and synthetic host persistence.
 They click actual Save buttons, verify invalid drafts remain open, check opaque
-light/dark backgrounds and keyboard scrolling, and exercise CLI profile bypass.
+light/dark backgrounds and keyboard scrolling, and check that selecting or saving
+the active profile reloads the settings page with its values.
 SFTP uses a fake QDesktopServices handler; no SSH or external file manager is opened.
 Current results: 47 offscreen, 47 native Wayland, 6 selected scale2 cases pass.
 These do not verify media startup, host acceptance or real transfers.

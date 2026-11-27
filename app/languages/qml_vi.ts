@@ -1926,9 +1926,9 @@ Nhập ghép nối tùy chọn chia sẻ danh tính và quyền của phía máy
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>Hồ sơ áp dụng cho phiên mới từ giao diện. Cài đặt chung và luồng đang hoạt động không thay đổi.</translation>
+        <translation>Chọn một hồ sơ sẽ tải cài đặt của hồ sơ đó. Khi một hồ sơ đang được chọn, các thay đổi của bạn sẽ được lưu vào hồ sơ đó. Luồng đang hoạt động không thay đổi.</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

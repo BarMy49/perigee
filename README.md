@@ -44,8 +44,9 @@ streaming checks, and Moonlight import is Linux-only.
 - **Desktop browsing and appearance.** Save favorites per host, navigate the host
   and app grids with the keyboard, and open tile menus with Shift+F10. Settings
   adapt to the window width and remember your light or dark theme.
-- **Session profiles.** Edit Programming and Gaming profiles and choose one for
-  a new session without changing global streaming settings.
+- **Session profiles.** Choose Programming or Gaming to load that profile's
+  settings. While a profile is selected, settings you change are saved to it;
+  **Current settings** keeps the values you have without a profile.
 - **In-stream controls.** Edit optional shortcuts in **Settings → Keyboard
   shortcuts**. Open the keyboard-only control panel with **Ctrl+Alt+Shift+O**
   for available actions such as fullscreen, capture, clipboard and statistics.

@@ -1610,9 +1610,9 @@ Optional pairing import shares host-side identity and permissions with Moonlight
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1247"/>
-        <source>Profiles apply to new GUI sessions. Global settings and active streams stay unchanged.</source>
+        <source>Choosing a profile loads its settings. While a profile is selected, the changes you make are saved to it. Active streams stay unchanged.</source>
         <translatorcomment>Perigee: machine-assisted translation; native-speaker review welcome.</translatorcomment>
-        <translation>โปรไฟล์ใช้กับเซสชันใหม่จากหน้าจอโปรแกรม การตั้งค่าส่วนกลางและสตรีมที่ทำงานอยู่จะไม่เปลี่ยน</translation>
+        <translation>การเลือกโปรไฟล์จะโหลดการตั้งค่าของโปรไฟล์นั้น ขณะที่เลือกโปรไฟล์อยู่ การเปลี่ยนแปลงที่คุณทำจะถูกบันทึกลงในโปรไฟล์นั้น สตรีมที่ทำงานอยู่จะไม่เปลี่ยน</translation>
     </message>
     <message>
         <location filename="../gui/SettingsView.qml" line="1254"/>

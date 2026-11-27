@@ -109,6 +109,14 @@ revision was authorized. The activation prerequisites above remain in force.
 - **References:** [UI boundaries](ARCHITECTURE.md#ui-profiles-and-controls),
   [selected fork changes](REPOSITORY_ANALYSIS.md#reuse-recommendations).
 
+### ADR-006 user-directed profile change, 2026-11-27
+
+The user asked that a selected session profile keep the setting changes made while
+it is selected, and that selecting another profile replace the current settings
+with that profile's. Profiles are no longer an overlay applied only to new GUI
+sessions: the selected profile and the current settings hold the same twelve
+fields, and Current settings means no profile. CLI options still apply on top.
+
 ## ADR-007: verified text clipboard and optional existing SFTP
 
 - **Date/status:** 2026-10-25; accepted, not implemented; user selected per-host
