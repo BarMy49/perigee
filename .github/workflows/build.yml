@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       legacy_targets:
-        description: Also run unverified upstream macOS and Steam Link builds
+        description: Also run the unverified upstream macOS build
         type: boolean
         default: false
 
@@ -31,13 +31,6 @@ jobs:
   build-appimage:
     needs: setup
     uses: ./.github/workflows/build-appimage.yml
-    with:
-      ci_version: ${{ needs.setup.outputs.ci_version }}
-
-  build-steamlink:
-    if: inputs.legacy_targets
-    needs: setup
-    uses: ./.github/workflows/build-steamlink.yml
     with:
       ci_version: ${{ needs.setup.outputs.ci_version }}
 
