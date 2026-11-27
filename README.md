@@ -2,51 +2,59 @@
 
 <img src="app/res/io.github.BarMy49.Perigee.svg" alt="The Moon at perigee around Earth" width="96" height="96">
 
-Perigee is a low-latency remote desktop and game-streaming client for Linux,
-based on [Moonlight Qt](https://github.com/moonlight-stream/moonlight-qt).
+Perigee is a low-latency remote desktop and game-streaming client for Linux
+and Windows, based on [Moonlight Qt](https://github.com/moonlight-stream/moonlight-qt).
 Connect to Apollo or Sunshine for remote work or play.
 
 ## Download
 
-[Perigee 6.2.0](https://github.com/BarMy49/perigee/releases/tag/v6.2.0-perigee.1) is available as an unsigned x86_64 prerelease.
-Choose a package for your Linux setup.
+Get [Perigee 7.0.1](https://github.com/BarMy49/perigee/releases/tag/v7.0.1), or
+see [all releases](https://github.com/BarMy49/perigee/releases). Releases use
+plain version numbers such as v7.0.1. Choose the package for your system.
 
 | Package | Use it on |
 | --- | --- |
-| [Fedora 45 RPM](https://github.com/BarMy49/perigee/releases/download/v6.2.0-perigee.1/perigee-6.2.0-0.5.fc45.x86_64.rpm) | Fedora 45 with native Wayland support |
-| [Fedora 44 RPM](https://github.com/BarMy49/perigee/releases/download/v6.2.0-perigee.1/perigee-6.2.0-0.5.fc44.x86_64.rpm) | Fedora 44 with its matching system libraries. Tested in a Fedora 44 container. |
-| [Flatpak](https://github.com/BarMy49/perigee/releases/download/v6.2.0-perigee.1/Perigee-6.2.0-x86_64.flatpak) | Linux with Flatpak and the KDE Platform 6.11 runtime. Supports native Wayland. |
-| [AppImage](https://github.com/BarMy49/perigee/releases/download/v6.2.0-perigee.1/Perigee-6.2.0-x86_64.AppImage) | Linux with X11 or XWayland. Make the file executable and run it directly. |
+| [Fedora 45 RPM, x86_64](https://github.com/BarMy49/perigee/releases/download/v7.0.1/perigee-7.0.1-1.fc45.x86_64.rpm) | Fedora 45 on Intel or AMD. Supports native Wayland. |
+| [Fedora 44 RPM, x86_64](https://github.com/BarMy49/perigee/releases/download/v7.0.1/perigee-7.0.1-1.fc44.x86_64.rpm) | Fedora 44 on Intel or AMD, with its matching system libraries. |
+| [Fedora 45 RPM, ARM64](https://github.com/BarMy49/perigee/releases/download/v7.0.1/perigee-7.0.1-1.fc45.aarch64.rpm) | Fedora 45 on ARM64. |
+| [Windows installer](https://github.com/BarMy49/perigee/releases/download/v7.0.1/PerigeeSetup-7.0.1.exe) | Windows 10 or 11, x64 or ARM64. |
+| [Windows portable, x64](https://github.com/BarMy49/perigee/releases/download/v7.0.1/PerigeePortable-x64-7.0.1.zip) | Windows 10 or 11 on x64, without installing. |
+| [Windows portable, ARM64](https://github.com/BarMy49/perigee/releases/download/v7.0.1/PerigeePortable-arm64-7.0.1.zip) | Windows 10 or 11 on ARM64, without installing. |
 
-Install the matching RPM with `sudo dnf install ./PACKAGE.rpm` or the Flatpak
-bundle with `flatpak install --user ./Perigee-6.2.0-x86_64.flatpak`.
-The release includes matching source packages and
-[SHA256SUMS](https://github.com/BarMy49/perigee/releases/download/v6.2.0-perigee.1/SHA256SUMS). If you downloaded only one package, compare
-its `sha256sum PACKAGE` output with that package's line in the manifest.
+On Fedora, install the RPM with `sudo dnf install ./PACKAGE.rpm`. On Windows,
+run the installer, or unzip the portable package and start `Perigee.exe`. The
+portable package keeps everything in `perigee-data/` next to `Perigee.exe`.
 
-The final Fedora 45 RPM and Flatpak passed live video, audio, keyboard/mouse and
-reconnect checks on GNOME Wayland. The AppImage passed those checks with both
-Apollo and Sunshine on XWayland.
+Every package is built in GitHub Actions from the commit the release is tagged
+on. The release also includes matching Fedora source RPMs and
+[SHA256SUMS](https://github.com/BarMy49/perigee/releases/download/v7.0.1/SHA256SUMS). Check your downloads with
+`sha256sum --check --ignore-missing SHA256SUMS`.
 
-### Windows
+The packages are unsigned, so Windows may show a SmartScreen warning. The RPMs
+pass install, startup and removal checks in their Fedora build containers, and
+the Windows packages pass CI build and identity checks. Live streaming checks on
+Windows and ARM64 are still pending. Flatpak and AppImage builds are not made
+for 7.x yet; the 6.2.0 ones remain on the
+[6.2.0-perigee.1 release](https://github.com/BarMy49/perigee/releases/tag/v6.2.0-perigee.1).
 
-Windows 10 and 11 builds for x64 and ARM64 come from the
-[Windows workflow](.github/workflows/release-windows.yml). It produces an unsigned
-`PerigeeSetup-VERSION.exe` installer and `PerigeePortable-ARCH-VERSION.zip`
-archives. Windows builds use their own settings
+Windows builds use their own settings
 (`HKCU\Software\io.github.BarMy49\Perigee`) and never share pairing with an
-installed Moonlight. The portable zip keeps everything in `perigee-data/` next
-to `Perigee.exe`. Windows builds have passed CI but have not yet had live
-streaming checks, and Moonlight import is Linux-only.
+installed Moonlight. Moonlight import is Linux-only.
 
 ## Features
 
-- **Desktop browsing and appearance.** Save favorites per host, navigate the host
-  and app grids with the keyboard, and open tile menus with Shift+F10. Settings
-  adapt to the window width and remember your light or dark theme.
-- **Session profiles.** Choose Programming or Gaming to load that profile's
-  settings. While a profile is selected, settings you change are saved to it;
-  **Current settings** keeps the values you have without a profile.
+- **GNOME-style look.** A libadwaita-inspired design with a flat header bar,
+  rounded cards and preference groups, sentence-case labels, and Adwaita Sans
+  or Cantarell when installed. Each computer card shows whether it is Online,
+  Offline or Unpaired. Settings adapt to the window width and remember your
+  light or dark theme.
+- **Desktop browsing.** Save favorites per host, navigate the host and app grids
+  with the keyboard, and open tile menus with Shift+F10.
+- **Session profiles.** Switch between Programming, Gaming and **Current
+  settings** from the floating profile button on the computer and app pages, or
+  in Settings. Choosing a profile loads its settings, and while it is selected,
+  settings you change are saved to it. Streams started from the command line use
+  the same settings, and command-line options still override them.
 - **In-stream controls.** Edit optional shortcuts in **Settings → Keyboard
   shortcuts**. Open the keyboard-only control panel with **Ctrl+Alt+Shift+O**
   for available actions such as fullscreen, capture, clipboard and statistics.
@@ -87,7 +95,9 @@ make -j1 debug
   `scripts\build-arch.bat Release x64` from a shell with Qt's MSVC `bin` on `PATH`
 - [Focused Linux tests](tests/README.md)
 - Package recipes for [RPM](packaging/rpm/README.md),
-  [Flatpak](packaging/flatpak/README.md) and [AppImage](packaging/appimage/README.md)
+  [Flatpak](packaging/flatpak/README.md) and [AppImage](packaging/appimage/README.md).
+  Releases are built by the [Fedora RPM](.github/workflows/release-fedora-rpm.yml)
+  and [Windows](.github/workflows/release-windows.yml) workflows.
 - [Architecture](docs/ARCHITECTURE.md), [Apollo protocol](docs/APOLLO_PROTOCOL.md)
   and [upstream maintenance](docs/UPSTREAM_MAINTENANCE.md)
 

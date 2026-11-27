@@ -1,5 +1,5 @@
 Name:           perigee
-Version:        7.0.0
+Version:        7.0.1
 Release:        %{?perigee_rpm_release}%{!?perigee_rpm_release:0.1}%{?dist}
 Summary:        Remote desktop and game streaming client based on Moonlight Qt
 License:        GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT AND Zlib AND LicenseRef-ModeSeven-Font
@@ -81,6 +81,9 @@ appstreamcli validate --no-net --pedantic %{buildroot}%{_datadir}/metainfo/io.gi
 %license %{_licensedir}/perigee/
 
 %changelog
+* Fri Nov 27 2026 Perigee contributors - 7.0.1-1
+- Selected session profiles keep setting changes and load their settings when chosen.
+
 * Fri Nov 27 2026 Perigee contributors - 7.0.0-1
 - Renumber to 7.0.0 to clean up release naming; Windows and ARM64 builds.
 
