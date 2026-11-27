@@ -1,0 +1,176 @@
+name: Perigee Windows
+
+on:
+  push:
+    paths:
+      - .github/workflows/build-windows.yml
+      - scripts/build-arch.bat
+      - scripts/generate-bundle.bat
+      - wix/**
+  workflow_call:
+    inputs:
+      ci_version:
+        required: false
+        type: string
+        default: ''
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Application source commit, tag or branch to package
+        required: true
+        default: master
+      release_tag:
+        description: Optional GitHub release tag to attach the Windows packages to (created as a prerelease if missing)
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-2025
+    timeout-minutes: 150
+    env:
+      QT_VERSION: 6.12.0
+      CI_VERSION: ${{ inputs.ci_version }}
+    outputs:
+      version: ${{ steps.package.outputs.version }}
+      source_sha: ${{ steps.package.outputs.source_sha }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.source_ref || github.sha }}
+          submodules: recursive
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Download dependencies
+        run: powershell ./setup-deps.ps1
+
+      - name: Install Qt x64
+        uses: jurplel/install-qt-action@v4
+        with:
+          cache: true
+          set-env: false
+          add-tools-to-path: false
+          tools: tools_qtcreator_gui
+          version: ${{ env.QT_VERSION }}
+          aqtsource: 'git+https://github.com/miurahr/aqtinstall.git@073e34d7c2ab4ae6961ed7cca690b3abd5ba5a7e'
+
+      - name: Install Qt ARM64
+        uses: jurplel/install-qt-action@v4
+        with:
+          cache: true
+          set-env: false
+          add-tools-to-path: false
+          arch: win64_msvc2022_arm64_cross_compiled
+          version: ${{ env.QT_VERSION }}
+          aqtsource: 'git+https://github.com/miurahr/aqtinstall.git@073e34d7c2ab4ae6961ed7cca690b3abd5ba5a7e'
+
+      - name: Build x64
+        shell: cmd
+        run: |
+          set "PATH=%QT_PATH%;%PATH%"
+          scripts\build-arch.bat Release x64
+        env:
+          QT_PATH: ${{ runner.workspace }}\Qt\${{ env.QT_VERSION }}\msvc2022_64\bin
+
+      - name: Build ARM64
+        shell: cmd
+        run: |
+          set "PATH=%QT_PATH%;%PATH%"
+          scripts\build-arch.bat Release arm64
+        env:
+          QT_PATH: ${{ runner.workspace }}\Qt\${{ env.QT_VERSION }}\msvc2022_arm64\bin
+
+      - name: Build installer
+        shell: cmd
+        run: scripts\generate-bundle.bat Release
+
+      - name: Check and collect packages
+        id: package
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="${CI_VERSION:-$(tr -d '\r\n' < app/version.txt)}"
+          test -f build/deploy-x64-release/Perigee.exe
+          test -f build/deploy-arm64-release/Perigee.exe
+          test ! -e build/deploy-x64-release/Moonlight.exe
+          mkdir -p build/out
+          cp "build/installer-release/PerigeeSetup-$version.exe" build/out/
+          cp "build/installer-x64-release/PerigeePortable-x64-$version.zip" build/out/
+          cp "build/installer-arm64-release/PerigeePortable-arm64-$version.zip" build/out/
+          (cd build/out && sha256sum * > SHA256SUMS.windows && cat SHA256SUMS.windows)
+          {
+            echo "version=$version"
+            echo "source_sha=$(git rev-parse HEAD)"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Smoke-test the x64 build
+        shell: pwsh
+        run: |
+          $exe = Resolve-Path build/deploy-x64-release/Perigee.exe
+          $info = (Get-Item $exe).VersionInfo
+          Write-Host "ProductName=$($info.ProductName) FileVersion=$($info.FileVersion)"
+          if ($info.ProductName -ne 'Perigee') { throw "Unexpected product name $($info.ProductName)" }
+          if ([version]$info.FileVersion -lt [version]'6.2.0') { throw "Unexpected file version $($info.FileVersion)" }
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: Perigee-Windows
+          path: build/out/*
+          compression-level: 0
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: Perigee-Windows-symbols
+          path: build/symbols-*/*.zip
+          if-no-files-found: error
+
+  publish:
+    if: github.event_name == 'workflow_dispatch' && inputs.release_tag != ''
+    needs: windows
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TAG: ${{ inputs.release_tag }}
+      SOURCE_SHA: ${{ needs.windows.outputs.source_sha }}
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          name: Perigee-Windows
+          path: out
+      - name: Attach Windows packages to release
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd out
+          if ! gh release view "$TAG" > /dev/null 2>&1; then
+            gh release create "$TAG" --prerelease --target "$SOURCE_SHA" \
+              --title "Perigee $TAG" --notes "Windows packages built from $SOURCE_SHA. Unsigned prerelease."
+          fi
+          assets="$(gh release view "$TAG" --json assets --jq '.assets[].name')"
+          rm -f SHA256SUMS.windows
+          upload=(*)
+          sha256sum "${upload[@]}" > SHA256SUMS.windows
+          for name in "${upload[@]}"; do
+            if grep -qxF "$name" <<< "$assets"; then
+              echo "::error::$name already exists on $TAG"
+              exit 1
+            fi
+          done
+          if grep -qxF SHA256SUMS <<< "$assets"; then
+            gh release download "$TAG" --pattern SHA256SUMS --dir existing
+            cp existing/SHA256SUMS SHA256SUMS
+          else
+            : > SHA256SUMS
+          fi
+          cat SHA256SUMS.windows >> SHA256SUMS
+          sha256sum --check --ignore-missing SHA256SUMS
+          gh release upload "$TAG" "${upload[@]}"
+          gh release upload "$TAG" SHA256SUMS --clobber

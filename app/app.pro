@@ -3,6 +3,8 @@ CONFIG += c++17
 
 linux {
     TARGET = perigee
+} else:win32 {
+    TARGET = Perigee
 } else:unix:!macx {
     TARGET = moonlight
 } else {
@@ -579,10 +581,10 @@ unix:!macx: {
     INSTALLS += target desktop icons appstream
 }
 win32 {
-    RC_ICONS = moonlight.ico
-    QMAKE_TARGET_COMPANY = Moonlight Game Streaming Project
-    QMAKE_TARGET_DESCRIPTION = Moonlight Game Streaming Client
-    QMAKE_TARGET_PRODUCT = Moonlight
+    RC_ICONS = perigee.ico
+    QMAKE_TARGET_COMPANY = Perigee
+    QMAKE_TARGET_DESCRIPTION = Perigee
+    QMAKE_TARGET_PRODUCT = Perigee
 
     CONFIG -= embed_manifest_exe
     QMAKE_LFLAGS += /MANIFEST:embed /MANIFESTINPUT:$${PWD}/Moonlight.exe.manifest

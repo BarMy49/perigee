@@ -1,4 +1,7 @@
 <Project Sdk="WixToolset.Sdk/7.0.0" ToolsVersion="5.0">
+  <PropertyGroup>
+    <OutputName>Perigee</OutputName>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DefineConstants>Debug</DefineConstants>
   </PropertyGroup>

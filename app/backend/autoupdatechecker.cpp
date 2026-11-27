@@ -9,7 +9,7 @@ AutoUpdateChecker::AutoUpdateChecker(QObject *parent) :
     QObject(parent),
     m_Nam(nullptr)
 {
-#ifndef Q_OS_LINUX
+#if !defined(Q_OS_LINUX) && !defined(Q_OS_WIN32)
     m_Nam = new QNetworkAccessManager(this);
 
     // Never communicate over HTTP
@@ -32,7 +32,7 @@ AutoUpdateChecker::AutoUpdateChecker(QObject *parent) :
 
 void AutoUpdateChecker::start()
 {
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_LINUX) || defined(Q_OS_WIN32)
     qInfo() << "Perigee artifact update checks are disabled";
 #else
     if (!m_Nam) {

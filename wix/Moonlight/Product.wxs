@@ -1,27 +1,28 @@
-﻿<?define ShortName = "Moonlight" ?>
-<?define FullName = "Moonlight Game Streaming Client" ?>
+﻿<?define ShortName = "Perigee" ?>
+<?define FullName = "Perigee" ?>
 
 <?define ShortcutName = "$(var.ShortName)" ?>
-<?define ShortcutDesc = "Stream games and other applications from another PC" ?>
-<?define InstallFolder = "Moonlight Game Streaming" ?>
+<?define ShortcutDesc = "Remote desktop and game streaming client" ?>
+<?define InstallFolder = "Perigee" ?>
+<?define RegistryKey = "Software\io.github.BarMy49\Perigee" ?>
 
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:fire="http://wixtoolset.org/schemas/v4/wxs/firewall" xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
 
   <Package Name="$(var.FullName)"
            Language="1033"
            Version="!(bind.fileVersion.MoonlightExe)"
-           Manufacturer="Moonlight Game Streaming Project"
-           UpgradeCode="5c09f94e-f809-4c6a-9b7b-597c99f041fe">
+           Manufacturer="Perigee"
+           UpgradeCode="f48b81c3-3bbf-4720-8c1a-40d55ce91205">
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." Schedule="afterInstallInitialize" />
     <MediaTemplate CompressionLevel="high" EmbedCab="yes" />
 
-    <Property Id="APPDATAFOLDER" Value="%LOCALAPPDATA%\Moonlight Game Streaming Project" />
+    <Property Id="APPDATAFOLDER" Value="%LOCALAPPDATA%\io.github.BarMy49\Perigee" />
 
     <!-- There's no way to delete a registry key on uninstall but not major upgrade, so
         we have to roll our own deletion via custom action -->
     <CustomAction Id="DeleteRegistryKey"
                   Directory="ProgramFiles6432Folder"
-                  ExeCommand="reg.exe delete &quot;HKCU\Software\Moonlight Game Streaming Project&quot; /f"
+                  ExeCommand="reg.exe delete &quot;HKCU\$(var.RegistryKey)&quot; /f"
                   Execute="deferred"
                   Return="ignore"
                   Impersonate="yes" />
@@ -45,7 +46,7 @@
                            On="uninstall"
                            Property="APPDATAFOLDER" />
       <RegistryValue Root="HKCU"
-                     Key="Software\Moonlight Game Streaming Project"
+                     Key="$(var.RegistryKey)"
                      Name="Installed"
                      Type="integer"
                      Value="1"
@@ -63,7 +64,7 @@
                     Directory="DesktopFolder"
                     On="uninstall" />
       <RegistryValue Root="HKCU"
-                     Key="Software\Moonlight Game Streaming Project"
+                     Key="$(var.RegistryKey)"
                      Name="DesktopShortcutInstalled"
                      Type="integer"
                      Value="1"
@@ -75,7 +76,7 @@
          product -->
     <Component Id="MoonlightDesktopShortcutState" Directory="INSTALLFOLDER">
       <RegistryValue Root="HKCU"
-                     Key="Software\Moonlight Game Streaming Project"
+                     Key="$(var.RegistryKey)"
                      Name="DesktopShortcutInstallState"
                      Type="integer"
                      Value="[ADDDESKTOPSHORTCUT]"
@@ -87,7 +88,7 @@
         <File Id="MoonlightExe"
               KeyPath="yes"
               Checksum="yes"
-              Source="$(var.BuildDir)\app\$(var.Configuration)\Moonlight.exe">
+              Source="$(var.BuildDir)\app\$(var.Configuration)\Perigee.exe">
           <fire:FirewallException Id="MoonlightFirewallException"
                                   Scope="any"
                                   IgnoreFailure="yes"
@@ -100,7 +101,7 @@
       <Files Include="$(var.DeployDir)\**" />
     </ComponentGroup>
 
-    <Feature Id="ProductFeature" Title="Moonlight" Level="1" ConfigurableDirectory="INSTALLFOLDER">
+    <Feature Id="ProductFeature" Title="Perigee" Level="1" ConfigurableDirectory="INSTALLFOLDER">
       <ComponentRef Id="Moonlight" />
       <ComponentRef Id="MoonlightShortcuts" />
       <ComponentRef Id="MoonlightDesktopShortcutState" />
