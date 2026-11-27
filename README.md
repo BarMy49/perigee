@@ -28,6 +28,17 @@ The final Fedora 45 RPM and Flatpak passed live video, audio, keyboard/mouse and
 reconnect checks on GNOME Wayland. The AppImage passed those checks with both
 Apollo and Sunshine on XWayland.
 
+### Windows
+
+Windows 10 and 11 builds for x64 and ARM64 come from the
+[Windows workflow](.github/workflows/build-windows.yml). It produces an unsigned
+`PerigeeSetup-VERSION.exe` installer and `PerigeePortable-ARCH-VERSION.zip`
+archives. Windows builds use their own settings
+(`HKCU\Software\io.github.BarMy49\Perigee`) and never share pairing with an
+installed Moonlight. The portable zip keeps everything in `perigee-data/` next
+to `Perigee.exe`. Windows builds have passed CI but have not yet had live
+streaming checks, and Moonlight import is Linux-only.
+
 ## Features
 
 - **Desktop browsing and appearance.** Save favorites per host, navigate the host
@@ -71,6 +82,8 @@ make -j1 debug
 ./app/perigee
 ```
 
+- On Windows, run `powershell ./setup-deps.ps1`, then
+  `scripts\build-arch.bat Release x64` from a shell with Qt's MSVC `bin` on `PATH`
 - [Focused Linux tests](tests/README.md)
 - Package recipes for [RPM](packaging/rpm/README.md),
   [Flatpak](packaging/flatpak/README.md) and [AppImage](packaging/appimage/README.md)

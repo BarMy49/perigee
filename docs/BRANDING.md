@@ -26,6 +26,8 @@ import. See [the binding contract](../tests/shortcut-modifiers/README.md).
 | Description | Perigee is an open-source, low-latency remote desktop and game streaming client for Linux, built on Moonlight Qt with enhanced Apollo integration. Designed for productivity, engineered for performance. |
 | Repository | `perigee`; observed remote `https://github.com/BarMy49/perigee.git` |
 | Linux executable / RPM package | `perigee` |
+| Windows executable / installer | `Perigee.exe` / `PerigeeSetup-VERSION.exe`, MSI and bundle with Perigee-only upgrade codes |
+| Windows native settings | `HKCU\Software\io.github.BarMy49\Perigee`; app data under `%LOCALAPPDATA%\io.github.BarMy49\Perigee` |
 | Linux application ID / proposed Flatpak ID | `io.github.BarMy49.Perigee` |
 | Desktop entry | `io.github.BarMy49.Perigee.desktop` |
 | AppStream filename | `io.github.BarMy49.Perigee.metainfo.xml` |
@@ -35,7 +37,9 @@ import. See [the binding contract](../tests/shortcut-modifiers/README.md).
 
 The user explicitly selected the reverse-DNS ID after inspection of the repository
 remote. No different GitHub organization or domain ownership is assumed. Initial
-platform acceptance is Linux; Windows/macOS packaging remains unverified.
+platform acceptance is Linux. Windows uses the same independent identity and
+portable layout and builds in CI, but has no live streaming acceptance yet.
+macOS packaging remains unverified.
 
 ## Baseline identity and sensitive state
 
