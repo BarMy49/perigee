@@ -519,7 +519,7 @@ private slots:
         int toolbarTitles = 0;
         for (auto item : window->findChildren<QQuickItem*>()) {
             if (item->property("text").toString() == "Settings" && item->property("color").isValid()) {
-                QCOMPARE(item->property("color").value<QColor>(), QColor("white"));
+                QCOMPARE(item->property("color").value<QColor>(), QColor("#333337"));
                 toolbarTitles++;
             }
         }

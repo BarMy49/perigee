@@ -64,3 +64,10 @@ claimed as original Perigee work.
 The AppImage build rasterizes the Perigee SVG into a 256×256 PNG for .DirIcon.
 The raster image uses the same artwork provenance and project license.
 The generated PNG stays in the AppDir and is not a new repository artwork source.
+
+## Session profile icon
+
+`app/res/session_profile.svg` draws three slider tracks and knobs from plain
+rectangles and circles. It is original Perigee vector geometry under the
+project's GPL-3.0-or-later terms. The toolbar style tints it at runtime, so it has
+no separate `-light.svg` variant.

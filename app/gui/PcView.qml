@@ -17,7 +17,7 @@ CenteredGridView {
     focus: true
     activeFocusOnTab: true
     topMargin: 20
-    bottomMargin: 5
+    bottomMargin: 88
     cellWidth: 310; cellHeight: 330;
     objectName: qsTr("Computers")
 
@@ -99,7 +99,8 @@ CenteredGridView {
             elide: Label.ElideRight
             text: StreamingPreferences.enableMdns ? qsTr("Searching for compatible hosts on your local network...")
                                                   : qsTr("Automatic PC discovery is disabled. Add your PC manually.")
-            font.pointSize: 20
+            font.pointSize: 16
+            opacity: 0.8
             verticalAlignment: Text.AlignVCenter
             wrapMode: Text.Wrap
         }
@@ -155,7 +156,10 @@ CenteredGridView {
             width: parent.width
             anchors.top: pcIcon.bottom
             anchors.bottom: parent.bottom
-            font.pointSize: 36
+            leftPadding: 12
+            rightPadding: 12
+            font.pointSize: 22
+            font.bold: true
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.Wrap
             elide: Text.ElideRight

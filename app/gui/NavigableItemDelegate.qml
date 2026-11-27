@@ -1,11 +1,25 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
 
 ItemDelegate {
+    id: itemDelegate
     property GridView grid
     signal contextMenuRequested()
 
     highlighted: grid.activeFocus && grid.currentItem === this
+
+    AdwaitaPalette {
+        id: adwaita
+        dark: itemDelegate.Material.theme === Material.Dark
+    }
+
+    background: Rectangle {
+        radius: 12
+        color: itemDelegate.down ? adwaita.cardPressed : itemDelegate.hovered ? adwaita.cardHover : adwaita.cardBackground
+        border.width: itemDelegate.highlighted || itemDelegate.visualFocus ? 2 : 1
+        border.color: itemDelegate.highlighted || itemDelegate.visualFocus ? adwaita.accent : adwaita.cardBorder
+    }
 
     Keys.onMenuPressed: contextMenuRequested()
     Keys.onPressed: function(event) {
