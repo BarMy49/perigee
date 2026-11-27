@@ -118,7 +118,7 @@ jobs:
           $info = (Get-Item $exe).VersionInfo
           Write-Host "ProductName=$($info.ProductName) FileVersion=$($info.FileVersion)"
           if ($info.ProductName -ne 'Perigee') { throw "Unexpected product name $($info.ProductName)" }
-          if ([version]$info.FileVersion -lt [version]'7.0.0') { throw "Unexpected file version $($info.FileVersion)" }
+          if ([version]$info.FileVersion -lt [version]'7.0.1') { throw "Unexpected file version $($info.FileVersion)" }
 
       - uses: actions/upload-artifact@v6
         with:
