@@ -263,6 +263,12 @@ CenteredGridView {
 
         Accessible.name: model.name + ", " + pcStatusRow.statusText
 
+        // Display a tooltip with the full name if it's truncated
+        ToolTip.text: model.name
+        ToolTip.delay: 1000
+        ToolTip.timeout: 5000
+        ToolTip.visible: (hovered || highlighted) && pcNameText.truncated
+
         Loader {
             id: pcContextMenuLoader
             asynchronous: true

@@ -5,6 +5,7 @@
 #include <QHash>
 #include <atomic>
 #include <mutex>
+#include <QReadWriteLock>
 
 #include "SDL_compat.h"
 #include <SDL_ttf.h>
@@ -73,6 +74,7 @@ private:
     Uint32 m_NotificationDeadline = 0;
     char m_NotificationText[1024] = {};
     QHash<QString, SDL_Surface*> m_NotificationSurfaces;
+    QReadWriteLock m_OverlayRendererLock;
 };
 
 }

@@ -15,7 +15,7 @@ void AppModel::initialize(ComputerManager* computerManager, int computerIndex, b
     connect(m_ComputerManager, &ComputerManager::computerStateChanged,
             this, &AppModel::handleComputerStateChanged);
 
-    Q_ASSERT(computerIndex < m_ComputerManager->getComputers().count());
+    Q_ASSERT(computerIndex >= 0 && computerIndex < m_ComputerManager->getComputers().count());
     m_Computer = m_ComputerManager->getComputers().at(computerIndex);
     m_CurrentGameId = m_Computer->currentGameId;
     m_ShowHiddenGames = showHiddenGames;
@@ -43,7 +43,7 @@ QString AppModel::getRunningAppName()
 
 Session* AppModel::createSessionForApp(int appIndex)
 {
-    Q_ASSERT(appIndex < m_VisibleApps.count());
+    Q_ASSERT(appIndex >= 0 && appIndex < m_VisibleApps.count());
     NvApp app = m_VisibleApps.at(appIndex);
 
     return new Session(m_Computer, app);
@@ -75,7 +75,7 @@ QVariant AppModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    Q_ASSERT(index.row() < m_VisibleApps.count());
+    Q_ASSERT(index.row() >= 0 && index.row() < m_VisibleApps.count());
     NvApp app = m_VisibleApps.at(index.row());
 
     switch (role)
@@ -212,7 +212,7 @@ void AppModel::updateAppList(QVector<NvApp> newList)
 
 void AppModel::setAppHidden(int appIndex, bool hidden)
 {
-    Q_ASSERT(appIndex < m_VisibleApps.count());
+    Q_ASSERT(appIndex >= 0 && appIndex < m_VisibleApps.count());
     int appId = m_VisibleApps.at(appIndex).id;
 
     {
@@ -250,7 +250,7 @@ void AppModel::setAppFavorite(int appId, bool favorite)
 
 void AppModel::setAppDirectLaunch(int appIndex, bool directLaunch)
 {
-    Q_ASSERT(appIndex < m_VisibleApps.count());
+    Q_ASSERT(appIndex >= 0 && appIndex < m_VisibleApps.count());
     int appId = m_VisibleApps.at(appIndex).id;
 
     {
