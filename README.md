@@ -10,7 +10,8 @@ Connect to Apollo or Sunshine for remote work or play.
 
 Get [Perigee 7.0.2](https://github.com/BarMy49/perigee/releases/tag/v7.0.2), or
 see [all releases](https://github.com/BarMy49/perigee/releases). Releases use
-plain version numbers such as v7.0.2. Choose the package for your system.
+plain version numbers such as v7.0.2. See the [changelog](CHANGELOG.md) for
+what changed in each release. Choose the package for your system.
 
 | Package | Use it on |
 | --- | --- |
@@ -103,7 +104,9 @@ make -j1 debug
 
 ## License and attribution
 
-Perigee derives from Moonlight Qt at `ac296864ace96f51ad75f78b90644bdbca76c332`.
+Perigee derives from Moonlight Qt, forked at
+`ac296864ace96f51ad75f78b90644bdbca76c332`. Since 7.0.2 it includes upstream
+`master` up to `a85f933ed0bcdefd47e70719a3b8d2f98b840897`.
 See the [GPL license](LICENSE), [asset provenance](ASSET_NOTICES.md) for the
 Earth and Moon icon, and [repository analysis](docs/REPOSITORY_ANALYSIS.md) for
 dependency pins and source provenance.
