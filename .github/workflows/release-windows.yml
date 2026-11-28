@@ -36,7 +36,7 @@ jobs:
     runs-on: windows-2025
     timeout-minutes: 150
     env:
-      QT_VERSION: 6.12.0
+      QT_VERSION: 6.12.1
       CI_VERSION: ${{ inputs.ci_version }}
     outputs:
       version: ${{ steps.package.outputs.version }}

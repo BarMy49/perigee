@@ -147,18 +147,24 @@ void OverlayManager::setOverlayTextUpdated(OverlayType type)
 
 void OverlayManager::setOverlayState(OverlayType type, bool enabled)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_NotificationMutex);
-    if (type == OverlayStatusUpdate && enabled) m_CommandPanelActive.store(false);
-    bool stateChanged = m_Overlays[type].enabled != enabled;
+    bool stateChanged;
+    {
+        std::lock_guard<std::recursive_mutex> lock(m_NotificationMutex);
+        if (type == OverlayStatusUpdate && enabled) m_CommandPanelActive.store(false);
+        stateChanged = m_Overlays[type].enabled != enabled;
 
-    m_Overlays[type].enabled = enabled;
+        m_Overlays[type].enabled = enabled;
 
-    if (stateChanged) {
-        if (!enabled) {
+        if (stateChanged && !enabled) {
             // Set the text to empty string on disable
             m_Overlays[type].text[0] = 0;
         }
+    }
 
+    // notifyOverlayUpdated() takes m_OverlayRendererLock and then m_NotificationMutex,
+    // so it must not be called with m_NotificationMutex held or the two locks can be
+    // taken in opposite orders and deadlock against a waiting setOverlayRenderer().
+    if (stateChanged) {
         notifyOverlayUpdated(type);
     }
 }
@@ -172,6 +178,7 @@ SDL_Color OverlayManager::getOverlayColor(OverlayType type)
 
 void OverlayManager::setOverlayRenderer(IOverlayRenderer* renderer)
 {
+    QWriteLocker lock(&m_OverlayRendererLock);
     m_Renderer = renderer;
 }
 
@@ -193,9 +200,15 @@ bool OverlayManager::isCommandPanelVisible() const
 
 bool OverlayManager::setCommandPanelVisible(bool visible)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_NotificationMutex);
-    visible = visible && m_Renderer && m_CommandPanelSurface && !m_Overlays[OverlayStatusUpdate].enabled;
-    if (visible != m_CommandPanelActive.exchange(visible)) notifyOverlayUpdated(OverlayStatusUpdate);
+    bool changed;
+    {
+        // Same lock order as notifyOverlayUpdated(): renderer lock first, then the notification mutex
+        QReadLocker rendererLock(&m_OverlayRendererLock);
+        std::lock_guard<std::recursive_mutex> lock(m_NotificationMutex);
+        visible = visible && m_Renderer && m_CommandPanelSurface && !m_Overlays[OverlayStatusUpdate].enabled;
+        changed = visible != m_CommandPanelActive.exchange(visible);
+    }
+    if (changed) notifyOverlayUpdated(OverlayStatusUpdate);
     return visible;
 }
 
@@ -213,6 +226,8 @@ void OverlayManager::prepareNotifications(const QStringList& texts)
 
 void OverlayManager::notifyOverlayUpdated(OverlayType type)
 {
+    QReadLocker lock(&m_OverlayRendererLock);
+
     if (m_Renderer == nullptr) {
         return;
     }
