@@ -8,18 +8,19 @@ Connect to Apollo or Sunshine for remote work or play.
 
 ## Download
 
-Get [Perigee 7.0.1](https://github.com/BarMy49/perigee/releases/tag/v7.0.1), or
+Get [Perigee 7.0.2](https://github.com/BarMy49/perigee/releases/tag/v7.0.2), or
 see [all releases](https://github.com/BarMy49/perigee/releases). Releases use
-plain version numbers such as v7.0.1. Choose the package for your system.
+plain version numbers such as v7.0.2. See the [changelog](CHANGELOG.md) for
+what changed in each release. Choose the package for your system.
 
 | Package | Use it on |
 | --- | --- |
-| [Fedora 45 RPM, x86_64](https://github.com/BarMy49/perigee/releases/download/v7.0.1/perigee-7.0.1-1.fc45.x86_64.rpm) | Fedora 45 on Intel or AMD. Supports native Wayland. |
-| [Fedora 44 RPM, x86_64](https://github.com/BarMy49/perigee/releases/download/v7.0.1/perigee-7.0.1-1.fc44.x86_64.rpm) | Fedora 44 on Intel or AMD, with its matching system libraries. |
-| [Fedora 45 RPM, ARM64](https://github.com/BarMy49/perigee/releases/download/v7.0.1/perigee-7.0.1-1.fc45.aarch64.rpm) | Fedora 45 on ARM64. |
-| [Windows installer](https://github.com/BarMy49/perigee/releases/download/v7.0.1/PerigeeSetup-7.0.1.exe) | Windows 10 or 11, x64 or ARM64. |
-| [Windows portable, x64](https://github.com/BarMy49/perigee/releases/download/v7.0.1/PerigeePortable-x64-7.0.1.zip) | Windows 10 or 11 on x64, without installing. |
-| [Windows portable, ARM64](https://github.com/BarMy49/perigee/releases/download/v7.0.1/PerigeePortable-arm64-7.0.1.zip) | Windows 10 or 11 on ARM64, without installing. |
+| [Fedora 45 RPM, x86_64](https://github.com/BarMy49/perigee/releases/download/v7.0.2/perigee-7.0.2-1.fc45.x86_64.rpm) | Fedora 45 on Intel or AMD. Supports native Wayland. |
+| [Fedora 44 RPM, x86_64](https://github.com/BarMy49/perigee/releases/download/v7.0.2/perigee-7.0.2-1.fc44.x86_64.rpm) | Fedora 44 on Intel or AMD, with its matching system libraries. |
+| [Fedora 45 RPM, ARM64](https://github.com/BarMy49/perigee/releases/download/v7.0.2/perigee-7.0.2-1.fc45.aarch64.rpm) | Fedora 45 on ARM64. |
+| [Windows installer](https://github.com/BarMy49/perigee/releases/download/v7.0.2/PerigeeSetup-7.0.2.exe) | Windows 10 or 11, x64 or ARM64. |
+| [Windows portable, x64](https://github.com/BarMy49/perigee/releases/download/v7.0.2/PerigeePortable-x64-7.0.2.zip) | Windows 10 or 11 on x64, without installing. |
+| [Windows portable, ARM64](https://github.com/BarMy49/perigee/releases/download/v7.0.2/PerigeePortable-arm64-7.0.2.zip) | Windows 10 or 11 on ARM64, without installing. |
 
 On Fedora, install the RPM with `sudo dnf install ./PACKAGE.rpm`. On Windows,
 run the installer, or unzip the portable package and start `Perigee.exe`. The
@@ -27,7 +28,7 @@ portable package keeps everything in `perigee-data/` next to `Perigee.exe`.
 
 Every package is built in GitHub Actions from the commit the release is tagged
 on. The release also includes matching Fedora source RPMs and
-[SHA256SUMS](https://github.com/BarMy49/perigee/releases/download/v7.0.1/SHA256SUMS). Check your downloads with
+[SHA256SUMS](https://github.com/BarMy49/perigee/releases/download/v7.0.2/SHA256SUMS). Check your downloads with
 `sha256sum --check --ignore-missing SHA256SUMS`.
 
 The packages are unsigned, so Windows may show a SmartScreen warning. The RPMs
@@ -103,7 +104,9 @@ make -j1 debug
 
 ## License and attribution
 
-Perigee derives from Moonlight Qt at `ac296864ace96f51ad75f78b90644bdbca76c332`.
+Perigee derives from Moonlight Qt, forked at
+`ac296864ace96f51ad75f78b90644bdbca76c332`. Since 7.0.2 it includes upstream
+`master` up to `a85f933ed0bcdefd47e70719a3b8d2f98b840897`.
 See the [GPL license](LICENSE), [asset provenance](ASSET_NOTICES.md) for the
 Earth and Moon icon, and [repository analysis](docs/REPOSITORY_ANALYSIS.md) for
 dependency pins and source provenance.

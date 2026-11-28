@@ -23,4 +23,25 @@
     <binary>perigee</binary>
   </provides>
   <content_rating type="oars-1.1" />
+  <releases>
+    <release version="7.0.2" date="2026-11-28">
+      <url type="details">https://github.com/BarMy49/perigee/releases/tag/v7.0.2</url>
+      <description>
+        <p>Catches up with upstream Moonlight Qt: a streaming library update with about 55 stability fixes,
+        video renderer fixes for VAAPI, Vulkan and CUDA, automatic audio restart, and gamepad and pairing fixes.</p>
+      </description>
+    </release>
+    <release version="7.0.1" date="2026-11-27">
+      <url type="details">https://github.com/BarMy49/perigee/releases/tag/v7.0.1</url>
+      <description>
+        <p>Session profiles load their settings when chosen and save setting changes while selected.</p>
+      </description>
+    </release>
+    <release version="7.0.0" date="2026-11-27">
+      <url type="details">https://github.com/BarMy49/perigee/releases/tag/v7.0.0</url>
+      <description>
+        <p>Plain version numbers, sentence-case labels and a clearer computer list.</p>
+      </description>
+    </release>
+  </releases>
 </component>

@@ -1,17 +1,19 @@
 # Upstream update procedure
 
-This is the Milestone 7 maintenance workflow. No upstream merge has been performed
-or accepted by this document. Choose a specific reviewed upstream revision before
-an update; do not silently track a moving branch or replace Common C with a fork.
+This is the Milestone 7 maintenance workflow. The first upstream merge (PR #11,
+released in 7.0.2) brought in Moonlight Qt `master` up to
+`a85f933ed0bcdefd47e70719a3b8d2f98b840897`; start the next update from there.
+Choose a specific reviewed upstream revision before an update; do not silently track a moving branch or replace Common C with a fork.
 
 ## Baseline and isolation
 
-The source baseline is Moonlight Qt
-`ac296864ace96f51ad75f78b90644bdbca76c332`. Preserve the recorded dependency pins:
+Perigee forked Moonlight Qt at `ac296864ace96f51ad75f78b90644bdbca76c332`, and
+the current upstream baseline is `a85f933ed0bcdefd47e70719a3b8d2f98b840897`.
+Preserve the recorded dependency pins:
 
 | Component | Revision |
 | --- | --- |
-| Moonlight Common C | `04053843c90c4268583f2496b997d54d59f03957` |
+| Moonlight Common C | `b618ef257573b49d779ed8bf47ff1f46deca7154` |
 | qmdnsengine | `920c097ffa742e2968290f15d4dde6693aec02e5` |
 | SDL_GameControllerDB | `8d9fefd7b810f2541f78cc7a8ccbd185bc84c7a5` |
 
